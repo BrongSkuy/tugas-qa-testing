@@ -65,15 +65,29 @@ Dokumen ini merangkum hasil penelusuran dan verifikasi kandidat objek pengujian 
 
 Seluruh kandidat di bawah ini telah diverifikasi langsung status aktifnya (**HTTP 200 OK** pada halaman Play Store per 8 November 2026), berasal dari pengembang independen/UMKM/lokal (bukan raksasa teknologi), serta memiliki jumlah unduhan **< 20.000**.
 
-### 1. Kasir Toko - POS Offline (`com.paksyaffak.kasirtoko`) *(Terbaik untuk Jalur APK UMKM: Download Sedikit + Rating Rendah + Mudah Diuji)*
+### 1. Waroengkoe Kasir Offline UMKM (`com.paksyaffak.waroengkoepos`) *(Terpilih Kelompok: Download Literal Tier 10+ [< 20] & Khusus Warung UMKM)*
+- **Package ID / Link:** `com.paksyaffak.waroengkoepos` — https://play.google.com/store/apps/details?id=com.paksyaffak.waroengkoepos
+- **Developer:** Pak Syaffak *(pengembang independen/perorangan)*
+- **Statistik Play Store (Terverifikasi):** **10+ unduhan** (secara harfiah < 20 download) | Rating: Belum ada agregat rating karena aplikasi baru rilis
+- **Deskripsi & Fitur:** Didesain khusus warung mikro & toko kelontong. Fitur lengkap:
+  - Transaksi kasir offline (tanpa internet & QRIS lokal)
+  - Modul Stok & Kulakan barang dagangan
+  - Laporan laba rugi & analitik tren penjualan
+  - Pemisahan hak akses Akun Admin vs Pegawai
+  - Ekspor/Impor (backup/restore) database lokal
+  - Cetak & kirim screenshot nota via WhatsApp
+- **Kelebihan:** Memenuhi syarat literal download di bawah 20 (`10+`), target UMKM sangat pas (warung kelontong/UMKM mikro), dan 100% aman untuk pengujian ekstrem (boundary value harga minus, stok habis, otorisasi akun) secara lokal di HP.
+- **Kekurangan / Catatan:** Rating bintang agregat belum muncul di Play Store karena jumlah pengunduh masih di bawah ambang batas minimal review Google.
+
+### 2. Kasir Toko - POS Offline (`com.paksyaffak.kasirtoko`) *(Alternatif: Unduhan 1K+ & Rating Jelek 3,6)*
 - **Package ID / Link:** `com.paksyaffak.kasirtoko` — https://play.google.com/store/apps/details?id=com.paksyaffak.kasirtoko
 - **Developer:** Pak Syaffak *(pengembang independen/perorangan)*
 - **Statistik Play Store (Terverifikasi):** **1K+ unduhan** | Rating **3,6 bintang** (15 ulasan) | Update: 25 Agustus 2026
 - **Deskripsi:** Aplikasi kasir POS offline sederhana untuk toko & UMKM (catat penjualan, stok, dan utang).
-- **Kelebihan:** Memenuhi seluruh kriteria jalur APK (*developer* perorangan, unduhan `< 20rb`, rating kurang baik `3,6`), serta karena bersifat **POS offline** maka seluruh fitur transaksi, stok, dan utang dapat langsung diuji mandiri (*EP, BVA, State Transition, Use Case*) tanpa akun instansi.
-- **Kekurangan / Risiko:** *White Box* tetap terbatas bila tidak tersedia *source code* APK.
+- **Kelebihan:** Memenuhi syarat rating kurang baik (`3,6`) dengan 15 ulasan yang memuat komplain nyata dari pengguna.
+- **Kekurangan / Catatan:** Unduhan berada di tier `1K+` (di bawah 20 ribu, tapi bukan di bawah 20 satuan).
 
-### 2. Simpan Pinjam Koperasi (`com.snr.ksp`) *(Download Sedikit & Rating Rendah)*
+### 3. Simpan Pinjam Koperasi (`com.snr.ksp`) *(Download Sedikit & Rating Rendah)*
 - **Package ID / Link:** `com.snr.ksp` — https://play.google.com/store/apps/details?id=com.snr.ksp
 - **Developer:** PT Sinar Teknologi Retailindo
 - **Statistik Play Store (Terverifikasi):** **500+ unduhan** | Rating **3,2 bintang** | Update: 21 September 2026
