@@ -15,9 +15,12 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 | 4 | *[Diisi]* | *[Diisi]* | *[Diisi]* |
 
 ## Objek Pengujian
-- **Nama Aplikasi / Portal:** *[Diisi setelah disepakati kelompok]*
-- **Kategori / Skala:** UMKM (Medium ke Bawah)
-- **Tautan / Platform:** *[URL Portal / Play Store / App Store]*
+- **Nama Aplikasi / Portal:** Kasir Toko - POS Offline
+- **Kategori / Skala:** UMKM (Aplikasi Kasir / POS Warung & Toko Mikro-Kecil)
+- **Developer / Publisher:** Pak Syaffak
+- **Platform:** Android (Google Play Store)
+- **Tautan Unduh:** https://play.google.com/store/apps/details?id=com.paksyaffak.kasirtoko
+- **Status Seleksi:** Terpilih (Kriteria: Dev perorangan/non-giant, unduhan 1K+, rating 3.6/5.0, sistem offline-first aman untuk stress & boundary test)
 
 ## Struktur Dokumentasi Tugas (Poin 1–3)
 - `01-standar-ieee-iso/` — Referensi standar QA & Testing IEEE dan ISO (2022–2026) serta template dokumentasi pengujian
