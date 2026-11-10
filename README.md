@@ -15,12 +15,11 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 | 4 | *[Diisi]* | *[Diisi]* | *[Diisi]* |
 
 ## Objek Pengujian
-- **Nama Aplikasi / Portal:** Waroengkoe Kasir Offline UMKM
-- **Kategori / Skala:** UMKM (Aplikasi Kasir / POS Warung Mikro & Toko Kelontong)
-- **Developer / Publisher:** Pak Syaffak
-- **Platform:** Android (Google Play Store)
-- **Tautan Unduh:** https://play.google.com/store/apps/details?id=com.paksyaffak.waroengkoepos
-- **Status Seleksi:** Terpilih (Kriteria mutlak: Tier unduhan `10+` [< 20 download], dev independen/non-giant, sistem offline-first aman untuk stress & boundary test)
+- **Nama Aplikasi / Portal:** Portal Booking GOR Permata Badminton Hall
+- **Kategori / Skala:** UMKM Fasilitas Olahraga Lokal (Penyewaan Lapangan Bulu Tangkis)
+- **Tautan / Platform:** https://gorpermatabadminton.com (Web Portal Publik)
+- **Lokasi Fisik:** Kp. Cipari, Desa Ciakar, Kec. Panongan, Kab. Tangerang, Banten
+- **Status Seleksi:** Terpilih Kelompok (Sesuai 100% analogi Bapak Ahmad Fauzi; mendukung penuh seluruh spektrum pengujian: White Box [Cyclomatic Complexity pada fungsi JS sisi klien], Black Box [EP & BVA validasi form, State Transition jadwal], Gray Box [parameter & DOM], serta Automation Testing via Cypress/Playwright tanpa risiko finansial).
 
 ## Struktur Dokumentasi Tugas (Poin 1–3)
 - `01-standar-ieee-iso/` — Referensi standar QA & Testing IEEE dan ISO (2022–2026) serta template dokumentasi pengujian

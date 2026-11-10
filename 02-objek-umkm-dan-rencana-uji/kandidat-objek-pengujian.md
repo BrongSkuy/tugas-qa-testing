@@ -10,11 +10,12 @@ Dokumen ini merangkum hasil penelusuran dan verifikasi kandidat objek pengujian 
 
 *Konteks lokasi acuan:* **Cluster Agung Indah** berada di wilayah **Serdang Kulon, Kecamatan Panongan, Kabupaten Tangerang, Banten** (sekitar Jl. Raya PLP Curug / Jl. Raya Serdang Kulon–Korelet).
 
-### 1. GOR Permata Badminton Hall *(Rekomendasi Utama #1)*
+### 1. GOR Permata Badminton Hall *(Terpilih Kelompok & Rekomendasi Utama #1)*
 - **URL Portal:** https://gorpermatabadminton.com
 - **Alamat:** Kp. Cipari, Desa Ciakar, Kecamatan Panongan, Kabupaten Tangerang, Banten
 - **Kategori / Skala:** UMKM fasilitas olahraga lokal (4 lapangan karpet standar BWF)
 - **Status Verifikasi Teknis (8 Nov 2026):** **HTTP 200 OK** (waktu muat halaman utama ~0,36 detik, HTTPS aktif, viewport mobile tersedia)
+- **Batasan Etika Pengujian:** Pengujian form booking difokuskan pada validasi input sisi klien (negative test: tanggal lampau, nama kosong, format HP keliru) dan analisis fungsi JavaScript publik. **Tidak dilakukan pemesanan fiktif ataupun pembayaran riil.**
 - **Fitur & Halaman Teramati:**
   - Beranda + monitor ketersediaan slot berikutnya (`https://gorpermatabadminton.com`)
   - Grid jadwal & booking slot per tanggal/jam/lapangan (`https://gorpermatabadminton.com/booking?date=...&time=...&court=...`) dengan status slot nyata (`Menunggu`, `Terisi`, `Member`, `RTBC`, tombol `+` untuk booking)
@@ -65,7 +66,7 @@ Dokumen ini merangkum hasil penelusuran dan verifikasi kandidat objek pengujian 
 
 Seluruh kandidat di bawah ini telah diverifikasi langsung status aktifnya (**HTTP 200 OK** pada halaman Play Store per 8 November 2026), berasal dari pengembang independen/UMKM/lokal (bukan raksasa teknologi), serta memiliki jumlah unduhan **< 20.000**.
 
-### 1. Waroengkoe Kasir Offline UMKM (`com.paksyaffak.waroengkoepos`) *(Terpilih Kelompok: Download Literal Tier 10+ [< 20] & Khusus Warung UMKM)*
+### 1. Waroengkoe Kasir Offline UMKM (`com.paksyaffak.waroengkoepos`) *(Alternatif Jalur APK: Download Tier 10+ [< 20])*
 - **Package ID / Link:** `com.paksyaffak.waroengkoepos` — https://play.google.com/store/apps/details?id=com.paksyaffak.waroengkoepos
 - **Developer:** Pak Syaffak *(pengembang independen/perorangan)*
 - **Statistik Play Store (Terverifikasi):** **10+ unduhan** (secara harfiah < 20 download) | Rating: Belum ada agregat rating karena aplikasi baru rilis
