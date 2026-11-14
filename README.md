@@ -34,6 +34,20 @@ Kelompok menetapkan **1 objek UMKM** utama sebagai studi kasus proyek pengujian 
 
 ---
 
+## Progres Pengerjaan Tugas Kelompok
+
+| No | Komponen Tugas (Poin 1–7 & Update 14 Nov 2026) | Folder / Berkas | Status | Keterangan Terkini |
+| :-: | :--- | :--- | :---: | :--- |
+| 1 | **Pemilihan 1 Objek UMKM (Poin 1)** | [`02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md`](./02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md) | ✅ Selesai | Final 1 objek: **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`). |
+| 2 | **Standar Dokumentasi IEEE & ISO 2022–2026 (Poin 2)** | [`01-standar-ieee-iso/`](./01-standar-ieee-iso/) | ✅ Selesai | Pemetaan **ISO/IEC/IEEE 29119 (2022–2024)**, audit **ISO/IEC 25010:2023**, & 2 PDF ringkasan di `pdf-standar/` *(tanpa unggah PDF standar berbayar/berhak cipta)*. |
+| 3 | **Test Plan, White/Black/Gray Box & Sitasi SINTA 1–3 (Poin 7)** | [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/) | ✅ Selesai | *Test Plan* (`TP-GOR-01`), analisis CFG & *Cyclomatic Complexity*, daftar 7 rujukan **SINTA 2–3**, + 7 PDF *full paper* resmi di `pdf-jurnal/`. |
+| 4 | **Repo GitHub Publik & Daftar Anggota Kelompok (Poin 4 & 5)** | [`README.md`](./README.md#anggota-kelompok) | ⏳ Proses | Repo *Public* aktif; tabel nama anggota kelompok acak (`Kelompok 1–8`) & undangan kolaborator perlu dilengkapi (`*[Diisi]*`). |
+| 5 | **Arsip Modul Perkuliahan Lengkap (Poin 6)** | [`00-materi-perkuliahan/`](./00-materi-perkuliahan/) | ⏳ Proses | Modul **Pertemuan 1–7** (`7` berkas `.pptx`) sudah tersedia; **Pertemuan 8–akhir** menyusul dari Ketua Kelas. |
+| 6 | **Hasil Pengujian Manual, Bug, & Automation (Tahap 2)** | [`03-hasil-pengujian/`](./03-hasil-pengujian/) | ⏳ Proses | Tersedia `TC-GOR-01` s.d. `TC-GOR-10`, `BUG-GOR-01` s.d. `BUG-GOR-04`, skrip Playwright (`9/9 PASS`), contoh Cypress, & `execution-log.txt`; perlu dilengkapi *screenshot* bukti, uji manual lanjutan, & eksekusi skrip Cypress. |
+| 7 | **Wawancara Praktisi QA / Software Tester (Poin 3)** | [`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/) | ⬜ Belum | [`panduan-wawancara.md`](./04-wawancara-praktisi-qa/panduan-wawancara.md) sudah siap; wawancara & lampiran bukti wajib dikerjakan **setelah project pengujian selesai** (arahan dosen 14 Nov 2026). |
+
+---
+
 ## Struktur Repositori (Poin 1–7 & Update 14 Nov 2026)
 - [`00-materi-perkuliahan/`](./00-materi-perkuliahan/) — Arsip modul materi perkuliahan (`Pertemuan 1–7.pptx` sudah tersedia; Pertemuan 8–akhir menyusul dari Ketua Kelas)
 - [`01-standar-ieee-iso/`](./01-standar-ieee-iso/) — Acuan standar dokumentasi ISO/IEC/IEEE 29119 (2022–2024), audit kualitas **ISO/IEC 25010:2023**, serta [`pdf-standar/`](./01-standar-ieee-iso/pdf-standar/) (2 berkas PDF ringkasan standar ISO/IEC/IEEE 29119 & hasil audit mutu ISO/IEC 25010:2023)
