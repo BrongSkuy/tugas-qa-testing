@@ -36,15 +36,18 @@ Kelompok menetapkan **1 objek UMKM** utama sebagai studi kasus proyek pengujian 
 
 ## Progres Pengerjaan Tugas Kelompok
 
-| No | Komponen Tugas (Poin 1–7 & Update 14 Nov 2026) | Folder / Berkas | Status | Keterangan Terkini |
-| :-: | :--- | :--- | :---: | :--- |
-| 1 | **Pemilihan 1 Objek UMKM (Poin 1)** | [`02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md`](./02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md) | ✅ Selesai | Final 1 objek: **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`). |
-| 2 | **Standar Dokumentasi IEEE & ISO 2022–2026 (Poin 2)** | [`01-standar-ieee-iso/`](./01-standar-ieee-iso/) | ✅ Selesai | Pemetaan **ISO/IEC/IEEE 29119 (2022–2024)**, audit **ISO/IEC 25010:2023**, & 2 PDF ringkasan di `pdf-standar/` *(tanpa unggah PDF standar berbayar/berhak cipta)*. |
-| 3 | **Test Plan, White/Black/Gray Box & Sitasi SINTA 1–3 (Poin 7)** | [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/) | ✅ Selesai | *Test Plan* (`TP-GOR-01`), analisis CFG & *Cyclomatic Complexity*, daftar 7 rujukan **SINTA 2–3**, + 7 PDF *full paper* resmi di `pdf-jurnal/`. |
-| 4 | **Repo GitHub Publik & Daftar Anggota Kelompok (Poin 4 & 5)** | [`README.md`](./README.md#anggota-kelompok) | ⏳ Proses | Repo *Public* aktif; tabel nama anggota kelompok acak (`Kelompok 1–8`) & undangan kolaborator perlu dilengkapi (`*[Diisi]*`). |
-| 5 | **Arsip Modul Perkuliahan Lengkap (Poin 6)** | [`00-materi-perkuliahan/`](./00-materi-perkuliahan/) | ⏳ Proses | Modul **Pertemuan 1–7** (`7` berkas `.pptx`) sudah tersedia; **Pertemuan 8–akhir** menyusul dari Ketua Kelas. |
-| 6 | **Hasil Pengujian Manual, Bug, & Automation (Tahap 2)** | [`03-hasil-pengujian/`](./03-hasil-pengujian/) | ⏳ Proses | Tersedia `TC-GOR-01` s.d. `TC-GOR-10`, `BUG-GOR-01` s.d. `BUG-GOR-04`, skrip Playwright (`9/9 PASS`), contoh Cypress, & `execution-log.txt`; perlu dilengkapi *screenshot* bukti, uji manual lanjutan, & eksekusi skrip Cypress. |
-| 7 | **Wawancara Praktisi QA / Software Tester (Poin 3)** | [`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/) | ⬜ Belum | [`panduan-wawancara.md`](./04-wawancara-praktisi-qa/panduan-wawancara.md) sudah siap; wawancara & lampiran bukti wajib dikerjakan **setelah project pengujian selesai** (arahan dosen 14 Nov 2026). |
+> Mengikuti **Checklist Rencana Tindak Lanjut Kelompok** (Bagian VI, Tabel 13 pada `Rangkuman_Tugas_QA_dan_Testing.docx`).
+
+| No | Langkah Kerja Kelompok | Penanggung Jawab | Status |
+| :-: | :--- | :--- | :---: |
+| 1 | Koordinasi pembagian kelompok acak (Kelompok 1–8) & pengunggahan (*upload*) daftar nama anggota kelompok. | Seluruh Mahasiswa | ⏳ Proses |
+| 2 | Mengambil & mempelajari modul lengkap (Pertemuan 1–7 sudah di [`00-materi-perkuliahan/`](./00-materi-perkuliahan/); Pertemuan 8–akhir menyusul dari Ketua Kelas). | Semua Anggota | ⏳ Proses |
+| 3 | Membuat repositori GitHub *Public* (`https://github.com/BrongSkuy/tugas-qa-testing`) & melengkapi [tabel anggota](./README.md#anggota-kelompok). | Muhammad Faiz Rabbani | ⏳ Proses |
+| 4 | Finalisasi objek UMKM terpilih di repo: fokus 1 objek yaitu **Portal Booking GOR Permata Badminton Hall** ([`kandidat-objek-pengujian.md`](./02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md)). | Tim Riset Objek | ✅ Selesai |
+| 5 | Mengumpulkan & menyusun dokumentasi standar QA & Testing IEEE serta ISO periode 2022–2026 ([`01-standar-ieee-iso/`](./01-standar-ieee-iso/): 29119-1:2022 s.d. 29119-5:2024, audit ISO/IEC 25010:2023, 2 PDF ringkasan di `pdf-standar/`) serta 7 PDF *full paper* jurnal **SINTA 2–3** ([`pdf-jurnal/`](./02-objek-umkm-dan-rencana-uji/pdf-jurnal/)). | Tim Dokumentasi & Riset | ✅ Selesai |
+| 6 | Menyusun & memfinalkan *Test Plan* (`TP-GOR-01` di [`test-plan-gor-permata.md`](./02-objek-umkm-dan-rencana-uji/test-plan-gor-permata.md)), analisis & *Flow Graph* White/Black/Gray Box ([`analisis-white-black-gray-box.md`](./02-objek-umkm-dan-rencana-uji/analisis-white-black-gray-box.md)), serta rancangan skenario uji *(draf awal sudah ada di folder `02`, belum final)*. | Tim QA & Riset | ⏳ Proses |
+| 7 | Menjalankan pengujian berulang GOR Permata ([`03-hasil-pengujian/`](./03-hasil-pengujian/): Playwright `9/9 PASS` + log sudah di repo; lengkapi uji manual, eksekusi Cypress, & *screenshot* bukti) serta persiapan asesmen. | Tim Penguji | ⏳ Proses |
+| 8 | Menghubungi & mewawancarai 1 praktisi QA / Software Tester **SETELAH** *project* GOR Permata selesai ([`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/), arahan dosen 14 Nov 2026). | Tim Wawancara | ⬜ Belum |
 
 ---
 
