@@ -14,7 +14,7 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 | No | Nama Lengkap | NIM | Akun GitHub |
 | :--- | :--- | :--- | :--- |
 | 1 | Muhammad Faiz Rabbani | 231011402539 | [@BrongSkuy](https://github.com/BrongSkuy) |
-| 2 | *[Diisi]* | *[Diisi]* | *[Diisi]* |
+| 2 | Robi Farhan Anshori | 231011401468 | [@robifr](https://github.com/robifr) |
 | 3 | *[Diisi]* | *[Diisi]* | *[Diisi]* |
 | 4 | *[Diisi]* | *[Diisi]* | *[Diisi]* |
 
