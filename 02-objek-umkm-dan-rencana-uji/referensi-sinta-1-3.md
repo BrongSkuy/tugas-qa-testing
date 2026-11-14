@@ -19,3 +19,4 @@ Dokumen ini menopang pemilihan metode pengujian pada **Objek 1 (GOR Permata Badm
 ## 2. Daftar Tambahan Paper yang Perlu Dilengkapi Anggota Tim
 1. Cari 1–2 artikel **Sinta 1 atau Sinta 2** periode **2022–2026** di Portal SINTA / Garuda untuk materi **Automation Testing** (`"Cypress"` / `"Playwright"` / `"Selenium"`) dan kualitas web **ISO/IEC 25010** (keamanan *security headers* dan aksesibilitas).
 2. Pastikan setiap rujukan memuat lengkap: *Penulis, Tahun, Judul, Nama Jurnal, Volume/Nomor, Halaman, Tautan PDF/DOI resmi, dan Peringkat SINTA*.
+

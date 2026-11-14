@@ -32,3 +32,4 @@ Dokumen ini merangkum perbandingan hasil observasi, pengujian manual/non-fungsio
 4. **`BUG-TASA-04` (Major / Security):** 5 HTTP security header tidak terpasang (`Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`), `X-Powered-By: Next.js` terbuka, dan `robots.txt` mencantumkan path internal.
 5. **`BUG-TASA-05` (Minor / Accessibility):** 7 dari 50 tag `<img>` di beranda kehilangan/kosong atribut `alt`.
 6. **`BUG-TASA-06` (Major / Validation & UX):** Field `whatsapp` di wizard `/lesrenang` menerima string sembarang selain kosong (mis. `"abc"`), sementara `/blog` belum memiliki fitur pencarian dan pagination di luar rentang (`0`, `5`) mengembalikan `404`.
+

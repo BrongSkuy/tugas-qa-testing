@@ -24,3 +24,4 @@ Setiap temuan cacat pada `objek-1-gor-permata/` (`BUG-GOR-XX`) maupun `objek-2-k
 4. **Steps to Reproduce:** Langkah berurutan yang dapat diulang
 5. **Expected Result vs Actual Result**
 6. **Bukti Verifikasi Teknis:** Respons HTTP, cuplikan DOM/JS, atau log eksekusi skrip otomasi
+
