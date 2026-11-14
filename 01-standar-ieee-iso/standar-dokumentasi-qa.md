@@ -42,13 +42,23 @@ Setiap temuan cacat pada objek **GOR Permata Badminton Hall** (`BUG-GOR-XX`) di 
 
 ---
 
-## 4. Akses Resmi & Arsip Ringkasan PDF
+## 4. Akses Resmi, Standar Gratis Terbuka, & Arsip PDF
 
-> **Catatan Hak Cipta Standar:** Naskah penuh resmi standar ISO/IEC dan IEEE merupakan dokumen berhak cipta berbayar pada ISO Store / IEEE Xplore dan tidak diperkenankan untuk diunggah secara ilegal ke repositori publik.
-- **Kanal Pratinjau & Katalog Resmi Gratis:**
+> **Catatan Transparansi & Hak Cipta Standar:** Hasil verifikasi langsung pada katalog resmi **ISO Publicly Available Standards** (`https://standards.iso.org/ittf/PubliclyAvailableStandards/`) dan program **IEEE GET** menunjukkan bahwa naskah penuh resmi **ISO/IEC/IEEE 29119-1..5**, **ISO/IEC 25010:2023**, serta **IEEE 829 / 1012 / 730** seluruhnya berstatus **berbayar** (tidak tersedia PDF penuh resminya secara gratis) dan tidak diunggah ke repositori publik GitHub demi kepatuhan hak cipta. Sebagai pengganti yang **100% gratis, legal, dan dapat diunduh penuh**, tim menghimpun standar terbuka resmi (*Public Domain* / *CC BY*) dan rujukan pratinjau resmi berikut:
+
+- **Berkas PDF Standar & Referensi Gratis Resmi (Tersimpan di [`./pdf-standar/`](./pdf-standar/)):**
+  1. **NIST SP 800-218 v1.1 (Februari 2022 — *US Gov Public Domain*)**: [`NIST_SP_800-218_SSDF_v1.1_2022.pdf`](./pdf-standar/NIST_SP_800-218_SSDF_v1.1_2022.pdf) — Standar resmi gratis *Secure Software Development Framework (SSDF)* oleh NIST (`36` halaman, DOI: `https://doi.org/10.6028/NIST.SP.800-218`). Memuat praktik pengujian & verifikasi perangkat lunak **PW.8** (*Test Executable Code to Identify Vulnerabilities and Verify Compliance with Security Requirements*) serta **PW.9** (*Configure Software to Have Secure Settings by Default*).
+  2. **OWASP Web Security Testing Guide (WSTG) v4.2 (*CC BY-SA 4.0*)**: [`OWASP_Web_Security_Testing_Guide_v4.2.pdf`](./pdf-standar/OWASP_Web_Security_Testing_Guide_v4.2.pdf) — Standar panduan terbuka industri untuk pengujian aplikasi web oleh The OWASP Foundation (`465` halaman; mencakup prinsip pengujian, *Configuration & Deployment Management Testing* termasuk *Test HTTP Strict Transport Security*, validasi input, dan pengujian sisi klien).
+  3. **Xue, Wang, & Wang (2026 — *CC BY 4.0*)**: [`arXiv_2608_05594_Xue_2026_ISO29119_Testability.pdf`](./pdf-standar/arXiv_2608_05594_Xue_2026_ISO29119_Testability.pdf) — Artikel *open-access* 2026 (`11` halaman, *Beihang University*) berjudul *"JTA: Joint Testability Architecture for Scenario-Based Validation of Safety-Critical Software"* yang merujuk dan memodelkan langsung konsep **ISO/IEC/IEEE 29119-1:2022** dan **ISO/IEC 25010:2023**.
+  4. **Jurnal SINTA 2 terkait ISO/IEC 25010 (Desember 2025 — *CC BY 4.0*)**: Tersedia PDF penuh [`RESTI_Alirridlo_2025_ISO25010_Cyclomatic.pdf`](../02-objek-umkm-dan-rencana-uji/pdf-jurnal/RESTI_Alirridlo_2025_ISO25010_Cyclomatic.pdf) di folder `02-objek-umkm-dan-rencana-uji/pdf-jurnal/`.
+- **Standar Gratis Resmi (Versi Web — Tautan Langsung Tanpa Unduh Berbayar):**
+  - **WCAG 2.2 / ISO/IEC 40500:2025** (Standar Internasional Aksesibilitas Web W3C–ISO): https://www.w3.org/TR/WCAG22/
+  - **Almonte et al. (2025)** — Studi *LLM* berbasis **ISO/IEC 25010:2023** (*arXiv non-exclusive distribution*): https://arxiv.org/abs/2503.15248
+  - **Vincekovič et al. (2026)** & **Kudriashova et al. (2026)** — *Applied Sciences* MDPI (*CC BY 4.0*, studi **ISO/IEC/IEEE 29119-1:2022** & **ISO/IEC 25010:2023**, buka via browser): `https://doi.org/10.3390/app16199787` dan `https://doi.org/10.3390/app162211110`
+- **Kanal Pratinjau & Katalog Resmi ISO/IEEE Gratis:**
   - ISO Online Browsing Platform (OBP): https://obp.iso.org/
   - Portal Informasi ISO/IEC/IEEE 29119: https://softwaretestingstandard.org/
   - Katalog Pratinjau ISO 29119-1:2022: https://standards.iteh.ai/catalog/standards/sist/9ecff7b0-b812-4c9b-a9e0-81ce4428d7ab/iso-iec-ieee-29119-1-2022
-- **Dokumen PDF Ringkasan & Audit Karya Kelompok (Siap Baca/Cetak di Folder [`./pdf-standar/`](./pdf-standar/)):**
+- **Dokumen PDF Ringkasan & Audit Karya Kelompok (Siap Baca/Cetak di [`./pdf-standar/`](./pdf-standar/)):**
   - [`Ringkasan-Standar-ISO-IEC-IEEE-29119-2022-2024.pdf`](./pdf-standar/Ringkasan-Standar-ISO-IEC-IEEE-29119-2022-2024.pdf)
   - [`Audit-Mutu-ISO-IEC-25010-2023-GOR-Permata.pdf`](./pdf-standar/Audit-Mutu-ISO-IEC-25010-2023-GOR-Permata.pdf)
