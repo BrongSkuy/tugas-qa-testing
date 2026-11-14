@@ -142,17 +142,13 @@ Seluruh kandidat di bawah ini telah diverifikasi langsung status aktifnya (**HTT
 
 ---
 
-## D. Pembaruan 14 November 2026 — Kandidat Tanpa Fitur Checkout & Keputusan Dua Objek
+## D. Pembaruan 14 November 2026 — Penetapan Keputusan Final (GOR Permata Saja)
 
-Berdasarkan diskusi kelompok tanggal 14 November 2026 mengenai pentingnya pengujian **berulang kali** (manual maupun *Automation Testing*) tanpa mengunci jadwal/order pada *database* UMKM, kelompok mengevaluasi kandidat tanpa fitur *checkout* dan menetapkan **dua objek uji sekaligus** di repositori ini:
+Pada diskusi kelompok tanggal 14 November 2026, kelompok sempat meninjau beberapa kandidat situs/aplikasi tanpa *checkout* (seperti Website Kolam Renang TASA Pamulang, kalkulator kanopi/cetak, simulasi kredit, dan aplikasi kasir offline) untuk dibandingkan dengan kandidat awal.
 
-1. **Objek 1 (Utama untuk Analisis White Box & Analogi Dosen):** **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com` — folder [`../objek-1-gor-permata/`](../objek-1-gor-permata/)).
-2. **Objek 2 (Objek Tanpa Checkout / Uji Berulang Pamulang):** **Website Kolam Renang TASA Pamulang** (`https://www.kolamtasa.com/` — Jl. Salak Raya, Pd. Benda, Pamulang, Tangsel — folder [`../objek-2-kolam-renang-tasa/`](../objek-2-kolam-renang-tasa/)). Tidak memiliki keranjang belanja maupun *payment gateway* (transaksi diarahkan ke WhatsApp), memiliki wizard pendaftaran `/lesrenang` (20/21 langkah), serta 6 temuan defect nyata (termasuk form `/kontak` tanpa action/handler, link footer `404`, dan 5 *security header* hilang).
-
-### Kandidat Tambahan Tanpa Checkout yang Pernah Diverifikasi (14 Nov 2026)
-- **Bengkel Karya Tunggal Las — Kalkulator Kanopi** (`https://karyatunggallas.com/kalkulator/` — Cisauk, Kab. Tangerang): HTTP `200`, tanpa *checkout*, JS kalkulator tidak ter-*minify*.
-- **Gasink Printing — Kalkulator Biaya Cetak** (`https://gasink.id/kalkulator/` — Serua, Bojongsari / perbatasan Pamulang–Tangsel): HTTP `200`, tanpa *checkout*, JS kalkulator tidak ter-*minify*.
-- **BPR Dhana Semesta — Simulasi Kredit & Deposito** (`https://bprdhanasemesta.co.id/simulasi-kredit-dan-deposito/` — Karang Tengah, Kota Tangerang): HTTP `200`, 15 input simulasi tanpa pengajuan/*checkout*.
-- **Kukasir - Aplikasi Kasir UMKM** (`https://play.google.com/store/apps/details?id=com.kukasir` — Dev: `Axialapp`, Tangerang): `1+` download, gratis penuh tanpa akun/iklan/IAP, berjalan offline.
+**Keputusan Final Kelompok:** Setelah pertimbangan kecocokan tugas dan efisiensi fokus tim, kelompok **hanya menggunakan 1 objek final** dan membatalkan kandidat pembanding lainnya, yaitu:
+- **Objek Uji Final:** **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`, Kp. Cipari, Desa Ciakar, Kec. Panongan, Kab. Tangerang).
+- **Rencana & Hasil Uji Terdokumentasi:** Seluruh artefak uji ditempatkan terpadu pada [`test-plan-gor-permata.md`](./test-plan-gor-permata.md), [`analisis-white-black-gray-box.md`](./analisis-white-black-gray-box.md), serta folder [`../03-hasil-pengujian/`](../03-hasil-pengujian/).
+- **Mekanisme Uji Berulang Aman:** Pengujian berulang tetap aman dijalankan menggunakan skrip Playwright Python non-destruktif (`page.route("**/bookings/store", ...)` memblokir request `POST` produksi) serta verifikasi validasi input sisi klien tanpa pernah membuat *booking* fiktif.
 
 

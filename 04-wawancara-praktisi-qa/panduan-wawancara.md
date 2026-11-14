@@ -2,7 +2,7 @@
 
 > **ATURAN WAJIB PERKULIAHAN (14 November 2026):**
 > Bapak Ahmad Fauzi menegaskan secara langsung di kelas: *"Project-nya belum selesai ngapain wawancara?!"*
-> **Wawancara dengan praktisi QA hanya boleh dilakukan SETELAH seluruh pengujian perangkat lunak (`01`, `02`, `03`, `objek-1-gor-permata`, dan `objek-2-kolam-renang-tasa`) dinyatakan selesai dan siap diasesmen.**
+> **Wawancara dengan praktisi QA hanya boleh dilaksanakan SETELAH seluruh project pengujian perangkat lunak pada folder `01` s.d. `03` (objek GOR Permata Badminton Hall) selesai dilaksanakan dan siap diasesmen.**
 
 ---
 
@@ -14,16 +14,15 @@
 
 ---
 
-## 2. Daftar Pertanyaan Wawancara Terstruktur
-1. Dalam praktik industri, bagaimana alur penyusunan **Test Plan** standar (misalnya ISO/IEC/IEEE 29119) untuk dua jenis situs UMKM yang kami uji: sistem *booking* berjadwal (*GOR Permata*) vs sistem layanan berbasis *wizard* & WhatsApp (*Kolam Renang TASA*)?
-2. Bagaimana strategi aman tim QA agar pengujian fungsional maupun *Automation Testing* (Playwright / Cypress / Selenium) dapat diulang berkali-kali tanpa merusak data operasional di *database* produksi?
-3. Bagaimana cara menentukan prioritas (*Severity vs Priority*) saat ditemukan defect seperti form `/kontak` yang ternyata statis tanpa handler, rute `/register` & link footer `404`, hingga hilangnya *HTTP security headers*?
-4. Untuk aplikasi yang kode produksinya sudah ter-*minify* (seperti Next.js di Kolam TASA) dibanding JS klien terbuka (seperti di GOR Permata), pendekatan apa yang paling efektif dipakai antara *Black Box*, *Gray Box*, dan *White Box*?
-5. Apa masukan Bapak/Ibu terhadap *Test Cases*, skrip otomasi, serta struktur laporan defect yang telah kelompok kami susun di repositori ini?
+## 2. Daftar Pertanyaan Wawancara Terstruktur (Relevan dengan Proyek GOR Permata)
+1. Di dunia industri nyata, bagaimana proses penyusunan **Test Plan** sesuai standar (misalnya ISO/IEC/IEEE 29119) untuk aplikasi *booking* atau transaksi?
+2. Untuk sistem yang terhubung langsung ke jadwal/*database* produksi seperti portal *booking* lapangan (`gorpermatabadminton.com`), bagaimana praktik aman QA agar pengujian berulang maupun *Automation Testing* tidak merusak data operasional?
+3. Kapan tim QA di tempat Bapak/Ibu memilih **Manual Testing** dibanding **Automation Testing** (seperti Playwright, Cypress, atau Selenium)?
+4. Bagaimana cara menentukan prioritas (*Severity vs Priority*) terhadap temuan bug yang kami peroleh (misalnya halaman `/register` `404 Not Found` vs celah validasi format nomor WhatsApp `+62 08...` di `normPhone()` vs pesan teknis di `alert()` klien)?
+5. Apa saran Bapak/Ibu terhadap strategi pengujian *Black Box* (*EP/BVA/State Transition*), *Gray Box*, dan *White Box* (*Cyclomatic Complexity*) serta skrip otomasi yang telah kelompok kami susun pada studi kasus GOR Permata ini?
 
 ---
 
-## 3. Lampiran Bukti (Dilengkapi Setelah Wawancara)
-- Transkrip lengkap tanya jawab wawancara
+## 3. Lampiran Bukti (Dilengkapi Setelah Wawancara Selesai)
+- Transkrip / rangkuman jawaban tanya jawab wawancara
 - Bukti dokumentasi pertemuan (*screenshot* rapat online / foto bersama atas izin narasumber)
-

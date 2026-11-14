@@ -20,40 +20,33 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 
 ---
 
-## Dua Objek Pengujian UMKM Terdokumentasi
+## Objek Pengujian UMKM Terpilih (Keputusan Final)
 
-Repositori ini mendokumentasikan **dua objek UMKM di wilayah Tangerang & Tangerang Selatan** dalam folder terpisah agar kelompok memiliki cakupan uji lengkap (baik sisi *White Box* maupun pengujian berulang tanpa *checkout*):
+Kelompok menetapkan **1 objek UMKM** utama sebagai studi kasus proyek pengujian hingga asesmen dan wawancara praktisi QA:
 
-| Aspek | Objek 1: GOR Permata Badminton Hall | Objek 2: Website Kolam Renang TASA |
-| :--- | :--- | :--- |
-| **Folder Kerja** | [`objek-1-gor-permata/`](./objek-1-gor-permata/) | [`objek-2-kolam-renang-tasa/`](./objek-2-kolam-renang-tasa/) |
-| **URL Situs** | https://gorpermatabadminton.com | https://www.kolamtasa.com/ |
-| **Lokasi UMKM** | Desa Ciakar, Kec. Panongan, Kab. Tangerang | Pd. Benda, Kec. Pamulang, Kota Tangerang Selatan |
-| **Kelebihan Utama untuk QA** | Sesuai 100% analogi dosen (*lapangan bulu tangkis lokal*); skrip JS `/booking` terbuka untuk hitung *Cyclomatic Complexity* ($V(G)$) secara nyata. | **Tanpa fitur checkout/payment** (redirect WhatsApp); aman uji berulang pada wizard `/lesrenang`; memiliki 6 temuan defect nyata (form `/kontak` mati, footer `404`, 5 *security header* hilang). |
-| **Batasan Etika Uji** | Tidak submit booking nyata (`POST /bookings/store` diblokir pada skrip otomasi). | Tidak spam submit akhir `/lesrenang` dan form `/event` (`POST` diblokir pada skrip otomasi). |
-| **Skrip Automation** | Playwright Python (`9/9 PASS`) + contoh Cypress | Playwright Python (`8/8 PASS`) + contoh Cypress |
+- **Nama Objek / Portal:** **Portal Booking GOR Permata Badminton Hall**
+- **URL Portal:** https://gorpermatabadminton.com
+- **Lokasi UMKM:** Kp. Cipari, Desa Ciakar, Kec. Panongan, Kab. Tangerang, Banten
+- **Alasan Pemilihan:**
+  - Sesuai 100% dengan contoh kasus yang disampaikan Bapak Ahmad Fauzi (*portal lapangan bulu tangkis skala lokal*).
+  - Mendukung penuh seluruh teknik pengujian yang diwajibkan: **White Box** (skrip JS klien `normPhone()`, `submitBooking()`, dan `updateTotal()` pada `/booking` terbuka untuk dihitung *Cyclomatic Complexity*-nya secara nyata), **Black Box** (*Equivalence Partitioning*, *Boundary Value Analysis*, *State Transition*, *Use Case*), **Gray Box** (parameter URL `?start_date=`, token CSRF, dan *response handling*), **Manual Testing**, dan **Automation Testing** (Playwright Python & Cypress).
+- **Batasan Etika Uji (Non-Destruktif):** Tidak pernah mengirimkan *booking* fiktif ke jadwal produksi (`POST /bookings/store` dihentikan pada validasi sisi klien dan diblokir via `page.route` di skrip otomasi).
 
 ---
 
-## Struktur Repositori (Poin 1–3 & Update 14 Nov 2026)
+## Struktur Repositori (Poin 1–7 & Update 14 Nov 2026)
 - [`00-materi-perkuliahan/`](./00-materi-perkuliahan/) — Arsip modul materi perkuliahan (`Pertemuan 1–7.pptx` sudah tersedia; Pertemuan 8–akhir menyusul dari Ketua Kelas)
 - [`01-standar-ieee-iso/`](./01-standar-ieee-iso/) — Acuan standar dokumentasi QA & Testing ISO/IEC/IEEE 29119 & ISO/IEC 25010 (2022–2026)
-- [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/) — Penelusuran kandidat objek UMKM & daftar referensi jurnal Sinta 1–3
-- [`objek-1-gor-permata/`](./objek-1-gor-permata/) — *Test Plan*, analisis *White/Black/Gray Box*, *Test Cases & Bug Report*, serta skrip otomasi + log untuk **GOR Permata Badminton Hall**
-- [`objek-2-kolam-renang-tasa/`](./objek-2-kolam-renang-tasa/) — Profil rute, *Test Plan*, analisis *White/Black/Gray Box*, *Test Cases & 6 Bug Report*, serta skrip otomasi + log untuk **Kolam Renang TASA**
-- [`03-hasil-pengujian/`](./03-hasil-pengujian/) — Ringkasan komparasi hasil pengujian dan defect dari kedua objek
+- [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/) — Penelusuran kandidat objek UMKM, *Test Plan*, analisis *White/Black/Gray Box* GOR Permata, dan daftar referensi jurnal Sinta 1–3
+- [`03-hasil-pengujian/`](./03-hasil-pengujian/) — Dokumentasi *Test Cases*, laporan bug terverifikasi (`BUG-GOR-01` s.d. `BUG-GOR-03`), serta folder [`automation-scripts/`](./03-hasil-pengujian/automation-scripts/) (Playwright Python `9/9 PASS`, contoh Cypress, dan `execution-log.txt`)
 - [`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/) — Panduan wawancara praktisi QA / Software Tester *(dilaksanakan **setelah** project pengujian selesai, sesuai arahan dosen 14 November 2026)*
 
 ---
 
 ## Menjalankan Skrip Automation Testing Secara Lokal
-Pastikan Python dan Playwright terpasang (`pip install playwright && playwright install chromium`), lalu jalankan:
+Pastikan Python dan Playwright terpasang (`pip install playwright && playwright install chromium`), lalu jalankan dari *root* repositori:
 
 ```bash
-# Objek 1: GOR Permata Badminton Hall
-python objek-1-gor-permata/automation-scripts/test_gor_permata.py
-
-# Objek 2: Kolam Renang TASA Pamulang
-python objek-2-kolam-renang-tasa/automation-scripts/test_kolam_tasa.py
+python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
 ```
-Kedua skrip bersifat **non-destruktif** (memblokir permintaan `POST` ke server produksi via interceptor `page.route`).
+Skrip bersifat **non-destruktif** (memblokir permintaan `POST **/bookings/store` melalui interceptor `page.route` agar tidak pernah mengubah data jadwal nyata GOR Permata).

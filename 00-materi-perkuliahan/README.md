@@ -21,3 +21,4 @@ Folder ini menyimpan salinan modul presentasi materi perkuliahan yang telah diun
 ## Status Kelengkapan Modul (Update 14 Nov 2026)
 - **Tersedia di folder ini:** Modul **Pertemuan 1–7** (`5,01 MB` total) yang relevan langsung dengan landasan konsep kualitas, *White Box / Cyclomatic Complexity*, dan *Black Box (EP, BVA, State Transition, Use Case)*.
 - **Belum dilengkapi (Menunggu dari Ketua Kelas / Google Drive dosen):** Modul **Pertemuan 8 sampai pertemuan terakhir** (termasuk materi lanjutan seperti **Automation Testing — Selenium, Katalon Studio, Cypress** yang dibahas pada kelas 14 November 2026). Segera tambahkan ke folder ini setelah diterima dari Ketua Kelas.
+
