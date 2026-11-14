@@ -1,0 +1,8 @@
+[PASS] TC-TASA-01 - Seluruh Rute Publik HTTP 200: Checked 14 routes, failures=[]
+[PASS] TC-TASA-02/09 - Konfirmasi 404 Footer Dead Routes & Blog Out-of-Bounds: {'/privacy': 404, '/terms': 404, '/settings': 404, '/kerjasama': 404, '/blog/halaman/0': 404, '/blog/halaman/5': 404}
+[PASS] TC-TASA-10 - Audit HTTP Security Headers (Temuan BUG-TASA-04): HSTS_present=True, missing=['content-security-policy', 'x-frame-options', 'x-content-type-options', 'referrer-policy', 'permissions-policy']
+[PASS] TC-TASA-11 - Audit Gambar Tanpa alt & Footer Span Mati (BUG-TASA-02/03/05): {'totalImgs': 50, 'missingAlt': 7, 'hasCopyright2023': True, 'hasPrivacyAnchor': False}
+[PASS] TC-TASA-09B - Konfirmasi /blog Belum Memiliki Fitur Pencarian: search_inputs=0
+[PASS] TC-TASA-03 - Verifikasi Form /kontak Tanpa Action/Method (BUG-TASA-01): {'exists': True, 'action': None, 'method': None}
+[PASS] TC-TASA-04 - Validasi Input Kosong Step 1 Wizard /lesrenang: step1_visible=True, error_shown=True
+[PASS] TC-TASA-05 - Transisi Step 1 -> Step 2 & Validasi Kosong Step 2: step2_visible=True, err2_shown=True, blocked_posts=0

@@ -1,0 +1,9 @@
+[PASS] TC-GOR-01 - Rute Publik HTTP 200: {'/': 200, '/booking': 200, '/login': 200, '/fasilitas/lapangan': 200, '/fasilitas/umum': 200, '/fasilitas/tunggu': 200, '/fasilitas/parkir': 200}
+[PASS] TC-GOR-02 - Cek Defect /register 404: HTTP 404
+[PASS] TC-GOR-03 - Load Grid Booking & Slot Tersedia: Ditemukan 397 slot openBooking untuk 2026-11-15
+[PASS] TC-GOR-04 - Buka Modal & Tarif Default 1 Jam: visible=True, dispTotal='Rp 40.000'
+[PASS] TC-GOR-05 - Kalkulasi Durasi 2 Jam (updateTotal): dispTotal='Rp 80.000'
+[PASS] TC-GOR-06 - Validasi Input Kosong (Stop Sebelum Fetch): alert='⚠️Halo kak! Nama dan Nomor WA harus diisi lengkap!', post_attempts=0
+[PASS] TC-GOR-07 - Validasi Format WA Tidak Valid: alert='⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.'
+[PASS] TC-GOR-08 - Reproduksi Bug normPhone('+62 08...'): alert='⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.'
+[PASS] TC-GOR-10 - Close Modal & Reset Form Input: hidden=True, cleared=True
