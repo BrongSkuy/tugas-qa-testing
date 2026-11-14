@@ -36,6 +36,7 @@ Repositori ini mendokumentasikan **dua objek UMKM di wilayah Tangerang & Tangera
 ---
 
 ## Struktur Repositori (Poin 1–3 & Update 14 Nov 2026)
+- [`00-materi-perkuliahan/`](./00-materi-perkuliahan/) — Arsip modul materi perkuliahan (`Pertemuan 1–7.pptx` sudah tersedia; Pertemuan 8–akhir menyusul dari Ketua Kelas)
 - [`01-standar-ieee-iso/`](./01-standar-ieee-iso/) — Acuan standar dokumentasi QA & Testing ISO/IEC/IEEE 29119 & ISO/IEC 25010 (2022–2026)
 - [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/) — Penelusuran kandidat objek UMKM & daftar referensi jurnal Sinta 1–3
 - [`objek-1-gor-permata/`](./objek-1-gor-permata/) — *Test Plan*, analisis *White/Black/Gray Box*, *Test Cases & Bug Report*, serta skrip otomasi + log untuk **GOR Permata Badminton Hall**
