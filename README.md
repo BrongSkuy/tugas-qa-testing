@@ -36,9 +36,9 @@ Kelompok menetapkan **1 objek UMKM** utama sebagai studi kasus proyek pengujian 
 
 ## Struktur Repositori (Poin 1–7 & Update 14 Nov 2026)
 - [`00-materi-perkuliahan/`](./00-materi-perkuliahan/) — Arsip modul materi perkuliahan (`Pertemuan 1–7.pptx` sudah tersedia; Pertemuan 8–akhir menyusul dari Ketua Kelas)
-- [`01-standar-ieee-iso/`](./01-standar-ieee-iso/) — Acuan standar dokumentasi QA & Testing ISO/IEC/IEEE 29119 & ISO/IEC 25010 (2022–2026)
-- [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/) — Penelusuran kandidat objek UMKM, *Test Plan*, analisis *White/Black/Gray Box* GOR Permata, dan daftar referensi jurnal Sinta 1–3
-- [`03-hasil-pengujian/`](./03-hasil-pengujian/) — Dokumentasi *Test Cases*, laporan bug terverifikasi (`BUG-GOR-01` s.d. `BUG-GOR-03`), serta folder [`automation-scripts/`](./03-hasil-pengujian/automation-scripts/) (Playwright Python `9/9 PASS`, contoh Cypress, dan `execution-log.txt`)
+- [`01-standar-ieee-iso/`](./01-standar-ieee-iso/) — Acuan standar dokumentasi ISO/IEC/IEEE 29119 (2022–2024), audit kualitas **ISO/IEC 25010:2023**, serta [`pdf-standar/`](./01-standar-ieee-iso/pdf-standar/) (2 PDF ringkasan & hasil audit standar)
+- [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/) — Profil kandidat, *Test Plan*, analisis *White/Black/Gray Box* (dengan diagram *Control Flow Graph* Mermaid), daftar rujukan jurnal **SINTA 2–3**, serta [`pdf-jurnal/`](./02-objek-umkm-dan-rencana-uji/pdf-jurnal/) (7 berkas *full paper* PDF resmi)
+- [`03-hasil-pengujian/`](./03-hasil-pengujian/) — Dokumentasi *Test Cases*, laporan bug terverifikasi (`BUG-GOR-01` s.d. `BUG-GOR-04`), serta folder [`automation-scripts/`](./03-hasil-pengujian/automation-scripts/) (Playwright Python `9/9 PASS`, contoh Cypress, dan `execution-log.txt`)
 - [`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/) — Panduan wawancara praktisi QA / Software Tester *(dilaksanakan **setelah** project pengujian selesai, sesuai arahan dosen 14 November 2026)*
 
 ---
