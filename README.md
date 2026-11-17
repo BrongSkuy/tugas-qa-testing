@@ -43,9 +43,8 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 | 4 | Finalisasi objek UMKM terpilih di repo: **Portal Booking GOR Permata Badminton Hall** ([`kandidat-objek-pengujian.md`](./02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md)). | Tim Riset Objek | ✅ Selesai |
 | 5 | Menyusun dokumentasi standar QA & Testing IEEE/ISO lengkap ([`01-standar-ieee-iso/`](./01-standar-ieee-iso/): *Organizational Test Spec*, `29119-2:2021`, audit `ISO 25010:2023`, 3 PDF standar) & 7 PDF jurnal **SINTA 2–3** ([`pdf-jurnal/`](./02-objek-umkm-dan-rencana-uji/pdf-jurnal/)). | Tim Dokumentasi & Riset | ✅ Selesai |
 | 6 | Memfinalkan *Master Test Plan* (`TP-GOR-01`), *Performance Test Plan* (`TP-GOR-PERF-01`), *Test Model Specifications* & *TCI* (Black Box + Performance), serta *White/Gray Box CFG* di [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/). | Tim QA & Riset | ✅ Selesai |
-| 7 | Menjalankan pengujian aktual Black Box (`22 TC`: `15 PASS`, `7` temuan cacat) & Performance (`10 TC`: `7 PASS`, `3` temuan SLA/payload) beserta *Environment/Data Readiness*, *Execution Log*, *Incident Reports* (`IR-GOR-01..10`), *Status/Control Report*, *Test Completion Report*, bukti screenshot/JSON, dan **Laporan Resmi Word/PDF** di [`03-hasil-pengujian/`](./03-hasil-pengujian/). | Tim Penguji | ✅ Selesai |
-| 8 | Melaksanakan **Audit Dokumentasi QA** (`AUD-01..06` di [`05-audit-dokumentasi-qa/`](./05-audit-dokumentasi-qa/)) untuk memvalidasi kepatuhan ISO 29119-2:2021, *traceability*, akurasi data, zero PII, tautan Markdown, & sinkronisasi Word/PDF. | Tim QA & Audit | ✅ Selesai |
-| 9 | Menghubungi & mewawancarai 1 praktisi QA / Software Tester **SETELAH** *project* GOR Permata selesai ([`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/), arahan dosen 14 Nov 2026). | Tim Wawancara | ⬜ Siap Dilaksanakan |
+| 7 | Menjalankan pengujian aktual Black Box (`22 TC`: `15 PASS`, `7` temuan cacat) & Performance (`10 TC`: `7 PASS`, `3` temuan SLA/payload) beserta *Environment/Data Readiness*, *Execution Log*, *Incident Reports* (`IR-GOR-01..10`), *Status/Control Report*, *Test Completion Report*, bukti screenshot/JSON ([`03-hasil-pengujian/`](./03-hasil-pengujian/)), serta menyimpan **Laporan Resmi Word & PDF** di [`05-dokumentasi-laporan/`](./05-dokumentasi-laporan/). | Tim Penguji | ✅ Selesai |
+| 8 | Menghubungi & mewawancarai 1 praktisi QA / Software Tester **SETELAH** *project* GOR Permata selesai ([`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/), arahan dosen 14 Nov 2026). | Tim Wawancara | ⬜ Siap Dilaksanakan |
 
 ---
 
@@ -72,17 +71,16 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
   - [`test-status-and-control-report.md`](./03-hasil-pengujian/test-status-and-control-report.md) — Laporan pemantauan, *Control Directives*, & pembaruan risiko (`TMC1–TMC4`)
   - [`test-completion-report.md`](./03-hasil-pengujian/test-completion-report.md) — Laporan penutupan uji, aset terarsip, pembersihan lingkungan, & *Lessons Learned* (`TC1–TC4`)
   - [`test-cases-dan-laporan-bug.md`](./03-hasil-pengujian/test-cases-dan-laporan-bug.md) — Ringkasan eksekutif indeks hasil uji
-  - [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx`](./03-hasil-pengujian/Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx) & [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf`](./03-hasil-pengujian/Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf) — Laporan resmi gabungan Word & PDF (`10` halaman, dibangkitkan via [`generate_laporan_pengujian.py`](./03-hasil-pengujian/generate_laporan_pengujian.py))
+  - [`generate_laporan_pengujian.py`](./03-hasil-pengujian/generate_laporan_pengujian.py) — Skrip generator laporan Word & PDF menuju folder `05-dokumentasi-laporan/`
   - [`automation-scripts/`](./03-hasil-pengujian/automation-scripts/) & [`evidence/`](./03-hasil-pengujian/evidence/) — Skrip Playwright & `aiohttp`, Cypress, log TXT, metrik JSON, & screenshot bukti
 - [`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/) — Panduan wawancara praktisi QA *(siap dijalankan setelah fase `01`–`03` tuntas)*
-- [`05-audit-dokumentasi-qa/`](./05-audit-dokumentasi-qa/) — **Audit Kepatuhan & Kualitas Dokumentasi (`AUD-01` s.d. `AUD-06`):**
-  - [`implementation-plan-audit.md`](./05-audit-dokumentasi-qa/implementation-plan-audit.md) — Rencana implementasi audit dokumentasi
-  - [`audit_dokumentasi.py`](./05-audit-dokumentasi-qa/audit_dokumentasi.py) & [`audit-results.json`](./05-audit-dokumentasi-qa/audit-results.json) — Skrip audit otomatis & keluaran metrik JSON
-  - [`laporan-audit-dokumentasi.md`](./05-audit-dokumentasi-qa/laporan-audit-dokumentasi.md) — Laporan resmi hasil audit, remediasi, & status kesiapan asesmen
+- [`05-dokumentasi-laporan/`](./05-dokumentasi-laporan/) — **Arsip Dokumen Resmi Format Word (`.docx`) & PDF (`.pdf`):**
+  - [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx`](./05-dokumentasi-laporan/Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx) — Laporan hasil pengujian lengkap format Microsoft Word
+  - [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf`](./05-dokumentasi-laporan/Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf) — Laporan hasil pengujian lengkap format PDF (`10` halaman, termasuk 8 screenshot bukti)
 
 ---
 
-## Menjalankan Skrip Pengujian & Audit Secara Lokal
+## Menjalankan Skrip Pengujian & Generator Laporan Secara Lokal
 Pastikan Python (`>= 3.9`), `playwright`, `aiohttp`, dan `python-docx` terpasang (`pip install playwright aiohttp python-docx && playwright install chromium`), lalu jalankan dari *root* repositori:
 
 ```bash
@@ -92,7 +90,7 @@ python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
 # 2. Suite Performance Testing (10 TC: Web Vitals + Concurrent GET 1/5/10 VUs)
 python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
 
-# 3. Audit Otomatis Dokumentasi Repositori (AUD-01 s.d. AUD-06)
-python 05-audit-dokumentasi-qa/audit_dokumentasi.py
+# 3. Regenerasi Laporan Resmi Word & PDF ke folder 05-dokumentasi-laporan/
+python 03-hasil-pengujian/generate_laporan_pengujian.py
 ```
 Skrip pengujian bersifat **non-destruktif** (memblokir permintaan `POST **/bookings/store` melalui interceptor `page.route` dan membatasi uji beban hanya `GET` hingga `10 VUs` dengan *circuit breaker* otomatis).

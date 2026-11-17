@@ -25,13 +25,15 @@ from docx.oxml.ns import nsdecls, qn
 from docx.shared import Cm, Pt, RGBColor
 
 SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent
 EVIDENCE_DIR = SCRIPT_DIR / "evidence"
 SCREENSHOT_DIR = EVIDENCE_DIR / "screenshots"
 BB_JSON_PATH = EVIDENCE_DIR / "blackbox-results.json"
 PERF_JSON_PATH = EVIDENCE_DIR / "performance-metrics.json"
 
-OUT_DOCX = SCRIPT_DIR / "Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx"
-OUT_PDF = SCRIPT_DIR / "Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf"
+OUT_DIR = REPO_ROOT / "05-dokumentasi-laporan"
+OUT_DOCX = OUT_DIR / "Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx"
+OUT_PDF = OUT_DIR / "Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf"
 
 # Palet warna konsisten dengan dokumen perkuliahan
 NAVY = RGBColor(0x1B, 0x36, 0x5D)
@@ -751,6 +753,7 @@ def build_report() -> tuple[Path, Path]:
         font_size=8.8,
     )
 
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
     doc.save(str(OUT_DOCX))
 
     # Ekspor ke PDF identik melalui Microsoft Word COM
