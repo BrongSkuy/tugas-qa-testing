@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-11-17T22:06:36+07:00",
+  "timestamp": "2026-11-17T22:55:33+07:00",
   "target": "https://gorpermatabadminton.com",
-  "total_cases": 22,
-  "passed": 15,
+  "total_cases": 23,
+  "passed": 16,
   "failed_or_defect_repro": 7,
   "intercepted_post_attempts_inside_browser": 7,
   "network_posts_sent_to_server": 0,
@@ -154,6 +154,13 @@
       "status": "PASS",
       "expected": "hasToken=True, empty/badEmail/missingPass checkValidity=False",
       "actual": "{'ok': True, 'hasToken': True, 'emptyValid': False, 'badEmailValid': False, 'missingPassValid': False}"
+    },
+    {
+      "tc_id": "TC-BB-23",
+      "name": "State Transition Slot Terkonfirmasi RTBC -> Alert manageBooking()",
+      "status": "PASS",
+      "expected": "Slot RTBC ditemukan & alert berisi 'SUDAH DIKONFIRMASI' + 'RTBC'",
+      "actual": "rtbc_count=114, label='RTBC', dialog='Halo Kak [MEMBER] RTBC, bookingan Anda SUDAH DIKONFIRMASI. Kami tunggu kedatangannya di GOR Permata! 🏸'"
     },
     {
       "tc_id": "TC-BB-21",

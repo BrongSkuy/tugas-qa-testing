@@ -51,6 +51,8 @@ Mengacu pada teknik **ISO/IEC/IEEE 29119-4** dan rujukan SINTA 3 (*Yulistina, dk
 stateDiagram-v2
     [*] --> GridLoaded : "Akses /booking?start_date=..."
     GridLoaded --> ModalOpen : "Klik slot kosong [openBooking()]"
+    GridLoaded --> ConfirmedAlert : "Klik slot terkonfirmasi RTBC [manageBooking()]"
+    ConfirmedAlert --> GridLoaded : "Tutup alert [SUDAH DIKONFIRMASI]"
     ModalOpen --> ModalOpen : "Ubah #custDuration [updateTotal()]"
     ModalOpen --> ValidationAlert : "Submit input invalid [submitBooking()]"
     ValidationAlert --> ModalOpen : "Tutup alert [tetap di modal]"
@@ -62,6 +64,7 @@ stateDiagram-v2
 | State Awal | Event / Transisi | Guard Condition | State Akhir & Output Teramati |
 | :--- | :--- | :--- | :--- |
 | `GridLoaded` | Klik tombol `+` slot kosong | Slot tersedia | `ModalOpen`: `#bookingModal` `display: flex`, `#custDuration = 1`, `#dispTotal = Rp 40.000` |
+| `GridLoaded` | Klik slot biru terkonfirmasi (`RTBC`) | `data-status="confirmed"` & `data-name*="RTBC"` | `ConfirmedAlert`: Dialog `alert` *"Halo Kak [MEMBER] RTBC, bookingan Anda SUDAH DIKONFIRMASI..."* tampil tanpa mengubah state server |
 | `ModalOpen` | Pilih durasi `1..5` | `onchange` aktif | `ModalOpen`: `#dispTotal` = `Rp (40.000 × durasi)` |
 | `ModalOpen` | Klik `#btnSubmit` | Kondisi `R1–R4` terpenuhi | `ValidationAlert`: Alert muncul, 0 request `POST`, modal tetap terbuka |
 | `ModalOpen` | Klik `#btnSubmit` | Kondisi `R5` terpenuhi *(interceptor aktif)* | `BlockedFetch`: `fetch` dicegat lokal sebelum jaringan -> `.catch()` alert koneksi, `#btnSubmit` aktif kembali |
@@ -89,7 +92,7 @@ stateDiagram-v2
 
 ---
 
-## 3. Identifikasi *Test Coverage Items* (`TD2` — `TCI-BB-01` s.d. `TCI-BB-22`)
+## 3. Identifikasi *Test Coverage Items* (`TD2` — `TCI-BB-01` s.d. `TCI-BB-23`)
 
 Seluruh *Test Coverage Items* berikut diturunkan dari `TM-BB-01..05` dan diprioritaskan berdasarkan nilai *Risk Exposure* (`TP3`):
 
@@ -117,5 +120,6 @@ Seluruh *Test Coverage Items* berikut diturunkan dari `TM-BB-01..05` dan diprior
 | `TCI-BB-20` | `TM-BB-04` | `TB-BB-06` | Validasi HTML5 form `/login` & ketersediaan `_token` CSRF | Sedang | `TC-BB-20` |
 | `TCI-BB-21` | `TM-BB-05` | `TB-BB-07` | Kompatibilitas layout *Mobile* `390×844` vs *Desktop* `1280×800` | Sedang | `TC-BB-21` |
 | `TCI-BB-22` | `TM-BB-05` | `TB-BB-07` | Deteksi eksposur atribut `data-phone` & `data-name` pada DOM publik | Tinggi | `TC-BB-22` |
+| `TCI-BB-23` | `TM-BB-03` | `TB-BB-03` | Transisi `GridLoaded -> ConfirmedAlert` klik slot `RTBC` (`manageBooking()`) | Sedang | `TC-BB-23` |
 
-> **Target Cakupan (`Completion Criterion`):** `100%` (`22 / 22` item `TCI-BB-*`) harus memiliki *Test Case* pada [`../03-hasil-pengujian/test-case-blackbox.md`](../03-hasil-pengujian/test-case-blackbox.md) dan tereksekusi secara deterministik tanpa transaksi produksi.
+> **Target Cakupan (`Completion Criterion`):** `100%` (`23 / 23` item `TCI-BB-*`) harus memiliki *Test Case* pada [`../03-hasil-pengujian/test-case-blackbox.md`](../03-hasil-pengujian/test-case-blackbox.md) dan tereksekusi secara deterministik tanpa transaksi produksi.

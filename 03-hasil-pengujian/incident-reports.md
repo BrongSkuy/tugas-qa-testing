@@ -51,7 +51,7 @@ Dokumen ini mengimplementasikan **Test Incident Reporting Process (`8.5`, aktivi
 - **Terkait TC / TCI:** `TC-BB-04` / `TCI-BB-04` | **Status:** `Open` | **Action Owner:** Developer Backend `/booking`
 - **Steps to Reproduce:** Buka `https://gorpermatabadminton.com/booking?start_date=2020-01-01`.
 - **Expected vs Actual:** Diharapkan tanggal sebelum hari ini menonaktifkan tombol `openBooking` (`0` slot aktif) atau mengarahkan ke tanggal hari ini; aktual halaman merender **`612` tombol `openBooking(...)`** yang masih bisa diklik dan dibuka modal pemesanannya.
-- **Rekomendasi:** Batasi `start_date >= today` pada controller backend serta beri atribut `min` pada `#jumpDate` dan nonaktifkan tombol booking untuk jam/tanggal yang sudah lewat.
+- **Bukti & Rekomendasi:** [`11_past_date_2020_bug.png`](./evidence/screenshots/11_past_date_2020_bug.png). Batasi `start_date >= today` pada controller backend serta beri atribut `min` pada `#jumpDate` dan nonaktifkan tombol booking untuk jam/tanggal yang sudah lewat.
 
 ### `IR-GOR-06`: Parameter `?start_date=invalid-date` Menyebabkan Crash `HTTP 500 Server Error`
 - **Terkait TC / TCI:** `TC-BB-05` / `TCI-BB-05` | **Status:** `Open` | **Action Owner:** Developer Backend `/booking`
@@ -63,7 +63,7 @@ Dokumen ini mengimplementasikan **Test Incident Reporting Process (`8.5`, aktivi
 - **Terkait TC / TCI:** `TC-PERF-10` / `TCI-PERF-10` | **Status:** `Open` | **Action Owner:** Developer Backend & Infrastruktur
 - **Steps to Reproduce:** Jalankan `test_performance_gor_permata.py` Level C (`10 VUs`, `GET`-only, `think_time=500ms`).
 - **Expected vs Actual:** Target SLA `p95 /booking <= 3000 ms`; aktual `mean = 4932,01 ms`, `p50 = 5138,42 ms`, **`p95 = 5314,28 ms`**, `max = 5323,45 ms` (`5,14x` lebih lambat dari `1 VU` baseline `p95 = 1033,24 ms`), sementara rute `/`, `/login`, dan `/fasilitas/lapangan` tetap `< 400 ms`.
-- **Bukti & Rekomendasi:** [`performance-summary.md`](./evidence/performance-summary.md) & [`performance-metrics.json`](./evidence/performance-metrics.json). Tambahkan indeks query database jadwal, cache short-TTL (mis. 15–30 detik) untuk grid publik, atau muat data slot secara asinkron via endpoint JSON ringan.
+- **Bukti & Rekomendasi:** [`12_performance_latency_chart.png`](./evidence/screenshots/12_performance_latency_chart.png), [`performance-summary.md`](./evidence/performance-summary.md), & [`performance-metrics.json`](./evidence/performance-metrics.json). Tambahkan indeks query database jadwal, cache short-TTL (mis. 15–30 detik) untuk grid publik, atau muat data slot secara asinkron via endpoint JSON ringan.
 
 ### `IR-GOR-08`: Pembengkakan Ukuran HTML Mentah `/booking` (`535,37 KB`)
 - **Terkait TC / TCI:** `TC-PERF-06` / `TCI-PERF-06` | **Status:** `Open` | **Action Owner:** Developer Frontend / Backend

@@ -4,7 +4,7 @@ Dokumen ini mengimplementasikan aktivitas **`TD3` (*Derive test cases*)** dan **
 
 ---
 
-## 1. *Test Case Specification* Black Box (`TD3` — `TC-BB-01` s.d. `TC-BB-22`)
+## 1. *Test Case Specification* Black Box (`TD3` — `TC-BB-01` s.d. `TC-BB-23`)
 
 Seluruh kasus uji bersifat **non-destruktif**: pengiriman `POST /bookings/store` diblokir di browser oleh `page.route` sebelum menyentuh jaringan produksi.
 
@@ -32,6 +32,7 @@ Seluruh kasus uji bersifat **non-destruktif**: pengiriman `POST /bookings/store`
 | **`TC-BB-20`** | Sedang | `TCI-BB-20` | Halaman `/login` termuat | Cek `<input name="_token">`, uji `checkValidity()` dengan email `""` dan `"bukan-email"`, serta password `""` | `_token` terisi non-kosong; validasi klien HTML5 menolak input kosong/format salah sebelum submit. |
 | **`TC-BB-21`** | Sedang | `TCI-BB-21` | Halaman `/` & `/booking?start_date=<besok>` | Render pada viewport *Desktop* (`1280×800`) dan *Mobile* (`390×844`); buka `#bookingModal` di mobile | Halaman `/` & `#bookingModal` tidak overflow horizontal parah (`scrollWidth <= innerWidth`), modal dapat dilihat & dioperasikan di mobile. |
 | **`TC-BB-22`** | Tinggi | `TCI-BB-22` | Halaman `/booking` aktif | Inspeksi boolean keberadaan atribut `data-phone` & `data-name` non-kosong pada elemen `manageBooking(this)` (tanpa menyimpan PII) | Atribut data pribadi pelanggan semestinya tidak disematkan pada HTML publik *(bila ditemukan -> konfirmasi `IR-GOR-04`)*. |
+| **`TC-BB-23`** | Sedang | `TCI-BB-23` | Halaman `/booking` aktif memiliki slot biru terkonfirmasi **`RTBC`** | Temukan `[data-status="confirmed"][data-name*="RTBC"]`, masker slot lain `[TERISI]`, klik slot `RTBC`, dan tangkap pesan dialog `manageBooking(this)` | Pop-up `alert()` bertuliskan *"Halo Kak [MEMBER] RTBC, bookingan Anda SUDAH DIKONFIRMASI. Kami tunggu kedatangannya di GOR Permata! 🏸"* tampil utuh tanpa mengubah state server. |
 
 ---
 
@@ -41,17 +42,17 @@ Urutan eksekusi disusun berdasarkan dependensi *precondition* dan prioritas risi
 
 - **`PROC-BB-01` (Verifikasi Rute Publik, `/register`, & Query `?start_date=`):**
   1. `STEP-1`: Muat `test-data/blackbox-testdata.json` dan verifikasi target aktif.
-  2. `STEP-2`: Jalankan `TC-BB-01`, `TC-BB-02`, `TC-BB-03`, `TC-BB-04`, dan `TC-BB-05`.
+  2. `STEP-2`: Jalankan `TC-BB-01`, `TC-BB-02`, `TC-BB-03`, `TC-BB-04` (termasuk `11_past_date_2020_bug.png`), dan `TC-BB-05`.
 - **`PROC-BB-02` (Verifikasi Modal, Kalkulasi Tarif, & Reset State):**
   1. `STEP-3`: Buka `/booking?start_date=<tomorrow>` pada Chromium *Desktop* dengan interceptor `page.route("**/bookings/store", guard)` aktif.
-  2. `STEP-4`: Jalankan `TC-BB-06`, `TC-BB-07`, dan simpan tangkapan layar modal (`evidence/screenshots/bb_modal_desktop.png`).
+  2. `STEP-4`: Jalankan `TC-BB-06`, `TC-BB-07`, dan simpan tangkapan layar modal (`evidence/screenshots/03_booking_modal_desktop.png`).
 - **`PROC-BB-03` (Validasi Input *Decision Table* & *BVA* Digit/Jam Tutup):**
   1. `STEP-5`: Jalankan `TC-BB-08` s.d. `TC-BB-16` berurutan pada slot tersedia (pantau counter `blocked_posts` & alert).
   2. `STEP-6`: Tutup modal (`TC-BB-19`), pilih slot `22:00` (atau cari slot `22:00` di tanggal aktif/`tomorrow`), jalankan `TC-BB-17` dan `TC-BB-18`, lalu tutup modal.
-- **`PROC-BB-04` (Verifikasi `/login` & Privasi DOM Publik):**
-  1. `STEP-7`: Jalankan `TC-BB-22` pada `/booking` dan `TC-BB-20` pada `/login`.
+- **`PROC-BB-04` (Verifikasi `/login`, Privasi DOM Publik, & Slot Terkonfirmasi `RTBC`):**
+  1. `STEP-7`: Jalankan `TC-BB-22` pada `/booking`, `TC-BB-20` pada `/login`, serta `TC-BB-23` untuk slot `RTBC` (`09_slot_confirmed_rtbc.png` & pop-up konfirmasi `10_popup_booking_confirmed_rtbc.png`).
 - **`PROC-BB-05` (Verifikasi Kompatibilitas Mobile & Wrap-up):**
-  1. `STEP-8`: Jalankan `TC-BB-21` pada viewport `390×844`, ambil screenshot mobile, pastikan total `POST` terkirim ke jaringan `= 0`, tutup browser, dan tulis log ke [`automation-scripts/execution-log.txt`](./automation-scripts/execution-log.txt).
+  1. `STEP-8`: Jalankan `TC-BB-21` pada viewport `390×844`, ambil screenshot mobile (`07_home_mobile.png`, `08_booking_modal_mobile.png`), pastikan total `POST` terkirim ke jaringan `= 0`, tutup browser, dan tulis log ke [`automation-scripts/execution-log.txt`](./automation-scripts/execution-log.txt).
 
 ---
 
@@ -62,6 +63,7 @@ Urutan eksekusi disusun berdasarkan dependensi *precondition* dan prioritas risi
 | `TB-BB-01` | `TM-BB-04` | `TCI-BB-01..02` | `TC-BB-01..02` | `PROC-BB-01` (`test_gor_permata.py`) |
 | `TB-BB-02` | `TM-BB-01` | `TCI-BB-03..05` | `TC-BB-03..05` | `PROC-BB-01` (`test_gor_permata.py`) |
 | `TB-BB-03` | `TM-BB-03` | `TCI-BB-06`, `TCI-BB-19` | `TC-BB-06`, `TC-BB-19` | `PROC-BB-02`, `PROC-BB-03` (`test_gor_permata.py` & `gor-permata.cy.js`) |
+| `TB-BB-03` | `TM-BB-03` | `TCI-BB-23` | `TC-BB-23` | `PROC-BB-04` (`test_gor_permata.py`) |
 | `TB-BB-04` | `TM-BB-01` | `TCI-BB-07` | `TC-BB-07` | `PROC-BB-02` (`test_gor_permata.py` & `gor-permata.cy.js`) |
 | `TB-BB-05` | `TM-BB-01`, `TM-BB-02` | `TCI-BB-08..18` | `TC-BB-08..18` | `PROC-BB-03` (`test_gor_permata.py` & `gor-permata.cy.js`) |
 | `TB-BB-06` | `TM-BB-04` | `TCI-BB-20` | `TC-BB-20` | `PROC-BB-04` (`test_gor_permata.py`) |

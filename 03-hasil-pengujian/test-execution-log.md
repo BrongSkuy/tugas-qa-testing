@@ -8,20 +8,20 @@ Dokumen ini merupakan rekaman resmi **Test Execution Process (`8.4`, aktivitas `
 
 | Jenis Suite | Skrip Pelaksana | Timestamp Eksekusi | Ringkasan Hasil | Bukti Log & JSON Mentah |
 | :--- | :--- | :--- | :---: | :--- |
-| **Black Box Testing (`TC-BB-01..22`)** | [`test_gor_permata.py`](./automation-scripts/test_gor_permata.py) | `2026-11-17T22:06:36+07:00` | **`15 / 22 PASS`**, `7 FAIL` *(temuan cacat)*, **`0` Network POST Terkirim** | [`execution-log.txt`](./automation-scripts/execution-log.txt) & [`blackbox-results.json`](./evidence/blackbox-results.json) |
+| **Black Box Testing (`TC-BB-01..23`)** | [`test_gor_permata.py`](./automation-scripts/test_gor_permata.py) | `2026-11-17T22:55:33+07:00` | **`16 / 23 PASS`**, `7 FAIL` *(temuan cacat)*, **`0` Network POST Terkirim** | [`execution-log.txt`](./automation-scripts/execution-log.txt) & [`blackbox-results.json`](./evidence/blackbox-results.json) |
 | **Performance Testing (`TC-PERF-01..10`)** | [`test_performance_gor_permata.py`](./automation-scripts/test_performance_gor_permata.py) | `2026-11-17T22:05:00+07:00` | **`7 / 10 PASS`**, `3 FAIL` *(temuan bottleneck/SLA)*, **`0,0%` HTTP Error** | [`performance-log.txt`](./automation-scripts/performance-log.txt) & [`performance-metrics.json`](./evidence/performance-metrics.json) |
 | **Cypress E2E Suite** | [`gor-permata.cy.js`](./automation-scripts/gor-permata.cy.js) | *Tidak dieksekusi lokal* | **Not Run** *(biner `cypress` belum terpasang; logika dicover penuh di Playwright)* | [`test-environment-dan-data.md`](./test-environment-dan-data.md#2-test-environment-readiness-report-8342-b-c--835-b) |
 
 ---
 
-## 2. Log Hasil Eksekusi Black Box Testing (`TC-BB-01` s.d. `TC-BB-22`)
+## 2. Log Hasil Eksekusi Black Box Testing (`TC-BB-01` s.d. `TC-BB-23`)
 
 | ID TC | Nama Uji | Expected Result | Actual Result Teramati | Status | Ref. Insiden |
 | :--- | :--- | :--- | :--- | :---: | :--- |
 | **`TC-BB-01`** | Rute Publik HTTP 200 | Semua 7 rute publik `HTTP 200 OK` | `/`, `/booking`, `/login`, `/fasilitas/{lapangan,umum,tunggu,parkir}` semua `200`; `0` console error | **PASS** | — |
 | **`TC-BB-02`** | Endpoint `/register` | `HTTP 200 OK` atau redirect aktif | Mengembalikan `HTTP 404 Not Found` (bukti: `04_register_404.png`) | **FAIL** | `IR-GOR-01` |
 | **`TC-BB-03`** | Query `?start_date=2026-11-18` | `jumpDate=2026-11-18`, slot > 0 | `jumpDate=2026-11-18`, ditemukan `407` slot `openBooking()` aktif | **PASS** | — |
-| **`TC-BB-04`** | Query `?start_date=2020-01-01` | `0` slot aktif di masa lalu | Masih merender **`612` slot `openBooking()`** aktif | **FAIL** | `IR-GOR-05` |
+| **`TC-BB-04`** | Query `?start_date=2020-01-01` | `0` slot aktif di masa lalu | Masih merender **`612` slot `openBooking()`** aktif (bukti: `11_past_date_2020_bug.png`) | **FAIL** | `IR-GOR-05` |
 | **`TC-BB-05`** | Query `?start_date=invalid-date` | Fallback aman (`!= 500`) | Server crash **`HTTP 500 Server Error`** (bukti: `05_invalid_date_500.png`) | **FAIL** | `IR-GOR-06` |
 | **`TC-BB-06`** | State Transition Buka Modal | `visible=True`, durasi=`1`, total=`Rp 40.000` | `visible=True`, `durasi=1`, `dispTotal='Rp 40.000'` | **PASS** | — |
 | **`TC-BB-07`** | Kalkulasi Tarif `1..5` Jam | `40.000` s.d. `200.000` | `{'1': 'Rp 40.000', '2': 'Rp 80.000', '3': 'Rp 120.000', '4': 'Rp 160.000', '5': 'Rp 200.000'}` | **PASS** | — |
@@ -40,6 +40,7 @@ Dokumen ini merupakan rekaman resmi **Test Execution Process (`8.4`, aktivitas `
 | **`TC-BB-20`** | Form `/login` (CSRF & HTML5) | `_token` ada, invalid ditolak HTML5 | `hasToken=True`, `emptyValid=False`, `badEmailValid=False`, `missingPassValid=False` | **PASS** | — |
 | **`TC-BB-21`** | Kompatibilitas Mobile `390×844` | Tidak ada overflow/clip navbar, modal muat | `home` & `booking` `scrollWidth=390`, modal muat (`350px`), namun **`clippedNavLinks=[{'text': 'BOOKING', 'right': 489}]`** (bukti: `07_home_mobile.png`) | **FAIL** | `IR-GOR-10` |
 | **`TC-BB-22`** | Privasi DOM Publik (`manageBooking`) | `withPhone=0` di HTML publik | `total_slot_terisi=205`, `withPhone=205`, `withName=205` (tanpa pencatatan PII) | **FAIL** | `IR-GOR-04` |
+| **`TC-BB-23`** | State Transition Slot `RTBC` -> Alert | Slot `RTBC` terkonfirmasi & dialog sesuai | `rtbc_count=114`, label=`'RTBC'`, dialog `'Halo Kak [MEMBER] RTBC, bookingan Anda SUDAH DIKONFIRMASI. Kami tunggu kedatangannya di GOR Permata! 🏸'` (bukti: `09` & `10`) | **PASS** | — |
 
 > **Verifikasi Guardrail Non-Destruktif (`8.4`):** Sebanyak `7` pemanggilan `fetch('/bookings/store')` yang lolos validasi klien berhasil dicegat interceptor di dalam browser (`intercepted_post_attempts_inside_browser = 7`) dengan **`network_posts_sent_to_server = 0`**.
 
@@ -64,7 +65,7 @@ Ringkasan lengkap tersedia pada [`evidence/performance-summary.md`](./evidence/p
 
 ---
 
-## 4. Indeks Bukti Tangkapan Layar (`evidence/screenshots/`)
+## 4. Indeks Bukti Visual Pengujian (`evidence/screenshots/`)
 - [`01_home_desktop.png`](./evidence/screenshots/01_home_desktop.png) — Beranda pada desktop `1280×800`
 - [`02_booking_grid_desktop.png`](./evidence/screenshots/02_booking_grid_desktop.png) — Grid jadwal `/booking` (label slot disamarkan `[TERISI]`)
 - [`03_booking_modal_desktop.png`](./evidence/screenshots/03_booking_modal_desktop.png) — Modal `#bookingModal` pada desktop (`TC-BB-06`)
@@ -73,3 +74,7 @@ Ringkasan lengkap tersedia pada [`evidence/performance-summary.md`](./evidence/p
 - [`06_login_page.png`](./evidence/screenshots/06_login_page.png) — Halaman `/login` admin (`TC-BB-20`)
 - [`07_home_mobile.png`](./evidence/screenshots/07_home_mobile.png) — Bukti pemotongan navbar pada viewport mobile `390×844` (`IR-GOR-10`)
 - [`08_booking_modal_mobile.png`](./evidence/screenshots/08_booking_modal_mobile.png) — Modal `#bookingModal` pada viewport mobile `390×844` (`TC-BB-21`)
+- [`09_slot_confirmed_rtbc.png`](./evidence/screenshots/09_slot_confirmed_rtbc.png) — Grid `/booking` status slot terkonfirmasi `RTBC` (masking `[TERISI]` slot non-RTBC, `TC-BB-23`)
+- [`10_popup_booking_confirmed_rtbc.png`](./evidence/screenshots/10_popup_booking_confirmed_rtbc.png) — Pop-up dialog konfirmasi browser asli *"Halo Kak [MEMBER] RTBC, bookingan Anda SUDAH DIKONFIRMASI..."* (`TC-BB-23`)
+- [`11_past_date_2020_bug.png`](./evidence/screenshots/11_past_date_2020_bug.png) — Bukti defect tanggal masa lalu `?start_date=2020-01-01` masih membuka `612` slot `+` (`IR-GOR-05`)
+- [`12_performance_latency_chart.png`](./evidence/screenshots/12_performance_latency_chart.png) — Grafik perbandingan latensi `p95` beban `1/5/10 VUs` vs batas SLA `3000 ms` (`IR-GOR-07`)

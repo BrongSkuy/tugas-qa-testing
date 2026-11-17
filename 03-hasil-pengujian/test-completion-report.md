@@ -8,7 +8,7 @@ Dokumen ini merupakan **Test Completion Report (`7.4.5`)** yang merangkum penyel
 
 1. **Cakupan Pengujian:** Seluruh alur proses ISO/IEC/IEEE 29119-2:2021 telah dijalankan secara utuh mulai dari *Organizational Test Specification* (`Clause 6`), *Master & Performance Test Planning* (`7.2`), permodelan uji edisi 2021 berbasis *Test Model -> TCI -> Test Case -> Test Procedure* (`8.2`), kesiapan lingkungan & data (`8.3`), eksekusi otomatis nyata (`8.4`), pelaporan insiden (`8.5`), hingga monitoring & penutupan (`7.3–7.4`).
 2. **Hasil Agregat Eksekusi:**
-   - **Black Box Testing (`TC-BB-01..22`):** `22` kasus uji dieksekusi -> **`15 PASS`**, **`7 FAIL`** *(seluruhnya merupakan konfirmasi cacat aktual yang terdokumentasi di `incident-reports.md`)*. `0` error konsol JS, **`0` request `POST /bookings/store` terkirim ke server produksi**.
+   - **Black Box Testing (`TC-BB-01..23`):** `23` kasus uji dieksekusi -> **`16 PASS`**, **`7 FAIL`** *(seluruhnya merupakan konfirmasi cacat aktual yang terdokumentasi di `incident-reports.md`)*. `0` error konsol JS, **`0` request `POST /bookings/store` terkirim ke server produksi**.
    - **Performance Testing (`TC-PERF-01..10`):** `10` kasus uji dieksekusi -> **`7 PASS`**, **`3 FAIL`** *(pelanggaran SLA `10 VUs` pada `/booking` `p95 = 5314,28 ms`, bobot HTML mentah `/booking` `535,37 KB`, dan cold-start TTFB `/` `2618,3 ms`)*. Sebanyak `104` request HTTP `GET` konkuren mencatat **`0,0%` Error Rate**.
    - **Kualitas Produk (`ISO/IEC 25010:2023`):** Pembaruan audit 9 dimensi mutu selesai dengan angka empiris pada [`evaluasi-iso-25010-gor-permata.md`](../01-standar-ieee-iso/evaluasi-iso-25010-gor-permata.md).
 
@@ -18,10 +18,10 @@ Dokumen ini merupakan **Test Completion Report (`7.4.5`)** yang merangkum penyel
 
 | Kriteria Penyelesaian (`Exit Criteria`) | Target | Hasil Terverifikasi | Status |
 | :--- | :---: | :--- | :---: |
-| Cakupan desain & eksekusi `TCI-BB` | `100%` (`22/22`) | `22/22 TCI-BB` tertelusur ke `TC-BB-01..22` & dieksekusi | **TERPENUHI** |
+| Cakupan desain & eksekusi `TCI-BB` | `100%` (`23/23`) | `23/23 TCI-BB` tertelusur ke `TC-BB-01..23` & dieksekusi | **TERPENUHI** |
 | Cakupan desain & eksekusi `TCI-PERF` | `100%` (`10/10`) | `10/10 TCI-PERF` tertelusur ke `TC-PERF-01..10` & dieksekusi | **TERPENUHI** |
 | Keamanan non-destruktif produksi | `0` POST ke server | `network_posts_sent_to_server = 0`; `0%` error load test | **TERPENUHI** |
-| Dokumentasi *Incident Reports* & Bukti | Lengkap & reproducible | `10` insiden (`IR-GOR-01..10`), 8 screenshot, 2 JSON, 2 log TXT | **TERPENUHI** |
+| Dokumentasi *Incident Reports* & Bukti | Lengkap & reproducible | `10` insiden (`IR-GOR-01..10`), 12 bukti visual (`01`–`12`), 2 JSON, 2 log TXT | **TERPENUHI** |
 | Penyelesaian sebelum tahap wawancara (`04/`) | Siap sebelum wawancara | Proyek uji `01`–`03` tuntas sebelum menghubungi praktisi QA | **TERPENUHI** |
 
 ---
@@ -40,7 +40,7 @@ Seluruh aset uji yang dapat digunakan kembali (*reusable*) untuk pengujian regre
 - **Tata Kelola & Rencana:** [`organizational-test-specification.md`](../01-standar-ieee-iso/organizational-test-specification.md), [`test-plan-gor-permata.md`](../02-objek-umkm-dan-rencana-uji/test-plan-gor-permata.md), [`performance-test-plan.md`](../02-objek-umkm-dan-rencana-uji/performance-test-plan.md).
 - **Test Models & Specifications:** [`test-model-blackbox.md`](../02-objek-umkm-dan-rencana-uji/test-model-blackbox.md), [`test-model-performance.md`](../02-objek-umkm-dan-rencana-uji/test-model-performance.md), [`test-case-blackbox.md`](./test-case-blackbox.md), [`test-case-performance.md`](./test-case-performance.md).
 - **Dataset & Skrip Otomasi Reusable:** [`test-data/blackbox-testdata.json`](./test-data/blackbox-testdata.json), [`test-data/performance-profiles.json`](./test-data/performance-profiles.json), [`automation-scripts/test_gor_permata.py`](./automation-scripts/test_gor_permata.py), [`automation-scripts/test_performance_gor_permata.py`](./automation-scripts/test_performance_gor_permata.py), [`automation-scripts/gor-permata.cy.js`](./automation-scripts/gor-permata.cy.js).
-- **Bukti & Laporan:** [`test-execution-log.md`](./test-execution-log.md), [`incident-reports.md`](./incident-reports.md), [`evidence/performance-summary.md`](./evidence/performance-summary.md), [`evidence/performance-metrics.json`](./evidence/performance-metrics.json), [`evidence/blackbox-results.json`](./evidence/blackbox-results.json), dan 8 file screenshot di [`evidence/screenshots/`](./evidence/screenshots/).
+- **Bukti & Laporan:** [`test-execution-log.md`](./test-execution-log.md), [`incident-reports.md`](./incident-reports.md), [`evidence/performance-summary.md`](./evidence/performance-summary.md), [`evidence/performance-metrics.json`](./evidence/performance-metrics.json), [`evidence/blackbox-results.json`](./evidence/blackbox-results.json), dan 12 berkas bukti visual (`01`–`12`) di [`evidence/screenshots/`](./evidence/screenshots/).
 
 ---
 

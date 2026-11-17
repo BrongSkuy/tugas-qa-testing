@@ -1,6 +1,6 @@
 # Audit Kualitas Perangkat Lunak Berbasis ISO/IEC 25010:2023 — GOR Permata Badminton Hall
 
-Dokumen ini memetakan kualitas **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`) menggunakan model mutu terbaru **ISO/IEC 25010:2023** (*Systems and software Quality Requirements and Evaluation / SQuaRE*) dengan 9 karakteristik utama. Hasil berikut menggabungkan observasi pasif awal (14 November 2026) **dan hasil eksekusi aktual Black Box (`22 TC`) serta Performance Testing (`10 TC`) pada 17 November 2026**.
+Dokumen ini memetakan kualitas **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`) menggunakan model mutu terbaru **ISO/IEC 25010:2023** (*Systems and software Quality Requirements and Evaluation / SQuaRE*) dengan 9 karakteristik utama. Hasil berikut menggabungkan observasi pasif awal (14 November 2026) **dan hasil eksekusi aktual Black Box (`23 TC`) serta Performance Testing (`10 TC`) pada 17 November 2026**.
 
 ---
 

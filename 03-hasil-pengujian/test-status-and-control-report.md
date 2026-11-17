@@ -9,8 +9,8 @@ Dokumen ini mengimplementasikan **Test Monitoring and Control Process (`7.3`, ak
 ### 1.1 Metrik Cakupan & Hasil Eksekusi (`TMC1–TMC2`)
 | Dimensi / Paket Uji | Target Cakupan (`TP-GOR-01`) | Realisasi Terukur | Progres |
 | :--- | :--- | :--- | :---: |
-| **Black Box Design (`TCI-BB`)** | `22` *Test Coverage Items* | `22 / 22 TCI-BB` diturunkan menjadi `TC-BB-01..22` | **100%** |
-| **Black Box Execution (`TC-BB`)** | `22` *Test Cases* non-destruktif | **`22 / 22` dieksekusi** (`15 PASS`, `7 FAIL` konfirmasi defect, `0` console error) | **100%** |
+| **Black Box Design (`TCI-BB`)** | `23` *Test Coverage Items* | `23 / 23 TCI-BB` diturunkan menjadi `TC-BB-01..23` | **100%** |
+| **Black Box Execution (`TC-BB`)** | `23` *Test Cases* non-destruktif | **`23 / 23` dieksekusi** (`16 PASS`, `7 FAIL` konfirmasi defect, `0` console error) | **100%** |
 | **Performance Design (`TCI-PERF`)** | `10` *Test Coverage Items* | `10 / 10 TCI-PERF` diturunkan menjadi `TC-PERF-01..10` | **100%** |
 | **Performance Execution (`TC-PERF`)** | `10` *Test Cases* (`Web Vitals` + `1/5/10 VUs`) | **`10 / 10` dieksekusi** (`7 PASS`, `3 FAIL` pelanggaran SLA/payload, `0,0%` HTTP error pada `104` request) | **100%** |
 | **Guardrail Non-Destruktif** | `0` request `POST /bookings/store` ke server | `7` percobaan `fetch` validasi dicegat lokal; **`network_posts_sent_to_server = 0`** | **100% Aman** |

@@ -1,7 +1,7 @@
 """
 Automation Test Script (Playwright Python) - Black Box Suite (ISO/IEC/IEEE 29119-2:2021)
 Objek: Portal Booking GOR Permata Badminton Hall (https://gorpermatabadminton.com)
-Cakupan: TC-BB-01 s.d. TC-BB-22 (EP, BVA, Decision Table, State Transition, Use Case, Compatibility)
+Cakupan: TC-BB-01 s.d. TC-BB-23 (EP, BVA, Decision Table, State Transition, Use Case, Compatibility)
 Guardrail: Non-destruktif - memblokir POST **/bookings/store di level browser interceptor.
 """
 from __future__ import annotations
@@ -68,14 +68,27 @@ def ensure_modal_open(page, slot_locator) -> None:
         page.locator("#bookingModal").wait_for(state="visible", timeout=5000)
 
 
-def mask_grid_pii(page) -> None:
+def assert_not_antibot(page) -> None:
+    """Hentikan segera jika halaman menampilkan tantangan anti-bot agar tidak menunggu/melewati proteksi."""
+    title = page.title()
+    if "Checking your browser" in title or "Just a moment" in title or "Permata" not in title:
+        raise RuntimeError(f"Blocked by anti-bot or unexpected page title: {title!r}")
+
+
+def mask_grid_pii(page, keep_rtbc: bool = False) -> None:
     """Samarkan teks nama pelanggan pada grid publik sebelum mengambil screenshot bukti."""
     page.evaluate(
-        """() => {
+        """(keepRtbc) => {
             document.querySelectorAll('[onclick*="manageBooking"] span').forEach(el => {
+                const slot = el.closest('[onclick*="manageBooking"]');
+                const name = slot ? (slot.dataset.name || '') : '';
+                if (keepRtbc && name.includes('RTBC')) {
+                    return;
+                }
                 el.textContent = '[TERISI]';
             });
-        }"""
+        }""",
+        keep_rtbc,
     )
 
 
@@ -161,7 +174,10 @@ def run() -> None:
 
         # 4. TC-BB-04: Query ?start_date=2020-01-01 (tanggal lampau)
         page.goto(f"{base_url}/booking?start_date={past_date}", wait_until="domcontentloaded")
+        assert_not_antibot(page)
         past_slots = page.locator('[onclick*="openBooking("]').count()
+        mask_grid_pii(page)
+        page.screenshot(path=str(SCREENSHOT_DIR / "11_past_date_2020_bug.png"), full_page=False)
         record(
             "TC-BB-04",
             "BVA/EP Query start_date Tanggal Masa Lalu (2020-01-01)",
@@ -477,6 +493,47 @@ def run() -> None:
             login_ok,
             "hasToken=True, empty/badEmail/missingPass checkValidity=False",
             str(login_check),
+        )
+
+        # 23. TC-BB-23: State Transition Slot Confirmed (RTBC) -> manageBooking() Alert Dialog
+        page.goto(f"{base_url}/booking", wait_until="domcontentloaded")
+        assert_not_antibot(page)
+        rtbc_slots = page.locator('[data-status="confirmed"][data-name*="RTBC"]')
+        if rtbc_slots.count() == 0:
+            page.goto(target_booking, wait_until="domcontentloaded")
+            assert_not_antibot(page)
+            rtbc_slots = page.locator('[data-status="confirmed"][data-name*="RTBC"]')
+
+        rtbc_count = rtbc_slots.count()
+        rtbc_dialog_msg = ""
+        rtbc_label_text = ""
+        if rtbc_count > 0:
+            mask_grid_pii(page, keep_rtbc=True)
+            first_rtbc = rtbc_slots.first
+            first_rtbc.scroll_into_view_if_needed()
+            page.wait_for_timeout(200)
+            rtbc_label_text = first_rtbc.inner_text().strip()
+            page.screenshot(path=str(SCREENSHOT_DIR / "09_slot_confirmed_rtbc.png"), full_page=False)
+
+            before_dlg = len(dialogs)
+            first_rtbc.click()
+            deadline = time.perf_counter() + 4.0
+            while len(dialogs) == before_dlg and time.perf_counter() < deadline:
+                page.wait_for_timeout(50)
+            rtbc_dialog_msg = dialogs[-1] if len(dialogs) > before_dlg else ""
+
+        rtbc_ok = (
+            rtbc_count > 0
+            and "RTBC" in rtbc_label_text
+            and "SUDAH DIKONFIRMASI" in rtbc_dialog_msg
+            and "RTBC" in rtbc_dialog_msg
+        )
+        record(
+            "TC-BB-23",
+            "State Transition Slot Terkonfirmasi RTBC -> Alert manageBooking()",
+            rtbc_ok,
+            "Slot RTBC ditemukan & alert berisi 'SUDAH DIKONFIRMASI' + 'RTBC'",
+            f"rtbc_count={rtbc_count}, label={rtbc_label_text!r}, dialog={rtbc_dialog_msg!r}",
         )
         context.close()
 

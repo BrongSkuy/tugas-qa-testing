@@ -43,7 +43,7 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 | 4 | Finalisasi objek UMKM terpilih di repo: **Portal Booking GOR Permata Badminton Hall** ([`kandidat-objek-pengujian.md`](./02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md)). | Tim Riset Objek | ✅ Selesai |
 | 5 | Menyusun dokumentasi standar QA & Testing IEEE/ISO lengkap ([`01-standar-ieee-iso/`](./01-standar-ieee-iso/): *Organizational Test Spec*, `29119-2:2021`, audit `ISO 25010:2023`, 3 PDF standar) & 7 PDF jurnal **SINTA 2–3** ([`pdf-jurnal/`](./02-objek-umkm-dan-rencana-uji/pdf-jurnal/)). | Tim Dokumentasi & Riset | ✅ Selesai |
 | 6 | Memfinalkan *Master Test Plan* (`TP-GOR-01`), *Performance Test Plan* (`TP-GOR-PERF-01`), *Test Model Specifications* & *TCI* (Black Box + Performance), serta *White/Gray Box CFG* di [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/). | Tim QA & Riset | ✅ Selesai |
-| 7 | Menjalankan pengujian aktual Black Box (`22 TC`: `15 PASS`, `7` temuan cacat) & Performance (`10 TC`: `7 PASS`, `3` temuan SLA/payload) beserta *Environment/Data Readiness*, *Execution Log*, *Incident Reports* (`IR-GOR-01..10`), *Status/Control Report*, *Test Completion Report*, bukti screenshot/JSON ([`03-hasil-pengujian/`](./03-hasil-pengujian/)), serta menyimpan **Laporan Resmi Word & PDF** di [`05-dokumentasi-laporan/`](./05-dokumentasi-laporan/). | Tim Penguji | ✅ Selesai |
+| 7 | Menjalankan pengujian aktual Black Box (`23 TC`: `16 PASS`, `7` temuan cacat) & Performance (`10 TC`: `7 PASS`, `3` temuan SLA/payload) beserta *Environment/Data Readiness*, *Execution Log*, *Incident Reports* (`IR-GOR-01..10`), *Status/Control Report*, *Test Completion Report*, bukti `12` gambar/grafik & JSON ([`03-hasil-pengujian/`](./03-hasil-pengujian/)), serta menyimpan **Laporan Resmi Word & PDF** di [`05-dokumentasi-laporan/`](./05-dokumentasi-laporan/). | Tim Penguji | ✅ Selesai |
 | 8 | Menghubungi & mewawancarai 1 praktisi QA / Software Tester **SETELAH** *project* GOR Permata selesai ([`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/), arahan dosen 14 Nov 2026). | Tim Wawancara | ⬜ Siap Dilaksanakan |
 
 ---
@@ -59,7 +59,7 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 - [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/) — **Layer Perencanaan (`7.2`) & Permodelan Uji (`8.2 TD1–TD2`):**
   - [`test-plan-gor-permata.md`](./02-objek-umkm-dan-rencana-uji/test-plan-gor-permata.md) — *Master Test Plan* (`TP-GOR-01`: konteks, *Test Basis*, risiko *Project vs Product*, strategi, jadwal, persetujuan)
   - [`performance-test-plan.md`](./02-objek-umkm-dan-rencana-uji/performance-test-plan.md) — *Performance Test Plan* (`TP-GOR-PERF-01`: *Web Vitals*, *Workload `1/5/10 VUs`*, SLA, *Circuit Breaker*)
-  - [`test-model-blackbox.md`](./02-objek-umkm-dan-rencana-uji/test-model-blackbox.md) — *Test Basis* (`TB-BB-*`), *Test Models* (`TM-BB-01..05`), & *Test Coverage Items* (`TCI-BB-01..22`)
+  - [`test-model-blackbox.md`](./02-objek-umkm-dan-rencana-uji/test-model-blackbox.md) — *Test Basis* (`TB-BB-*`), *Test Models* (`TM-BB-01..05`), & *Test Coverage Items* (`TCI-BB-01..23`)
   - [`test-model-performance.md`](./02-objek-umkm-dan-rencana-uji/test-model-performance.md) — *Test Basis* (`TB-PERF-*`), *Workload/CWV Models* (`TM-PERF-01..03`), & `TCI-PERF-01..10`
   - [`analisis-white-black-gray-box.md`](./02-objek-umkm-dan-rencana-uji/analisis-white-black-gray-box.md) — *CFG* & $V(G)$ *White Box* serta analisis *Gray Box*
   - [`kandidat-objek-pengujian.md`](./02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md), [`referensi-sinta-1-3.md`](./02-objek-umkm-dan-rencana-uji/referensi-sinta-1-3.md), & [`pdf-jurnal/`](./02-objek-umkm-dan-rencana-uji/pdf-jurnal/)
@@ -76,15 +76,15 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 - [`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/) — Panduan wawancara praktisi QA *(siap dijalankan setelah fase `01`–`03` tuntas)*
 - [`05-dokumentasi-laporan/`](./05-dokumentasi-laporan/) — **Arsip Dokumen Resmi Format Word (`.docx`) & PDF (`.pdf`):**
   - [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx`](./05-dokumentasi-laporan/Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx) — Laporan hasil pengujian lengkap format Microsoft Word
-  - [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf`](./05-dokumentasi-laporan/Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf) — Laporan hasil pengujian lengkap format PDF (`10` halaman, termasuk 8 screenshot bukti)
+  - [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf`](./05-dokumentasi-laporan/Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf) — Laporan hasil pengujian lengkap format PDF (`10` halaman, termasuk `12` bukti visual `01`–`12`)
 
 ---
 
 ## Menjalankan Skrip Pengujian & Generator Laporan Secara Lokal
-Pastikan Python (`>= 3.9`), `playwright`, `aiohttp`, dan `python-docx` terpasang (`pip install playwright aiohttp python-docx && playwright install chromium`), lalu jalankan dari *root* repositori:
+Pastikan Python (`>= 3.9`), `playwright`, `aiohttp`, `python-docx`, dan `Pillow` terpasang (`pip install playwright aiohttp python-docx pillow && playwright install chromium`), lalu jalankan dari *root* repositori:
 
 ```bash
-# 1. Suite Black Box Testing (22 TC, non-destruktif)
+# 1. Suite Black Box Testing (23 TC, non-destruktif)
 python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
 
 # 2. Suite Performance Testing (10 TC: Web Vitals + Concurrent GET 1/5/10 VUs)

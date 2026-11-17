@@ -23,6 +23,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement, parse_xml
 from docx.oxml.ns import nsdecls, qn
 from docx.shared import Cm, Pt, RGBColor
+from PIL import Image, ImageDraw, ImageFont
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
@@ -409,16 +410,126 @@ def add_title_banner(doc: Document, bb_ts: str, perf_ts: str) -> None:
     sp2.paragraph_format.space_after = Pt(3)
 
 
+def _load_font(size: int, bold: bool = False) -> ImageFont.ImageFont:
+    candidates = (
+        [r"C:\Windows\Fonts\calibrib.ttf", r"C:\Windows\Fonts\arialbd.ttf"]
+        if bold
+        else [r"C:\Windows\Fonts\calibri.ttf", r"C:\Windows\Fonts\arial.ttf"]
+    )
+    for fp in candidates:
+        if Path(fp).exists():
+            return ImageFont.truetype(fp, size)
+    return ImageFont.load_default()
+
+
+def render_performance_chart(perf: dict, out_path: Path) -> None:
+    """Bangkitkan grafik batang latensi p95 (1/5/10 VUs) vs SLA langsung dari performance-metrics.json."""
+    w, h = 1400, 760
+    img = Image.new("RGB", (w, h), (255, 255, 255))
+    draw = ImageDraw.Draw(img)
+
+    f_title = _load_font(28, bold=True)
+    f_sub = _load_font(18, bold=False)
+    f_axis = _load_font(17, bold=True)
+    f_tick = _load_font(16, bold=False)
+    f_val = _load_font(16, bold=True)
+    f_leg = _load_font(18, bold=True)
+
+    # Header band
+    draw.rectangle([(0, 0), (w, 96)], fill=(27, 54, 93))
+    draw.text((40, 22), "Benchmark Konkurensi HTTP GET (1, 5, & 10 VUs) — Latensi p95 vs SLA", fill=(255, 255, 255), font=f_title)
+    draw.text(
+        (40, 58),
+        "Target: https://gorpermatabadminton.com  |  104 Request Total  |  Error Rate: 0,0%  |  Sumber: performance-metrics.json",
+        fill=(203, 213, 224),
+        font=f_sub,
+    )
+
+    # Plot region
+    left, top, right, bottom = 120, 165, 1330, 620
+    y_max = 6000.0
+
+    def y_px(val: float) -> int:
+        return int(bottom - (val / y_max) * (bottom - top))
+
+    # Horizontal gridlines
+    for tick in range(0, 6001, 1000):
+        yp = y_px(tick)
+        draw.line([(left, yp), (right, yp)], fill=(226, 232, 240), width=1)
+        draw.text((left - 14, yp), f"{tick:,}".replace(",", "."), fill=(74, 85, 104), font=f_tick, anchor="rm")
+    draw.line([(left, top), (left, bottom), (right, bottom)], fill=(100, 116, 139), width=2)
+    draw.text((left - 14, top - 22), "Latensi p95 (ms)", fill=(27, 54, 93), font=f_axis, anchor="lb")
+
+    # Threshold SLA dashed lines
+    for threshold, label_txt, col in [
+        (3000.0, "SLA /booking (3.000 ms)", (185, 28, 28)),
+        (1500.0, "SLA Rute Default (1.500 ms)", (217, 119, 6)),
+    ]:
+        yt = y_px(threshold)
+        for x0 in range(left, right, 22):
+            draw.line([(x0, yt), (min(x0 + 12, right), yt)], fill=col, width=3)
+        draw.text((right - 6, yt - 8), label_txt, fill=col, font=f_val, anchor="rb")
+
+    tiers = perf["http_concurrency"]["tiers"]
+    routes_meta = [
+        ("/", "Beranda (/)", (59, 130, 246)),
+        ("/booking", "Jadwal (/booking)", (220, 38, 38)),
+        ("/login", "Login (/login)", (22, 163, 74)),
+        ("/fasilitas/lapangan", "Fasilitas", (124, 58, 237)),
+    ]
+
+    group_w = (right - left) / len(tiers)
+    bar_w = 52
+    gap = 16
+
+    for g_idx, tier in enumerate(tiers):
+        cx = left + group_w * (g_idx + 0.5)
+        draw.text((cx, bottom + 22), f"Level {chr(65+g_idx)}: {tier['vus']} VU ({tier['rps']} req/s)", fill=(27, 54, 93), font=f_axis, anchor="mt")
+        total_w = len(routes_meta) * bar_w + (len(routes_meta) - 1) * gap
+        x_start = cx - total_w / 2
+
+        for r_idx, (r_key, _, col) in enumerate(routes_meta):
+            matched_key = next(k for k in tier["per_route"] if (k == r_key or (r_key == "/booking" and k.startswith("/booking"))))
+            p95_val = float(tier["per_route"][matched_key]["p95_ms"])
+            x1 = int(x_start + r_idx * (bar_w + gap))
+            x2 = x1 + bar_w
+            y1 = y_px(p95_val)
+            draw.rectangle([(x1, y1), (x2, bottom)], fill=col)
+
+            # Highlight SLA violation in bold red on top
+            txt_col = (185, 28, 28) if (r_key == "/booking" and p95_val > 3000) else (30, 41, 59)
+            draw.text(((x1 + x2) // 2, y1 - 8), f"{p95_val:.0f}", fill=txt_col, font=f_val, anchor="mb")
+
+    # Callout badge on IR-GOR-07
+    draw.rounded_rectangle([(880, 118), (1325, 160)], radius=8, fill=(254, 242, 242), outline=(185, 28, 28), width=2)
+    draw.text((1102, 139), "IR-GOR-07: 10 VUs /booking p95 = 5.314 ms (5,14x)", fill=(185, 28, 28), font=f_val, anchor="mm")
+
+    # Legend at bottom
+    lx = 260
+    ly = 695
+    for _, r_label, col in routes_meta:
+        draw.rectangle([(lx, ly - 10), (lx + 24, ly + 10)], fill=col)
+        draw.text((lx + 34, ly), r_label, fill=(30, 41, 59), font=f_leg, anchor="lm")
+        lx += 245
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    img.save(str(out_path), format="PNG", optimize=True)
+
+
 def add_screenshot_gallery(doc: Document) -> None:
     items = [
         ("01_home_desktop.png", "Gambar 1. Beranda Portal (Desktop 1280x800, TC-BB-01 / TC-PERF-01)", 8.0),
-        ("02_booking_grid_desktop.png", "Gambar 2. Grid Jadwal /booking (Label Pelanggan Dimasking [TERISI], TC-BB-03)", 8.0),
+        ("02_booking_grid_desktop.png", "Gambar 2. Grid Jadwal /booking (Pelanggan Dimasking [TERISI], TC-BB-03)", 8.0),
         ("03_booking_modal_desktop.png", "Gambar 3. Modal #bookingModal Desktop (TC-BB-06)", 5.6),
         ("06_login_page.png", "Gambar 4. Halaman Admin Login /login & Token CSRF (TC-BB-20)", 8.0),
         ("04_register_404.png", "Gambar 5. Bukti Insiden IR-GOR-01: Endpoint /register HTTP 404 (TC-BB-02)", 8.0),
         ("05_invalid_date_500.png", "Gambar 6. Bukti Insiden IR-GOR-06: ?start_date=invalid-date HTTP 500 (TC-BB-05)", 8.0),
         ("07_home_mobile.png", "Gambar 7. Bukti Insiden IR-GOR-10: Navbar Mobile 390x844 Terpotong (TC-BB-21)", 4.6),
         ("08_booking_modal_mobile.png", "Gambar 8. Modal #bookingModal pada Viewport Mobile 390x844 (TC-BB-21)", 4.6),
+        ("09_slot_confirmed_rtbc.png", "Gambar 9. Grid /booking Slot Terkonfirmasi Biru 'RTBC' (Masking [TERISI], TC-BB-23)", 8.0),
+        ("10_popup_booking_confirmed_rtbc.png", "Gambar 10. Pop-Up Konfirmasi Asli Klik Slot 'RTBC' — SUDAH DIKONFIRMASI (TC-BB-23)", 8.0),
+        ("11_past_date_2020_bug.png", "Gambar 11. Bukti Insiden IR-GOR-05: Query 2020-01-01 Membuka 612 Slot + (TC-BB-04)", 8.0),
+        ("12_performance_latency_chart.png", "Gambar 12. Grafik Bukti Insiden IR-GOR-07: Latensi p95 1/5/10 VUs vs SLA (TC-PERF-10)", 8.0),
     ]
 
     for i in range(0, len(items), 2):
@@ -463,6 +574,7 @@ def add_screenshot_gallery(doc: Document) -> None:
 def build_report() -> tuple[Path, Path]:
     bb = json.loads(BB_JSON_PATH.read_text(encoding="utf-8"))
     perf = json.loads(PERF_JSON_PATH.read_text(encoding="utf-8"))
+    render_performance_chart(perf, SCREENSHOT_DIR / "12_performance_latency_chart.png")
 
     doc = Document()
     configure_styles(doc)
@@ -559,7 +671,12 @@ def build_report() -> tuple[Path, Path]:
     )
 
     # BAB IV
-    add_section_heading(doc, "IV.", "Hasil Eksekusi Black Box Testing (Clause 8.2 & 8.4 — 22 Test Cases)", page_break_before=True)
+    add_section_heading(
+        doc,
+        "IV.",
+        f"Hasil Eksekusi Black Box Testing (Clause 8.2 & 8.4 — {bb['total_cases']} Test Cases)",
+        page_break_before=True,
+    )
     p_bb = doc.add_paragraph(
         f"Eksekusi penuh dijalankan melalui test_gor_permata.py pada {bb['timestamp']} dengan hasil "
         f"{bb['passed']}/{bb['total_cases']} PASS dan {bb['failed_or_defect_repro']} FAIL (temuan cacat nyata). "
@@ -694,7 +811,7 @@ def build_report() -> tuple[Path, Path]:
         font_size=8.2,
     )
 
-    add_sub_heading(doc, "6.1 Galeri Bukti Tangkapan Layar Pengujian (8 Bukti Terverifikasi)")
+    add_sub_heading(doc, "6.1 Galeri Bukti Visual Pengujian (12 Bukti Terverifikasi: Screenshot & Grafik Beban)")
     add_screenshot_gallery(doc)
 
     # BAB VII
@@ -729,8 +846,8 @@ def build_report() -> tuple[Path, Path]:
     add_bullet(
         doc,
         "Evaluasi Completion Criteria & Cleanup (TC1–TC4): ",
-        "100% TCI Black Box (22/22) dan Performance (10/10) telah dieksekusi dengan 0 request POST terkirim ke produksi; "
-        "seluruh sesi Playwright/aiohttp telah ditutup bersih; seluruh aset uji (skrip, dataset JSON, bukti, & dokumen ISO) diarsipkan pada GitHub main.",
+        f"100% TCI Black Box ({bb['total_cases']}/{bb['total_cases']}) dan Performance ({len(perf['test_cases'])}/{len(perf['test_cases'])}) telah dieksekusi dengan {bb['network_posts_sent_to_server']} request POST terkirim ke produksi; "
+        "seluruh sesi Playwright/aiohttp telah ditutup bersih; seluruh aset uji (skrip, dataset JSON, 12 bukti visual, & dokumen ISO) diarsipkan pada GitHub main.",
     )
     add_bullet(
         doc,

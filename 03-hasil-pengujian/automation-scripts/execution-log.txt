@@ -1,4 +1,4 @@
-=== EXECUTION START: 2026-11-17T22:06:36+07:00 | TARGET: https://gorpermatabadminton.com ===
+=== EXECUTION START: 2026-11-17T22:55:33+07:00 | TARGET: https://gorpermatabadminton.com ===
 [PASS] TC-BB-01 - Rute Publik HTTP 200: expected=All 200 OK | actual={'/': 200, '/booking': 200, '/login': 200, '/fasilitas/lapangan': 200, '/fasilitas/umum': 200, '/fasilitas/tunggu': 200, '/fasilitas/parkir': 200}
 [FAIL] TC-BB-02 - Verifikasi Endpoint /register (Defect Check IR-GOR-01): expected=HTTP 200 OK atau redirect aktif | actual=HTTP 404 (Insiden IR-GOR-01 / BUG-GOR-01 terkonfirmasi)
 [FAIL] TC-BB-05 - EP Query start_date Format Tidak Valid (Deteksi HTTP 500): expected=HTTP 400/422/302 fallback aman (!= 500) | actual=HTTP 500 (Insiden IR-GOR-06)
@@ -20,5 +20,6 @@
 [PASS] TC-BB-17 - BVA Jam Tutup 00:00 (22:00 + 3 Jam = 25 > 24 -> Ditolak): expected=Alert tutup jam 00:00, delta_post=0 | actual=alert='🚨 GAGAL! GOR Permata tutup jam 00:00. Durasi main melebihi jam operasional.', delta_post=0
 [PASS] TC-BB-18 - BVA Jam Tutup 00:00 (22:00 + 2 Jam = 24 <= 24 -> Batas Valid): expected=Lolos validasi tutup jam 00:00, dicegat interceptor (delta_post=1) | actual=alert='🚨 Terjadi kesalahan koneksi!', delta_post=1
 [PASS] TC-BB-20 - Black Box Form /login (CSRF _token & Validasi HTML5 Klien): expected=hasToken=True, empty/badEmail/missingPass checkValidity=False | actual={'ok': True, 'hasToken': True, 'emptyValid': False, 'badEmailValid': False, 'missingPassValid': False}
+[PASS] TC-BB-23 - State Transition Slot Terkonfirmasi RTBC -> Alert manageBooking(): expected=Slot RTBC ditemukan & alert berisi 'SUDAH DIKONFIRMASI' + 'RTBC' | actual=rtbc_count=114, label='RTBC', dialog='Halo Kak [MEMBER] RTBC, bookingan Anda SUDAH DIKONFIRMASI. Kami tunggu kedatangannya di GOR Permata! 🏸'
 [FAIL] TC-BB-21 - Kompatibilitas Mobile 390x844 (Overflow, Navbar Clip, & Modal Fit): expected=home & booking scrollWidth<=innerWidth, clippedNavLinks=0, modal fits mobile viewport | actual=home={'sw': 390, 'iw': 390, 'clippedNavLinks': [{'text': 'BOOKING', 'right': 489}]}, booking={'sw': 390, 'iw': 390}, modal={'visible': True, 'fitsViewport': True, 'width': 350, 'innerWidth': 390}
-=== SUMMARY: 15/22 PASS | Defect/Anomaly=7 | Intercepted_POST_In_Browser=7 | Network_POST_Sent=0 ===
+=== SUMMARY: 16/23 PASS | Defect/Anomaly=7 | Intercepted_POST_In_Browser=7 | Network_POST_Sent=0 ===
