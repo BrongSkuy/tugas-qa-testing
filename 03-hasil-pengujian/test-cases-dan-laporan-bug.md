@@ -16,6 +16,7 @@ Dokumen ini menjadi ringkasan indeks untuk folder `03-hasil-pengujian/` agar kom
 | **Status & Control Report (`7.3`)** | [`test-status-and-control-report.md`](./test-status-and-control-report.md) | Progres cakupan `100%` TCI, 4 *Control Directives* (`CD-01..04`), pembaruan *Risk Register*, & persetujuan *Exit Criteria*. |
 | **Test Completion Report (`7.4`)** | [`test-completion-report.md`](./test-completion-report.md) | Ringkasan penutupan uji, evaluasi *Completion Criteria*, daftar aset terarsip, pembersihan environment, & *Lessons Learned*. |
 | **Automation & Evidence** | [`automation-scripts/`](./automation-scripts/) & [`evidence/`](./evidence/) | Skrip `test_gor_permata.py`, `test_performance_gor_permata.py`, `gor-permata.cy.js`, log TXT, metrik JSON, `performance-summary.md`, & 8 screenshot bukti. |
+| **Laporan Resmi (Word & PDF)** | [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx`](./Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx) & [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf`](./Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf) | Dokumen laporan lengkap `10` halaman berstandar ISO/IEC/IEEE 29119-2:2021 (dibangkitkan via [`generate_laporan_pengujian.py`](./generate_laporan_pengujian.py)) beserta galeri 8 screenshot bukti. |
 
 ---
 

@@ -71,6 +71,7 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
   - [`test-status-and-control-report.md`](./03-hasil-pengujian/test-status-and-control-report.md) — Laporan pemantauan, *Control Directives*, & pembaruan risiko (`TMC1–TMC4`)
   - [`test-completion-report.md`](./03-hasil-pengujian/test-completion-report.md) — Laporan penutupan uji, aset terarsip, pembersihan lingkungan, & *Lessons Learned* (`TC1–TC4`)
   - [`test-cases-dan-laporan-bug.md`](./03-hasil-pengujian/test-cases-dan-laporan-bug.md) — Ringkasan eksekutif indeks hasil uji
+  - [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx`](./03-hasil-pengujian/Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.docx) & [`Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf`](./03-hasil-pengujian/Laporan_Hasil_Pengujian_GOR_Permata_ISO29119.pdf) — Laporan resmi gabungan Word & PDF (`10` halaman, dibangkitkan via [`generate_laporan_pengujian.py`](./03-hasil-pengujian/generate_laporan_pengujian.py))
   - [`automation-scripts/`](./03-hasil-pengujian/automation-scripts/) & [`evidence/`](./03-hasil-pengujian/evidence/) — Skrip Playwright & `aiohttp`, Cypress, log TXT, metrik JSON, & screenshot bukti
 - [`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/) — Panduan wawancara praktisi QA *(siap dijalankan setelah fase `01`–`03` tuntas)*
 
