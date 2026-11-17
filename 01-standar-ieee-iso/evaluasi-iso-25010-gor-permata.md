@@ -1,41 +1,38 @@
 # Audit Kualitas Perangkat Lunak Berbasis ISO/IEC 25010:2023 — GOR Permata Badminton Hall
 
-Dokumen ini memetakan kualitas **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`) menggunakan model mutu terbaru **ISO/IEC 25010:2023** (*Systems and software Quality Requirements and Evaluation / SQuaRE*), yang memperluas model 2011 menjadi **9 karakteristik utama** (*Functional Suitability, Performance Efficiency, Compatibility, Interaction Capability, Reliability, Security, Maintainability, Flexibility,* dan *Safety*).
-
-> **Catatan Metodologi:** Seluruh temuan berasal dari observasi langsung, pengujian *HTTP GET* pasif, pembacaan respons *header* server (`hcdn`), serta analisis skrip JavaScript sisi klien pada `/booking` tanggal **14 November 2026** tanpa mengirim transaksi palsu ke basis data UMKM.
+Dokumen ini memetakan kualitas **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`) menggunakan model mutu terbaru **ISO/IEC 25010:2023** (*Systems and software Quality Requirements and Evaluation / SQuaRE*) dengan 9 karakteristik utama. Hasil berikut menggabungkan observasi pasif awal (14 November 2026) **dan hasil eksekusi aktual Black Box (`22 TC`) serta Performance Testing (`10 TC`) pada 17 November 2026**.
 
 ---
 
 ## 1. Matriks Evaluasi 9 Karakteristik ISO/IEC 25010:2023
 
-| No | Karakteristik (2023) | Sub-Karakteristik Relevan | Hasil Observasi Aktual pada Portal GOR Permata | Status Penilaian |
+| No | Karakteristik (2023) | Sub-Karakteristik Relevan | Hasil Observasi & Pengujian Terukur (17 Nov 2026) | Status Penilaian |
 | :-: | :--- | :--- | :--- | :---: |
-| 1 | **Functional Suitability** | *Functional completeness, Functional correctness, Functional appropriateness* | Rute inti (`/`, `/booking`, `/login`, `/fasilitas/*`) merespons `HTTP 200 OK` dan kalkulasi tarif `updateTotal()` (`Rp 40.000`/jam) tepat. Namun endpoint `/register` mengembalikan **`HTTP 404 Not Found`** (`BUG-GOR-01`) dan `normPhone()` gagal menormalisasi format nomor `+62 08...` (`BUG-GOR-02`). | **Cukup — Ada Defect** |
-| 2 | **Performance Efficiency** | *Time behaviour, Resource utilization, Capacity* | Waktu muat HTML langsung relatif cepat: `/` (`0,34s`, `37.947` karakter), `/login` (`0,25s`, `13.145` karakter), `/booking` (`1,36s`, `570.436` karakter). Ukuran HTML halaman `/booking` cukup besar karena seluruh grid jadwal mingguan & skrip dirender sekaligus. | **Baik *(Catatan Ukuran `/booking`)*** |
-| 3 | **Compatibility** | *Co-existence, Interoperability* | Aplikasi mengarahkan konfirmasi pemesanan ke tautan WhatsApp (`data.wa_link`) melalui peramban standar. Pengujian lintas ukuran layar (*desktop vs mobile*) dan peramban tambahan dijadwalkan lengkap pada Tahap 2. | **Dalam Pengujian Lanjut** |
-| 4 | **Interaction Capability** *(pengganti Usability pada edisi 2023)* | *Appropriateness recognizability, Learnability, Operability, User error protection, User engagement, Inclusivity, User assistance, Self-descriptiveness* | Alur pilih tanggal (`#jumpDate`), pilih slot grid, serta buka/tutup modal `#bookingModal` mudah dipahami. Celah pada **User error protection**: input `#custName` menerima spasi `"   "` atau 1 karakter karena tidak ada `.trim()` maupun batas panjang minimal (`BUG-GOR-03`), dan pesan error WA belum menjelaskan kegagalan awalan `+62 08...`. | **Cukup — Perlu Perbaikan Validasi** |
-| 5 | **Reliability** | *Maturity, Availability, Fault tolerance, Recoverability* | Seluruh rute layanan utama aktif. Pada `submitBooking()`, tombol `#btnSubmit` langsung di-nonaktifkan (`btn.disabled = true`) saat pengiriman untuk mencegah *double submit*, dan blok `.catch(...)` menampilkan pesan gangguan jaringan jika koneksi terputus. | **Baik** |
-| 6 | **Security** | *Confidentiality, Integrity, Non-repudiation, Accountability, Authenticity, Resistance* | Pengambilan *HTTP response headers* pada `/`, `/booking`, dan `/login` mendapati header `Content-Security-Policy: upgrade-insecure-requests` terpasang, namun **4 header keamanan web penting belum aktif (*MISSING*)**: `Strict-Transport-Security`, `X-Frame-Options`, `X-Content-Type-Options`, dan `Referrer-Policy`. Selain itu, skrip manajemen internal (`manageBooking()`, pesan `"Hubungi Koko atau Aan."`, dan endpoint `/bookings/confirm\|reject\|delete`) ikut dimuat pada halaman pengunjung publik (`BUG-GOR-04`), meski otorisasi akhir berada di server dan pengiriman dilindungi `X-CSRF-TOKEN`. | **Perlu Peningkatan Header & Pemisahan Skrip** |
-| 7 | **Maintainability** | *Modularity, Reusability, Analysability, Modifiability, Testability* | Kode CSS/JS interaksi (`/booking`) sepanjang `7.456` karakter disematkan langsung (*inline script*) di dalam file HTML alih-alih dipecah ke modul terpisah, sehingga kurang modular jika aplikasi membesar (*namun mempermudah inspeksi White Box mahasiswa*). | **Cukup** |
-| 8 | **Flexibility** *(pengganti Portability pada edisi 2023)* | *Adaptability, Installability, Replaceability, Scalability* | Berbasis web standar di balik server/CDN `hcdn`, dapat diakses lintas sistem operasi tanpa instalasi aplikasi klien; aspek *scalability* infrastruktur server berada di luar ruang lingkup uji publik. | **Memadai *(Scope Terbatas)*** |
-| 9 | **Safety** *(Karakteristik Baru Edisi 2023)* | *Operational constraints, Risk identification, Fail-safe, Hazard warning, Safe integration* | Pada konteks operasional bisnis UMKM, portal menerapkan **Operational constraints** & **Hazard warning** di fungsi `submitBooking()` dengan memeriksa `if (startHour + duration > 24)` sehingga pemesanan melewati jam tutup `00:00` ditolak di klien sebelum menyentuh jadwal produksi. | **Diterapkan pada Aturan Jam Tutup** |
+| 1 | **Functional Suitability** | *Functional completeness, correctness, appropriateness* | 7 rute publik utama aktif `HTTP 200 OK`, tarif `updateTotal()` (`1..5` jam = `Rp 40.000..Rp 200.000`) tepat, dan BVA panjang WA `11–14` digit akurat. **Cacat ditemukan:** `/register` mengembalikan `HTTP 404` (`IR-GOR-01`), `normPhone()` gagal pada `+62 08...` (`IR-GOR-02`), `?start_date=2020-01-01` masih merender `612` slot aktif (`IR-GOR-05`), dan `?start_date=invalid-date` memicu **`HTTP 500 Server Error`** (`IR-GOR-06`). | **Ada Defect Kritis/Major** |
+| 2 | **Performance Efficiency** | *Time behaviour, Resource utilization, Capacity* | *Client interaction* instan (`openBooking=62,93 ms`, `updateTotal=8,11 ms`), kompresi Brotli/Gzip aktif, dan `0,0%` error pada `104` request `GET` (`1/5/10 VUs`). **Temuan bottleneck:** HTML mentah `/booking` mencapai `535,37 KB` (`IR-GOR-08`), spike *cold TTFB* `/` `2618,3 ms` (`IR-GOR-09`), dan pada `10 VUs` latensi `/booking` melonjak ke **`p95 = 5314,28 ms`** (`5,14x` dari baseline `1 VU = 1033,24 ms`, `IR-GOR-07`). | **Perlu Optimasi `/booking`** |
+| 3 | **Compatibility** | *Co-existence, Interoperability* | Desktop (`1280×800`) dan `#bookingModal` mobile (`390×844`, lebar kartu `350 px`) tampil baik tanpa error JS konsol. **Temuan Mobile:** Pada halaman `/` viewport `390×844`, tautan navbar terpotong (`LOGIN` -> `LOGI`, tombol `BOOKING` terdorong ke `x=489 px`, `IR-GOR-10`). | **Cukup — Perlu Perbaikan Navbar Mobile** |
+| 4 | **Interaction Capability** *(revisi Usability 2023)* | *User error protection, Operability, Self-descriptiveness* | Form `/login` memakai validasi HTML5 `required`/`email`, modal booking mudah dipakai & reset otomatis via `closeModal()`. Namun `#custName` meloloskan spasi `"   "` & 1 karakter (`IR-GOR-03`) dan pesan error invalid date langsung jatuh ke layar `500 Server Error`. | **Cukup — Perlu Perbaikan Validasi** |
+| 5 | **Reliability** | *Maturity, Availability, Fault tolerance, Recoverability* | `104` request `GET` uji beban `1–10 VUs` mencatat `0%` error, dan `submitBooking()` menonaktifkan `#btnSubmit` serta memulihkannya melalui `.catch()`. Kekurangan pada *fault tolerance* parameter `?start_date=invalid-date` (`HTTP 500`). | **Baik *(Kecuali Validasi Query)*** |
+| 6 | **Security** | *Confidentiality, Integrity, Resistance* | `X-CSRF-TOKEN` dan `Content-Security-Policy: upgrade-insecure-requests` aktif; **4 header keamanan HTTP hilang** (`HSTS`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`). Selain itu terverifikasi **`205` slot pada DOM publik `/booking` memuat `data-phone` & `data-name` non-kosong** serta kode `manageBooking()` (`IR-GOR-04`). | **Perlu Hardening & Pembersihan PII DOM** |
+| 7 | **Maintainability** | *Modularity, Analysability, Testability* | Skrip JS interaksi (`/booking`) sepanjang `7.473` karakter ditanam *inline* di HTML bersama grid jadwal `535 KB`, mempermudah analisis statis *White Box* tetapi kurang modular untuk pengembangan jangka panjang. | **Cukup** |
+| 8 | **Flexibility** *(revisi Portability 2023)* | *Adaptability, Installability* | Berbasis web standar di balik CDN `hcdn` tanpa instalasi klien dan responsif pada modal pemesanan mobile. | **Memadai** |
+| 9 | **Safety** *(baru 2023)* | *Operational constraints, Hazard warning* | Batas operasional jam tutup `00:00` (`startHour + duration > 24`) terverifikasi akurat pada BVA `22:00 + 2 Jam` (lolos) vs `22:00 + 3 Jam` (ditolak alert jam tutup). | **Diterapkan & Terverifikasi PASS** |
 
 ---
 
-## 2. Rincian Temuan Header Keamanan HTTP (Bukti Teknis *Passive Scan*)
-
-Hasil pemeriksaan header HTTP `GET` pada tanggal 14 November 2026:
+## 2. Rincian Temuan Header Keamanan HTTP (*Passive Scan*)
 
 | Header HTTP | Status Teramati (`/`, `/booking`, `/login`) | Dampak Keamanan |
 | :--- | :---: | :--- |
-| `Content-Security-Policy` | `upgrade-insecure-requests` | Membantu mengalihkan aset HTTP ke HTTPS, namun belum membatasi sumber skrip (*script-src*). |
-| `Strict-Transport-Security` | **TIDAK ADA** | Klien berisiko tidak memaksa HTTPS HSTS pada kunjungan awal tanpa redirect. |
-| `X-Frame-Options` | **TIDAK ADA** | Situs rentan disematkan pada `<iframe>` pihak ketiga (*clickjacking risk*). |
-| `X-Content-Type-Options` | **TIDAK ADA** | Peramban berisiko melakukan *MIME-type sniffing*. |
-| `Referrer-Policy` | **TIDAK ADA** | Peramban memakai kebijakan default saat berpindah ke tautan eksternal/WhatsApp. |
+| `Content-Security-Policy` | `upgrade-insecure-requests` | Memaksa aset HTTPS, namun belum membatasi `script-src` & `frame-ancestors`. |
+| `Strict-Transport-Security` | **TIDAK ADA** | Klien berisiko tidak memaksa HSTS pada koneksi awal. |
+| `X-Frame-Options` | **TIDAK ADA** | Rentan disematkan pada `<iframe>` pihak ketiga (*clickjacking*). |
+| `X-Content-Type-Options` | **TIDAK ADA** | Berisiko *MIME-type sniffing*. |
+| `Referrer-Policy` | **TIDAK ADA** | Menggunakan kebijakan default browser saat mengarah ke tautan WhatsApp. |
 
 ---
 
-## 3. Kesimpulan & Rekomendasi Prioritas dari Perspektif ISO/IEC 25010:2023
-1. **Prioritas Tinggi (Functional & Interaction Capability):** Perbaiki tautan/rute `/register` (`HTTP 404`) atau hapus referensinya dari portal, benahi urutan normalisasi `normPhone()` agar menghapus `0` setelah kode negara `62` (`6208...` -> `628...`), serta tambahkan `.trim()` dan panjang minimum pada `#custName`.
-2. **Prioritas Menengah (Security & Maintainability):** Tambahkan header keamanan HTTP (`Strict-Transport-Security`, `X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`), serta pisahkan berkas JavaScript manajemen internal admin/penjaga agar tidak ikut dimuat ke pengunjung biasa.
+## 3. Rekomendasi Prioritas Perbaikan
+1. **Prioritas Tinggi (Security/Privacy & Error Handling):** Hapus atribut `data-phone` dan PII dari HTML publik `/booking` (`IR-GOR-04`), tambahkan validasi/`try-catch` pada query `start_date` agar tidak crash `HTTP 500` (`IR-GOR-06`) serta nonaktifkan slot tanggal masa lalu (`IR-GOR-05`), dan lengkapi 4 *HTTP security headers*.
+2. **Prioritas Tinggi (Performance `/booking`):** Terapkan caching jangka pendek atau pemuatan grid bertahap/JSON agar latensi `10 VUs` (`p95 = 5,31s`, `IR-GOR-07`) dan payload HTML (`535 KB`, `IR-GOR-08`) turun signifikan.
+3. **Prioritas Menengah (Validation & Mobile UI):** Perbaiki urutan `normPhone()` untuk `+62 08...` (`IR-GOR-02`), tambahkan `.trim()` + panjang minimal `#custName` (`IR-GOR-03`), lengkapi atau hapus rute `/register` (`IR-GOR-01`), dan perbaiki tata letak navbar pada viewport `390 px` (`IR-GOR-10`).

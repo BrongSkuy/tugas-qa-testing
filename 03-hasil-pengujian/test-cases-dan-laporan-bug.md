@@ -1,48 +1,35 @@
-# Test Cases Manual & Laporan Temuan Bug: GOR Permata Badminton Hall
+# Indeks Hasil Pengujian, Test Cases, & Laporan Bug — GOR Permata Badminton Hall
 
-Mengacu pada format **ISO/IEC/IEEE 29119-3** (*Test Case Specification* & *Defect Report*). Seluruh eksekusi pada portal produksi dilakukan secara **non-destruktif** (berhenti pada validasi sisi klien tanpa memanggil `POST /bookings/store`).
-
----
-
-## A. Daftar Test Case Utama (`TC-GOR-01` s.d. `TC-GOR-10`)
-
-| ID TC | Modul / Fitur | Teknik | Input / Langkah Uji | Expected Result |
-| :--- | :--- | :--- | :--- | :--- |
-| `TC-GOR-01` | Navigasi Halaman Publik | Functional | Akses `/`, `/booking`, `/login`, `/fasilitas/lapangan`, `/fasilitas/umum`, `/fasilitas/tunggu`, `/fasilitas/parkir` | Semua rute mengembalikan HTTP `200 OK` dan merender konten tanpa error. |
-| `TC-GOR-02` | Rute Pendaftaran | Functional | Akses langsung `https://gorpermatabadminton.com/register` | Halaman form pendaftaran tampil atau redirect ke info pendaftaran (tercatat defect HTTP `404`). |
-| `TC-GOR-03` | Filter Tanggal Grid | Black Box | Ubah tanggal pada grid `/booking?start_date=<besok>` | URL berubah sesuai `start_date` dan kolom tanggal grid menyesuaikan. |
-| `TC-GOR-04` | Pembukaan Modal Slot | State Transition | Klik salah satu slot kosong (`openBooking`) | `#bookingModal` tampil (`display: flex`), `#dispTime`, `#dispCourt`, `#dispDate`, `#custDuration = 1`, `#dispTotal = "Rp 40.000"`. |
-| `TC-GOR-05` | Kalkulasi Tarif | Black Box / BVA | Ubah `#custDuration` menjadi `2` jam dan `3` jam | `#dispTotal` otomatis berubah menjadi `"Rp 80.000"` dan `"Rp 120.000"` (`updateTotal()`). |
-| `TC-GOR-06` | Validasi Nama & WA Kosong | White/Black Box | Kosongkan `#custName` dan `#custPhone`, klik `#btnSubmit` | Muncul `alert`: `⚠️Halo kak! Nama dan Nomor WA harus diisi lengkap!`; tidak ada request `POST`. |
-| `TC-GOR-07` | Validasi Format WA Salah | Black Box (EP) | Isi `#custName = "Test QA"`, `#custPhone = "12345"` atau `"abc"`, klik `#btnSubmit` | Muncul `alert`: `⚠️ Nomor WA belum benar...`; tidak ada request `POST`. |
-| `TC-GOR-08` | Edge Case `+62 08...` | White Box | Isi `#custName = "Test QA"`, `#custPhone = "+62 08123456789"`, klik `#btnSubmit` | `normPhone()` menghasilkan `6208123456789` dan gagal regex `/^628\d{8,11}$/` -> muncul alert error meski nomor maksudnya valid. |
-| `TC-GOR-09` | Batas Jam Tutup `00:00` | Black Box (BVA) | Pilih slot `22:00` (`startHour = 22`), isi nama + WA valid `08123456789`, pilih durasi `3` jam (`22 + 3 = 25 > 24`), klik `#btnSubmit` | Ditolak sebelum `fetch`: muncul `alert` jam operasional tutup `00:00`. |
-| `TC-GOR-10` | Reset Input Tutup Modal | State Transition | Isi `#custName` & `#custPhone`, lalu tutup modal via `closeModal()` | Modal tersembunyi (`display: none`) dan input `#custName` & `#custPhone` kembali kosong `""`. |
+Dokumen ini menjadi ringkasan indeks untuk folder `03-hasil-pengujian/` agar kompatibel dengan tautan lama sekaligus mengarahkan ke seluruh artefak resmi sesuai **ISO/IEC/IEEE 29119-2:2021(E)** dan **29119-3**.
 
 ---
 
-## B. Laporan Temuan Bug Awal (*Defect Report*)
+## 1. Peta Artefak Pengujian (`ISO/IEC/IEEE 29119-2:2021`)
 
-### `BUG-GOR-01`: Endpoint `/register` Mengembalikan HTTP `404 Not Found`
-- **Severity / Priority:** Major / Medium
-- **Steps to Reproduce:** Buka `https://gorpermatabadminton.com/register`.
-- **Expected Result:** Menampilkan halaman registrasi akun atau mengarahkan ke halaman penjelasan pendaftaran anggota.
-- **Actual Result:** Server mengembalikan status **HTTP `404 Not Found`**.
+| Proses ISO 29119-2 | Dokumen / Berkas | Ringkasan Isi & Status Terverifikasi |
+| :--- | :--- | :--- |
+| **Environment & Data (`8.3`)** | [`test-environment-dan-data.md`](./test-environment-dan-data.md) | Readiness report lingkungan (`Python 3.9`, `Playwright 1.60`, `aiohttp 3.13`), beda Test vs Ops, & dataset `test-data/*.json`. |
+| **Test Case & Procedure Black Box (`8.2`)** | [`test-case-blackbox.md`](./test-case-blackbox.md) | `22` *Test Case* (`TC-BB-01..22`, mencakup `TC-GOR-01..10` lama), `5` *Test Procedure* (`PROC-BB-01..05`), & matriks traceability penuh. |
+| **Test Case & Procedure Performance (`8.2`)** | [`test-case-performance.md`](./test-case-performance.md) | `10` *Test Case* (`TC-PERF-01..10`), `3` *Test Procedure* (`PROC-PERF-01..03`), & matriks traceability penuh. |
+| **Test Execution Log (`8.4`)** | [`test-execution-log.md`](./test-execution-log.md) | Log eksekusi aktual: **Black Box `15/22 PASS` (`7` temuan defect, `0` POST terkirim)** & **Performance `7/10 PASS` (`3` temuan SLA/payload, `0%` error pada `104` request)**. |
+| **Incident / Defect Reports (`8.5`)** | [`incident-reports.md`](./incident-reports.md) | `10` laporan insiden terstandar (`IR-GOR-01` s.d. `IR-GOR-10`, mencakup `BUG-GOR-01..04` + 6 temuan baru Black Box & Performance). |
+| **Status & Control Report (`7.3`)** | [`test-status-and-control-report.md`](./test-status-and-control-report.md) | Progres cakupan `100%` TCI, 4 *Control Directives* (`CD-01..04`), pembaruan *Risk Register*, & persetujuan *Exit Criteria*. |
+| **Test Completion Report (`7.4`)** | [`test-completion-report.md`](./test-completion-report.md) | Ringkasan penutupan uji, evaluasi *Completion Criteria*, daftar aset terarsip, pembersihan environment, & *Lessons Learned*. |
+| **Automation & Evidence** | [`automation-scripts/`](./automation-scripts/) & [`evidence/`](./evidence/) | Skrip `test_gor_permata.py`, `test_performance_gor_permata.py`, `gor-permata.cy.js`, log TXT, metrik JSON, `performance-summary.md`, & 8 screenshot bukti. |
 
-### `BUG-GOR-02`: Fungsi `normPhone()` Gagal Menormalisasi Awalan `+62 08...`
-- **Severity / Priority:** Minor / Medium *(White Box Finding)*
-- **Lokasi Kode:** Inline script `/booking` fungsi `normPhone(p)`
-- **Steps to Reproduce:** Masukkan nomor dengan format `+62 08123456789` (umum disalin dari kontak ponsel) ke `#custPhone`, lalu klik `#btnSubmit`.
-- **Expected Result:** Digit `0` setelah kode negara `62` dinormalisasi menjadi `628123456789`.
-- **Actual Result:** Karena kondisi pertama `if (d.startsWith('62')) return d;` langsung dijalankan sebelum menghapus `0`, hasilnya `6208123456789` yang gagal regex `/^628\d{8,11}$/` dan memicu alert error.
+---
 
-### `BUG-GOR-03`: Tidak Ada Batas Minimal Panjang/Validasi Karakter pada `#custName` di Sisi Klien
-- **Severity / Priority:** Minor / Low
-- **Lokasi Kode:** Inline script `/booking` fungsi `submitBooking()`
-- **Actual Result:** Pemeriksaan hanya memakai `if (!name || !phone)` tanpa `.trim()` maupun batas panjang karakter, sehingga spasi `"   "` atau 1 karakter/simbol lolos tahap validasi nama di sisi klien.
+## 2. Ringkasan Cepat Temuan Utama (`IR-GOR-01` s.d. `IR-GOR-10`)
 
-### `BUG-GOR-04`: Pesan & Nama Penjaga Internal Hardcoded di JavaScript Sisi Klien Publik
-- **Severity / Priority:** Minor / Low *(Gray Box Information Note)*
-- **Lokasi Kode:** Fungsi `manageBooking(el)` di halaman `/booking`
-- **Actual Result:** Teks operasional internal (`alert('Akun penjaga tidak bisa menghapus booking. Hubungi Koko atau Aan.')`) serta daftar endpoint manajemen (`/bookings/confirm/`, `/bookings/reject/`, `/bookings/delete/`) ikut dimuat pada halaman publik pengunjung biasa.
+1. **`IR-GOR-01` (`BUG-GOR-01` — Major):** Endpoint `/register` mengembalikan `HTTP 404 Not Found`.
+2. **`IR-GOR-02` (`BUG-GOR-02` — Minor):** `normPhone()` gagal menormalisasi awalan `+62 08...`.
+3. **`IR-GOR-03` (`BUG-GOR-03` — Minor):** `#custName` meloloskan spasi `"   "` dan `1` huruf karena tidak ada `.trim()` & batas panjang minimum.
+4. **`IR-GOR-04` (`BUG-GOR-04` — Major/High):** `205` elemen slot publik `/booking` menyematkan `data-phone` & `data-name` pelanggan di HTML publik serta skrip `manageBooking()` internal.
+5. **`IR-GOR-05` (Major/High):** Query `?start_date=2020-01-01` (tanggal lampau) tetap merender `612` tombol booking aktif.
+6. **`IR-GOR-06` (Major/High):** Query `?start_date=invalid-date` menyebabkan crash **`HTTP 500 Server Error`**.
+7. **`IR-GOR-07` (Major/High — Performance):** Pada beban `10 VUs`, latensi `p95` `/booking` melonjak ke **`5314,28 ms`** (> batas SLA `3000 ms`).
+8. **`IR-GOR-08` (Minor/Medium — Performance):** Ukuran HTML mentah `/booking` mencapai **`535,37 KB`** (`> 500 KB`).
+9. **`IR-GOR-09` (Minor/Medium — Performance):** Spike *Cold-Start TTFB* `/` mencapai **`2618,3 ms`** (`FCP = 3028 ms`) sebelum turun ke `89,4 ms` saat *Warm Reload*.
+10. **`IR-GOR-10` (Minor/Medium — Compatibility):** Navbar halaman `/` pada viewport mobile `390×844` memotong teks `LOGIN` dan mendorong tombol `BOOKING` keluar viewport (`right = 489 px`).
 
+Rincian langkah reproduksi dan rekomendasi perbaikan masing-masing insiden tersedia pada [`incident-reports.md`](./incident-reports.md).

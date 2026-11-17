@@ -1,9 +1,24 @@
-[PASS] TC-GOR-01 - Rute Publik HTTP 200: {'/': 200, '/booking': 200, '/login': 200, '/fasilitas/lapangan': 200, '/fasilitas/umum': 200, '/fasilitas/tunggu': 200, '/fasilitas/parkir': 200}
-[PASS] TC-GOR-02 - Cek Defect /register 404: HTTP 404
-[PASS] TC-GOR-03 - Load Grid Booking & Slot Tersedia: Ditemukan 396 slot openBooking untuk 2026-11-15
-[PASS] TC-GOR-04 - Buka Modal & Tarif Default 1 Jam: visible=True, dispTotal='Rp 40.000'
-[PASS] TC-GOR-05 - Kalkulasi Durasi 2 Jam (updateTotal): dispTotal='Rp 80.000'
-[PASS] TC-GOR-06 - Validasi Input Kosong (Stop Sebelum Fetch): alert='⚠️Halo kak! Nama dan Nomor WA harus diisi lengkap!', post_attempts=0
-[PASS] TC-GOR-07 - Validasi Format WA Tidak Valid: alert='⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.'
-[PASS] TC-GOR-08 - Reproduksi Bug normPhone('+62 08...'): alert='⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.'
-[PASS] TC-GOR-10 - Close Modal & Reset Form Input: hidden=True, cleared=True
+=== EXECUTION START: 2026-11-17T22:06:36+07:00 | TARGET: https://gorpermatabadminton.com ===
+[PASS] TC-BB-01 - Rute Publik HTTP 200: expected=All 200 OK | actual={'/': 200, '/booking': 200, '/login': 200, '/fasilitas/lapangan': 200, '/fasilitas/umum': 200, '/fasilitas/tunggu': 200, '/fasilitas/parkir': 200}
+[FAIL] TC-BB-02 - Verifikasi Endpoint /register (Defect Check IR-GOR-01): expected=HTTP 200 OK atau redirect aktif | actual=HTTP 404 (Insiden IR-GOR-01 / BUG-GOR-01 terkonfirmasi)
+[FAIL] TC-BB-05 - EP Query start_date Format Tidak Valid (Deteksi HTTP 500): expected=HTTP 400/422/302 fallback aman (!= 500) | actual=HTTP 500 (Insiden IR-GOR-06)
+[FAIL] TC-BB-04 - BVA/EP Query start_date Tanggal Masa Lalu (2020-01-01): expected=0 slot openBooking pada tanggal masa lalu | actual=612 slot openBooking masih aktif (Insiden IR-GOR-05)
+[PASS] TC-BB-03 - Filter Tanggal Grid Valid & Ketersediaan Slot: expected=jumpDate=2026-11-18, slot_count>0 | actual=jumpDate=2026-11-18, slot_count=407
+[FAIL] TC-BB-22 - Audit Privasi Atribut DOM Publik (manageBooking): expected=withPhone=0 pada HTML publik | actual=total_slot_terisi=205, withPhone=205, withName=205 (Insiden IR-GOR-04)
+[PASS] TC-BB-06 - State Transition Buka Modal Booking & Nilai Default: expected=visible=True, durasi=1, dispTotal='Rp 40.000' | actual=visible=True, durasi=1, dispTotal='Rp 40.000'
+[PASS] TC-BB-07 - Kalkulasi Tarif updateTotal() Durasi 1..5 Jam: expected=Rp 40.000 .. Rp 200.000 | actual={'1': 'Rp 40.000', '2': 'Rp 80.000', '3': 'Rp 120.000', '4': 'Rp 160.000', '5': 'Rp 200.000'}
+[PASS] TC-BB-08 - Decision R1: Validasi Nama & WA Kosong: expected=Alert wajib isi, delta_post=0 | actual=alert='⚠️Halo kak! Nama dan Nomor WA harus diisi lengkap!', delta_post=0
+[FAIL] TC-BB-09 - BVA #custName Spasi '   ' & 1 Karakter 'A' (Cek BUG-GOR-03): expected=Ditolak di klien (delta_post=0) | actual=whitespace_delta_post=1, single_char_delta_post=1, interceptor_alert='🚨 Terjadi kesalahan koneksi!' (IR-GOR-03 terkonfirmasi)
+[PASS] TC-BB-10 - EP Format WA Invalid ('12345' & 'abc'): expected=Alert format WA, delta_post=0 | actual=alerts=['⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.', '⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.'], deltas=[0, 0]
+[PASS] TC-BB-11 - BVA Panjang WA 10 Digit (628+7 digit -> Batas Bawah Gagal): expected=Ditolak regex klien, delta_post=0 | actual=alert='⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.', delta_post=0
+[PASS] TC-BB-12 - BVA Panjang WA 11 Digit (628+8 digit -> Batas Bawah Valid): expected=Lolos validasi klien, dicegat interceptor (delta_post=1) | actual=alert='🚨 Terjadi kesalahan koneksi!', delta_post=1
+[PASS] TC-BB-13 - BVA Panjang WA 14 Digit (628+11 digit -> Batas Atas Valid): expected=Lolos validasi klien, dicegat interceptor (delta_post=1) | actual=alert='🚨 Terjadi kesalahan koneksi!', delta_post=1
+[PASS] TC-BB-14 - BVA Panjang WA 15 Digit (628+12 digit -> Batas Atas Gagal): expected=Ditolak regex klien, delta_post=0 | actual=alert='⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.', delta_post=0
+[PASS] TC-BB-15 - EP Variasi Prefiks WA Sah ('8...' & '628...'): expected=Keduanya dinormalisasi -> delta_post=1 masing-masing | actual=prefix_8_delta=1, prefix_628_delta=1
+[FAIL] TC-BB-16 - Reproduksi Bug Prefiks '+62 08...' (IR-GOR-02): expected=Dinormalisasi ke 628... dan lolos ke fetch | actual=Ditolak regex (6208...): alert='⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.', delta_post=0 (IR-GOR-02 terkonfirmasi)
+[PASS] TC-BB-19 - State Transition closeModal() & Reset Input: expected=hidden=True, cleared=True | actual=hidden=True, cleared=True
+[PASS] TC-BB-17 - BVA Jam Tutup 00:00 (22:00 + 3 Jam = 25 > 24 -> Ditolak): expected=Alert tutup jam 00:00, delta_post=0 | actual=alert='🚨 GAGAL! GOR Permata tutup jam 00:00. Durasi main melebihi jam operasional.', delta_post=0
+[PASS] TC-BB-18 - BVA Jam Tutup 00:00 (22:00 + 2 Jam = 24 <= 24 -> Batas Valid): expected=Lolos validasi tutup jam 00:00, dicegat interceptor (delta_post=1) | actual=alert='🚨 Terjadi kesalahan koneksi!', delta_post=1
+[PASS] TC-BB-20 - Black Box Form /login (CSRF _token & Validasi HTML5 Klien): expected=hasToken=True, empty/badEmail/missingPass checkValidity=False | actual={'ok': True, 'hasToken': True, 'emptyValid': False, 'badEmailValid': False, 'missingPassValid': False}
+[FAIL] TC-BB-21 - Kompatibilitas Mobile 390x844 (Overflow, Navbar Clip, & Modal Fit): expected=home & booking scrollWidth<=innerWidth, clippedNavLinks=0, modal fits mobile viewport | actual=home={'sw': 390, 'iw': 390, 'clippedNavLinks': [{'text': 'BOOKING', 'right': 489}]}, booking={'sw': 390, 'iw': 390}, modal={'visible': True, 'fitsViewport': True, 'width': 350, 'innerWidth': 390}
+=== SUMMARY: 15/22 PASS | Defect/Anomaly=7 | Intercepted_POST_In_Browser=7 | Network_POST_Sent=0 ===

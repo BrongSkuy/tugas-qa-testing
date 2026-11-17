@@ -1,0 +1,12 @@
+=== PERFORMANCE EXECUTION LOG: 2026-11-17T22:05:00+07:00 | TARGET: https://gorpermatabadminton.com ===
+[FAIL] TC-PERF-01 - Web Vitals Cold Desktop (/): expected=TTFB<=800ms, FCP<=3000ms, CLS<=0.25 | actual=TTFB=2618.3ms, DCL=3031.1ms, Load=3343.4ms, FCP=3028ms, LCP=N/A(headless), CLS=0
+[PASS] TC-PERF-02 - Web Vitals Cold Desktop (/booking): expected=TTFB<=1800ms, FCP<=3000ms, CLS<=0.25 | actual=TTFB=1213ms, DCL=1722.2ms, Load=1826.2ms, FCP=1712ms, LCP=N/A(headless), CLS=0
+[PASS] TC-PERF-03 - Web Vitals Cold Desktop (/login & /fasilitas/lapangan): expected=TTFB<=800ms, FCP<=3000ms | actual=/login(TTFB=98.9ms, FCP=572ms, Load=689.8ms) | /fasilitas/lapangan(TTFB=95.9ms, FCP=620ms, Load=708ms)
+[PASS] TC-PERF-04 - Komparasi Warm Cache vs Cold Cache (/ & /booking): expected=Warm load tanpa error aset (0 failed_assets) | actual=/(Cold Load=3343.4ms vs Warm=289.3ms) | /booking(Cold Load=1826.2ms vs Warm=1155.2ms)
+[PASS] TC-PERF-05 - Web Vitals Mobile 390x844 (/ & /booking): expected=/ TTFB<=800ms, /booking TTFB<=1800ms, FCP<=3000ms | actual=Mobile /(TTFB=108.2ms, FCP=708ms, Load=802.2ms, CLS=0) | Mobile /booking(TTFB=1016.5ms, FCP=1580ms, Load=1687.5ms, CLS=0)
+[FAIL] TC-PERF-06 - Audit Resource Payload & Kompresi HTML /booking: expected=HTML raw <= 500 KB, 0 failed assets | actual=/booking HTML raw=535.37 KB (encoded=34.78 KB, assets=5, res_transfer=27.5 KB)
+[PASS] TC-PERF-07 - Client-Side DOM Interaction Latency (/booking): expected=openBooking & updateTotal <= 250 ms | actual={'openBooking_ms': 62.93, 'updateTotal_avg_ms': 8.11, 'updateTotal_max_ms': 13.94, 'changeDate_reload_ms': 3.03}
+[PASS] TC-PERF-08 - HTTP Benchmark Baseline Sequential (1 VU): expected=Error=0%, p95 default<=1500ms, p95 /booking<=3000ms | actual=req=24, err=0.0%, rps=1.87, overall_p50=70.34ms, overall_p95=966.44ms, booking_p95=1033.24ms
+[PASS] TC-PERF-09 - HTTP Benchmark Normal UMKM Concurrency (5 VUs): expected=Error=0%, p95 default<=1500ms, p95 /booking<=3000ms | actual=req=40, err=0.0%, rps=4.54, overall_p50=88.75ms, overall_p95=2181.37ms, booking_p95=2249.31ms
+[FAIL] TC-PERF-10 - HTTP Benchmark Peak-Safe UMKM Concurrency (10 VUs): expected=Error=0%, p95 default<=1500ms, p95 /booking<=3000ms | actual=req=40, err=0.0%, rps=4.97, overall_p50=280.39ms, overall_p95=5255.58ms, booking_p95=5314.28ms
+=== SUMMARY: 7/10 PASS | Aborted=None ===

@@ -1,0 +1,166 @@
+{
+  "timestamp": "2026-11-17T22:06:36+07:00",
+  "target": "https://gorpermatabadminton.com",
+  "total_cases": 22,
+  "passed": 15,
+  "failed_or_defect_repro": 7,
+  "intercepted_post_attempts_inside_browser": 7,
+  "network_posts_sent_to_server": 0,
+  "console_errors": [],
+  "cases": [
+    {
+      "tc_id": "TC-BB-01",
+      "name": "Rute Publik HTTP 200",
+      "status": "PASS",
+      "expected": "All 200 OK",
+      "actual": "{'/': 200, '/booking': 200, '/login': 200, '/fasilitas/lapangan': 200, '/fasilitas/umum': 200, '/fasilitas/tunggu': 200, '/fasilitas/parkir': 200}"
+    },
+    {
+      "tc_id": "TC-BB-02",
+      "name": "Verifikasi Endpoint /register (Defect Check IR-GOR-01)",
+      "status": "FAIL",
+      "expected": "HTTP 200 OK atau redirect aktif",
+      "actual": "HTTP 404 (Insiden IR-GOR-01 / BUG-GOR-01 terkonfirmasi)"
+    },
+    {
+      "tc_id": "TC-BB-05",
+      "name": "EP Query start_date Format Tidak Valid (Deteksi HTTP 500)",
+      "status": "FAIL",
+      "expected": "HTTP 400/422/302 fallback aman (!= 500)",
+      "actual": "HTTP 500 (Insiden IR-GOR-06)"
+    },
+    {
+      "tc_id": "TC-BB-04",
+      "name": "BVA/EP Query start_date Tanggal Masa Lalu (2020-01-01)",
+      "status": "FAIL",
+      "expected": "0 slot openBooking pada tanggal masa lalu",
+      "actual": "612 slot openBooking masih aktif (Insiden IR-GOR-05)"
+    },
+    {
+      "tc_id": "TC-BB-03",
+      "name": "Filter Tanggal Grid Valid & Ketersediaan Slot",
+      "status": "PASS",
+      "expected": "jumpDate=2026-11-18, slot_count>0",
+      "actual": "jumpDate=2026-11-18, slot_count=407"
+    },
+    {
+      "tc_id": "TC-BB-22",
+      "name": "Audit Privasi Atribut DOM Publik (manageBooking)",
+      "status": "FAIL",
+      "expected": "withPhone=0 pada HTML publik",
+      "actual": "total_slot_terisi=205, withPhone=205, withName=205 (Insiden IR-GOR-04)"
+    },
+    {
+      "tc_id": "TC-BB-06",
+      "name": "State Transition Buka Modal Booking & Nilai Default",
+      "status": "PASS",
+      "expected": "visible=True, durasi=1, dispTotal='Rp 40.000'",
+      "actual": "visible=True, durasi=1, dispTotal='Rp 40.000'"
+    },
+    {
+      "tc_id": "TC-BB-07",
+      "name": "Kalkulasi Tarif updateTotal() Durasi 1..5 Jam",
+      "status": "PASS",
+      "expected": "Rp 40.000 .. Rp 200.000",
+      "actual": "{'1': 'Rp 40.000', '2': 'Rp 80.000', '3': 'Rp 120.000', '4': 'Rp 160.000', '5': 'Rp 200.000'}"
+    },
+    {
+      "tc_id": "TC-BB-08",
+      "name": "Decision R1: Validasi Nama & WA Kosong",
+      "status": "PASS",
+      "expected": "Alert wajib isi, delta_post=0",
+      "actual": "alert='⚠️Halo kak! Nama dan Nomor WA harus diisi lengkap!', delta_post=0"
+    },
+    {
+      "tc_id": "TC-BB-09",
+      "name": "BVA #custName Spasi '   ' & 1 Karakter 'A' (Cek BUG-GOR-03)",
+      "status": "FAIL",
+      "expected": "Ditolak di klien (delta_post=0)",
+      "actual": "whitespace_delta_post=1, single_char_delta_post=1, interceptor_alert='🚨 Terjadi kesalahan koneksi!' (IR-GOR-03 terkonfirmasi)"
+    },
+    {
+      "tc_id": "TC-BB-10",
+      "name": "EP Format WA Invalid ('12345' & 'abc')",
+      "status": "PASS",
+      "expected": "Alert format WA, delta_post=0",
+      "actual": "alerts=['⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.', '⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.'], deltas=[0, 0]"
+    },
+    {
+      "tc_id": "TC-BB-11",
+      "name": "BVA Panjang WA 10 Digit (628+7 digit -> Batas Bawah Gagal)",
+      "status": "PASS",
+      "expected": "Ditolak regex klien, delta_post=0",
+      "actual": "alert='⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.', delta_post=0"
+    },
+    {
+      "tc_id": "TC-BB-12",
+      "name": "BVA Panjang WA 11 Digit (628+8 digit -> Batas Bawah Valid)",
+      "status": "PASS",
+      "expected": "Lolos validasi klien, dicegat interceptor (delta_post=1)",
+      "actual": "alert='🚨 Terjadi kesalahan koneksi!', delta_post=1"
+    },
+    {
+      "tc_id": "TC-BB-13",
+      "name": "BVA Panjang WA 14 Digit (628+11 digit -> Batas Atas Valid)",
+      "status": "PASS",
+      "expected": "Lolos validasi klien, dicegat interceptor (delta_post=1)",
+      "actual": "alert='🚨 Terjadi kesalahan koneksi!', delta_post=1"
+    },
+    {
+      "tc_id": "TC-BB-14",
+      "name": "BVA Panjang WA 15 Digit (628+12 digit -> Batas Atas Gagal)",
+      "status": "PASS",
+      "expected": "Ditolak regex klien, delta_post=0",
+      "actual": "alert='⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.', delta_post=0"
+    },
+    {
+      "tc_id": "TC-BB-15",
+      "name": "EP Variasi Prefiks WA Sah ('8...' & '628...')",
+      "status": "PASS",
+      "expected": "Keduanya dinormalisasi -> delta_post=1 masing-masing",
+      "actual": "prefix_8_delta=1, prefix_628_delta=1"
+    },
+    {
+      "tc_id": "TC-BB-16",
+      "name": "Reproduksi Bug Prefiks '+62 08...' (IR-GOR-02)",
+      "status": "FAIL",
+      "expected": "Dinormalisasi ke 628... dan lolos ke fetch",
+      "actual": "Ditolak regex (6208...): alert='⚠️ Nomor WA belum benar. Tulis seperti 0812xxxxxxxx atau 62812xxxxxxxx ya kak.', delta_post=0 (IR-GOR-02 terkonfirmasi)"
+    },
+    {
+      "tc_id": "TC-BB-19",
+      "name": "State Transition closeModal() & Reset Input",
+      "status": "PASS",
+      "expected": "hidden=True, cleared=True",
+      "actual": "hidden=True, cleared=True"
+    },
+    {
+      "tc_id": "TC-BB-17",
+      "name": "BVA Jam Tutup 00:00 (22:00 + 3 Jam = 25 > 24 -> Ditolak)",
+      "status": "PASS",
+      "expected": "Alert tutup jam 00:00, delta_post=0",
+      "actual": "alert='🚨 GAGAL! GOR Permata tutup jam 00:00. Durasi main melebihi jam operasional.', delta_post=0"
+    },
+    {
+      "tc_id": "TC-BB-18",
+      "name": "BVA Jam Tutup 00:00 (22:00 + 2 Jam = 24 <= 24 -> Batas Valid)",
+      "status": "PASS",
+      "expected": "Lolos validasi tutup jam 00:00, dicegat interceptor (delta_post=1)",
+      "actual": "alert='🚨 Terjadi kesalahan koneksi!', delta_post=1"
+    },
+    {
+      "tc_id": "TC-BB-20",
+      "name": "Black Box Form /login (CSRF _token & Validasi HTML5 Klien)",
+      "status": "PASS",
+      "expected": "hasToken=True, empty/badEmail/missingPass checkValidity=False",
+      "actual": "{'ok': True, 'hasToken': True, 'emptyValid': False, 'badEmailValid': False, 'missingPassValid': False}"
+    },
+    {
+      "tc_id": "TC-BB-21",
+      "name": "Kompatibilitas Mobile 390x844 (Overflow, Navbar Clip, & Modal Fit)",
+      "status": "FAIL",
+      "expected": "home & booking scrollWidth<=innerWidth, clippedNavLinks=0, modal fits mobile viewport",
+      "actual": "home={'sw': 390, 'iw': 390, 'clippedNavLinks': [{'text': 'BOOKING', 'right': 489}]}, booking={'sw': 390, 'iw': 390}, modal={'visible': True, 'fitsViewport': True, 'width': 350, 'innerWidth': 390}"
+    }
+  ]
+}

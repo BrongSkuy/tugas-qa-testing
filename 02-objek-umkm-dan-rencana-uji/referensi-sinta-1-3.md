@@ -22,15 +22,17 @@ Ketujuh artikel *open-access* berikut telah diunduh langsung dari portal OJS res
 
 ## 2. Rujukan Tambahan SINTA 2 & SINTA 3 via Tautan DOI Resmi
 
-Dua artikel berikut juga terverifikasi relevan namun portalnya membatasi pengunduhan skrip otomatis (`HTTP 403` / *timeout*), sehingga dirujuk melalui tautan DOI resmi untuk akses manual melalui browser:
+Dua artikel berikut terverifikasi relevan (terutama untuk **Performance Testing** dan komparasi **Playwright vs Cypress**) dan dirujuk melalui tautan DOI resmi karena portal OJS-nya membatasi pengunduhan skrip otomatis:
 
-1. **Zahra, M. N., & Kraugusteeliana, K. (2023).** *Analisis Kualitas Performa Aplikasi Digital Banking X Menggunakan Framework ISO 25010*. **Jurnal Teknologi Informasi dan Ilmu Komputer (JTIIK)** — **SINTA 2** *(SK Nomor 2/C/C3/KPT/2026)*, Vol. 10, No. 3, hlm. 483–490. DOI: [10.25126/jtiik.2023106326](https://doi.org/10.25126/jtiik.2023106326). *(Landasan penerapan evaluasi ISO/IEC 25010 terhadap performa & kualitas layanan sistem.)*
-2. **Putra, M. D. P., Nugroho, R. P. A., Kusuma, R. S., & Iriani, L. (2026).** *Performance and CI/CD Compatibility Analysis of Selenium, Cypress, and Playwright UI Testing Frameworks Using the Distance to Ideal Alternative Method*. **Journal of Applied Informatics and Computing (JAIC)** — **SINTA 3**, Vol. 10, No. 5, hlm. 4945–4956. DOI: [10.30871/jaic.v10i5.13680](https://doi.org/10.30871/jaic.v10i5.13680). *(Landasan pemilihan framework Playwright & Cypress untuk otomasi UI web.)*
+1. **Zahra, M. N., & Kraugusteeliana, K. (2023).** *Analisis Kualitas Performa Aplikasi Digital Banking X Menggunakan Framework ISO 25010*. **Jurnal Teknologi Informasi dan Ilmu Komputer (JTIIK)** — **SINTA 2** *(SK Nomor 2/C/C3/KPT/2026)*, Vol. 10, No. 3, hlm. 483–490. DOI: [10.25126/jtiik.2023106326](https://doi.org/10.25126/jtiik.2023106326). *(Landasan penerapan evaluasi ISO/IEC 25010 terhadap **Performance Efficiency** & kualitas responsivitas layanan sistem.)*
+2. **Putra, M. D. P., Nugroho, R. P. A., Kusuma, R. S., & Iriani, L. (2026).** *Performance and CI/CD Compatibility Analysis of Selenium, Cypress, and Playwright UI Testing Frameworks Using the Distance to Ideal Alternative Method*. **Journal of Applied Informatics and Computing (JAIC)** — **SINTA 3**, Vol. 10, No. 5, hlm. 4945–4956. DOI: [10.30871/jaic.v10i5.13680](https://doi.org/10.30871/jaic.v10i5.13680). *(Landasan pemilihan **Playwright** sebagai runner utama eksekusi & pengukuran performa antarmuka web di atas Cypress/Selenium.)*
 
 ---
 
 ## 3. Pemetaan Langsung ke Artefak Proyek GOR Permata
-- **White Box (`normPhone()`, `submitBooking()`):** Mengacu pada *Pratala, dkk. (2020)* & *Alirridlo, dkk. (2025)* untuk menyusun *Control Flow Graph* dan $V(G)$ di [`analisis-white-black-gray-box.md`](./analisis-white-black-gray-box.md).
-- **Black Box (`EP`, `BVA` digit WA & jam tutup `00:00`):** Mengacu pada *Yulistina, dkk. (2020)*, *Nurudin, dkk. (2019)*, & *Putri & Susanto (2024)*.
-- **Automation Testing (Playwright & Cypress):** Mengacu pada *Fhonna, dkk. (2026)* & *Putra, dkk. (2026)*.
+
+- **Black Box Testing (`EP`, `BVA`, `Decision Table`, `State Transition`, `Use Case`):** Mengacu pada *Yulistina, dkk. (2020)*, *Nurudin, dkk. (2019)*, & *Putri & Susanto (2024)* pada [`test-model-blackbox.md`](./test-model-blackbox.md) dan [`test-case-blackbox.md`](../03-hasil-pengujian/test-case-blackbox.md).
+- **Performance Testing (*Time Behaviour*, *Resource Utilization*, *Safe Concurrency*, & Web Vitals):** Mengacu pada *Zahra & Kraugusteeliana (2023)* & *Putra, dkk. (2026)* pada [`performance-test-plan.md`](./performance-test-plan.md), [`test-model-performance.md`](./test-model-performance.md), serta [`test-case-performance.md`](../03-hasil-pengujian/test-case-performance.md).
+- **Automation Testing (Playwright & Cypress):** Mengacu pada *Fhonna, dkk. (2026)* & *Putra, dkk. (2026)* pada folder [`03-hasil-pengujian/automation-scripts/`](../03-hasil-pengujian/automation-scripts/).
+- **White Box (`normPhone()`, `submitBooking()`):** Mengacu pada *Pratala, dkk. (2020)* & *Alirridlo, dkk. (2025)* pada [`analisis-white-black-gray-box.md`](./analisis-white-black-gray-box.md).
 - **Audit Mutu ISO/IEC 25010:2023:** Mengacu pada *Zahra & Kraugusteeliana (2023)* & *Alirridlo, dkk. (2025)* pada [`../01-standar-ieee-iso/evaluasi-iso-25010-gor-permata.md`](../01-standar-ieee-iso/evaluasi-iso-25010-gor-permata.md).

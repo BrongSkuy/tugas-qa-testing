@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "id": "TD-BB-GOR-01",
+    "standard": "ISO/IEC/IEEE 29119-2:2021 (8.3) & 29119-5:2024",
+    "base_url": "https://gorpermatabadminton.com",
+    "non_destructive_note": "Seluruh data bersifat sintetik non-PII; endpoint POST /bookings/store diblokir pada tingkat interceptor browser."
+  },
+  "public_routes_ok": [
+    "/",
+    "/booking",
+    "/login",
+    "/fasilitas/lapangan",
+    "/fasilitas/umum",
+    "/fasilitas/tunggu",
+    "/fasilitas/parkir"
+  ],
+  "missing_route": "/register",
+  "start_date_cases": {
+    "valid_tomorrow_offset_days": 1,
+    "past_date": "2020-01-01",
+    "invalid_format": "invalid-date"
+  },
+  "duration_tariffs": [
+    { "duration": "1", "expected_text": "40.000" },
+    { "duration": "2", "expected_text": "80.000" },
+    { "duration": "3", "expected_text": "120.000" },
+    { "duration": "4", "expected_text": "160.000" },
+    { "duration": "5", "expected_text": "200.000" }
+  ],
+  "name_cases": {
+    "empty": "",
+    "whitespace_only": "   ",
+    "single_char": "A",
+    "valid": "Test QA"
+  },
+  "phone_cases": {
+    "empty": "",
+    "non_numeric": "abc",
+    "too_short_generic": "12345",
+    "bva_below_min_10_digits": "081234567",
+    "bva_min_valid_11_digits": "0812345678",
+    "bva_max_valid_14_digits": "0812345678901",
+    "bva_above_max_15_digits": "08123456789012",
+    "prefix_8": "81234567890",
+    "prefix_628": "6281234567890",
+    "bug_prefix_plus62_08": "+62 08123456789"
+  },
+  "closing_hour_cases": {
+    "target_slot_hour": "22:00",
+    "valid_boundary_duration": "2",
+    "invalid_over_midnight_duration": "3",
+    "valid_phone": "08123456789"
+  },
+  "login_negative_cases": {
+    "invalid_email": "bukan-email",
+    "valid_syntax_email": "qa.tester@example.com"
+  },
+  "viewports": {
+    "desktop": { "width": 1280, "height": 800 },
+    "mobile": { "width": 390, "height": 844 }
+  }
+}

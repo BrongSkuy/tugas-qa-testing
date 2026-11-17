@@ -1,0 +1,474 @@
+{
+  "metadata": {
+    "timestamp": "2026-11-17T22:05:00+07:00",
+    "target": "https://gorpermatabadminton.com",
+    "tomorrow_param": "2026-11-18",
+    "safety_policy": "GET-only workload; max 10 VUs; think_time=500ms; auto-abort jika error_rate > 5%."
+  },
+  "browser": {
+    "cold_desktop": {
+      "/": {
+        "url": "https://gorpermatabadminton.com/",
+        "http_status": 200,
+        "wall_load_ms": 3350.03,
+        "dns_ms": 2.9,
+        "tcp_ms": 58.4,
+        "tls_ms": 28.6,
+        "ttfb_ms": 2618.3,
+        "dcl_ms": 3031.1,
+        "load_ms": 3343.4,
+        "fcp_ms": 3028,
+        "lcp_ms": null,
+        "cls": 0,
+        "doc_transfer_bytes": 9657,
+        "doc_encoded_bytes": 9357,
+        "doc_decoded_bytes": 37951,
+        "resource_count": 9,
+        "resources_transfer_bytes": 642769,
+        "failed_assets_count": 0,
+        "failed_assets": []
+      },
+      "/booking": {
+        "url": "https://gorpermatabadminton.com/booking?start_date=2026-11-18",
+        "http_status": 200,
+        "wall_load_ms": 1828.57,
+        "dns_ms": 0.6,
+        "tcp_ms": 18.7,
+        "tls_ms": 9.4,
+        "ttfb_ms": 1213,
+        "dcl_ms": 1722.2,
+        "load_ms": 1826.2,
+        "fcp_ms": 1712,
+        "lcp_ms": null,
+        "cls": 0,
+        "doc_transfer_bytes": 35919,
+        "doc_encoded_bytes": 35619,
+        "doc_decoded_bytes": 548217,
+        "resource_count": 5,
+        "resources_transfer_bytes": 28168,
+        "failed_assets_count": 0,
+        "failed_assets": []
+      },
+      "/login": {
+        "url": "https://gorpermatabadminton.com/login",
+        "http_status": 200,
+        "wall_load_ms": 692.0,
+        "dns_ms": 0.4,
+        "tcp_ms": 34.9,
+        "tls_ms": 18.5,
+        "ttfb_ms": 98.9,
+        "dcl_ms": 551.8,
+        "load_ms": 689.8,
+        "fcp_ms": 572,
+        "lcp_ms": null,
+        "cls": 0,
+        "doc_transfer_bytes": 4800,
+        "doc_encoded_bytes": 4500,
+        "doc_decoded_bytes": 13163,
+        "resource_count": 5,
+        "resources_transfer_bytes": 28188,
+        "failed_assets_count": 0,
+        "failed_assets": []
+      },
+      "/fasilitas/lapangan": {
+        "url": "https://gorpermatabadminton.com/fasilitas/lapangan",
+        "http_status": 200,
+        "wall_load_ms": 710.08,
+        "dns_ms": 0.7,
+        "tcp_ms": 58.9,
+        "tls_ms": 30.4,
+        "ttfb_ms": 95.9,
+        "dcl_ms": 595.8,
+        "load_ms": 708,
+        "fcp_ms": 620,
+        "lcp_ms": null,
+        "cls": 0,
+        "doc_transfer_bytes": 3432,
+        "doc_encoded_bytes": 3132,
+        "doc_decoded_bytes": 9416,
+        "resource_count": 8,
+        "resources_transfer_bytes": 642769,
+        "failed_assets_count": 0,
+        "failed_assets": []
+      }
+    },
+    "warm_desktop": {
+      "/": {
+        "url": "https://gorpermatabadminton.com/",
+        "http_status": 200,
+        "wall_load_ms": 292.51,
+        "dns_ms": 0,
+        "tcp_ms": 0,
+        "tls_ms": 0,
+        "ttfb_ms": 89.4,
+        "dcl_ms": 172.2,
+        "load_ms": 289.3,
+        "fcp_ms": 156,
+        "lcp_ms": null,
+        "cls": 0,
+        "doc_transfer_bytes": 9657,
+        "doc_encoded_bytes": 9357,
+        "doc_decoded_bytes": 37951,
+        "resource_count": 12,
+        "resources_transfer_bytes": 0,
+        "failed_assets_count": 0,
+        "failed_assets": []
+      },
+      "/booking": {
+        "url": "https://gorpermatabadminton.com/booking?start_date=2026-11-18",
+        "http_status": 200,
+        "wall_load_ms": 1156.96,
+        "dns_ms": 0,
+        "tcp_ms": 0,
+        "tls_ms": 0,
+        "ttfb_ms": 963.1,
+        "dcl_ms": 1155.1,
+        "load_ms": 1155.2,
+        "fcp_ms": 1032,
+        "lcp_ms": null,
+        "cls": 0,
+        "doc_transfer_bytes": 35920,
+        "doc_encoded_bytes": 35620,
+        "doc_decoded_bytes": 548217,
+        "resource_count": 9,
+        "resources_transfer_bytes": 0,
+        "failed_assets_count": 0,
+        "failed_assets": []
+      }
+    },
+    "cold_mobile": {
+      "/": {
+        "url": "https://gorpermatabadminton.com/",
+        "http_status": 200,
+        "wall_load_ms": 805.13,
+        "dns_ms": 0.4,
+        "tcp_ms": 56.7,
+        "tls_ms": 27.8,
+        "ttfb_ms": 108.2,
+        "dcl_ms": 710.5,
+        "load_ms": 802.2,
+        "fcp_ms": 708,
+        "lcp_ms": null,
+        "cls": 0,
+        "doc_transfer_bytes": 9657,
+        "doc_encoded_bytes": 9357,
+        "doc_decoded_bytes": 37951,
+        "resource_count": 6,
+        "resources_transfer_bytes": 397101,
+        "failed_assets_count": 0,
+        "failed_assets": []
+      },
+      "/booking": {
+        "url": "https://gorpermatabadminton.com/booking?start_date=2026-11-18",
+        "http_status": 200,
+        "wall_load_ms": 1689.78,
+        "dns_ms": 0.3,
+        "tcp_ms": 22.8,
+        "tls_ms": 12.8,
+        "ttfb_ms": 1016.5,
+        "dcl_ms": 1591.5,
+        "load_ms": 1687.5,
+        "fcp_ms": 1580,
+        "lcp_ms": null,
+        "cls": 0,
+        "doc_transfer_bytes": 36099,
+        "doc_encoded_bytes": 35799,
+        "doc_decoded_bytes": 548217,
+        "resource_count": 5,
+        "resources_transfer_bytes": 28168,
+        "failed_assets_count": 0,
+        "failed_assets": []
+      }
+    },
+    "client_interactions": {
+      "openBooking_ms": 62.93,
+      "updateTotal_avg_ms": 8.11,
+      "updateTotal_max_ms": 13.94,
+      "changeDate_reload_ms": 3.03
+    }
+  },
+  "http_concurrency": {
+    "route_encoding_audit": {
+      "/": {
+        "status": 200,
+        "content_encoding": "gzip",
+        "cache_control": "no-cache, private",
+        "decoded_chars": 37949,
+        "probe_ms": 564.86
+      },
+      "/booking?start_date=2026-11-18": {
+        "status": 200,
+        "content_encoding": "gzip",
+        "cache_control": "no-cache, private",
+        "decoded_chars": 548190,
+        "probe_ms": 1122.08
+      },
+      "/login": {
+        "status": 200,
+        "content_encoding": "gzip",
+        "cache_control": "no-cache, private",
+        "decoded_chars": 13145,
+        "probe_ms": 245.19
+      },
+      "/fasilitas/lapangan": {
+        "status": 200,
+        "content_encoding": "gzip",
+        "cache_control": "no-cache, private",
+        "decoded_chars": 9414,
+        "probe_ms": 182.23
+      }
+    },
+    "tiers": [
+      {
+        "id": "LEVEL-A-BASELINE",
+        "name": "Baseline Sequential (1 VU)",
+        "vus": 1,
+        "total_requests": 24,
+        "wall_time_s": 12.82,
+        "rps": 1.87,
+        "error_count": 0,
+        "error_rate_pct": 0.0,
+        "overall_p50_ms": 70.34,
+        "overall_p95_ms": 966.44,
+        "overall_max_ms": 1054.09,
+        "per_route": {
+          "/": {
+            "count": 6,
+            "errors": 0,
+            "min_ms": 62.05,
+            "mean_ms": 72.87,
+            "p50_ms": 67.68,
+            "p90_ms": 87.16,
+            "p95_ms": 89.47,
+            "p99_ms": 91.31,
+            "max_ms": 91.78
+          },
+          "/booking?start_date=2026-11-18": {
+            "count": 6,
+            "errors": 0,
+            "min_ms": 801.74,
+            "mean_ms": 903.81,
+            "p50_ms": 885.31,
+            "p90_ms": 1012.38,
+            "p95_ms": 1033.24,
+            "p99_ms": 1049.92,
+            "max_ms": 1054.09
+          },
+          "/login": {
+            "count": 6,
+            "errors": 0,
+            "min_ms": 54.86,
+            "mean_ms": 64.91,
+            "p50_ms": 64.56,
+            "p90_ms": 74.84,
+            "p95_ms": 76.71,
+            "p99_ms": 78.22,
+            "max_ms": 78.59
+          },
+          "/fasilitas/lapangan": {
+            "count": 6,
+            "errors": 0,
+            "min_ms": 51.66,
+            "mean_ms": 64.5,
+            "p50_ms": 61.56,
+            "p90_ms": 79.47,
+            "p95_ms": 79.81,
+            "p99_ms": 80.08,
+            "max_ms": 80.15
+          }
+        }
+      },
+      {
+        "id": "LEVEL-B-NORMAL",
+        "name": "Normal UMKM Concurrency (5 VUs)",
+        "vus": 5,
+        "total_requests": 40,
+        "wall_time_s": 8.81,
+        "rps": 4.54,
+        "error_count": 0,
+        "error_rate_pct": 0.0,
+        "overall_p50_ms": 88.75,
+        "overall_p95_ms": 2181.37,
+        "overall_max_ms": 2278.17,
+        "per_route": {
+          "/": {
+            "count": 10,
+            "errors": 0,
+            "min_ms": 53.18,
+            "mean_ms": 135.0,
+            "p50_ms": 85.04,
+            "p90_ms": 316.59,
+            "p95_ms": 353.52,
+            "p99_ms": 383.07,
+            "max_ms": 390.45
+          },
+          "/booking?start_date=2026-11-18": {
+            "count": 10,
+            "errors": 0,
+            "min_ms": 1359.09,
+            "mean_ms": 1917.6,
+            "p50_ms": 1949.95,
+            "p90_ms": 2220.44,
+            "p95_ms": 2249.31,
+            "p99_ms": 2272.4,
+            "max_ms": 2278.17
+          },
+          "/login": {
+            "count": 10,
+            "errors": 0,
+            "min_ms": 52.33,
+            "mean_ms": 91.26,
+            "p50_ms": 82.35,
+            "p90_ms": 118.76,
+            "p95_ms": 148.63,
+            "p99_ms": 172.53,
+            "max_ms": 178.51
+          },
+          "/fasilitas/lapangan": {
+            "count": 10,
+            "errors": 0,
+            "min_ms": 54.07,
+            "mean_ms": 65.41,
+            "p50_ms": 61.07,
+            "p90_ms": 79.18,
+            "p95_ms": 86.27,
+            "p99_ms": 91.94,
+            "max_ms": 93.36
+          }
+        }
+      },
+      {
+        "id": "LEVEL-C-PEAK-SAFE",
+        "name": "Peak-Safe UMKM Concurrency (10 VUs)",
+        "vus": 10,
+        "total_requests": 40,
+        "wall_time_s": 8.04,
+        "rps": 4.97,
+        "error_count": 0,
+        "error_rate_pct": 0.0,
+        "overall_p50_ms": 280.39,
+        "overall_p95_ms": 5255.58,
+        "overall_max_ms": 5323.45,
+        "per_route": {
+          "/": {
+            "count": 10,
+            "errors": 0,
+            "min_ms": 83.69,
+            "mean_ms": 265.98,
+            "p50_ms": 289.8,
+            "p90_ms": 393.16,
+            "p95_ms": 397.77,
+            "p99_ms": 401.46,
+            "max_ms": 402.38
+          },
+          "/booking?start_date=2026-11-18": {
+            "count": 10,
+            "errors": 0,
+            "min_ms": 4278.13,
+            "mean_ms": 4932.01,
+            "p50_ms": 5138.42,
+            "p90_ms": 5305.11,
+            "p95_ms": 5314.28,
+            "p99_ms": 5321.61,
+            "max_ms": 5323.45
+          },
+          "/login": {
+            "count": 10,
+            "errors": 0,
+            "min_ms": 61.2,
+            "mean_ms": 201.73,
+            "p50_ms": 177.66,
+            "p90_ms": 389.71,
+            "p95_ms": 396.28,
+            "p99_ms": 401.53,
+            "max_ms": 402.84
+          },
+          "/fasilitas/lapangan": {
+            "count": 10,
+            "errors": 0,
+            "min_ms": 55.68,
+            "mean_ms": 71.6,
+            "p50_ms": 70.95,
+            "p90_ms": 81.72,
+            "p95_ms": 87.18,
+            "p99_ms": 91.54,
+            "max_ms": 92.64
+          }
+        }
+      }
+    ],
+    "aborted_reason": null
+  },
+  "test_cases": [
+    {
+      "tc_id": "TC-PERF-01",
+      "name": "Web Vitals Cold Desktop (/)",
+      "status": "FAIL",
+      "expected": "TTFB<=800ms, FCP<=3000ms, CLS<=0.25",
+      "actual": "TTFB=2618.3ms, DCL=3031.1ms, Load=3343.4ms, FCP=3028ms, LCP=N/A(headless), CLS=0"
+    },
+    {
+      "tc_id": "TC-PERF-02",
+      "name": "Web Vitals Cold Desktop (/booking)",
+      "status": "PASS",
+      "expected": "TTFB<=1800ms, FCP<=3000ms, CLS<=0.25",
+      "actual": "TTFB=1213ms, DCL=1722.2ms, Load=1826.2ms, FCP=1712ms, LCP=N/A(headless), CLS=0"
+    },
+    {
+      "tc_id": "TC-PERF-03",
+      "name": "Web Vitals Cold Desktop (/login & /fasilitas/lapangan)",
+      "status": "PASS",
+      "expected": "TTFB<=800ms, FCP<=3000ms",
+      "actual": "/login(TTFB=98.9ms, FCP=572ms, Load=689.8ms) | /fasilitas/lapangan(TTFB=95.9ms, FCP=620ms, Load=708ms)"
+    },
+    {
+      "tc_id": "TC-PERF-04",
+      "name": "Komparasi Warm Cache vs Cold Cache (/ & /booking)",
+      "status": "PASS",
+      "expected": "Warm load tanpa error aset (0 failed_assets)",
+      "actual": "/(Cold Load=3343.4ms vs Warm=289.3ms) | /booking(Cold Load=1826.2ms vs Warm=1155.2ms)"
+    },
+    {
+      "tc_id": "TC-PERF-05",
+      "name": "Web Vitals Mobile 390x844 (/ & /booking)",
+      "status": "PASS",
+      "expected": "/ TTFB<=800ms, /booking TTFB<=1800ms, FCP<=3000ms",
+      "actual": "Mobile /(TTFB=108.2ms, FCP=708ms, Load=802.2ms, CLS=0) | Mobile /booking(TTFB=1016.5ms, FCP=1580ms, Load=1687.5ms, CLS=0)"
+    },
+    {
+      "tc_id": "TC-PERF-06",
+      "name": "Audit Resource Payload & Kompresi HTML /booking",
+      "status": "FAIL",
+      "expected": "HTML raw <= 500 KB, 0 failed assets",
+      "actual": "/booking HTML raw=535.37 KB (encoded=34.78 KB, assets=5, res_transfer=27.5 KB)"
+    },
+    {
+      "tc_id": "TC-PERF-07",
+      "name": "Client-Side DOM Interaction Latency (/booking)",
+      "status": "PASS",
+      "expected": "openBooking & updateTotal <= 250 ms",
+      "actual": "{'openBooking_ms': 62.93, 'updateTotal_avg_ms': 8.11, 'updateTotal_max_ms': 13.94, 'changeDate_reload_ms': 3.03}"
+    },
+    {
+      "tc_id": "TC-PERF-08",
+      "name": "HTTP Benchmark Baseline Sequential (1 VU)",
+      "status": "PASS",
+      "expected": "Error=0%, p95 default<=1500ms, p95 /booking<=3000ms",
+      "actual": "req=24, err=0.0%, rps=1.87, overall_p50=70.34ms, overall_p95=966.44ms, booking_p95=1033.24ms"
+    },
+    {
+      "tc_id": "TC-PERF-09",
+      "name": "HTTP Benchmark Normal UMKM Concurrency (5 VUs)",
+      "status": "PASS",
+      "expected": "Error=0%, p95 default<=1500ms, p95 /booking<=3000ms",
+      "actual": "req=40, err=0.0%, rps=4.54, overall_p50=88.75ms, overall_p95=2181.37ms, booking_p95=2249.31ms"
+    },
+    {
+      "tc_id": "TC-PERF-10",
+      "name": "HTTP Benchmark Peak-Safe UMKM Concurrency (10 VUs)",
+      "status": "FAIL",
+      "expected": "Error=0%, p95 default<=1500ms, p95 /booking<=3000ms",
+      "actual": "req=40, err=0.0%, rps=4.97, overall_p50=280.39ms, overall_p95=5255.58ms, booking_p95=5314.28ms"
+    }
+  ]
+}
