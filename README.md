@@ -16,7 +16,7 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 | :--- | :--- | :--- | :--- |
 | 1 | Muhammad Faiz Rabbani | 231011402539 | [@BrongSkuy](https://github.com/BrongSkuy) |
 | 2 | Robi Farhan Anshori | 231011401468 | [@robifr](https://github.com/robifr) |
-| 3 | *[Diisi]* | *[Diisi]* | *[Diisi]* |
+| 3 | Dzikri Attariq Samayaki | 221011401148 | [@meongasli](https://github.com/meongasli) |
 | 4 | *[Diisi]* | *[Diisi]* | *[Diisi]* |
 
 ---
@@ -37,7 +37,7 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 
 | No | Langkah Kerja Kelompok | Penanggung Jawab | Status |
 | :-: | :--- | :--- | :---: |
-| 1 | Koordinasi pembagian kelompok acak (Kelompok 1–8) & pengunggahan daftar anggota kelompok. | Seluruh Mahasiswa | ⏳ Proses *(Menunggu anggota 3–4)* |
+| 1 | Koordinasi pembagian kelompok acak (Kelompok 1–8) & pengunggahan daftar anggota kelompok. | Seluruh Mahasiswa | ⏳ Proses *(Menunggu anggota 4)* |
 | 2 | Mengambil & mempelajari modul lengkap (Pertemuan 1–7 di [`00-materi-perkuliahan/`](./00-materi-perkuliahan/); Pertemuan 8–akhir menyusul dari Ketua Kelas). | Semua Anggota | ⏳ Proses |
 | 3 | Membuat repositori GitHub *Public* (`https://github.com/BrongSkuy/tugas-qa-testing`) & melengkapi [tabel anggota](./README.md#anggota-kelompok). | Muhammad Faiz Rabbani | ⏳ Proses |
 | 4 | Finalisasi objek UMKM terpilih di repo: **Portal Booking GOR Permata Badminton Hall** ([`kandidat-objek-pengujian.md`](./02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md)). | Tim Riset Objek | ✅ Selesai |
