@@ -18,8 +18,7 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
 | Peran Pemangku Kepentingan | Nama / Pihak | Kepentingan & Tanggung Jawab | Kanal & Frekuensi Komunikasi |
 | :--- | :--- | :--- | :--- |
 | **Dosen Pengampu (Reviewer Akademik)** | Bapak Ahmad Fauzi | Asesmen kelengkapan standar IEEE/ISO, sitasi SINTA 1–3, & kesiapan hasil uji sebelum wawancara | Presentasi kelas mingguan & repositori GitHub *Public* |
-| **Koordinator QA & Test Manager** | Muhammad Faiz Rabbani (`231011402539`) | Menyusun strategi, *Test Plan*, *Test Models*, skrip otomasi, & laporan penutupan uji | Commit GitHub & dokumentasi Markdown di `tugas-qa-testing` |
-| **Anggota Tim QA & Penguji** | Robi Farhan Anshori (`231011401468`) & Anggota 3–4 *(menunggu pengisian)* | Penyediaan dokumen acuan standar, eksekusi verifikasi, & reviu silang temuan | Sinkronisasi GitHub & catatan progres kelompok |
+| **Tim QA & Penguji (Setara)** | Muhammad Faiz Rabbani (`231011402539`), Robi Farhan Anshori (`231011401468`), Dzikri Attariq Samayaki (`221011401148`), & Nurlaelasari (`231011403531`) | Penyusunan strategi, *Test Plan*, *Test Models*, pengadaan acuan standar, eksekusi pengujian manual/otomasi, reviu silang temuan, & laporan penutupan | Commit & kolaborasi GitHub pada `tugas-qa-testing` |
 | **Pemilik / Pengelola UMKM** | Pengelola GOR Permata Badminton Hall | Terlindungi dari gangguan transaksi fiktif maupun lonjakan beban server selama pengujian | Tidak dihubungi untuk transaksi fiktif (*zero-impact testing*) |
 
 ### 1.3 Inventarisasi *Test Basis* (`7.2.4.2 c`)
@@ -44,10 +43,10 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
 
 | Tahap Penyusunan | Aktivitas | Penanggung Jawab | Target Selesai |
 | :---: | :--- | :--- | :---: |
-| 1 | Pengumpulan konteks UMKM, standar PDF `29119-2:2021`, & rujukan SINTA 1–3 | Koordinator & Robi | 14–17 Nov 2026 |
-| 2 | Identifikasi *Test Basis*, analisis risiko Project/Product, & rancangan *Test Strategy* | Koordinator QA | 17 Nov 2026 |
-| 3 | Penyusunan *Sub-Plan Performance* & *Test Models* (Black Box + Performance) | Koordinator QA | 17 Nov 2026 |
-| 4 | Reviu & sinkronisasi repositori oleh seluruh anggota | Tim QA | 17 Nov 2026 |
+| 1 | Pengumpulan konteks UMKM, standar PDF `29119-2:2021`, & rujukan SINTA 1–3 | Tim QA | 14–17 Nov 2026 |
+| 2 | Identifikasi *Test Basis*, analisis risiko Project/Product, & rancangan *Test Strategy* | Tim QA | 17 Nov 2026 |
+| 3 | Penyusunan *Sub-Plan Performance* & *Test Models* (Black Box + Performance) | Tim QA | 17 Nov 2026 |
+| 4 | Reviu, kelengkapan anggota, & sinkronisasi repositori oleh seluruh tim | Tim QA | 17–18 Nov 2026 |
 
 ---
 
@@ -70,7 +69,7 @@ Sesuai **ISO/IEC/IEEE 29119-2 §7.2.4.4 c**, daftar risiko wajib membedakan **Pr
 | :--- | :--- | :---: | :---: | :---: | :--- |
 | **`PJ-01`** | Pengujian berulang menyentuh database jadwal produksi dan mengunci slot nyata UMKM | Sedang (2) | Kritis (4) | **8 (Tinggi)** | **Avoidance:** Seluruh form submission dibatasi hanya validasi negatif sisi klien; interceptor `page.route('**/bookings/store')` wajib aktif dan `post_attempts == 0` diverifikasi di log. |
 | **`PJ-02`** | Uji performa konkuren membebani server/CDN UMKM (`hcdn`) selama jam operasional | Sedang (2) | Tinggi (3) | **6 (Sedang-Tinggi)** | **Mitigasi & Pembatasan:** Batasi maksimum `10 VUs` (`GET`-only), jeda *think-time* `500 ms`, serta pasang *auto-abort circuit breaker* bila error rate > 5%. |
-| **`PJ-03`** | Data anggota kelompok ke-3 & 4 belum lengkap serta slot jadwal live berubah setiap hari | Tinggi (3) | Rendah (1) | **3 (Rendah-Sedang)** | **Optimasi:** Gunakan tanggal dinamis (`tomorrow`) & pemilih slot dinamis pada skrip otomasi; biarkan kolom anggota 3–4 berstatus placeholder hingga data diterima. |
+| **`PJ-03`** | Slot jadwal live pada portal target berubah setiap hari mengikuti tanggal berjalan | Sedang (2) | Rendah (1) | **2 (Rendah)** | **Optimasi:** Gunakan tanggal dinamis (`tomorrow`) & pemilih slot kosong dinamis pada skrip otomasi; seluruh data keempat anggota kelompok sudah lengkap terdokumentasi. |
 | **`PJ-04`** | Perangkat lokal tidak memasang *runner* Cypress CLI penuh (hanya Python Playwright) | Sedang (2) | Rendah (1) | **2 (Rendah)** | **Retensi & Alternatif:** Eksekusi utama dijalankan melalui **Playwright Python** & `aiohttp`; skrip Cypress (`gor-permata.cy.js`) disinkronkan sebagai artefak kode modular dan perbedaan lingkungan dicatat pada `8.3.4.2 c`. |
 
 ---
@@ -121,11 +120,12 @@ Sesuai **ISO/IEC/IEEE 29119-2 §7.2.4.4 c**, daftar risiko wajib membedakan **Pr
 
 ## 5. Staffing, Jadwal, & Estimasi Upaya (`TP6` & `TP7`)
 
-| Peran | Penanggung Jawab | Fokus Tugas | Estimasi Upaya | Jadwal Pelaksanaan |
+| Peran | Penanggung Jawab | Fokus Tugas *(Kolaboratif & Setara)* | Estimasi Upaya | Jadwal Pelaksanaan |
 | :--- | :--- | :--- | :---: | :---: |
-| **Test Manager / Lead QA** | Muhammad Faiz Rabbani | Tata kelola ISO 29119-2, *Test Plan*, *Test Models*, skrip Playwright + Performance, & laporan penutupan | ~10 jam | 14–17 Nov 2026 |
-| **QA Documentation & Standards** | Robi Farhan Anshori | Pengadaan acuan standar PDF ISO/IEEE (`459203e`), reviu dokumentasi & kepatuhan | ~4 jam | 14–17 Nov 2026 |
-| **Anggota Tim 3 & 4** | *(Menunggu pengiriman data)* | Pengujian manual silang, verifikasi tangkapan layar, & persiapan wawancara (`04/`) | ~4 jam | Pasca pengisian anggota |
+| **Anggota Tim QA** | Muhammad Faiz Rabbani (`231011402539`) | Standar ISO/IEEE, *Test Plan*, *Test Models*, pengujian manual/otomasi, reviu bukti, & laporan | ~4–5 jam | 14–18 Nov 2026 |
+| **Anggota Tim QA** | Robi Farhan Anshori (`231011401468`) | Standar ISO/IEEE (`459203e`), *Test Plan*, pengujian manual/otomasi, reviu bukti, & laporan | ~4–5 jam | 14–18 Nov 2026 |
+| **Anggota Tim QA** | Dzikri Attariq Samayaki (`221011401148`) | Rujukan, pengujian manual silang, verifikasi bukti, reviu laporan, & persiapan wawancara (`04/`) | ~4–5 jam | 14–18 Nov 2026 |
+| **Anggota Tim QA** | Nurlaelasari (`231011403531`) | Rujukan, pengujian manual silang, verifikasi bukti, reviu laporan, & persiapan wawancara (`04/`) | ~4–5 jam | 14–18 Nov 2026 |
 
 ---
 
@@ -133,8 +133,10 @@ Sesuai **ISO/IEC/IEEE 29119-2 §7.2.4.4 c**, daftar risiko wajib membedakan **Pr
 
 | Pemangku Kepentingan | Peran | Status Persetujuan | Tanggal |
 | :--- | :--- | :---: | :---: |
-| Muhammad Faiz Rabbani | Koordinator QA & Penyusun Test Plan | **Disetujui** | 17 Nov 2026 |
-| Robi Farhan Anshori | Anggota Tim QA & Standar | **Selaras dengan `origin/main` (`459203e`)** | 17 Nov 2026 |
+| Muhammad Faiz Rabbani (`231011402539`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
+| Robi Farhan Anshori (`231011401468`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
+| Dzikri Attariq Samayaki (`221011401148`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
+| Nurlaelasari (`231011403531`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
 | Bapak Ahmad Fauzi | Dosen Pengampu *(Reviewer Eksternal)* | *Menunggu Asesmen Kelas* | — |
 
 Dokumen tersedia secara terbuka pada repositori publik `https://github.com/BrongSkuy/tugas-qa-testing` (`02-objek-umkm-dan-rencana-uji/test-plan-gor-permata.md`).

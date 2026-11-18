@@ -376,7 +376,7 @@ def add_title_banner(doc: Document, bb_ts: str, perf_ts: str) -> None:
         ("Program Studi / Kampus", "Teknik Informatika (S1) — Universitas Pamulang"),
         ("Mata Kuliah & Dosen", "Testing dan QA Perangkat Lunak — Bapak Ahmad Fauzi"),
         ("Kelas / Link GitHub", "07TPLE001 / Reguler C  |  https://github.com/BrongSkuy/tugas-qa-testing"),
-        ("Tim Penyusun", "1. Muhammad Faiz Rabbani (231011402539)   2. Robi Farhan Anshori (231011401468)   3–4. [Menunggu Pengisian]"),
+        ("Tim Penyusun", "1. Muhammad Faiz Rabbani (231011402539)  |  2. Robi Farhan Anshori (231011401468)\n3. Dzikri Attariq Samayaki (221011401148)  |  4. Nurlaelasari (231011403531)"),
         ("Website yang Diuji", "https://gorpermatabadminton.com (Kp. Cipari, Desa Ciakar, Kec. Panongan, Kab. Tangerang)"),
         ("Standar Acuan Resmi", "ISO/IEC/IEEE 29119-2:2021(E) (Proses Pengujian), 29119-3/4/5, & ISO/IEC 25010:2023 (Kualitas Produk)"),
         ("Waktu Uji Terakhir", f"Uji Fungsi (Black Box): {bb_ts}   |   Uji Kecepatan (Performance): {perf_ts}"),
@@ -1118,8 +1118,10 @@ def build_report() -> tuple[Path, Path]:
     )
 
     sign_rows = [
-        ("Muhammad Faiz Rabbani (231011402539)", "Koordinator QA & Penguji Utama", "DISETUJUI", "17 Nov 2026"),
-        ("Robi Farhan Anshori (231011401468)", "Anggota Tim QA & Dokumentasi Standar", "Sinkronisasi Repo", "17 Nov 2026"),
+        ("Muhammad Faiz Rabbani (231011402539)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
+        ("Robi Farhan Anshori (231011401468)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
+        ("Dzikri Attariq Samayaki (221011401148)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
+        ("Nurlaelasari (231011403531)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
         ("Bapak Ahmad Fauzi", "Dosen Pengampu Mata Kuliah", "Menunggu Asesmen", "—"),
     ]
     add_styled_table(

@@ -6,11 +6,19 @@
 
 ---
 
-## 1. Profil Narasumber (Diisi Setelah Project Uji Selesai)
+## 1. Profil Narasumber & Tim Pewawancara
+
+### A. Profil Narasumber (Diisi Setelah Wawancara Selesai)
 - **Nama Narasumber:** *[Diisi]*
 - **Jabatan / Role:** *[QA Engineer / Software Tester / SDET]*
 - **Instansi / Perusahaan:** *[Diisi]*
 - **Tanggal & Media Wawancara:** *[Tatap muka / Zoom / Google Meet]*
+
+### B. Tim Pewawancara (Tim QA — Kelas 07TPLE001 / Reguler C)
+1. **Muhammad Faiz Rabbani** (`231011402539`) — Anggota Tim QA
+2. **Robi Farhan Anshori** (`231011401468`) — Anggota Tim QA
+3. **Dzikri Attariq Samayaki** (`221011401148`) — Anggota Tim QA
+4. **Nurlaelasari** (`231011403531`) — Anggota Tim QA
 
 ---
 

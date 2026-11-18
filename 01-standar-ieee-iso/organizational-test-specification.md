@@ -7,7 +7,7 @@ Dokumen ini merupakan **Organizational Test Specification** sesuai **Clause 6 (6
 ## 1. Identitas Dokumen & Pernyataan Kepatuhan (*Conformance Statement — Clause 4*)
 
 - **ID Dokumen:** `OTS-QA-2026-01`
-- **Versi / Tanggal Berlaku:** `2.0` — 17 November 2026
+- **Versi / Tanggal Berlaku:** `2.1` — 18 November 2026
 - **Lingkup Organisasi:** Kelompok QA Mata Kuliah *Testing dan QA Perangkat Lunak* (Kelas 07TPLE001 / Reguler C, Teknik Informatika S1, Universitas Pamulang)
 - **Standar Acuan Utama:** `ISO/IEC/IEEE 29119-2:2021(E)` (*Test Processes*), diselaraskan dengan `29119-1:2022`, `29119-3:2021`, `29119-4:2021`, `29119-5:2024`, dan `ISO/IEC 25010:2023`.
 
@@ -20,7 +20,7 @@ Tim menetapkan klaim **Tailored Conformance** terhadap **ISO/IEC/IEEE 29119-2:20
 | **Eksekusi Transaksi Nyata (`POST /bookings/store`)** | Dihentikan pada validasi sisi klien atau dicegat via interceptor (`page.route` / `cy.intercept`). | Portal terhubung ke jadwal produksi nyata UMKM; pengiriman order fiktif berisiko mengunci slot dan merugikan operasional bisnis. | Disepakati Tim QA & mengacu arahan etika dosen |
 | **Modul Admin / Penjaga (`/bookings/confirm\|reject\|delete`)** | Dikeluarkan dari eksekusi dinamis (*Out of Scope*), hanya dianalisis pada kajian statis *White/Gray Box*. | Tim tidak memiliki kredensial akun admin/penjaga dan tidak melakukan akses tidak sah. | Disepakati Tim QA |
 | **Beban Uji Performa Agresif (*Stress / DDoS*)** | Dibatasi ke uji *Browser Rendering / Web Vitals* + *Concurrent HTTP GET* maksimal **`10 VUs`** dengan jeda *think-time* `500 ms` & *auto-abort circuit breaker*. | Mencegah penurunan ketersediaan layanan (*availability*) dan kuota server/CDN (`hcdn`) milik UMKM selama jam operasional. | Disepakati Tim QA |
-| **Tata Kelola Korporat (`OT2`/`OT3`)** | Peran peninjau disederhanakan menjadi Koordinator QA, Anggota Tim Uji, dan Dosen Pengampu. | Proyek berskala kelompok akademik dengan satu objek uji utama dan siklus rilis tunggal. | Disepakati Tim QA |
+| **Tata Kelola Korporat (`OT2`/`OT3`)** | Peran peninjau disederhanakan menjadi Tim QA (keempat anggota setara) dan Dosen Pengampu. | Proyek berskala kelompok akademik dengan satu objek uji utama dan siklus rilis tunggal. | Disepakati Tim QA |
 
 ---
 
@@ -76,10 +76,11 @@ Setiap artefak wajib menggunakan pengenal unik berikut agar *traceability* dua a
 
 ## 4. Pemantauan Kepatuhan & Pemeliharaan (*OT2 & OT3*)
 
-- **Monitoring (`OT2`):** Setiap pergantian fase di *Implementation Plan*, Koordinator QA memeriksa apakah dokumen pada folder `02` dan `03` menggunakan konvensi ID yang konsisten, bebas *broken link*, dan tidak melanggar aturan non-destruktif.
+- **Monitoring (`OT2`):** Setiap pergantian fase di *Implementation Plan*, Tim QA memeriksa apakah dokumen pada folder `02` dan `03` menggunakan konvensi ID yang konsisten, bebas *broken link*, dan tidak melanggar aturan non-destruktif.
 - **Feedback & Update (`OT3`):** Temuan dari *Test Monitoring & Control* (`7.3`) serta *Lessons Learned* pada *Test Completion* (`7.4`) dicatat sebagai masukan pembaruan spesifikasi organisasi ini.
 
 | Versi | Tanggal | Ringkasan Perubahan | Penyusun |
 | :---: | :---: | :--- | :--- |
-| `1.0` | 14 Nov 2026 | Rangkuman awal standar pada `standar-dokumentasi-qa.md` | Tim Dokumentasi & Riset |
-| `2.0` | 17 Nov 2026 | Pembuatan *Organizational Test Specification* formal penuh sesuai Clause 4 & Clause 6 ISO/IEC/IEEE 29119-2:2021 | Koordinator QA & Tim Riset |
+| `1.0` | 14 Nov 2026 | Rangkuman awal standar pada `standar-dokumentasi-qa.md` | Tim QA |
+| `2.0` | 17 Nov 2026 | Pembuatan *Organizational Test Specification* formal penuh sesuai Clause 4 & Clause 6 ISO/IEC/IEEE 29119-2:2021 | Tim QA |
+| `2.1` | 18 Nov 2026 | Penyeragaman struktur peran keempat anggota (`Tim QA`) secara setara | Tim QA (Faiz, Robi, Dzikri, Nurlaelasari) |

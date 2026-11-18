@@ -20,7 +20,7 @@ Dokumen ini mengimplementasikan **Test Monitoring and Control Process (`7.3`, ak
 
 ## 2. *Control Directives* yang Diterbitkan (`7.3.5 c` — `TMC3`)
 
-Selama pemantauan eksekusi dinamis, Koordinator QA menerbitkan empat *control directives* untuk mengoreksi hambatan teknis dan memperluas deteksi cacat:
+Selama pemantauan eksekusi dinamis, Tim QA menerbitkan empat *control directives* untuk mengoreksi hambatan teknis dan memperluas deteksi cacat:
 
 | ID Directive | Pemicu / Deviasi yang Teramati | Tindakan Kontrol yang Dilakukan | Dampak |
 | :---: | :--- | :--- | :--- |
