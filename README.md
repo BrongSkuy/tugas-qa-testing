@@ -100,6 +100,25 @@ python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
 python 03-hasil-pengujian/generate_laporan_pengujian.py
 ```
 
+### Cara Kerja Skrip Otomatis & Tutorial Pakai di Terminal CMD
+
+Tidak ada file yang perlu dipasang ke browser Chrome ataupun website GOR Permata—seluruh kode uji sudah siap pakai di folder repositori ini dan dijalankan cukup dari **CMD / PowerShell** Windows:
+
+- **Daftar File Skrip (Klik untuk Membaca Kodenya):**
+  1. [`test_gor_permata.py`](./03-hasil-pengujian/automation-scripts/test_gor_permata.py) (`627` baris) — Menjalankan `23` uji *Black Box*, memasang rem anti-kirim, menyensor nama pelanggan, & memotret bukti.
+  2. [`test_performance_gor_permata.py`](./03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py) (`546` baris) — Menjalankan `10` uji *Performance* (kecepatan tampil Laptop/HP & simulasi `1/5/10` pengunjung bersamaan memakai `aiohttp`).
+  3. [`gor-permata.cy.js`](./03-hasil-pengujian/automation-scripts/gor-permata.cy.js) (`81` baris) — Contoh versi skrip Cypress (*tidak dijalankan lokal; seluruh skenario sudah dijalankan penuh lewat Playwright Python*).
+  4. [`generate_laporan_pengujian.py`](./03-hasil-pengujian/generate_laporan_pengujian.py) — Menggambar grafik performa `#12`, diagram alur `#00`, dan mencetak laporan Word + PDF ke `05-dokumentasi-laporan/`.
+- **Kenapa Bisa Otomatis Buka Web & Ambil *Screenshot*?**
+  - **Browser Tersembunyi (`headless=True`):** Saat skrip dijalankan, Python menyalakan browser Chrome (*Chromium*) sungguhan secara tersembunyi di belakang layar—tidak memunculkan jendela di monitor—lalu membuka website pada ukuran layar laptop (`1280×800`) dan HP (`390×844`).
+  - **Klik & Isi Data Fiktif + Rem Anti-Kirim:** Skrip memakai `page.goto(...)`, `page.click(...)`, dan `page.fill(...)` untuk mengisi data uji fiktif (`"Test QA"`), sambil mengaktifkan pencegat `page.route("**/bookings/store", route.abort())` agar `0` pesanan uji tersimpan ke server GOR Permata.
+  - **Sensor Privasi & Foto Otomatis:** Sebelum mengambil gambar tabel jadwal, skrip menyamarkan nama pemesan lain menjadi `[TERISI]` lewat `mask_grid_pii()`, lalu otomatis menyimpan tangkapan layar (`page.screenshot(...)`) untuk foto `01`–`09` dan `11` ke [`evidence/screenshots/`](./03-hasil-pengujian/evidence/screenshots/) *(foto `10` merekam dialog pop-up konfirmasi `RTBC`, sedangkan grafik `12` digambar otomatis oleh `generate_laporan_pengujian.py` dari hasil JSON)*.
+- **Cara Menjalankan dari Awal di Komputer Baru (CMD / PowerShell):**
+  1. Pastikan **Python `>= 3.9`** sudah terinstal, lalu buka CMD dan masuk ke folder proyek: `cd "...\tugas-qa-testing"`.
+  2. *(Cukup sekali saat pertama kali)* Instal modul Python dan browser Chromium Playwright dengan mengetik:
+     `pip install playwright aiohttp python-docx pillow` lalu `playwright install chromium`.
+  3. Jalankan 3 perintah `python ...` pada kotak kode di atas *(pastikan internet aktif; catatan: menjalankan ulang skrip uji akan memperbarui isi log, JSON, dan foto bukti mengikuti tanggal saat dijalankan—data resmi laporan saat ini tercatat pada `17 November 2026`)*.
+
 ---
 
 ## Daftar Referensi Resmi (`>= 2022`) — Klik Menuju File & Tautan Resmi
