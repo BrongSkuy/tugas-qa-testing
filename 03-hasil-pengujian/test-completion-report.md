@@ -1,6 +1,6 @@
 # Test Completion Report (Test Summary Report — `TC1`–`TC4`)
 
-Dokumen ini merupakan **Test Completion Report (`TC1–TC4`)** yang merangkum penyelesaian seluruh siklus **Test Completion Process** sesuai standar **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **29119-5:2024**, & **ISTQB CTFL v4.0.1 2024**) untuk pengujian **Black Box** dan **Performance Testing** (disertai analisis pelengkap *White/Gray Box* & audit *ISO/IEC 25010:2023*, *25019:2023*, *40500:2025*) pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
+Dokumen ini merupakan **Test Completion Report (`TC1–TC4`)** yang merangkum penyelesaian seluruh siklus **Test Completion Process** sesuai standar **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **29119-5:2024**, & **ISTQB CTFL v4.0.1 2024**) untuk **2 pengujian utama proyek: Black Box Testing dan Performance Testing** (disertai catatan pendukung kode halaman publik & audit *ISO/IEC 25010:2023*, *25019:2023*, *40500:2025*) pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
 
 ---
 

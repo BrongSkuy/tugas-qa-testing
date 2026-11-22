@@ -1025,7 +1025,7 @@ def build_report() -> tuple[Path, Path]:
     flow_text_rows = [
         ("Tahap 1: Aturan Main Aman & Risiko", "Tentukan bagian yang boleh diuji (hanya halaman umum; kirim pesanan asli & menu admin tidak disentuh), lalu catat fitur apa yang paling rawan error.", "organizational-test-specification.md"),
         ("Tahap 2: Rencana & Jurnal Ilmiah", "Buat jadwal, target lulus uji, dan batas kecepatan nyaman, lalu ambil cara pengujiannya dari 9 PDF jurnal SINTA (>= 2022) & standar ISO 2022–2025.", "test-plan-gor-permata.md & referensi-sinta-1-3.md"),
-        ("Tahap 3: Skenario & 5 Black Box", "Susun skenario uji memakai 5 teknik Black Box (bagi input benar/salah, angka batas, tabel aturan, pindah pop-up, cek HP), tes kecepatan 1/5/10 orang, & cek alur kode.", "test-model-blackbox.md, test-model-performance.md"),
+        ("Tahap 3: Skenario & 5 Black Box", "Susun skenario untuk 2 tes utama: Black Box (5 teknik: EP, BVA, Decision Table, STT, Use Case/HP) & Performance (simulasi kecepatan 1, 5, & 10 orang).", "test-model-blackbox.md & test-model-performance.md"),
         ("Tahap 4: Alat Uji & Rem Anti-Kirim", "Siapkan program browser otomatis, siapkan data uji fiktif tanpa nomor pelanggan asli, dan pasang pemblokir otomatis agar 0 data uji masuk ke database GOR.", "test-environment-dan-data.md & test-data/*.json"),
         ("Tahap 5: Jalankan Uji Nyata", "Eksekusi 23 tes fungsi di layar Laptop (1280x800) vs HP (390x844) dan 10 tes kecepatan (total 104 kali akses baca halaman), serta cek manual lewat Chrome.", "test-execution-log.md, execution-log.txt, performance-log.txt"),
         ("Tahap 6: Catat Bug & Jaga Privasi", "Tulis semua 10 masalah ketemu (7 bug fungsi + 3 soal kecepatan) menjadi tiket IR-GOR-01..10, dan samarkan nama pelanggan lain dengan [TERISI] pada foto bukti.", "incident-reports.md & evidence/screenshots/*.png"),
@@ -1069,8 +1069,8 @@ def build_report() -> tuple[Path, Path]:
     sci_rows = [
         ("Desyani dkk. (2022) — JTSI SINTA 3", "Membagi kelompok input benar & salah (EP)", "Menu publik, filter tanggal, & variasi WA -> Ketemu IR-GOR-01, 02, 05, 06"),
         ("Sitio dkk. (2023) — JIUP SINTA 3", "Tabel syarat sebab-akibat formulir (Decision Table)", "6 kombinasi cek formulir booking -> Membuktikan bug R6 (IR-GOR-03)"),
-        ("Nada dkk. (2023) & Alirridlo dkk. (2025)", "Hitung alur percabangan kode JS & mutu produk", "Cek langsung kode normPhone() -> Ketemu baris penyebab gagal '+62 08...' (IR-GOR-02)"),
-        ("Seputra dkk. (2024) — RESTI SINTA 2", "Gabungan uji luar-dalam & keamanan privasi data", "Cek token pengaman & kode HTML -> Ketemu 205 data nomor WA pelanggan bocor (IR-GOR-04)"),
+        ("Nada dkk. (2023) & Alirridlo dkk. (2025)", "Pendukung cek alur fungsi tampilan /booking & mutu produk", "Membantu melihat baris normPhone() penyebab '+62 08...' gagal di Black Box (IR-GOR-02)"),
+        ("Seputra dkk. (2024) — RESTI SINTA 2", "Uji alur penuh & keamanan privasi data halaman web", "Cek token pengaman & kode HTML -> Ketemu 205 data nomor WA pelanggan bocor (IR-GOR-04)"),
         ("Putri & Susanto (2024) — Sinkron SINTA 3", "Mengetes tepat di angka batas terkecil/terbesar (BVA)", "Uji WA 10/11/14/15 digit, jam tutup 00:00, & nama spasi (IR-GOR-03)"),
         ("Fhonna dkk. (2026) & Putra dkk. (2026)", "Pemilihan Playwright (#1 tercepat) & kerapian layar", "Otomasi penuh di Playwright + tes layar HP 390px -> Ketemu menu terpotong (IR-GOR-10)"),
         ("Winasis dkk. (2026) & Zahra (2023)", "Uji keramaian bertingkat web+WA & mutu kecepatan", "Simulasi 1, 5, 10 orang bersamaan -> /booking melambat 5,31 detik (IR-GOR-07..09)"),

@@ -1,6 +1,6 @@
 # Incident / Defect Reports (`IR1`–`IR2`)
 
-Dokumen ini mengimplementasikan **Test Incident Reporting Process (`IR1–IR2`)** sesuai standar **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **ISO/IEC 25010:2023**, & **ISO/IEC 40500:2025 / WCAG 2.2**). Seluruh `10` insiden (`IR-GOR-01` s.d. `IR-GOR-10`) berasal dari eksekusi deterministik Black Box (`TC-BB-*`), Performance (`TC-PERF-*`), dan analisis pelengkap *White/Gray Box* pada `https://gorpermatabadminton.com`.
+Dokumen ini mengimplementasikan **Test Incident Reporting Process (`IR1–IR2`)** sesuai standar **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **ISO/IEC 25010:2023**, & **ISO/IEC 40500:2025 / WCAG 2.2**). Seluruh `10` insiden (`IR-GOR-01` s.d. `IR-GOR-10`) berasal dari **2 pengujian utama proyek** — **Black Box Testing (`TC-BB-*`)** dan **Performance Testing (`TC-PERF-*`)** — pada `https://gorpermatabadminton.com`.
 
 ---
 
@@ -9,7 +9,7 @@ Dokumen ini mengimplementasikan **Test Incident Reporting Process (`IR1–IR2`)*
 | ID Insiden | Cross-Ref Lama | TC Pemicu | Kategori | Severity | Priority | Status | Ringkasan Masalah |
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
 | **`IR-GOR-01`** | `BUG-GOR-01` | `TC-BB-02` | Functional | Major | Medium | **Open** | Endpoint `/register` mengembalikan `HTTP 404 Not Found` |
-| **`IR-GOR-02`** | `BUG-GOR-02` | `TC-BB-16` | Validation / White Box | Minor | Medium | **Open** | `normPhone()` gagal menormalisasi awalan `+62 08...` |
+| **`IR-GOR-02`** | `BUG-GOR-02` | `TC-BB-16` | Validation (Black Box) | Minor | Medium | **Open** | `normPhone()` gagal menormalisasi awalan `+62 08...` |
 | **`IR-GOR-03`** | `BUG-GOR-03` | `TC-BB-09` | Validation / UX | Minor | Low | **Open** | `#custName` meloloskan spasi `"   "` dan `1` huruf di klien |
 | **`IR-GOR-04`** | `BUG-GOR-04` | `TC-BB-22` | Security / Privacy | **Major** | **High** | **Open** | DOM publik `/booking` menyematkan `data-phone` & `data-name` (`205` slot) + fungsi internal `manageBooking()` |
 | **`IR-GOR-05`** | *(Temuan Baru)* | `TC-BB-04` | Functional / Validation | Major | High | **Open** | `?start_date=2020-01-01` (tanggal lampau) merender `612` slot booking aktif |

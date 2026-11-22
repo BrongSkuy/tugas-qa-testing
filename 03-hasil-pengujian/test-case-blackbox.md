@@ -78,7 +78,7 @@ Urutan eksekusi disusun berdasarkan dependensi *precondition* dan prioritas risi
 | *Desyani, dkk. (2022)* & *ISTQB v4.0.1 (§4.2.1)* | Membagi input benar & salah (*Equivalence Partitioning*) | `TC-BB-01..05, 10, 15, 16, 20` | Menu `/register` 404 (`IR-GOR-01`), `+62 08...` gagal (`IR-GOR-02`), tanggal lampau & error 500 (`IR-GOR-05/06`) |
 | *Putri & Susanto (2024)* & *ISTQB v4.0.1 (§4.2.2)* | Menguji tepat di angka batas (*Boundary Value Analysis*) | `TC-BB-07, 09, 11..14, 17, 18` | Nama cuma spasi `"   "` & `"A"` lolos (`IR-GOR-03`), batas WA `10/11/14/15` digit & tutup `00:00` akurat |
 | *Sitio, dkk. (2023)* & *ISTQB v4.0.1 (§4.2.3)* | Tabel aturan sebab-akibat (*Decision Table*) | `TC-BB-08, 09, 17, 18` | Membuktikan syarat mana saja yang lolos saat klik `Booking Sekarang` |
-| *Nada, dkk. (2023)* & *Alirridlo, dkk. (2025)* | Melacak alur cabang kode (*White Box $V(G)$*) | `TC-BB-15..16` | Menemukan baris kode `if (d.startsWith('62'))` yang bikin `+62 08` ditolak (`IR-GOR-02`) |
+| *Nada, dkk. (2023)* & *Alirridlo, dkk. (2025)* | Pelengkap melacak alur percabangan fungsi halaman | `TC-BB-15..16` | Menjelaskan baris kode `if (d.startsWith('62'))` di `normPhone()` penyebab gagal `+62 08...` (`IR-GOR-02`) |
 | *Fhonna, dkk. (2026)*, *Seputra, dkk. (2024)*, & *Putra, dkk. (2026)* | Tes otomatis Playwright, alur pengguna, & cek tampilan HP | `TC-BB-06, 19, 21, 22, 23` | `205` nomor WA bocor di kode HTML (`IR-GOR-04`), menu HP terpotong (`IR-GOR-10`), pop-up `RTBC` benar |
 
 ---

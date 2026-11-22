@@ -31,7 +31,7 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
 - **In Scope:**
   1. **Black Box Testing (Fungsional & Interaksi):** Navigasi rute publik, parameter `?start_date=`, pembukaan/penutupan `#bookingModal`, kalkulasi tarif `updateTotal()`, validasi negatif dan nilai batas `#custName`, `#custPhone`, `#custDuration`, validasi klien `/login`, serta responsivitas *Desktop* (`1280×800`) dan *Mobile* (`390×844`).
   2. **Performance Testing (Non-Destruktif):** Profiling *Navigation Timing / Core Web Vitals* (`TTFB`, `DCL`, `Load`, `FCP`, `LCP`, `CLS`), analisis bobot payload HTML/aset (`Cold` vs `Warm`), *client interaction latency*, dan *concurrent HTTP GET benchmark* (`1`, `5`, `10 VUs`) pada [`performance-test-plan.md`](./performance-test-plan.md).
-  3. **White Box & Gray Box Testing (Pelengkap):** Perhitungan *Cyclomatic Complexity* $V(G)$ pada `normPhone()` & `submitBooking()`, inspeksi atribut DOM, token CSRF, dan *HTTP Security Headers*.
+  3. **Catatan Pendukung Inspeksi Halaman Publik (Bukan Pengujian Utama Terpisah):** Pembacaan kode JS klien `/booking` (`normPhone()` & `submitBooking()`), atribut DOM, token CSRF, dan *HTTP Security Headers* guna menjelaskan akar bug yang ditangkap *Black Box*.
 - **Out of Scope (*Tailored Exclusion*):**
   1. Pengiriman transaksi nyata `POST /bookings/store` ke basis data UMKM (dicegat via interceptor `page.route` / `cy.intercept` dan validasi berhenti di sisi klien).
   2. Pengujian fitur internal admin/penjaga (`/bookings/confirm/*`, `/bookings/reject/*`, `/bookings/delete/*`) karena tidak memiliki kredensial resmi.
@@ -118,8 +118,7 @@ flowchart LR
    - Dirinci lengkap pada [`performance-test-plan.md`](./performance-test-plan.md) (`TP-GOR-PERF-01`).
    - Mengukur *Navigation Timing / Web Vitals* (`TTFB`, `DCL`, `Load`, `FCP`, `LCP`, `CLS`, *payload bytes*) serta uji beban HTTP `GET` bertingkat (`1`, `5`, `10 VUs`).
    - *Rujukan Ilmiah SINTA 2–3 (`>= 2022`):* **Winasis, dkk. (2026)** (*Sinkron, SINTA 3*) untuk uji beban bertingkat sistem booking/komplain + WhatsApp Laravel, **Zahra & Kraugusteeliana (2023)** (*JTIIK, SINTA 2*) untuk dimensi *Performance Efficiency* ISO 25010, dan **Putra, dkk. (2026)** (*JAIC, SINTA 3*) untuk keunggulan otomasi **Playwright** dibanding Cypress/Selenium.
-3. **White Box & Gray Box Testing (Pelengkap):**
-   - *Basis Path* & *Cyclomatic Complexity* $V(G)$ pada [`analisis-white-black-gray-box.md`](./analisis-white-black-gray-box.md) (*Nada, dkk., 2023; Alirridlo, dkk., 2025*).
+   - **Catatan Pendukung Baca Kode Tampilan (Opsional):** Ringkasan alur kode JS halaman `/booking` pada [`analisis-white-black-gray-box.md`](./analisis-white-black-gray-box.md) (*Nada, dkk., 2023; Alirridlo, dkk., 2025*) hanya dipakai untuk memahami penyebab error `normPhone()` di balik layar.
 
 ### 4.2 Metrik Pemantauan & Pengendalian (`7.2.4.6 c` -> `TMC1–TMC4`)
 - **Black Box Coverage:** `% TCI-BB` yang tercakup & dieksekusi; rasio `PASS / FAIL / INCONCLUSIVE` per prioritas risiko.

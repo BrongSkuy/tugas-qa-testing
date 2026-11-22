@@ -12,7 +12,7 @@ Dokumen ini merupakan **Organizational Test Specification** sesuai arsitektur pe
 - **Standar Acuan Utama (`>= 2022`):** `ISO/IEC/IEEE 29119-1:2022` (*General Concepts*), `ISO/IEC/IEEE 29119-5:2024` (*Keyword-Driven Testing*), `ISTQB CTFL Syllabus v4.0.1 (2024)`, `ISO/IEC 25010:2023` (*Product Quality*), `ISO/IEC 25019:2023` (*Quality-in-Use*), `ISO/IEC 25002:2024` (*Quality Model Overview*), dan `ISO/IEC 40500:2025` (*W3C WCAG 2.2*).
 
 ### 1.1 Deklarasi Kepatuhan (*Tailored Conformance*)
-Tim menetapkan klaim **Tailored Conformance** terhadap arsitektur proses multi-lapis **ISO/IEC/IEEE 29119-1:2022** & **ISTQB CTFL v4.0.1 (Bab 1.4)** untuk seluruh lapisan **Organizational** (`OT1–OT3`), **Test Management** (`TP1–TP9`, `TMC1–TMC4`, `TC1–TC4`), dan **Dynamic Test Processes** (`TD1–TD4`, `ED1–ED4`, `TE1–TE3`, `IR1–IR2`) pada **Black Box Testing**, **Performance Testing**, serta analisis pelengkap *White/Gray Box*. *(Catatan kepatuhan tahun >= 2022: berkas PDF referensi 2021 telah dihapus sesuai arahan dosen dan seluruh acuan PDF beredisi 2022–2025).*
+Tim menetapkan klaim **Tailored Conformance** terhadap arsitektur proses multi-lapis **ISO/IEC/IEEE 29119-1:2022** & **ISTQB CTFL v4.0.1 (Bab 1.4)** untuk seluruh lapisan **Organizational** (`OT1–OT3`), **Test Management** (`TP1–TP9`, `TMC1–TMC4`, `TC1–TC4`), dan **Dynamic Test Processes** (`TD1–TD4`, `ED1–ED4`, `TE1–TE3`, `IR1–IR2`) pada **2 jenis pengujian utama proyek: Black Box Testing dan Performance Testing** *(diotomatiskan dengan Playwright Python / `aiohttp`, ditambah catatan baca kode JS publik sebagai pendukung diagnostic)*. *(Catatan kepatuhan tahun >= 2022: berkas PDF referensi 2021 telah dihapus sesuai arahan dosen dan seluruh acuan PDF beredisi 2022–2025).*
 
 ### 1.2 Justifikasi & Pertimbangan Risiko *Tailoring* (*Clause 4.1.3*)
 | Proses / Aspek yang Di-*tailor* | Bentuk Penyesuaian (*Tailoring*) | Justifikasi Teknis, Etika, & Risiko UMKM | Persetujuan Pemangku Kepentingan |
@@ -30,13 +30,13 @@ Tim menetapkan klaim **Tailored Conformance** terhadap arsitektur proses multi-l
 1. **Risk-Based Testing:** Seluruh perancangan, prioritisasi cakupan, dan alokasi upaya pengujian berlandaskan analisis risiko produk (*Product Risk*) dan risiko proyek (*Project Risk*), sehingga fitur kritis (validasi form booking, keutuhan rute layanan, dan performa halaman `/booking`) memperoleh prioritas tertinggi.
 2. **Non-Destructive Production Testing:** Pengujian pada sistem publik milik UMKM **wajib** menjaga integritas data dan ketersediaan layanan. Setiap skrip otomatis harus menyertakan mekanisme pengaman (*guardrail*) terhadap permintaan tulis (`POST`/`PUT`/`DELETE`).
 3. **Evidence-Based & Reproducible:** Setiap klaim hasil uji (*Pass/Fail*) maupun temuan insiden wajib ditopang bukti aktual deterministik (log eksekusi terstruktur, data mentah JSON, tangkapan layar, atau cuplikan respons HTTP/DOM).
-4. **Scientific Justification (Ketentuan Akademik Poin 7):** Setiap pemilihan metode pengujian (White Box, Black Box, Performance, Automation, dan Audit ISO 25010) wajib berlandaskan pustaka ilmiah terakreditasi **SINTA 1–3**.
+4. **Scientific Justification (Ketentuan Akademik Poin 7):** Setiap pemilihan teknik **Black Box**, **Performance Testing**, alat otomasi, dan audit mutu `ISO 25010` wajib berlandaskan pustaka ilmiah terakreditasi **SINTA 1–3 (`>= 2022`)**.
 5. **Pemisahan Pengujian & Wawancara (Arahan Kelas 14 Nov 2026):** Tahap wawancara praktisi QA pada folder `04-wawancara-praktisi-qa/` hanya dilakukan **setelah** seluruh proses pengujian Clause 7 dan 8 selesai terdokumentasi.
 
-### 2.2 Ruang Lingkup Jenis Pengujian Organisasi
-- **Functional & Interaction Testing (Black Box):** Evaluasi perilaku antarmuka, navigasi, validasi input, state modal, dan kompatibilitas lintas viewport (*Desktop* & *Mobile*).
-- **Performance Testing (*ISO/IEC 25010:2023 Performance Efficiency* & *Winasis, dkk. 2026*):** Evaluasi *time behaviour* (TTFB, FCP, LCP, DOMContentLoaded, p50/p95/p99 latensi), *resource utilization* (ukuran HTML/aset, kompresi `br`/`gzip`), dan *safe capacity* (`1–10 VUs`).
-- **Structural & Gray Box Testing (Pelengkap):** Evaluasi kompleksitas siklomatik $V(G)$ fungsi JS klien, token CSRF, atribut DOM, dan *HTTP Security Headers*.
+### 2.2 Ruang Lingkup Jenis Pengujian Utama (`2` Metode Uji)
+- **1. Black Box Testing (Fungsional, Interaksi, & Kompatibilitas):** Evaluasi perilaku antarmuka, navigasi, validasi input, perpindahan status modal, dan kompatibilitas lintas viewport (*Desktop* & *Mobile*), diotomatiskan dengan Playwright Python.
+- **2. Performance Testing (*ISO/IEC 25010:2023 Performance Efficiency* & *Winasis, dkk. 2026*):** Evaluasi *time behaviour* (TTFB, FCP, LCP, DOMContentLoaded, p50/p95/p99 latensi), *resource utilization* (ukuran HTML/aset, kompresi `br`/`gzip`), dan *safe capacity* (`1–10 VUs`), diotomatiskan dengan Playwright + `aiohttp`.
+- **Catatan Pendukung (Bukan Pengujian Terpisah):** Inspeksi kode JS tampilan `/booking` (`normPhone()`, CSRF token, atribut DOM publik, dan HTTP headers) hanya dipakai untuk menjelaskan akar penyebab bug yang tertangkap oleh Black Box & audit keamanan ISO 25010.
 
 ---
 
