@@ -1,6 +1,6 @@
 # Test Case & Test Procedure Specification — Performance Testing (`TD3` & `TD4`)
 
-Dokumen ini mengimplementasikan aktivitas **`TD3` (*Derive test cases*)** dan **`TD4` (*Create test procedures*)** sesuai **ISO/IEC/IEEE 29119-2:2021(E) §8.2**, diturunkan dari [`../02-objek-umkm-dan-rencana-uji/test-model-performance.md`](../02-objek-umkm-dan-rencana-uji/test-model-performance.md) dengan konfigurasi profil beban pada [`test-data/performance-profiles.json`](./test-data/performance-profiles.json).
+Dokumen ini mengimplementasikan aktivitas **`TD3` (*Derive test cases*)** dan **`TD4` (*Create test procedures*)** sesuai standar resmi **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **29119-5:2024**, & **ISO/IEC 25010:2023** — *Performance Efficiency*) bersama model beban **Winasis, dkk. (2026)**, diturunkan dari [`../02-objek-umkm-dan-rencana-uji/test-model-performance.md`](../02-objek-umkm-dan-rencana-uji/test-model-performance.md) dengan konfigurasi profil beban pada [`test-data/performance-profiles.json`](./test-data/performance-profiles.json).
 
 ---
 
@@ -45,3 +45,17 @@ Diotomatiskan pada [`automation-scripts/test_performance_gor_permata.py`](./auto
 | `TB-PERF-02` | `TM-PERF-01` | `TCI-PERF-04`, `TCI-PERF-06` | `TC-PERF-04`, `TC-PERF-06` | `PROC-PERF-01` (`test_performance_gor_permata.py`) |
 | `TB-PERF-03` | `TM-PERF-02` | `TCI-PERF-07` | `TC-PERF-07` | `PROC-PERF-02` (`test_performance_gor_permata.py`) |
 | `TB-PERF-04` | `TM-PERF-03` | `TCI-PERF-08..10` | `TC-PERF-08..10` | `PROC-PERF-03` (`test_performance_gor_permata.py`) |
+
+---
+
+## 4. Panduan *Step-by-Step* Pelaksanaan Performance Testing (Langkah 1 s.d. 6)
+
+1. **Langkah 1 — Persiapan Lingkungan & Profil Beban (`test-data/performance-profiles.json`):** Pastikan pustaka `playwright` & `aiohttp` aktif. Profil menetapkan 4 rute publik `GET`-only (`/`, `/booking?start_date=<besok>`, `/login`, `/fasilitas/lapangan`) dan batas pengaman *circuit breaker* (abort otomatis jika error > `5%` atau muncul `HTTP 429`).
+2. **Langkah 2 — Jalankan Eksekusi Otomatis Terintegrasi:** Eksekusi satu perintah dari root repositori:
+   ```bash
+   python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
+   ```
+3. **Langkah 3 — Profil Browser Rendering & Caching (`PROC-PERF-01`):** Skrip membuka *BrowserContext* baru (*Cold Cache*) di `Desktop 1280×800` lalu mencatat `TTFB`, `DCL`, `Load`, `FCP`, `CLS`, serta ukuran `HTML Raw` & `Brotli (br)` (`TC-PERF-01..03, 06`), mengulang navigasi di konteks yang sama untuk *Warm Cache* (`TC-PERF-04`), dan menguji konteks *Mobile `390×844`* (`TC-PERF-05`).
+4. **Langkah 4 — Pengukuran Interaksi DOM Lokal (`PROC-PERF-02`):** Di halaman `/booking`, skrip mengukur waktu respons panggilan JS lokal `openBooking()`, 4× perubahan `updateTotal()`, dan reload `changeDate()` (`TC-PERF-07`).
+5. **Langkah 5 — Uji Beban Konkuren Bertingkat Aman (`PROC-PERF-03` — Mengacu Winasis dkk. 2026):** Setelah jeda stabilisasi, engine `aiohttp` (`Accept-Encoding: gzip, deflate` per `CD-01`) menjalankan 3 tingkat beban dipisah jeda *cool-down* 2 detik: **Level A (`1 VU`, `24` req)** -> **Level B (`5 VUs`, `40` req)** -> **Level C (`10 VUs`, `40` req)** = **`104` request `GET`** (`TC-PERF-08..10`).
+6. **Langkah 6 — Verifikasi Log, JSON, Grafik SLA & Pencatatan Insiden:** Periksa keluaran [`performance-log.txt`](./automation-scripts/performance-log.txt), [`performance-metrics.json`](./evidence/performance-metrics.json), dan grafik perbandingan `12_performance_latency_chart.png`. Pelanggaran SLA dicatat resmi ke `incident-reports.md` (`IR-GOR-07` `10 VUs p95 = 5314,28 ms`, `IR-GOR-08` HTML `535,37 KB`, & `IR-GOR-09` cold TTFB `/` `2618,3 ms`).

@@ -1,12 +1,12 @@
 # Test Completion Report (Test Summary Report — `TC1`–`TC4`)
 
-Dokumen ini merupakan **Test Completion Report (`7.4.5`)** yang merangkum penyelesaian **Test Completion Process (`7.4`, aktivitas `TC1–TC4`)** sesuai **ISO/IEC/IEEE 29119-2:2021(E)** dan **ISO/IEC/IEEE 29119-3** untuk pengujian **Black Box** dan **Performance Testing** (disertai analisis pelengkap *White/Gray Box* & audit *ISO/IEC 25010:2023*) pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
+Dokumen ini merupakan **Test Completion Report (`TC1–TC4`)** yang merangkum penyelesaian seluruh siklus **Test Completion Process** sesuai standar **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **29119-5:2024**, & **ISTQB CTFL v4.0.1 2024**) untuk pengujian **Black Box** dan **Performance Testing** (disertai analisis pelengkap *White/Gray Box* & audit *ISO/IEC 25010:2023*, *25019:2023*, *40500:2025*) pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
 
 ---
 
-## 1. Ringkasan Eksekutif Pengujian yang Dilaksanakan (`TC4 — 7.4.4.5 a, b`)
+## 1. Ringkasan Eksekutif Pengujian yang Dilaksanakan (`TC4`)
 
-1. **Cakupan Pengujian:** Seluruh alur proses ISO/IEC/IEEE 29119-2:2021 telah dijalankan secara utuh mulai dari *Organizational Test Specification* (`Clause 6`), *Master & Performance Test Planning* (`7.2`), permodelan uji edisi 2021 berbasis *Test Model -> TCI -> Test Case -> Test Procedure* (`8.2`), kesiapan lingkungan & data (`8.3`), eksekusi otomatis nyata (`8.4`), pelaporan insiden (`8.5`), hingga monitoring & penutupan (`7.3–7.4`).
+1. **Cakupan Pengujian:** Seluruh alur *Flow Testing* 7 tahap sesuai arsitektur **ISO/IEC/IEEE 29119-1:2022** dan **ISTQB CTFL v4.0.1** telah dijalankan secara utuh mulai dari *Organizational Test Specification*, *Master & Performance Test Planning*, permodelan uji *Test Model -> TCI -> Test Case -> Test Procedure*, kesiapan lingkungan & data (`29119-5:2024`), eksekusi otomatis nyata, pelaporan insiden, hingga monitoring & penutupan.
 2. **Hasil Agregat Eksekusi:**
    - **Black Box Testing (`TC-BB-01..23`):** `23` kasus uji dieksekusi -> **`16 PASS`**, **`7 FAIL`** *(seluruhnya merupakan konfirmasi cacat aktual yang terdokumentasi di `incident-reports.md`)*. `0` error konsol JS, **`0` request `POST /bookings/store` terkirim ke server produksi**.
    - **Performance Testing (`TC-PERF-01..10`):** `10` kasus uji dieksekusi -> **`7 PASS`**, **`3 FAIL`** *(pelanggaran SLA `10 VUs` pada `/booking` `p95 = 5314,28 ms`, bobot HTML mentah `/booking` `535,37 KB`, dan cold-start TTFB `/` `2618,3 ms`)*. Sebanyak `104` request HTTP `GET` konkuren mencatat **`0,0%` Error Rate**.
@@ -55,7 +55,7 @@ Seluruh aset uji yang dapat digunakan kembali (*reusable*) untuk pengujian regre
 ## 6. *Lessons Learned* (`TC3`, `7.4.4.4` -> Umpan Balik ke `OT3`)
 
 1. **Apa yang Berjalan Baik:**
-   - Penerapan alur **Test Model (`TD1`) -> TCI (`TD2`) -> Test Case (`TD3`) -> Test Procedure (`TD4`)** edisi 2021 membuat ketertelusuran BVA/EP/STT/Workload sangat jelas dan tidak ada skenario batas yang terlewat.
+   - Penerapan alur **Test Model (`TD1`) -> TCI (`TD2`) -> Test Case (`TD3`) -> Test Procedure (`TD4`)** (`ISO/IEC/IEEE 29119-1:2022` & `ISTQB CTFL v4.0.1`) membuat ketertelusuran 5 teknik Black Box & Workload sangat jelas dan tidak ada skenario batas yang terlewat.
    - Proteksi ganda (`page.route` abort + pemantauan `requestfinished`) memungkinkan uji regresi berulang aman pada sistem live UMKM.
    - Kombinasi inspeksi visual tangkapan layar dan otomatisasi DOM berhasil mengungkap cacat navbar mobile (`IR-GOR-10`) yang tersembunyi di balik `document.scrollWidth`.
 2. **Kendala yang Ditemui & Solusi:**

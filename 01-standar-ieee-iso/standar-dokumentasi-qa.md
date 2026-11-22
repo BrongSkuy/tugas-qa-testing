@@ -1,27 +1,30 @@
-# Standar Dokumentasi QA & Testing IEEE / ISO (2022–2026)
+# Standar Dokumentasi QA & Testing IEEE / ISO (`>= 2022`)
 
-Dokumen ini menjadi indeks acuan standar QA & Testing pada repositori `tugas-qa-testing` untuk studi kasus **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`), agar memenuhi **Poin 2** instruksi perkuliahan serta patuh penuh pada **ISO/IEC/IEEE 29119-2:2021(E)**.
+Dokumen ini menjadi indeks acuan standar QA & Testing (`2022–2026`) pada repositori `tugas-qa-testing` untuk studi kasus **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`), agar memenuhi **Poin 2** instruksi perkuliahan serta patuh penuh pada standar resmi edisi **`>= 2022`** (**`ISO/IEC/IEEE 29119-1:2022`**, **`29119-5:2024`**, **`ISO/IEC 25010:2023`**, **`25019:2023`**, **`25002:2024`**, **`40500:2025`**, & **`ISTQB CTFL v4.0.1 2024`**).
 
----
-
-## 1. Kerangka Standar Resmi yang Dirujuk
-
-| Standar | Tahun / Status | Fokus Utama & Penerapan di Proyek GOR Permata |
-| :--- | :---: | :--- |
-| **ISO/IEC/IEEE 29119-1** *(Concepts and Definitions)* | **2022** *(Edisi ke-2)* | Menetapkan kosakata baku pengujian (*test case, defect, incident, test model, test basis*) serta prinsip *risk-based testing* yang melandasi pemisahan pengujian non-destruktif (`In Scope`) vs transaksi produksi (`Out of Scope`). |
-| **ISO/IEC/IEEE 29119-2** *(Test Processes)* | **2021** *(Edisi ke-2 — Acuan Utama Aktif)* | Menetapkan model proses 3 lapis: **Organizational Test Process** (`Clause 6`), **Test Management Processes** (`Clause 7`: Planning, Monitoring & Control, Completion), dan **Dynamic Test Processes** (`Clause 8`: Test Model -> TCI -> Test Case -> Test Procedure, Environment/Data, Execution, Incident Reporting). |
-| **ISO/IEC/IEEE 29119-3** *(Test Documentation — penyempurnaan historis IEEE 829)* | **2021** *(Acuan Artefak Aktif)* | Mengatur struktur baku artefak: **Organizational Test Spec**, **Test Plan**, **Test Specification** (Model, Case, Procedure), **Environment/Data Readiness**, **Test Execution Log**, **Test Status Report**, **Incident Report**, dan **Test Completion Report**. |
-| **ISO/IEC/IEEE 29119-4** *(Test Techniques)* | **2021** *(Acuan Teknik Aktif)* | Membakukan teknik perancangan uji **Specification-Based** (*Black Box*: *Equivalence Partitioning, Boundary Value Analysis, Decision Table, State Transition, Use Case*) dan **Structure-Based** (*White Box*: *Branch/Decision & Basis Path Testing*). |
-| **ISO/IEC/IEEE 29119-5** *(Keyword-Driven Testing)* | **2024** *(Edisi ke-2)* | Landasan pengorganisasian skenario otomasi modular & pemisahan dataset JSON pada skrip Playwright Python & Cypress di folder `03-hasil-pengujian/`. |
-| **ISO/IEC 25010** *(Product Quality Model — SQuaRE)* | **2023** *(Edisi Revisi 9 Karakteristik)* | Memperbarui model kualitas produk perangkat lunak menjadi **9 karakteristik**: *Functional Suitability, Performance Efficiency, Compatibility, **Interaction Capability** (pengganti Usability), Reliability, Security, Maintainability, **Flexibility** (pengganti Portability), dan **Safety** (karakteristik baru 2023)*. Audit rinci ada pada [`evaluasi-iso-25010-gor-permata.md`](./evaluasi-iso-25010-gor-permata.md). |
+> **Catatan Revisi Dosen (`>= 2022`):** Berkas PDF standar tahun `2021` telah dihapus dari repositori. Seluruh acuan PDF yang tersimpan pada [`./pdf-standar/`](./pdf-standar/) beredisi **`2022–2025`**.
 
 ---
 
-## 2. Matriks Kepatuhan Artefak Proyek terhadap ISO/IEC/IEEE 29119-2:2021 & 29119-3
+## 1. Kerangka Standar Resmi (`>= 2022`) yang Dirujuk
 
-| Klausul 29119-2 | *Information Item* Wajib | Lokasi Berkas pada Repositori Ini | Fokus Cakupan |
+| Standar Resmi | Tahun / Edisi | Fokus Utama & Penerapan di Proyek GOR Permata | Tautan Resmi |
+| :--- | :---: | :--- | :--- |
+| **ISO/IEC/IEEE 29119-1** *(Concepts and Definitions)* | **2022-01** *(Edisi ke-2)* | Membakukan arsitektur proses uji multi-lapis (`Organizational -> Management -> Dynamic`), struktur konseptual `Test Basis -> Test Model -> TCI -> Test Case -> Test Procedure -> Incident Report`, serta prinsip *risk-based testing* untuk memisahkan skenario aman (`In Scope`) dari submit DB nyata (`Out of Scope`). | [`iso.org/standard/81291.html`](https://www.iso.org/standard/81291.html) |
+| **ISO/IEC/IEEE 29119-5** *(Keyword-Driven Testing)* | **2024-12** *(Edisi ke-2)* | Landasan modularisasi helper otomasi (`record`, `click_submit_expect_dialog`, `mask_grid_pii`) serta pemisahan dataset JSON (`blackbox-testdata.json`, `performance-profiles.json`) pada skrip Playwright Python & Cypress di folder `03-hasil-pengujian/`. | [`iso.org/standard/87233.html`](https://www.iso.org/standard/87233.html) |
+| **ISTQB CTFL Syllabus v4.0.1** *(Standar Terbuka Resmi)* | **2024-09** *(v4.0 / v4.0.1)* | Menguraikan *Test Process / Flow Testing* (`Bab 1.4`) dan teknik **Black Box** (*Equivalence Partitioning, Boundary Value Analysis, Decision Table, State Transition* pada `Bab 4.2`), serta merujuk resmi ke `ISO 29119-1:2022` dan `ISO 25010:2023`. | [`ISTQB_CTFL_Syllabus_v4.0.1_2024.pdf`](./pdf-standar/ISTQB_CTFL_Syllabus_v4.0.1_2024.pdf) |
+| **ISO/IEC 25010** *(Product Quality Model — SQuaRE)* | **2023-11** *(Edisi ke-2, 9 Dimensi)* | Model kualitas produk perangkat lunak terbaru (**9 karakteristik**): *Functional Suitability, Performance Efficiency, Compatibility, **Interaction Capability**, Reliability, Security, Maintainability, **Flexibility**, dan **Safety***. | [`iso.org/standard/78176.html`](https://www.iso.org/standard/78176.html) |
+| **ISO/IEC 25019** *(Quality-in-Use Model — SQuaRE)* | **2023-11** *(Edisi ke-1)* | Mengukur kualitas dari perspektif pemangku kepentingan & pengguna akhir (*Effectiveness, Efficiency, Freedom from Risk, Acceptability*) untuk dampak cacat pada pelanggan & pemilik GOR. | [`iso.org/standard/78177.html`](https://www.iso.org/standard/78177.html) |
+| **ISO/IEC 25002** *(Quality Model Overview & Usage — SQuaRE)* | **2024-03** *(Edisi ke-1)* | Panduan struktur dan penggunaan model kualitas `SQuaRE` dalam menghubungkan metrik pengujian dengan evaluasi mutu. | [`iso.org/standard/78175.html`](https://www.iso.org/standard/78175.html) |
+| **ISO/IEC 40500** *(W3C WCAG 2.2)* | **2025-09** / **2023** | Standar aksesibilitas & keterbacaan antarmuka lintas perangkat (*Reflow & Responsive Layout* Desktop vs Mobile `390×844`). | [`W3C_WCAG_2.2_Accessibility_2023_ISO_40500_2025.pdf`](./pdf-standar/W3C_WCAG_2.2_Accessibility_2023_ISO_40500_2025.pdf) |
+
+---
+
+## 2. Matriks Kepatuhan Artefak Proyek (Arsitektur ISO/IEC/IEEE 29119-1:2022 & SQuaRE 2023–2024)
+
+| Lapisan / Referensi Proses | *Information Item* Wajib | Lokasi Berkas pada Repositori Ini | Fokus Cakupan |
 | :---: | :--- | :--- | :--- |
-| **4 & 6 (`OT1–OT3`)** | **Organizational Test Specification** (*Policy*, *Practices*, & *Conformance Statement*) | [`./organizational-test-specification.md`](./organizational-test-specification.md) | *Tailored Conformance*, kebijakan non-destruktif, konvensi ID, alur `Test Model` 2021. |
+| **Organizational (`OT1–OT3`)** | **Organizational Test Specification** (*Policy*, *Practices*, & *Conformance Statement*) | [`./organizational-test-specification.md`](./organizational-test-specification.md) | *Tailored Conformance*, kebijakan non-destruktif, konvensi ID, alur `Test Model`. |
 | **7.2 (`TP1–TP9`)** | **Project / Master Test Plan** (`TP-GOR-01`) | [`../02-objek-umkm-dan-rencana-uji/test-plan-gor-permata.md`](../02-objek-umkm-dan-rencana-uji/test-plan-gor-permata.md) | Konteks, *Test Basis*, Risiko *Project vs Product* + *Exposure*, *Strategy*, *Schedule*, *Approval*. |
 | **7.2 (`TP1–TP9`)** | **Performance Test Plan** (`TP-GOR-PERF-01`) | [`../02-objek-umkm-dan-rencana-uji/performance-test-plan.md`](../02-objek-umkm-dan-rencana-uji/performance-test-plan.md) | Strategi uji performa non-destruktif (`1/5/10 VUs` & *Web Vitals*), SLA/Threshold, *Circuit Breaker*. |
 | **8.2 (`TD1–TD2`)** | **Test Model Specification & TCI** (*Black Box*) | [`../02-objek-umkm-dan-rencana-uji/test-model-blackbox.md`](../02-objek-umkm-dan-rencana-uji/test-model-blackbox.md) | `TB-BB-*`, `TM-BB-*` (`EP`, `BVA`, `Decision Table`, `STT`, `Use Case`), `TCI-BB-*`. |
@@ -38,7 +41,7 @@ Dokumen ini menjadi indeks acuan standar QA & Testing pada repositori `tugas-qa-
 
 ---
 
-## 3. Template Baku Laporan Insiden / Defect (Mengikuti ISO/IEC/IEEE 29119-2 §8.5 & 29119-3)
+## 3. Template Baku Laporan Insiden / Defect (ISO/IEC/IEEE 29119-1:2022)
 
 Setiap temuan cacat atau pelanggaran SLA performa pada **GOR Permata Badminton Hall** dicatat pada [`incident-reports.md`](../03-hasil-pengujian/incident-reports.md) dengan atribut minimal:
 1. **ID Insiden & Cross-Ref:** Kode unik (`IR-GOR-XX` / `BUG-GOR-XX`) dan `TC` pemicu
@@ -51,13 +54,20 @@ Setiap temuan cacat atau pelanggaran SLA performa pada **GOR Permata Badminton H
 
 ---
 
-## 4. Referensi Resmi & Arsip PDF di `./pdf-standar/`
+## 4. Referensi Resmi (`>= 2022`) & Arsip PDF di [`./pdf-standar/`](./pdf-standar/)
 
-- **Kanal Resmi Pratinjau & Katalog Standar:**
-  - **ISO Online Browsing Platform (OBP):** https://obp.iso.org/
-  - **ISO/IEC 40500:2025 / W3C WCAG 2.2:** https://www.w3.org/TR/WCAG22/
-  - **Portal Informasi ISO/IEC/IEEE 29119:** https://softwaretestingstandard.org/
-- **Berkas PDF Acuan pada [`./pdf-standar/`](./pdf-standar/):**
-  - [`10.1109@IEEESTD.2021.9591508.pdf`](./pdf-standar/10.1109@IEEESTD.2021.9591508.pdf) — Dokumen standar **ISO/IEC/IEEE 29119-2:2021(E)** (*Software and systems engineering — Software testing — Part 2: Test processes*) yang diarsipkan kelompok sebagai bahan referensi utama tugas akademik (*penggunaan internal pendidikan*).
-  - [`Ringkasan-Standar-ISO-IEC-IEEE-29119-2022-2024.pdf`](./pdf-standar/Ringkasan-Standar-ISO-IEC-IEEE-29119-2022-2024.pdf) — Ringkasan struktur, proses, teknik uji, & matriks artefak **ISO/IEC/IEEE 29119** pada proyek GOR Permata (`2` halaman).
-  - [`Audit-Mutu-ISO-IEC-25010-2023-GOR-Permata.pdf`](./pdf-standar/Audit-Mutu-ISO-IEC-25010-2023-GOR-Permata.pdf) — Ringkasan hasil audit 9 karakteristik model kualitas **ISO/IEC 25010:2023** (`2` halaman).
+- **Kanal Resmi Katalog & Pratinjau Standar (`iso.org`, `w3.org`, `istqb.org`):**
+  - **ISO/IEC/IEEE 29119-1:2022 (*General Concepts*):** [`iso.org/standard/81291.html`](https://www.iso.org/standard/81291.html)
+  - **ISO/IEC/IEEE 29119-5:2024 (*Keyword-Driven Testing*):** [`iso.org/standard/87233.html`](https://www.iso.org/standard/87233.html)
+  - **ISO/IEC 25010:2023 (*Product Quality Model*):** [`iso.org/standard/78176.html`](https://www.iso.org/standard/78176.html)
+  - **ISO/IEC 25019:2023 (*Quality-in-Use Model*):** [`iso.org/standard/78177.html`](https://www.iso.org/standard/78177.html)
+  - **ISO/IEC 25002:2024 (*Quality Model Overview & Usage*):** [`iso.org/standard/78175.html`](https://www.iso.org/standard/78175.html)
+  - **ISO/IEC 40500:2025 / W3C WCAG 2.2:** [`iso.org/standard/91029.html`](https://www.iso.org/standard/91029.html) & [`w3.org/TR/WCAG22/`](https://www.w3.org/TR/WCAG22/)
+  - **ISTQB CTFL Syllabus v4.0.1 (`2024`):** [`istqb.org CTFL v4.0`](https://www.istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/)
+  - **ISO Online Browsing Platform (OBP):** [`iso.org/obp/ui/en/`](https://www.iso.org/obp/ui/en/)
+- **Berkas PDF Acuan (`>= 2022`) pada [`./pdf-standar/`](./pdf-standar/) (Klik untuk Membuka):**
+  - [`ISTQB_CTFL_Syllabus_v4.0.1_2024.pdf`](./pdf-standar/ISTQB_CTFL_Syllabus_v4.0.1_2024.pdf) — Standar resmi terbuka **ISTQB CTFL v4.0.1** (`2024`, `78` halaman: *Test Process*, `EP`, `BVA`, `Decision Table`, `State Transition`).
+  - [`W3C_WCAG_2.2_Accessibility_2023_ISO_40500_2025.pdf`](./pdf-standar/W3C_WCAG_2.2_Accessibility_2023_ISO_40500_2025.pdf) — Standar aksesibilitas & kompatibilitas **W3C WCAG 2.2** (`96` halaman, diadopsi menjadi **ISO/IEC 40500:2025**).
+  - [`Referensi-Standar-ISO-Testing-dan-Kualitas-2022-2025.pdf`](./pdf-standar/Referensi-Standar-ISO-Testing-dan-Kualitas-2022-2025.pdf) — Peta lengkap **6 standar ISO `>= 2022`** beserta tautan resmi dan implementasinya pada proyek GOR Permata.
+  - [`Ringkasan-Standar-ISO-IEC-IEEE-29119-2022-2024.pdf`](./pdf-standar/Ringkasan-Standar-ISO-IEC-IEEE-29119-2022-2024.pdf) — Ringkasan struktur, konsep `29119-1:2022`, otomasi modular `29119-5:2024`, & matriks artefak (`23 TC` BB & `10 TC` Perf).
+  - [`Audit-Mutu-ISO-IEC-25010-2023-GOR-Permata.pdf`](./pdf-standar/Audit-Mutu-ISO-IEC-25010-2023-GOR-Permata.pdf) — Ringkasan hasil audit 9 karakteristik **ISO/IEC 25010:2023** & **ISO/IEC 25019:2023** pada GOR Permata.

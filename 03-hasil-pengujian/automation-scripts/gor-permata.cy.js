@@ -1,4 +1,4 @@
-// Test Script Cypress E2E (ISO/IEC/IEEE 29119-2:2021 & 29119-5)
+// Test Script Cypress E2E (ISO/IEC/IEEE 29119-1:2022 & 29119-5:2024)
 // Objek: Portal Booking GOR Permata Badminton Hall
 // Catatan: Non-destruktif - memblokir POST **/bookings/store via cy.intercept
 

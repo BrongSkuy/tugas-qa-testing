@@ -1,5 +1,5 @@
 """
-Automation Test Script (Playwright Python) - Black Box Suite (ISO/IEC/IEEE 29119-2:2021)
+Automation Test Script (Playwright Python) - Black Box Suite (ISO/IEC/IEEE 29119-1:2022, 29119-5:2024, ISTQB CTFL v4.0.1)
 Objek: Portal Booking GOR Permata Badminton Hall (https://gorpermatabadminton.com)
 Cakupan: TC-BB-01 s.d. TC-BB-23 (EP, BVA, Decision Table, State Transition, Use Case, Compatibility)
 Guardrail: Non-destruktif - memblokir POST **/bookings/store di level browser interceptor.

@@ -1,12 +1,12 @@
 # Analisis White Box, Black Box, dan Gray Box: GOR Permata Badminton Hall
 
-Analisis disusun langsung dari pengamatan halaman publik `https://gorpermatabadminton.com/booking`, `/`, dan `/login` mengacu pada **ISO/IEC/IEEE 29119-4** serta rujukan jurnal terakreditasi **SINTA 2–3** ([`referensi-sinta-1-3.md`](./referensi-sinta-1-3.md)). Dokumen ini berfokus pada analisis struktur kode (**White Box**) dan informasi internal (**Gray Box**), sementara permodelan penuh **Black Box** dan **Performance Testing** sesuai edisi **ISO/IEC/IEEE 29119-2:2021** dirinci pada [`test-model-blackbox.md`](./test-model-blackbox.md) dan [`test-model-performance.md`](./test-model-performance.md).
+Analisis disusun langsung dari pengamatan halaman publik `https://gorpermatabadminton.com/booking`, `/`, dan `/login` mengacu pada standar minimal tahun `2022` (**ISO/IEC/IEEE 29119-1:2022**, **ISTQB CTFL Syllabus v4.0.1 `2024`**, **ISO/IEC 25010:2023**) serta rujukan jurnal terakreditasi **SINTA 2–3 (`2022–2026`)** ([`referensi-sinta-1-3.md`](./referensi-sinta-1-3.md)). Dokumen ini berfokus pada analisis struktur kode (**White Box**) dan informasi internal (**Gray Box**), sementara permodelan penuh **Black Box** dan **Performance Testing** dirinci pada [`test-model-blackbox.md`](./test-model-blackbox.md) dan [`test-model-performance.md`](./test-model-performance.md).
 
 ---
 
 ## 1. White Box Testing & Perhitungan Cyclomatic Complexity ($V(G)$)
 
-Sesuai kajian **Pratala, dkk. (2020)** (*JIUP, SINTA 3*) dan **Alirridlo, dkk. (2025)** (*Jurnal RESTI, SINTA 2*), kompleksitas logika percabangan dievaluasi menggunakan *Control Flow Graph (CFG)* dan teknik **Basis Path** dengan rumus McCabe $V(G) = E - N + 2 = P + 1$.
+Sesuai kajian **Nada, dkk. (2023)** (*JIUP UNPAM, SINTA 3*, `DOI: 10.32493/informatika.v8i3.33711`) dan **Alirridlo, dkk. (2025)** (*Jurnal RESTI, SINTA 2*, `DOI: 10.29207/resti.v9i6.6825`), kompleksitas logika percabangan dievaluasi menggunakan *Control Flow Graph (CFG)* dan teknik **Basis Path** dengan rumus McCabe $V(G) = E - N + 2 = P + 1$.
 
 Pada `/booking`, terdapat skrip JavaScript klien terbuka sepanjang `7.473` karakter yang mengatur interaksi pemesanan. Berikut analisis *Flow Graph* pada dua fungsi inti: `normPhone()` dan `submitBooking()`.
 
@@ -115,9 +115,9 @@ flowchart TD
 
 ---
 
-## 2. Black Box Testing & Performance Testing (Rujukan Spesifikasi ISO 29119-2:2021)
+## 2. Black Box Testing & Performance Testing (Rujukan *Test Model* `>= 2022`)
 
-Sesuai standar **ISO/IEC/IEEE 29119-2:2021 Clause 8.2**, spesifikasi lengkap **Test Basis**, **Test Model (`TD1`)**, dan **Test Coverage Items (`TD2`)** dipisahkan ke dokumen khusus:
+Mengacu pada arsitektur `Test Basis -> Test Model -> TCI` (**ISO/IEC/IEEE 29119-1:2022** & **ISTQB CTFL v4.0.1 2024**), spesifikasi lengkap **Test Basis**, **Test Model (`TD1`)**, **Alasan Pemilihan 5 Jenis Black Box**, dan **Test Coverage Items (`TD2`)** dipisahkan ke dokumen khusus:
 - **Black Box Testing (*Equivalence Partitioning, Boundary Value Analysis, Decision Table, State Transition, Use Case*):** [`test-model-blackbox.md`](./test-model-blackbox.md) -> diturunkan ke [`../03-hasil-pengujian/test-case-blackbox.md`](../03-hasil-pengujian/test-case-blackbox.md).
 - **Performance Testing (*Web Vitals, Resource Payload, Client Interaction, Concurrent `1/5/10 VUs` Workload*):** [`test-model-performance.md`](./test-model-performance.md) -> diturunkan ke [`../03-hasil-pengujian/test-case-performance.md`](../03-hasil-pengujian/test-case-performance.md).
 

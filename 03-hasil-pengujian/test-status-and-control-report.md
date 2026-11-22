@@ -1,6 +1,6 @@
 # Test Status, Risk Updates & Control Directives Report (`TMC1`–`TMC4`)
 
-Dokumen ini mengimplementasikan **Test Monitoring and Control Process (`7.3`, aktivitas `TMC1–TMC4`)** sesuai **ISO/IEC/IEEE 29119-2:2021(E)** dan mencakup keempat *Information Items* wajib pada **§7.3.5** (*Test Status Reports, Test Plan Updates, Control Directives,* serta *Project & Product Risk Information*) untuk periode pengujian **14–17 November 2026**.
+Dokumen ini mengimplementasikan **Test Monitoring and Control Process (`TMC1–TMC4`)** sesuai arsitektur **ISO/IEC/IEEE 29119-1:2022** dan **ISTQB CTFL v4.0.1 (`2024`)** untuk periode pengujian **14–17 November 2026** (pembaruan kelengkapan acuan `>= 2022` pada **22 November 2026**).
 
 ---
 
@@ -36,7 +36,8 @@ Selama pemantauan eksekusi dinamis, Tim QA menerbitkan empat *control directives
 Perubahan terhadap rencana awal (`TP-GOR-01 v1.0` tanggal 14 Nov 2026 -> `v2.0` tanggal 17 Nov 2026):
 1. Penambahan dokumen **Organizational Test Specification** ([`organizational-test-specification.md`](../01-standar-ieee-iso/organizational-test-specification.md)) dan klaim *Tailored Conformance* sesuai Clause 4 & 6.
 2. Pemisahan dan pendalaman **Performance Test Plan** ([`performance-test-plan.md`](../02-objek-umkm-dan-rencana-uji/performance-test-plan.md)) beserta model beban bertingkat (`1/5/10 VUs`).
-3. Migrasi struktur desain uji dari *test conditions* menjadi **Test Model Specification (`TM-*`) -> Test Coverage Items (`TCI-*`) -> Test Cases (`TC-*`) -> Test Procedures (`PROC-*`)** sesuai revisi edisi 2021 `ISO/IEC/IEEE 29119-2`.
+3. Migrasi struktur desain uji dari *test conditions* menjadi **Test Model Specification (`TM-*`) -> Test Coverage Items (`TCI-*`) -> Test Cases (`TC-*`) -> Test Procedures (`PROC-*`)** sesuai arsitektur konseptual **ISO/IEC/IEEE 29119-1:2022**.
+4. Pemutakhiran penuh seluruh standar dan jurnal referensi ke tahun **`>= 2022`** (`29119-1:2022`, `29119-5:2024`, `25010:2023`, `25019:2023`, `25002:2024`, `40500:2025`, `ISTQB v4.0.1`, & 9 jurnal SINTA `2022–2026`) beserta **Flow Testing**, **Justifikasi 5 Jenis Black Box**, dan **Step-by-Step Testing**.
 
 ---
 

@@ -1,6 +1,7 @@
 """
 Generator Laporan Resmi Pengujian QA (Word .docx & PDF) — Bahasa Sederhana & Mudah Dipahami
-Sesuai ISO/IEC/IEEE 29119-2:2021(E) & ISO/IEC 25010:2023
+Sesuai Standar >= 2022: ISO/IEC/IEEE 29119-1:2022, 29119-5:2024, ISTQB CTFL v4.0.1 (2024),
+serta ISO/IEC 25010:2023, 25019:2023, 25002:2024, & 40500:2025 (W3C WCAG 2.2)
 Objek: Portal Booking GOR Permata Badminton Hall (https://gorpermatabadminton.com)
 
 Membaca langsung hasil empiris dari:
@@ -153,7 +154,7 @@ def configure_styles(doc: Document) -> None:
         hdr = section.header
         hp = hdr.paragraphs[0]
         hp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        hrun = hp.add_run("Laporan Hasil Pengujian Website (ISO/IEC/IEEE 29119-2:2021)  |  GOR Permata Badminton Hall")
+        hrun = hp.add_run("Laporan Hasil Pengujian Website (Standar Uji >= 2022)  |  GOR Permata Badminton Hall")
         hrun.font.name = "Calibri"
         hrun.font.size = Pt(8.5)
         hrun.font.color.rgb = MUTED_TEXT
@@ -346,7 +347,7 @@ def add_title_banner(doc: Document, bb_ts: str, perf_ts: str) -> None:
 
     p_k = cell.paragraphs[0]
     p_k.paragraph_format.space_after = Pt(2)
-    rk = p_k.add_run("LAPORAN HASIL PENGUJIAN PERANGKAT LUNAK • ISO/IEC/IEEE 29119-2:2021 & ISO/IEC 25010:2023")
+    rk = p_k.add_run("LAPORAN HASIL PENGUJIAN PERANGKAT LUNAK • STANDAR >= 2022 (ISO 29119-1/5, ISTQB v4.0.1, & ISO 25010:2023)")
     rk.bold = True
     rk.font.name = "Calibri"
     rk.font.size = Pt(8.5)
@@ -378,7 +379,7 @@ def add_title_banner(doc: Document, bb_ts: str, perf_ts: str) -> None:
         ("Kelas / Link GitHub", "07TPLE001 / Reguler C  |  https://github.com/BrongSkuy/tugas-qa-testing"),
         ("Tim Penyusun", "1. Muhammad Faiz Rabbani (231011402539)  |  2. Robi Farhan Anshori (231011401468)\n3. Dzikri Attariq Samayaki (221011401148)  |  4. Nurlaelasari (231011403531)"),
         ("Website yang Diuji", "https://gorpermatabadminton.com (Kp. Cipari, Desa Ciakar, Kec. Panongan, Kab. Tangerang)"),
-        ("Standar Acuan Resmi", "ISO/IEC/IEEE 29119-2:2021(E) (Proses Pengujian), 29119-3/4/5, & ISO/IEC 25010:2023 (Kualitas Produk)"),
+        ("Standar Acuan (>= 2022)", "ISO/IEC/IEEE 29119-1:2022 & 29119-5:2024, ISTQB CTFL v4.0.1 (2024), ISO/IEC 25010/25019:2023, 25002:2024, & 40500:2025"),
         ("Waktu Uji Terakhir", f"Uji Fungsi (Black Box): {bb_ts}   |   Uji Kecepatan (Performance): {perf_ts}"),
     ]
     tbl = doc.add_table(rows=len(meta_rows), cols=2)
@@ -505,6 +506,104 @@ def render_performance_chart(perf: dict, out_path: Path) -> None:
         draw.rectangle([(lx, ly - 10), (lx + 24, ly + 10)], fill=col)
         draw.text((lx + 34, ly), r_label, fill=(30, 41, 59), font=f_leg, anchor="lm")
         lx += 245
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    img.save(str(out_path), format="PNG", optimize=True)
+
+
+def render_testing_flow_diagram(out_path: Path) -> None:
+    """Bangkitkan diagram visual End-to-End Flow Testing (7 Tahap) dengan Pillow."""
+    w, h = 1480, 650
+    img = Image.new("RGB", (w, h), (255, 255, 255))
+    draw = ImageDraw.Draw(img)
+
+    f_title = _load_font(26, bold=True)
+    f_sub = _load_font(16, bold=False)
+    f_badge = _load_font(14, bold=True)
+    f_head = _load_font(17, bold=True)
+    f_body = _load_font(14, bold=False)
+
+    # Header bar
+    draw.rounded_rectangle([(24, 18), (w - 24, 96)], radius=12, fill=(27, 54, 93))
+    draw.text((w // 2, 42), "ALUR PENGUJIAN END-TO-END (FLOW TESTING 7 TAHAP) — GOR PERMATA BADMINTON HALL", fill=(255, 255, 255), font=f_title, anchor="mm")
+    draw.text((w // 2, 74), "Mengacu Standar >= 2022: ISO/IEC/IEEE 29119-1:2022, 29119-5:2024, ISTQB CTFL v4.0.1 (2024), & ISO/IEC 25010:2023", fill=(191, 219, 254), font=f_sub, anchor="mm")
+
+    stages = [
+        ("TAHAP 1", "Inisiasi & Kebijakan", ["• Tetapkan OTS Non-Destruktif", "• Tailored Conformance", "• Identifikasi Risiko (PR & PJ)"], (37, 99, 235), (239, 246, 255)),
+        ("TAHAP 2", "Rencana & Landasan Ilmiah", ["• Master & Perf Test Plan", "• Sitasi 9 PDF SINTA >=2022", "• Penurunan Konsep -> Kasus"], (14, 116, 144), (236, 254, 255)),
+        ("TAHAP 3", "Desain Model & 5 Black Box", ["• EP, BVA, Decision Table,", "  STT, Use Case/WCAG 2.2", "• Workload 1/5/10 VUs & V(G)"], (79, 70, 229), (238, 242, 255)),
+        ("TAHAP 4", "Lingkungan & Guardrail", ["• Playwright + aiohttp + JSON", "• Pasang page.route ABORT", "• Dataset Sintetik Non-PII"], (180, 83, 9), (255, 251, 235)),
+        ("TAHAP 5", "Eksekusi Uji Terotomasi", ["• 23 Black Box (16 PASS, 7 FAIL)", "• 10 Perf (104 GET, 0% Error)", "• Cek Desktop vs HP (390px)"], (22, 101, 52), (240, 253, 244)),
+        ("TAHAP 6", "Pelaporan Bug & Privasi", ["• Catat 10 Insiden (IR-GOR-01..10)", "• Masking Nama Publik [TERISI]", "• 12 Gambar & Log JSON/TXT"], (185, 28, 28), (254, 242, 242)),
+        ("TAHAP 7", "Audit Mutu & Penutupan", ["• Audit 9 Dimensi ISO 25010", "• Quality-in-Use ISO 25019", "• Laporan Word/PDF & Wawancara"], (27, 54, 93), (241, 245, 249)),
+    ]
+
+    # Row 1: Stages 1..4
+    box_w, box_h = 315, 190
+    gap_x = 46
+    x0 = 42
+    y1 = 132
+    coords = []
+
+    for idx in range(4):
+        bx1 = x0 + idx * (box_w + gap_x)
+        by1 = y1
+        bx2, by2 = bx1 + box_w, by1 + box_h
+        coords.append((bx1, by1, bx2, by2))
+        tag, title, bullets, accent, bg = stages[idx]
+        draw.rounded_rectangle([(bx1, by1), (bx2, by2)], radius=12, fill=bg, outline=accent, width=3)
+        draw.rounded_rectangle([(bx1 + 12, by1 + 12), (bx1 + 105, by1 + 38)], radius=6, fill=accent)
+        draw.text((bx1 + 58, by1 + 25), tag, fill=(255, 255, 255), font=f_badge, anchor="mm")
+        draw.text((bx1 + 14, by1 + 52), title, fill=(15, 23, 42), font=f_head, anchor="lt")
+        for bi, bl in enumerate(bullets):
+            draw.text((bx1 + 14, by1 + 86 + bi * 28), bl, fill=(51, 65, 85), font=f_body, anchor="lt")
+        if idx < 3:
+            ax1, ax2 = bx2 + 4, bx2 + gap_x - 6
+            ay = (by1 + by2) // 2
+            draw.line([(ax1, ay), (ax2, ay)], fill=(30, 58, 138), width=4)
+            draw.polygon([(ax2, ay), (ax2 - 12, ay - 8), (ax2 - 12, ay + 8)], fill=(30, 58, 138))
+
+    # Row 2: Stages 5..7 centered nicely beneath Row 1
+    y2 = 368
+    box_w2 = 360
+    gap_x2 = 75
+    x0_2 = 125
+    for r_i, idx in enumerate([4, 5, 6]):
+        bx1 = x0_2 + r_i * (box_w2 + gap_x2)
+        by1 = y2
+        bx2, by2 = bx1 + box_w2, by1 + box_h
+        coords.append((bx1, by1, bx2, by2))
+        tag, title, bullets, accent, bg = stages[idx]
+        draw.rounded_rectangle([(bx1, by1), (bx2, by2)], radius=12, fill=bg, outline=accent, width=3)
+        draw.rounded_rectangle([(bx1 + 12, by1 + 12), (bx1 + 105, by1 + 38)], radius=6, fill=accent)
+        draw.text((bx1 + 58, by1 + 25), tag, fill=(255, 255, 255), font=f_badge, anchor="mm")
+        draw.text((bx1 + 14, by1 + 52), title, fill=(15, 23, 42), font=f_head, anchor="lt")
+        for bi, bl in enumerate(bullets):
+            draw.text((bx1 + 14, by1 + 86 + bi * 28), bl, fill=(51, 65, 85), font=f_body, anchor="lt")
+        if r_i < 2:
+            ax1, ax2 = bx2 + 5, bx2 + gap_x2 - 6
+            ay = (by1 + by2) // 2
+            draw.line([(ax1, ay), (ax2, ay)], fill=(30, 58, 138), width=4)
+            draw.polygon([(ax2, ay), (ax2 - 12, ay - 8), (ax2 - 12, ay + 8)], fill=(30, 58, 138))
+
+    # Connector Stage 4 -> Stage 5
+    s4_cx = (coords[3][0] + coords[3][2]) // 2
+    s4_by = coords[3][3]
+    s5_cx = (coords[4][0] + coords[4][2]) // 2
+    s5_ty = coords[4][1]
+    mid_y = (s4_by + s5_ty) // 2
+    draw.line([(s4_cx, s4_by + 2), (s4_cx, mid_y), (s5_cx, mid_y), (s5_cx, s5_ty - 6)], fill=(30, 58, 138), width=4)
+    draw.polygon([(s5_cx, s5_ty - 2), (s5_cx - 8, s5_ty - 14), (s5_cx + 8, s5_ty - 14)], fill=(30, 58, 138))
+
+    # Footer guardrail banner
+    draw.rounded_rectangle([(24, 578), (w - 24, 628)], radius=10, fill=(220, 252, 231), outline=(22, 101, 52), width=2)
+    draw.text(
+        (w // 2, 603),
+        "GUARDRAIL KEAMANAN PRODUKSI UMKM: Intercept POST **/bookings/store (0 Data Uji Masuk Server)  •  Sensor Nama [TERISI]  •  GET Aman <= 10 VUs",
+        fill=(22, 101, 52),
+        font=f_badge,
+        anchor="mm",
+    )
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     img.save(str(out_path), format="PNG", optimize=True)
@@ -832,6 +931,8 @@ def format_perf_row(case: dict[str, Any]) -> tuple[str, str, str, str, str]:
 def build_report() -> tuple[Path, Path]:
     bb = json.loads(BB_JSON_PATH.read_text(encoding="utf-8"))
     perf = json.loads(PERF_JSON_PATH.read_text(encoding="utf-8"))
+    flow_img_path = SCREENSHOT_DIR / "00_flow_testing_gor_permata.png"
+    render_testing_flow_diagram(flow_img_path)
     render_performance_chart(perf, SCREENSHOT_DIR / "12_performance_latency_chart.png")
 
     doc = Document()
@@ -839,7 +940,7 @@ def build_report() -> tuple[Path, Path]:
     add_title_banner(doc, bb["timestamp"], perf["metadata"]["timestamp"])
 
     # BAB I
-    add_section_heading(doc, "I.", "Ringkasan Mudah & Kepatuhan Standar ISO/IEC/IEEE 29119-2:2021")
+    add_section_heading(doc, "I.", "Ringkasan Mudah & Kepatuhan Standar Testing (>= 2022)")
     add_callout_box(
         doc,
         "Kesimpulan Utama Pengujian Non-Destruktif (17 November 2026)",
@@ -853,7 +954,7 @@ def build_report() -> tuple[Path, Path]:
             f"{sum(1 for c in perf['test_cases'] if c['status'] == 'FAIL')} skenario melambat/kelebihan ukuran dokumen, "
             "namun seluruh 104 kali akses tetap stabil dengan 0,0% kegagalan server.",
             "3. Ringkasan Temuan Masalah: Sebanyak 10 temuan resmi (kode IR-GOR-01 s.d. IR-GOR-10) telah dicatat lengkap bersama bukti visual "
-            "(12 gambar/grafik) agar mudah ditindaklanjuti pengelola maupun developer website.",
+            "(12 gambar/grafik + diagram Flow Testing) agar mudah ditindaklanjuti pengelola maupun developer website.",
         ],
     )
 
@@ -870,41 +971,95 @@ def build_report() -> tuple[Path, Path]:
     )
 
     doc.add_page_break()
-    add_sub_heading(doc, "1.1 Batasan Ruang Lingkup Aman & Peta Kelengkapan Dokumen (ISO 29119-2)")
+    add_sub_heading(doc, "1.1 Batasan Ruang Lingkup Aman & Peta Kelengkapan Dokumen (Standar >= 2022)")
     add_bullet(
         doc,
-        "Kepatuhan Standar dengan Batasan Aman (Tailored Conformance — Clause 4.1.3): ",
-        "Seluruh tahapan kerja mengikuti ISO/IEC/IEEE 29119-2:2021 (Clause 6, 7.2–7.4, dan 8.2–8.5). Pengecualian disengaja hanya pada pemesanan beneran (POST /bookings/store), panel admin internal, dan uji beban di atas 10 pengguna agar jadwal usaha UMKM GOR Permata tidak terganggu.",
+        "Kepatuhan Standar Minimal Tahun 2022 (Tailored Conformance): ",
+        "Sesuai arahan dosen pengampu, seluruh standar PDF pra-2022 telah dihapus dan digantikan acuan >= 2022: ISO/IEC/IEEE 29119-1:2022 (General Concepts), "
+        "29119-5:2024 (Keyword-Driven Testing), ISTQB CTFL Syllabus v4.0.1 (2024), ISO/IEC 25010:2023, 25019:2023, 25002:2024, dan ISO/IEC 40500:2025 (W3C WCAG 2.2). "
+        "Pemesanan nyata (POST /bookings/store), panel admin internal, dan beban > 10 VUs dikecualikan agar jadwal UMKM GOR Permata aman 100%.",
     )
     iso_rows = [
-        ("Clause 4 & 6", "Kebijakan & Aturan Uji Tim", "01-standar-ieee-iso/organizational-test-specification.md"),
-        ("Clause 7.2", "Rencana Uji Utama & Rencana Uji Kecepatan", "02-.../test-plan-gor-permata.md & performance-test-plan.md"),
-        ("Clause 8.2 (Model)", "Peta Skenario & Hal yang Harus Diuji (Edisi 2021)", "02-.../test-model-blackbox.md & test-model-performance.md"),
-        ("Clause 8.2 (Kasus)", "Daftar Lengkap Kasus Uji & Langkah Otomasi", "03-.../test-case-blackbox.md, test-case-performance.md, automation-scripts/"),
-        ("Clause 8.3", "Catatan Kesiapan Komputer & Data Uji Bebas Privasi", "03-.../test-environment-dan-data.md & test-data/*.json"),
-        ("Clause 8.4", "Rekaman Hasil Uji Mentah, JSON, & 12 Gambar Bukti", "03-.../test-execution-log.md & evidence/"),
-        ("Clause 8.5", "Laporan Resmi 10 Masalah / Bug (IR-GOR-01..10)", "03-.../incident-reports.md"),
-        ("Clause 7.3 & 7.4", "Laporan Kontrol Progres & Penutupan Pengujian", "03-.../test-status-and-control-report.md & test-completion-report.md"),
+        ("Kebijakan & Standar (>= 2022)", "Kebijakan Uji Tim + Peta 6 ISO 2022–2025, ISTQB v4.0.1 & WCAG 2.2", "01-standar-ieee-iso/organizational-test-specification.md & pdf-standar/"),
+        ("Perencanaan & Flow Testing", "Rencana Uji Utama, Flow Testing 7 Tahap, & Rencana Kecepatan", "02-.../test-plan-gor-permata.md & performance-test-plan.md"),
+        ("Model & 5 Jenis Black Box", "Justifikasi 5 Teknik Black Box, Test Model, & TCI (Black Box + Perf)", "02-.../test-model-blackbox.md & test-model-performance.md"),
+        ("Kasus Uji & Step-by-Step", "23 Kasus Black Box, 10 Performance, Panduan Langkah 1–6, & Skrip", "03-.../test-case-blackbox.md, test-case-performance.md, automation-scripts/"),
+        ("Lingkungan & Data Uji", "Kesiapan Komputer Uji & Dataset Sintetik Non-PII (JSON)", "03-.../test-environment-dan-data.md & test-data/*.json"),
+        ("Log Eksekusi & Bukti", "Rekaman Hasil Uji Mentah, JSON, Diagram Flow, & 12 Gambar Bukti", "03-.../test-execution-log.md & evidence/"),
+        ("Laporan Masalah / Bug", "Laporan Resmi 10 Masalah / Bug (IR-GOR-01..10)", "03-.../incident-reports.md"),
+        ("Kontrol, Audit, & Penutupan", "Kontrol Progres, Audit Mutu ISO 25010/25019, & Penutupan Uji", "03-.../test-completion-report.md & 01-.../evaluasi-iso-25010-gor-permata.md"),
     ]
     add_styled_table(
         doc,
-        headers=("Bagian ISO 29119-2", "Penjelasan Isi Dokumen (Bahasa Sederhana)", "Lokasi Berkas di Repositori GitHub"),
+        headers=("Komponen Standar QA (>= 2022)", "Penjelasan Isi Dokumen (Bahasa Sederhana)", "Lokasi Berkas di Repositori GitHub"),
         rows=iso_rows,
-        col_widths_cm=(3.2, 6.8, 7.2),
-        font_size=8.5,
+        col_widths_cm=(3.8, 6.4, 7.0),
+        font_size=8.4,
     )
 
     # BAB II
-    add_section_heading(doc, "II.", "Perencanaan Uji, Hal Paling Berisiko, & Referensi Ilmiah (Clause 7.2)")
+    add_section_heading(doc, "II.", "Flow Testing, Alasan 5 Jenis Black Box, Risiko, & Landasan Ilmiah (>= 2022)")
     add_bullet(
         doc,
         "Bagian Website yang Diuji: ",
         "Mencakup seluruh halaman publik (/, /booking, /login, /register, /fasilitas/*), aturan perhitungan harga & validasi nomor WhatsApp di dalam halaman /booking, kekuatan kecepatan saat diakses ramai, serta kerapian tampilan Laptop vs HP.",
     )
+
+    add_sub_heading(doc, "2.1 Diagram Alur Pengujian (End-to-End Flow Testing — 7 Tahap Terurut)")
+    p_flow_desc = doc.add_paragraph(
+        "Pengujian dirancang dan dijalankan secara sistematis melalui tujuh tahap berurutan agar setiap temuan cacat dapat ditelusuri mulai dari landasan ilmiah (>= 2022), desain model, perlindungan guardrail non-destruktif, hingga bukti visual akhir:"
+    )
+    p_flow_desc.paragraph_format.space_after = Pt(4)
+    if flow_img_path.exists():
+        p_fimg = doc.add_paragraph()
+        p_fimg.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p_fimg.paragraph_format.space_after = Pt(2)
+        p_fimg.add_run().add_picture(str(flow_img_path), width=Cm(16.8))
+        p_fcap = doc.add_paragraph()
+        p_fcap.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p_fcap.paragraph_format.space_after = Pt(6)
+        rfc = p_fcap.add_run("Gambar 0. Diagram Alur Pengujian End-to-End (Flow Testing 7 Tahap Non-Destruktif) pada Portal GOR Permata Badminton Hall")
+        rfc.italic = True
+        rfc.font.size = Pt(8.3)
+        rfc.font.color.rgb = MUTED_TEXT
+
+    add_sub_heading(doc, "2.2 Pemilihan 5 Jenis Teknik Black Box & Alasan Pemilihannya")
+    bb_type_rows = [
+        ("1. Equivalence Partitioning (EP)", "Input URL (/register, /booking), parameter ?start_date=, & awalan WA (08/628/8/+62 08) memiliki kelompok nilai valid & salah yang jelas sehingga menghindari uji berulang.", "TC-BB-01..05, 10, 15, 16, 20 -> Menangkap IR-GOR-01, 02, 05, 06", "Desyani dkk. (2022) & ISTQB v4.0.1 (§4.2.1)"),
+        ("2. Boundary Value Analysis (BVA)", "Portal menerapkan batas angka ketat: panjang WA 11–14 digit, nama pemesan, durasi 1–5 jam, serta batas tutup 00:00 — area paling rawan bug tepi.", "TC-BB-07, 09, 11..14, 17..18 -> Menangkap IR-GOR-03 ('   ' & 'A' lolos)", "Putri & Susanto (2024) & ISTQB v4.0.1 (§4.2.2)"),
+        ("3. Decision Table Testing", "Fungsi submitBooking() mengevaluasi 4 kondisi berurutan; tabel keputusan (R1..R6) menjamin tidak ada kombinasi kondisi validasi yang terlewat.", "TC-BB-08, 09, 17, 18 -> Membuktikan aturan R6 menembus fetch()", "Sitio dkk. (2023) & ISTQB v4.0.1 (§4.2.3)"),
+        ("4. State Transition Testing (STT)", "Antarmuka /booking bekerja berbasis perpindahan status: tabel jadwal -> buka modal -> pesan error/blokir -> reset bersih closeModal() & pop-up slot RTBC.", "TC-BB-06, 19, 23 -> Memverifikasi reset form & pop-up RTBC asli", "ISTQB CTFL v4.0.1 (§4.2.4)"),
+        ("5. Use Case & Compatibility (WCAG 2.2)", "Pemesan memakai laptop & HP; skenario end-to-end lintas resolusi (1280x800 vs 390x844) sekaligus memeriksa apakah data pribadi pelanggan bocor di kode halaman publik.", "TC-BB-21, 22 -> Menangkap IR-GOR-04 (205 PII DOM) & IR-GOR-10 (menu HP terpotong)", "Fhonna dkk. (2026), Seputra dkk. (2024), & ISO 40500:2025"),
+    ]
+    add_styled_table(
+        doc,
+        headers=("Jenis Teknik Black Box", "Alasan Mengapa Teknik Ini Dipilih untuk GOR Permata", "Kasus Uji & Bug Tertangkap", "Rujukan Ilmiah (>= 2022)"),
+        rows=bb_type_rows,
+        col_widths_cm=(3.4, 5.8, 4.4, 3.6),
+        font_size=8.0,
+    )
     add_bullet(
         doc,
-        "Landasan Jurnal Terakreditasi SINTA 2–3: ",
-        "Seluruh metode uji didukung 7 berkas PDF jurnal ilmiah SINTA 2–3 (Alirridlo dkk. 2025, Pratala dkk. 2020 untuk alur percabangan kode; Yulistina dkk. 2020, Nurudin dkk. 2019, Putri & Susanto 2024 untuk teknik Black Box BVA/EP; Seputra dkk. 2024, Fhonna dkk. 2026 untuk integrasi & otomasi E2E; serta Zahra & Kraugusteeliana 2023, Putra dkk. 2026 untuk uji kecepatan & Playwright).",
+        "Alasan Tidak Hanya Mengandalkan Teknik Lain (mis. Error Guessing murni atau Pairwise): ",
+        "Error Guessing murni tidak memiliki ukuran cakupan terstruktur (hanya dipakai sebagai pelengkap), sedangkan Orthogonal Array / Pairwise baru efisien jika puluhan variabel saling berinteraksi silang; pada GOR Permata keempat syarat validasi bersifat berurutan sehingga kombinasi EP + BVA + Decision Table memberi cakupan logika 100%.",
+    )
+
+    add_sub_heading(doc, "2.3 Penurunan Kasus Uji Berdasarkan Referensi Ilmiah SINTA 2–3 (>= 2022)")
+    sci_rows = [
+        ("Desyani dkk. (2022) — JTSI SINTA 3", "Equivalence Partitioning input domain valid/invalid", "Rute publik, ?start_date=, & awalan WA -> IR-GOR-01, 02, 05, 06"),
+        ("Sitio dkk. (2023) — JIUP SINTA 3", "Cause-Effect / Decision Table aturan kondisi", "6 Aturan R1..R6 submitBooking() -> Pembuktian R6 lolos (IR-GOR-03)"),
+        ("Nada dkk. (2023) & Alirridlo dkk. (2025)", "White Box CFG V(G) & ISO 25010 Modularity", "Audit JS 7.473 char normPhone V(G)=4 -> Akar bug +62 08... (IR-GOR-02)"),
+        ("Seputra dkk. (2024) — RESTI SINTA 2", "Integrasi White/Black Box & privasi data transaksi", "Audit CSRF & atribut DOM publik /booking -> 205 data-phone (IR-GOR-04)"),
+        ("Putri & Susanto (2024) — Sinkron SINTA 3", "Boundary Value Analysis tepat di batas min/max", "BVA WA 10/11/14/15 digit, tutup 22:00+2/3 jam, & trim nama (IR-GOR-03)"),
+        ("Fhonna dkk. (2026) & Putra dkk. (2026)", "Otomasi Playwright (#1 DIA) & Task Usability mobile", "Skrip E2E Playwright & audit mobile 390px -> Menu terpotong (IR-GOR-10)"),
+        ("Winasis dkk. (2026) & Zahra (2023)", "Load Testing bertingkat Laravel+WA & ISO 25010 Perf", "Beban aman 1/5/10 VUs (104 GET) -> p95 5,31 detik (IR-GOR-07..09)"),
+    ]
+    add_styled_table(
+        doc,
+        headers=("Paper Ilmiah (>= 2022, Tersimpan di pdf-jurnal/)", "Konsep / Metodologi yang Dikutip", "Implementasi Uji & Temuan pada GOR Permata"),
+        rows=sci_rows,
+        col_widths_cm=(4.8, 5.0, 7.4),
+        font_size=8.0,
     )
 
     risk_rows = [
@@ -936,6 +1091,23 @@ def build_report() -> tuple[Path, Path]:
         rows=env_rows,
         col_widths_cm=(4.0, 10.4, 2.8),
         center_cols=(2,),
+    )
+
+    add_sub_heading(doc, "3.1 Panduan Step-by-Step Pelaksanaan Pengujian (Manual DevTools & Otomatis Playwright)")
+    step_rows = [
+        ("Langkah 1: Siapkan Alat & Data", "Instal Python >= 3.9, playwright, aiohttp, & Chromium; siapkan dataset JSON sintetik (tanpa nomor WA pelanggan asli).", "Buka https://gorpermatabadminton.com di browser lalu buka DevTools (F12)."),
+        ("Langkah 2: Aktifkan Pengaman POST", "Pasang page.route('**/bookings/store') ABORT di skrip agar 0 data uji menyentuh database UMKM.", "Di DevTools tab Network -> Request Blocking, blokir pola */bookings/store."),
+        ("Langkah 3: Uji Rute & Query URL", "Eksekusi otomatis TC-BB-01..05 memeriksa 7 rute publik, /register (404), 2020-01-01, & invalid-date (500).", "Kunjungi /register, /booking?start_date=2020-01-01, & ?start_date=invalid-date."),
+        ("Langkah 4: Uji Modal & 5 Black Box", "Jalankan TC-BB-06..19 untuk tarif 1–5 jam, BVA digit WA (10/11/14/15), '+62 08...', spasi nama, jam tutup 00:00, & reset modal.", "Klik slot '+', ubah durasi 1–5 jam, masukkan data uji batas, & tutup modal."),
+        ("Langkah 5: Mobile, Privasi DOM & Perf", "Cek viewport 390x844, hitung slot ber-data-phone, klik RTBC, serta ukur Web Vitals + beban GET 1/5/10 VUs.", "Aktifkan Device Toolbar 390x844 (menu terpotong), klik slot RTBC, & cek tab Elements."),
+        ("Langkah 6: Sensor PII & Lapor Bug", "Masking nama pelanggan lain [TERISI] sebelum screenshot, simpan log/JSON, catat 10 IR-GOR, & susun laporan.", "Ambil screenshot bukti bebas PII lalu dokumentasikan Steps to Reproduce ke incident-reports.md."),
+    ]
+    add_styled_table(
+        doc,
+        headers=("Tahap Pengujian", "Eksekusi Otomatis (test_gor_permata.py & test_performance_gor_permata.py)", "Reproduksi Manual oleh Penguji"),
+        rows=step_rows,
+        col_widths_cm=(3.4, 7.6, 6.2),
+        font_size=8.0,
     )
 
     # BAB IV
@@ -1077,7 +1249,7 @@ def build_report() -> tuple[Path, Path]:
     add_screenshot_gallery(doc)
 
     # BAB VII
-    add_section_heading(doc, "VII.", "Penilaian Kualitas Keseluruhan (ISO 25010:2023) & Penutupan Uji", page_break_before=True)
+    add_section_heading(doc, "VII.", "Penilaian Kualitas Keseluruhan (ISO 25010/25019:2023) & Penutupan Uji", page_break_before=True)
     iso25_rows = [
         ("1. Ketepatan Fungsi (Functional Suitability)", "7 halaman utama & hitungan tarif 1–5 jam akurat; kendala ada di /register 404, format WA +62 08..., tanggal lampau, dan tanggal rusak error 500.", "Ada Defect"),
         ("2. Kecepatan & Efisiensi (Performance Efficiency)", "Klik tombol sangat cepat (62,93 ms) & 0% gagal di 104 akses, namun ukuran HTML /booking besar (535 KB) & melambat di 10 orang bersamaan (5,31 detik).", "Perlu Optimasi"),

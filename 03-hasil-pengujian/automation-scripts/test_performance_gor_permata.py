@@ -1,5 +1,5 @@
 """
-Performance Testing Script (Playwright + aiohttp) - ISO/IEC/IEEE 29119-2:2021
+Performance Testing Script (Playwright + aiohttp) - ISO/IEC/IEEE 29119-1:2022, 29119-5:2024, & ISO/IEC 25010:2023
 Objek: Portal Booking GOR Permata Badminton Hall (https://gorpermatabadminton.com)
 Cakupan: TC-PERF-01 s.d. TC-PERF-10 (Web Vitals Cold/Warm Desktop/Mobile, Payload, Client Interaction, Concurrent GET 1/5/10 VUs)
 Guardrail: Non-destruktif - GET-only, max 10 VUs, think-time 500ms, auto-abort circuit breaker jika error > 5% atau HTTP 429.

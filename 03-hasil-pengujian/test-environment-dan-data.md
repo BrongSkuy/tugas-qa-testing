@@ -1,6 +1,6 @@
 # Test Environment & Data Management Report (`ED1`–`ED4`)
 
-Dokumen ini mengimplementasikan proses **Test Environment and Data Management (`8.3`, aktivitas `ED1–ED4`)** sesuai **ISO/IEC/IEEE 29119-2:2021(E)** untuk mendukung pengujian **Black Box** dan **Performance Testing** pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
+Dokumen ini mengimplementasikan proses **Test Environment and Data Management (`ED1–ED4`)** sesuai **ISO/IEC/IEEE 29119-1:2022** & **29119-5:2024** (*Keyword-Driven Testing* dengan pemisahan data uji JSON) untuk mendukung pengujian **Black Box** dan **Performance Testing** pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
 
 ---
 

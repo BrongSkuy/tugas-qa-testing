@@ -1,15 +1,15 @@
 # Master Test Plan: Portal Booking GOR Permata Badminton Hall
 
-Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi seluruh aktivitas **Test Strategy and Planning Process (`7.2`, aktivitas `TP1–TP9`)** pada standar **ISO/IEC/IEEE 29119-2:2021(E)** ([`10.1109@IEEESTD.2021.9591508.pdf`](../01-standar-ieee-iso/pdf-standar/10.1109@IEEESTD.2021.9591508.pdf)), dipadukan dengan kosakata `29119-1:2022`, struktur dokumentasi `29119-3:2021`, teknik uji `29119-4:2021`, serta model mutu **ISO/IEC 25010:2023**.
+Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi standar resmi minimal tahun **`2022`**: **ISO/IEC/IEEE 29119-1:2022** (*General Concepts*), **ISO/IEC/IEEE 29119-5:2024** (*Keyword-Driven Testing*), **ISTQB CTFL Syllabus v4.0.1 (`2024`)** ([`ISTQB_CTFL_Syllabus_v4.0.1_2024.pdf`](../01-standar-ieee-iso/pdf-standar/ISTQB_CTFL_Syllabus_v4.0.1_2024.pdf)), **ISO/IEC 25010:2023**, **25019:2023**, **25002:2024**, dan **40500:2025 / W3C WCAG 2.2** (katalog lengkap: [`Referensi-Standar-ISO-Testing-dan-Kualitas-2022-2025.pdf`](../01-standar-ieee-iso/pdf-standar/Referensi-Standar-ISO-Testing-dan-Kualitas-2022-2025.pdf)).
 
 ---
 
 ## 1. Identifikasi Dokumen, Konteks, & Ruang Lingkup (`TP1 — Understand Context`)
 
 ### 1.1 Identifikasi Dokumen & Test Item
-- **ID Master Test Plan:** `TP-GOR-01` (Versi `2.0` — Final)
+- **ID Master Test Plan:** `TP-GOR-01` (Versi `2.1` — Final Revisi Dosen)
 - **Sub-Plan Terkait:** `TP-GOR-PERF-01` ([`performance-test-plan.md`](./performance-test-plan.md))
-- **Klaim Kepatuhan:** *Tailored Conformance* terhadap `ISO/IEC/IEEE 29119-2:2021` (lihat [`../01-standar-ieee-iso/organizational-test-specification.md`](../01-standar-ieee-iso/organizational-test-specification.md))
+- **Klaim Kepatuhan:** *Tailored Conformance* terhadap arsitektur proses uji **ISO/IEC/IEEE 29119-1:2022** & **ISTQB CTFL v4.0.1** (lihat [`../01-standar-ieee-iso/organizational-test-specification.md`](../01-standar-ieee-iso/organizational-test-specification.md))
 - **Sistem yang Diuji (*Test Item / SUT*):** Portal Web Publik **GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`)
 - **Lokasi UMKM:** Kp. Cipari, Desa Ciakar, Kec. Panongan, Kab. Tangerang, Banten
 - **Karakteristik Bisnis Teramati:** Portal reservasi 4 lapangan bulu tangkis dengan tarif `PRICE_PER_HOUR = 40000` (`Rp 40.000`/jam), slot operasional `07:00–23:00` (tutup `00:00`), dan konfirmasi WhatsApp admin.
@@ -43,7 +43,7 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
 
 | Tahap Penyusunan | Aktivitas | Penanggung Jawab | Target Selesai |
 | :---: | :--- | :--- | :---: |
-| 1 | Pengumpulan konteks UMKM, standar PDF `29119-2:2021`, & rujukan SINTA 1–3 | Tim QA | 14–17 Nov 2026 |
+| 1 | Pengumpulan konteks UMKM, standar resmi `>= 2022` (`ISO 29119-1/5`, `25010:2023`, `ISTQB v4.0.1`), & rujukan SINTA 2–3 (`2022–2026`) | Tim QA | 14–22 Nov 2026 |
 | 2 | Identifikasi *Test Basis*, analisis risiko Project/Product, & rancangan *Test Strategy* | Tim QA | 17 Nov 2026 |
 | 3 | Penyusunan *Sub-Plan Performance* & *Test Models* (Black Box + Performance) | Tim QA | 17 Nov 2026 |
 | 4 | Reviu, kelengkapan anggota, & sinkronisasi repositori oleh seluruh tim | Tim QA | 17–18 Nov 2026 |
@@ -52,7 +52,7 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
 
 ## 3. Identifikasi, Klasifikasi, & Perlakuan Risiko (`TP3` & `TP4`)
 
-Sesuai **ISO/IEC/IEEE 29119-2 §7.2.4.4 c**, daftar risiko wajib membedakan **Project Risks** dan **Product Risks**, menetapkan tingkat *Exposure* (*Likelihood × Impact*), serta mendokumentasikan **Risk Treatment Approaches** (`7.2.4.5`):
+Sesuai prinsip *Risk-Based Testing* (**ISO/IEC/IEEE 29119-1:2022** & **ISTQB CTFL v4.0.1**), daftar risiko wajib membedakan **Project Risks** dan **Product Risks**, menetapkan tingkat *Exposure* (*Likelihood × Impact*), serta mendokumentasikan **Risk Treatment Approaches**:
 
 ### 3.1 Product Risks (Risiko Kualitas Produk)
 | ID Risiko | Deskripsi Risiko Produk | Likelihood | Impact | Risk Exposure | Risk Treatment (`TP4`) |
@@ -74,21 +74,38 @@ Sesuai **ISO/IEC/IEEE 29119-2 §7.2.4.4 c**, daftar risiko wajib membedakan **Pr
 
 ---
 
-## 4. Test Strategy (`TP5 — Design Test Strategy`)
+## 4. Test Strategy (`TP5 — Design Test Strategy`, Flow Testing, & Justifikasi Black Box)
 
-### 4.1 Pendekatan & Teknik Pengujian (`ISO/IEC/IEEE 29119-4`)
-1. **Black Box Testing (Fungsional, Interaksi, & Kompatibilitas):**
-   - *Equivalence Partitioning (EP)* & *Boundary Value Analysis (BVA)* pada `#custName`, `#custPhone`, `#custDuration`, `?start_date=`, dan `/login`.
-   - *Decision Table Testing* untuk kombinasi multi-kondisi pada `submitBooking()`.
-   - *State Transition Testing (STT)* untuk alur status slot & modal `#bookingModal`.
-   - *Use Case Testing* untuk alur lengkap pengunjung pada viewport *Desktop* (`1280×800`) dan *Mobile* (`390×844`).
-   - *Rujukan Ilmiah SINTA 2–3:* **Yulistina, dkk. (2020)**, **Nurudin, dkk. (2019)** (*JIUP, SINTA 3*), **Putri & Susanto (2024)** (*Sinkron, SINTA 3*), serta **Fhonna, dkk. (2026)** (*Sisfo, SINTA 3*).
+### 4.0 Flow Testing *End-to-End* (7 Tahap Pengujian Terurut)
+
+Seluruh pelaksanaan QA pada Portal Booking GOR Permata mengikuti alur berurutan 7 tahap berikut agar setiap temuan bug tertelusur dari standar & jurnal hingga laporan resmi (*reproducible* dan nol dampak ke transaksi UMKM):
+
+```mermaid
+flowchart LR
+    T1["1. Inisiasi & Risiko<br/>(OTS & ISO 29119-1:2022)"] --> T2["2. Perencanaan & Basis<br/>(TP-GOR-01, SINTA >=2022)"]
+    T2 --> T3["3. Desain Model & TCI<br/>(5 Black Box + Workload + V(G))"]
+    T3 --> T4["4. Env & Guardrail Data<br/>(POST Abort & JSON Data)"]
+    T4 --> T5["5. Eksekusi Uji Aktual<br/>(23 TC BB & 10 TC Perf)"]
+    T5 --> T6["6. Laporan Bug & Bukti<br/>(10 IR-GOR + Masking PII)"]
+    T6 --> T7["7. Penutupan & Mutu<br/>(Audit ISO 25010 & Laporan)"]
+```
+
+*(Diagram visual versi laporan formal tersedia pada `03-hasil-pengujian/evidence/screenshots/00_flow_testing_gor_permata.png` dan Bab II Laporan Resmi di `05-dokumentasi-laporan/`.)*
+
+### 4.1 Pendekatan & Teknik Pengujian (`ISTQB CTFL v4.0.1` & `ISO/IEC/IEEE 29119-1:2022`)
+1. **Black Box Testing — 5 Jenis Teknik yang Dipilih & Alasannya** *(rincian perbandingan ada pada [`test-model-blackbox.md`](./test-model-blackbox.md#15-pemilihan-5-jenis-teknik-black-box--alasan-pemilihannya))*
+   - **Equivalence Partitioning (EP):** Dipilih untuk memecah domain input tak terbatas pada `#custName`, `#custPhone`, `?start_date=`, dan `/login` menjadi kelas partisi valid/tidak valid yang efisien (*Desyani, dkk., 2022*).
+   - **Boundary Value Analysis (BVA):** Dipilih karena mayoritas bug portal reservasi terjadi tepat di nilai batas tepi: panjang WA `/^628\d{8,11}$/` (`10, 11, 14, 15` digit), nama (`0, 1, 3` spasi), durasi `1..5` jam, dan batas operasional tutup `00:00` (*Putri & Susanto, 2024*).
+   - **Decision Table Testing:** Dipilih untuk memetakan 4 syarat aturan validasi `submitBooking()` ke 6 kombinasi aksi keputusan secara deterministik tanpa aturan yang terlewat (*Sitio, dkk., 2023*).
+   - **State Transition Testing (STT):** Dipilih karena perilaku utama aplikasi adalah transisi status UI: grid -> modal open -> validasi alert / blocked fetch -> reset `closeModal()` serta klik slot `RTBC` -> dialog konfirmasi (*ISTQB v4.0.1 Bab 4.2.4*).
+   - **Use Case & Compatibility Testing (`ISO/IEC 40500:2025 / WCAG 2.2`):** Dipilih untuk menguji alur penuh pengunjung di *Desktop* (`1280×800`) dan *Mobile* (`390×844`) sekaligus pemeriksaan eksposur privasi DOM publik (*Fhonna, dkk., 2026; Seputra, dkk., 2024*).
+   - *Rujukan Ilmiah (`>= 2022`):* **Desyani, dkk. (2022)** (*JTSI*), **Sitio, dkk. (2023)** (*JIUP*), **Putri & Susanto (2024)** (*Sinkron*), **Seputra, dkk. (2024)** (*RESTI*), dan **Fhonna, dkk. (2026)** (*Sisfo*).
 2. **Performance Testing (*Time Behaviour, Resource Utilization, Safe Capacity*):**
    - Dirinci lengkap pada [`performance-test-plan.md`](./performance-test-plan.md) (`TP-GOR-PERF-01`).
    - Mengukur *Navigation Timing / Web Vitals* (`TTFB`, `DCL`, `Load`, `FCP`, `LCP`, `CLS`, *payload bytes*) serta uji beban HTTP `GET` bertingkat (`1`, `5`, `10 VUs`).
-   - *Rujukan Ilmiah SINTA 2–3:* **Zahra & Kraugusteeliana (2023)** (*JTIIK, SINTA 2*) untuk evaluasi performa berbasis ISO 25010 dan **Putra, dkk. (2026)** (*JAIC, SINTA 3*) untuk komparasi *framework* otomasi UI (Playwright vs Cypress).
+   - *Rujukan Ilmiah SINTA 2–3 (`>= 2022`):* **Winasis, dkk. (2026)** (*Sinkron, SINTA 3*) untuk uji beban bertingkat sistem booking/komplain + WhatsApp Laravel, **Zahra & Kraugusteeliana (2023)** (*JTIIK, SINTA 2*) untuk dimensi *Performance Efficiency* ISO 25010, dan **Putra, dkk. (2026)** (*JAIC, SINTA 3*) untuk keunggulan otomasi **Playwright** dibanding Cypress/Selenium.
 3. **White Box & Gray Box Testing (Pelengkap):**
-   - *Basis Path* & *Cyclomatic Complexity* $V(G)$ pada [`analisis-white-black-gray-box.md`](./analisis-white-black-gray-box.md) (*Pratala, dkk., 2020; Alirridlo, dkk., 2025*).
+   - *Basis Path* & *Cyclomatic Complexity* $V(G)$ pada [`analisis-white-black-gray-box.md`](./analisis-white-black-gray-box.md) (*Nada, dkk., 2023; Alirridlo, dkk., 2025*).
 
 ### 4.2 Metrik Pemantauan & Pengendalian (`7.2.4.6 c` -> `TMC1–TMC4`)
 - **Black Box Coverage:** `% TCI-BB` yang tercakup & dieksekusi; rasio `PASS / FAIL / INCONCLUSIVE` per prioritas risiko.

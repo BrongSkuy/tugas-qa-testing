@@ -1,6 +1,6 @@
 # Performance Test Plan: Portal Booking GOR Permata Badminton Hall
 
-Dokumen ini merupakan rencana uji spesifik untuk jenis pengujian performa (**`TP-GOR-PERF-01`**) sesuai **ISO/IEC/IEEE 29119-2:2021 §3.11, §3.50 Note 1, & §7.2** (*a separate test plan for a specific type of testing, e.g. a performance test plan*), yang melengkapi *Master Test Plan* [`TP-GOR-01`](./test-plan-gor-permata.md) serta mengevaluasi dimensi **Performance Efficiency** pada **ISO/IEC 25010:2023**.
+Dokumen ini merupakan rencana uji spesifik untuk jenis pengujian performa (**`TP-GOR-PERF-01`**) sesuai standar acuan **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **ISO/IEC/IEEE 29119-5:2024**, & **ISO/IEC 25010:2023** — *Performance Efficiency*) serta metode uji beban bertingkat **Winasis, dkk. (2026)** (*Sinkron, SINTA 3*), yang melengkapi *Master Test Plan* [`TP-GOR-01`](./test-plan-gor-permata.md).
 
 ---
 
@@ -30,7 +30,7 @@ Uji performa dibagi menjadi tiga lapis (*tier*) yang saling melengkapi:
 | :---: | :--- | :--- | :--- |
 | **Tier 1: Browser Rendering & Web Vitals** | `DNS`, `TCP`, `TLS`, `TTFB`, `DOMContentLoaded (DCL)`, `Load Event`, `First Contentful Paint (FCP)`, `Largest Contentful Paint (LCP)`, `Cumulative Layout Shift (CLS)`, jumlah request & *transfer size* | **Playwright Python (Chromium Headless)** via `PerformanceNavigationTiming`, `PerformanceObserver`, & `PerformanceResourceTiming` | • **Cold Cache** (konteks baru) vs **Warm Cache** (navigasi ulang)<br>• **Desktop** (`1280×800`) vs **Mobile** (`390×844`) |
 | **Tier 2: Client-Side DOM Interaction Latency** | Waktu eksekusi `openBooking()`, `updateTotal()`, dan reload navigasi `changeDate()` | **Playwright Python** dengan `performance.now()` / wall-clock timer | Diukur pada slot kosong tanggal besok (`/booking?start_date=<besok>`) |
-| **Tier 3: Non-Destructive Concurrent HTTP `GET` Benchmark** | Latensi ujung-ke-ujung (`min`, `mean`, `p50`, `p90`, `p95`, `p99`, `max`), throughput (`req/s`), rasio kompresi (`br`/`gzip`), dan `Error Rate (%)` | **Python `asyncio` + `aiohttp`** (header `Accept-Encoding: gzip, br`) | • **Level A (Baseline):** `1 VU` × 8 putaran (32 req)<br>• **Level B (Normal UMKM):** `5 VUs` × 6 putaran/VU (30 req, *think-time* `500 ms`)<br>• **Level C (Peak-Safe UMKM):** `10 VUs` × 4 putaran/VU (40 req, *think-time* `500 ms`) |
+| **Tier 3: Non-Destructive Concurrent HTTP `GET` Benchmark** | Latensi ujung-ke-ujung (`min`, `mean`, `p50`, `p90`, `p95`, `p99`, `max`), throughput (`req/s`), rasio kompresi (`br`/`gzip`), dan `Error Rate (%)` | **Python `asyncio` + `aiohttp`** (header `Accept-Encoding: gzip, deflate` per `CD-01`) | • **Level A (Baseline):** `1 VU` × 6 putaran × 4 rute (**24 req**, *think-time* `250 ms`)<br>• **Level B (Normal UMKM):** `5 VUs` × 2 putaran/VU × 4 rute (**40 req**, *think-time* `500 ms`)<br>• **Level C (Peak-Safe UMKM):** `10 VUs` × 1 putaran/VU × 4 rute (**40 req**, *think-time* `500 ms`) — Total **`104` request GET** |
 
 ---
 
@@ -57,4 +57,4 @@ Target ambang batas ditetapkan mengacu pada praktik standar performa web modern 
 
 1. **Circuit Breaker Otomatis:** Skrip [`test_performance_gor_permata.py`](../03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py) langsung menghentikan (*abort*) beban lanjutan jika pada tahap mana pun rasio HTTP error (`>= 400` atau timeout) melebihi **5%** atau muncul respons **`HTTP 429 Too Many Requests`**.
 2. **Jeda Pendinginan (*Cool-Down*):** Disediakan jeda **`2 detik`** antar-level konkurensi (`1 -> 5 -> 10 VUs`) serta *think-time* `500 ms` di setiap iterasi *virtual user*.
-3. **Justifikasi Ilmiah (Poin 7):** Evaluasi *Performance Efficiency* berbasis **ISO/IEC 25010** merujuk **Zahra & Kraugusteeliana (2023)** (*JTIIK, SINTA 2*) dan pemilihan eksekusi berbasis Playwright merujuk **Putra, dkk. (2026)** (*JAIC, SINTA 3*) pada [`referensi-sinta-1-3.md`](./referensi-sinta-1-3.md).
+3. **Justifikasi Ilmiah (`>= 2022` — Poin 7):** Skenario beban bertingkat (`Baseline -> Busy/Normal -> Peak`) mengadopsi **Winasis, dkk. (2026)** (*Sinkron, SINTA 3*, sistem web + WhatsApp Laravel), evaluasi *Performance Efficiency* berbasis **ISO/IEC 25010** merujuk **Zahra & Kraugusteeliana (2023)** (*JTIIK, SINTA 2*), dan pemilihan eksekusi Playwright merujuk **Putra, dkk. (2026)** (*JAIC, SINTA 3*) pada [`referensi-sinta-1-3.md`](./referensi-sinta-1-3.md).

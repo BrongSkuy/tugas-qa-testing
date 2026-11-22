@@ -1,6 +1,6 @@
 # Incident / Defect Reports (`IR1`–`IR2`)
 
-Dokumen ini mengimplementasikan **Test Incident Reporting Process (`8.5`, aktivitas `IR1–IR2`)** sesuai **ISO/IEC/IEEE 29119-2:2021(E)** dan struktur laporan cacat **29119-3**. Seluruh `10` insiden (`IR-GOR-01` s.d. `IR-GOR-10`) berasal dari eksekusi deterministik Black Box (`TC-BB-*`), Performance (`TC-PERF-*`), dan analisis pelengkap *White/Gray Box* pada `https://gorpermatabadminton.com`.
+Dokumen ini mengimplementasikan **Test Incident Reporting Process (`IR1–IR2`)** sesuai standar **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **ISO/IEC 25010:2023**, & **ISO/IEC 40500:2025 / WCAG 2.2**). Seluruh `10` insiden (`IR-GOR-01` s.d. `IR-GOR-10`) berasal dari eksekusi deterministik Black Box (`TC-BB-*`), Performance (`TC-PERF-*`), dan analisis pelengkap *White/Gray Box* pada `https://gorpermatabadminton.com`.
 
 ---
 

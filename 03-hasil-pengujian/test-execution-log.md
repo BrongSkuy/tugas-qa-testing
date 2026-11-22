@@ -1,6 +1,6 @@
 # Test Execution Log & Results (`TE1`–`TE3`)
 
-Dokumen ini merupakan rekaman resmi **Test Execution Process (`8.4`, aktivitas `TE1–TE3`)** dan *Information Items* (`Actual Results`, `Test Results`, `Test Execution Log`) sesuai **ISO/IEC/IEEE 29119-2:2021(E)** untuk seluruh pengujian **Black Box** dan **Performance Testing** pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
+Dokumen ini merupakan rekaman resmi **Test Execution Process (`8.4`, aktivitas `TE1–TE3`)** dan *Information Items* (`Actual Results`, `Test Results`, `Test Execution Log`) sesuai standar **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **29119-5:2024**, & **ISTQB CTFL v4.0.1 2024**) untuk seluruh pengujian **Black Box** dan **Performance Testing** pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
 
 ---
 

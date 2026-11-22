@@ -1,6 +1,6 @@
-# Audit Kualitas Perangkat Lunak Berbasis ISO/IEC 25010:2023 — GOR Permata Badminton Hall
+# Audit Kualitas Perangkat Lunak Berbasis ISO/IEC 25010:2023, 25019:2023 & 40500:2025 — GOR Permata Badminton Hall
 
-Dokumen ini memetakan kualitas **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`) menggunakan model mutu terbaru **ISO/IEC 25010:2023** (*Systems and software Quality Requirements and Evaluation / SQuaRE*) dengan 9 karakteristik utama. Hasil berikut menggabungkan observasi pasif awal (14 November 2026) **dan hasil eksekusi aktual Black Box (`23 TC`) serta Performance Testing (`10 TC`) pada 17 November 2026**.
+Dokumen ini memetakan kualitas **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`) menggunakan model mutu terbaru **ISO/IEC 25010:2023** (*Product quality model* — 9 karakteristik), **ISO/IEC 25019:2023** (*Quality-in-use model*), **ISO/IEC 25002:2024** (*Quality model overview*), serta kompatibilitas tampilan **ISO/IEC 40500:2025 (W3C WCAG 2.2)**. Hasil berikut menggabungkan observasi pasif awal (14 November 2026) **dan hasil eksekusi aktual Black Box (`23 TC`) serta Performance Testing (`10 TC`) pada 17 November 2026**.
 
 ---
 
@@ -32,7 +32,25 @@ Dokumen ini memetakan kualitas **Portal Booking GOR Permata Badminton Hall** (`h
 
 ---
 
-## 3. Rekomendasi Prioritas Perbaikan
+## 3. Evaluasi *Quality-in-Use* (`ISO/IEC 25019:2023`) & Aksesibilitas Tampilan (`ISO/IEC 40500:2025 / WCAG 2.2`)
+
+| Dimensi `25019:2023` | Temuan & Dampak bagi Pemesan / Admin GOR Permata |
+| :--- | :--- |
+| **Effectiveness & Efficiency** | Pemesanan slot valid cepat di klien (`openBooking = 62,93 ms`), namun terhambat bagi pengguna yang mengetik format `+62 08...` (`IR-GOR-02`) atau ketika 10 pengguna bersamaan mengakses `/booking` (`p95 = 5,31 detik`, `IR-GOR-07`). |
+| **Freedom from Risk** | Risiko privasi pelanggan tinggi akibat eksposur `data-phone` & `data-name` pada `205` slot publik (`IR-GOR-04`), ketiadaan 4 header keamanan HTTP, serta celah crash `HTTP 500` pada query `?start_date=` (`IR-GOR-06`). |
+| **Acceptability & WCAG 2.2 Reflow** | Pada viewport mobile `390×844` (*W3C WCAG 2.2 Reflow / ISO 40500:2025*), navbar halaman `/` memotong tautan `LOGIN` -> `LOGI` dan mendorong `BOOKING` ke `x = 489 px` (`IR-GOR-10`), serta menu `/register` kembali `404` (`IR-GOR-01`). |
+
+---
+
+## 4. Rekomendasi Prioritas Perbaikan
 1. **Prioritas Tinggi (Security/Privacy & Error Handling):** Hapus atribut `data-phone` dan PII dari HTML publik `/booking` (`IR-GOR-04`), tambahkan validasi/`try-catch` pada query `start_date` agar tidak crash `HTTP 500` (`IR-GOR-06`) serta nonaktifkan slot tanggal masa lalu (`IR-GOR-05`), dan lengkapi 4 *HTTP security headers*.
 2. **Prioritas Tinggi (Performance `/booking`):** Terapkan caching jangka pendek atau pemuatan grid bertahap/JSON agar latensi `10 VUs` (`p95 = 5,31s`, `IR-GOR-07`) dan payload HTML (`535 KB`, `IR-GOR-08`) turun signifikan.
 3. **Prioritas Menengah (Validation & Mobile UI):** Perbaiki urutan `normPhone()` untuk `+62 08...` (`IR-GOR-02`), tambahkan `.trim()` + panjang minimal `#custName` (`IR-GOR-03`), lengkapi atau hapus rute `/register` (`IR-GOR-01`), dan perbaiki tata letak navbar pada viewport `390 px` (`IR-GOR-10`).
+
+---
+
+## 5. Rujukan Standar Resmi (`>= 2023`)
+- **ISO/IEC 25010:2023** — [`iso.org/standard/78176.html`](https://www.iso.org/standard/78176.html) | Ringkasan Audit: [`Audit-Mutu-ISO-IEC-25010-2023-GOR-Permata.pdf`](./pdf-standar/Audit-Mutu-ISO-IEC-25010-2023-GOR-Permata.pdf)
+- **ISO/IEC 25019:2023** — [`iso.org/standard/78177.html`](https://www.iso.org/standard/78177.html)
+- **ISO/IEC 25002:2024** — [`iso.org/standard/78175.html`](https://www.iso.org/standard/78175.html)
+- **ISO/IEC 40500:2025 (W3C WCAG 2.2)** — [`iso.org/standard/91029.html`](https://www.iso.org/standard/91029.html) | PDF Lokal: [`W3C_WCAG_2.2_Accessibility_2023_ISO_40500_2025.pdf`](./pdf-standar/W3C_WCAG_2.2_Accessibility_2023_ISO_40500_2025.pdf)

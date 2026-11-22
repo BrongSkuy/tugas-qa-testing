@@ -1,6 +1,6 @@
 # Test Model Specification & Coverage Items — Performance Testing (`TD1` & `TD2`)
 
-Dokumen ini mengimplementasikan aktivitas **`TD1` (*Create test model*)** dan **`TD2` (*Identify test coverage items*)** sesuai **ISO/IEC/IEEE 29119-2:2021(E) §8.2** dan **Sub-Plan [`TP-GOR-PERF-01`](./performance-test-plan.md)** untuk **Performance Testing** pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
+Dokumen ini mengimplementasikan aktivitas **`TD1` (*Create test model*)** dan **`TD2` (*Identify test coverage items*)** sesuai standar **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **29119-5:2024**, & **ISO/IEC 25010:2023**) bersama **Sub-Plan [`TP-GOR-PERF-01`](./performance-test-plan.md)** untuk **Performance Testing** pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
 
 ---
 

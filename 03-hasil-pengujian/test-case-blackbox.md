@@ -1,6 +1,6 @@
 # Test Case & Test Procedure Specification — Black Box Testing (`TD3` & `TD4`)
 
-Dokumen ini mengimplementasikan aktivitas **`TD3` (*Derive test cases*)** dan **`TD4` (*Create test procedures*)** sesuai **ISO/IEC/IEEE 29119-2:2021(E) §8.2**, diturunkan langsung dari *Test Model* dan *Test Coverage Items* pada [`../02-objek-umkm-dan-rencana-uji/test-model-blackbox.md`](../02-objek-umkm-dan-rencana-uji/test-model-blackbox.md) dengan sumber data [`test-data/blackbox-testdata.json`](./test-data/blackbox-testdata.json).
+Dokumen ini mengimplementasikan aktivitas **`TD3` (*Derive test cases*)** dan **`TD4` (*Create test procedures*)** sesuai standar resmi **`>= 2022`** (**ISO/IEC/IEEE 29119-1:2022**, **29119-5:2024**, & **ISTQB CTFL v4.0.1 2024**), diturunkan langsung dari *Test Model* dan *Test Coverage Items* pada [`../02-objek-umkm-dan-rencana-uji/test-model-blackbox.md`](../02-objek-umkm-dan-rencana-uji/test-model-blackbox.md) dengan sumber data [`test-data/blackbox-testdata.json`](./test-data/blackbox-testdata.json).
 
 ---
 
@@ -68,3 +68,41 @@ Urutan eksekusi disusun berdasarkan dependensi *precondition* dan prioritas risi
 | `TB-BB-05` | `TM-BB-01`, `TM-BB-02` | `TCI-BB-08..18` | `TC-BB-08..18` | `PROC-BB-03` (`test_gor_permata.py` & `gor-permata.cy.js`) |
 | `TB-BB-06` | `TM-BB-04` | `TCI-BB-20` | `TC-BB-20` | `PROC-BB-04` (`test_gor_permata.py`) |
 | `TB-BB-07` | `TM-BB-05` | `TCI-BB-21..22` | `TC-BB-21..22` | `PROC-BB-04`, `PROC-BB-05` (`test_gor_permata.py`) |
+
+---
+
+## 4. Matriks Keterkaitan Teknik Black Box & Referensi Ilmiah (`>= 2022`)
+
+| Rujukan Ilmiah / Standar (`>= 2022`) | Teknik yang Diturunkan | Kasus Uji `TC-BB` | Bug / Fakta Terverifikasi |
+| :--- | :--- | :--- | :--- |
+| *Desyani, dkk. (2022)* & *ISTQB v4.0.1 (§4.2.1)* | *Equivalence Partitioning* | `TC-BB-01..05, 10, 15, 16, 20` | `IR-GOR-01` (`/register 404`), `IR-GOR-02` (`+62 08`), `IR-GOR-05/06` (`start_date`) |
+| *Putri & Susanto (2024)* & *ISTQB v4.0.1 (§4.2.2)* | *Boundary Value Analysis* | `TC-BB-07, 09, 11..14, 17, 18` | `IR-GOR-03` (`"   "` & `"A"` lolos), akurasi BVA WA `10/11/14/15` & batas tutup `00:00` |
+| *Sitio, dkk. (2023)* & *ISTQB v4.0.1 (§4.2.3)* | *Decision Table / Cause-Effect* | `TC-BB-08, 09, 17, 18` | Verifikasi aturan `R1..R6` `submitBooking()` |
+| *Nada, dkk. (2023)* & *Alirridlo, dkk. (2025)* | *White Box CFG $V(G)$* pelengkap BVA | `TC-BB-15..16` | Menemukan akar masalah `if (d.startsWith('62'))` di `normPhone()` (`IR-GOR-02`) |
+| *Fhonna, dkk. (2026)*, *Seputra, dkk. (2024)*, & *Putra, dkk. (2026)* | *STT, Use Case, & Compatibility (`WCAG 2.2`)* | `TC-BB-06, 19, 21, 22, 23` | `IR-GOR-04` (`205` slot ekspos PII DOM), `IR-GOR-10` (navbar mobile terpotong), pop-up `RTBC` |
+
+---
+
+## 5. Panduan *Step-by-Step* Pelaksanaan Pengujian Black Box (Manual & Otomatis)
+
+Bagian ini menjelaskan langkah operasional konkret tahap demi tahap agar setiap penguji (maupun penilai) dapat mereproduksi seluruh pengujian secara identik dan **nol dampak** ke data produksi UMKM:
+
+### A. Pengujian Otomatis (`Playwright Python` — Direkomendasikan)
+1. **Langkah 1 — Persiapan Lingkungan & Dependensi:** Pastikan `Python >= 3.9` terpasang, lalu instal pustaka & browser uji (`pip install playwright aiohttp && playwright install chromium`).
+2. **Langkah 2 — Verifikasi Target & Dataset:** Cek bahwa `https://gorpermatabadminton.com` aktif (`HTTP 200`) dan berkas data sintetik [`test-data/blackbox-testdata.json`](./test-data/blackbox-testdata.json) tersedia (*tanpa nomor WA asli*).
+3. **Langkah 3 — Aktivasi Guardrail Non-Destruktif (`POST Abort`):** Skrip [`test_gor_permata.py`](./automation-scripts/test_gor_permata.py) secara otomatis mendaftarkan `page.route("**/bookings/store", handler)` untuk memutus pengiriman jaringan `POST` di browser sambil menghitung berapa kali klien mencoba mengirim (`intercepted_post_attempts_inside_browser`), sehingga `network_posts_sent_to_server` selalu **`0`**.
+4. **Langkah 4 — Eksekusi Berurutan `PROC-BB-01..05`:** Jalankan perintah dari root repositori:
+   ```bash
+   python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
+   ```
+   Skrip akan menjalankan 5 prosedur berurutan: cek 8 rute publik & query `start_date` (`TC-BB-01..05`), uji modal & tarif 1–5 jam (`TC-BB-06..07`), uji *EP/BVA/Decision Table* validasi input & jam tutup (`TC-BB-08..19`), cek `/login`, privasi DOM publik, pop-up `RTBC` (`TC-BB-20, 22, 23`), serta layout *Desktop* vs *Mobile* `390×844` (`TC-BB-21`).
+5. **Langkah 5 — Pemeriksaan Artefak Keluaran & Masking PII:** Periksa hasil pada [`execution-log.txt`](./automation-scripts/execution-log.txt), [`blackbox-results.json`](./evidence/blackbox-results.json) (verifikasi `network_posts_sent_to_server == 0`), serta `11` tangkapan layar pada `evidence/screenshots/` (nama pelanggan publik selain label uji `RTBC` disamarkan `[TERISI]`).
+6. **Langkah 6 — Pelaporan Insiden Baku:** Catat setiap item `FAIL` (`7` temuan cacat) sebagai tiket terstandar [`IR-GOR-01` s.d. `IR-GOR-06` & `IR-GOR-10`](./incident-reports.md) lengkap dengan *Steps to Reproduce*, bukti screenshot, dan rekomendasi perbaikan.
+
+### B. Reproduksi Manual Aman oleh Penguji (*Browser DevTools*)
+1. **Langkah 1:** Buka Chrome/Edge lalu kunjungi `https://gorpermatabadminton.com`. Periksa seluruh tautan navbar termasuk `/register` (amati halaman `HTTP 404` -> `IR-GOR-01`).
+2. **Langkah 2:** Uji manipulasi query URL: buka `/booking?start_date=2020-01-01` (amati 612 slot `+` tetap aktif -> `IR-GOR-05`) lalu `/booking?start_date=invalid-date` (amati layar crash `HTTP 500` -> `IR-GOR-06`).
+3. **Langkah 3:** Kembali ke `/booking?start_date=<tanggal besok>`, buka DevTools (`F12`) -> tab **Console/Network**, lalu aktifkan pemblokiran request `/bookings/store` di tab **Network -> Request Blocking** (wajib agar tidak terkirim ke database jika validasi lolos!).
+4. **Langkah 4:** Klik salah satu tombol `+`, uji perubahan durasi `1..5` jam (`Rp 40.000..Rp 200.000`), uji input negatif (`""`, `"   "`, `"A"`, `081234567`, `08123456789012`, `+62 08123456789`), serta uji slot `22:00` + `3 Jam` (ditolak jam tutup `00:00`) vs `+ 2 Jam`. Catat `IR-GOR-02` & `IR-GOR-03`.
+5. **Langkah 5:** Klik slot terkonfirmasi bertuliskan `RTBC` tanpa mengubah data apa pun, amati munculnya dialog pop-up *"Halo Kak [MEMBER] RTBC, bookingan Anda SUDAH DIKONFIRMASI..."*, lalu periksa elemen `[onclick*="manageBooking"]` di tab **Elements** untuk memverifikasi eksposur atribut `data-phone` (`IR-GOR-04`).
+6. **Langkah 6:** Aktifkan **Toggle Device Toolbar (`390×844` / iPhone)** di DevTools pada halaman `/` dan `/booking`, periksa pemotongan tombol navbar `LOGIN` & `BOOKING` (`IR-GOR-10`), lalu catat temuan beserta tangkapan layar.

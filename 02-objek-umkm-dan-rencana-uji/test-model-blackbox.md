@@ -1,6 +1,6 @@
 # Test Model Specification & Coverage Items — Black Box Testing (`TD1` & `TD2`)
 
-Dokumen ini mengimplementasikan aktivitas **`TD1` (*Create test model*)** dan **`TD2` (*Identify test coverage items*)** sesuai pembaruan utama **ISO/IEC/IEEE 29119-2:2021(E) §8.2, Annex A, & Annex E** yang menggantikan *test conditions* dengan **Test Model** untuk **Black Box Testing** pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
+Dokumen ini mengimplementasikan aktivitas **`TD1` (*Create test model*)** dan **`TD2` (*Identify test coverage items*)** sesuai standar resmi **`>= 2022`**: **ISO/IEC/IEEE 29119-1:2022**, **ISTQB CTFL Syllabus v4.0.1 (`2024`, Bab 4.2 Black-Box Test Techniques)**, dan **ISO/IEC 40500:2025 (W3C WCAG 2.2)** untuk **Black Box Testing** pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`).
 
 ---
 
@@ -18,11 +18,29 @@ Dokumen ini mengimplementasikan aktivitas **`TD1` (*Create test model*)** dan **
 
 ---
 
+## 1.5 Pemilihan 5 Jenis Teknik Black Box & Alasan Pemilihannya
+
+Untuk menjawab pertanyaan fundamental QA (*"Black Box jenis apa saja yang dipakai dan mengapa teknik tersebut yang dipilih?"*), Tim QA memilih **5 teknik Black Box terstruktur** (*ISTQB CTFL v4.0.1 Bab 4.2* + literatur SINTA 2–3 `2022–2026`) berdasarkan karakteristik Portal Booking GOR Permata:
+
+| No | Jenis Teknik Black Box yang Dipakai | Alasan Teknis Pemilihan untuk GOR Permata | Fitur Target & Kasus Uji | Temuan Nyata yang Berhasil Ditangkap | Rujukan Ilmiah (`>= 2022`) |
+| :-: | :--- | :--- | :--- | :--- | :--- |
+| 1 | **Equivalence Partitioning (EP)** | Input rute URL, parameter query `?start_date=`, format prefix nomor WA (`08`/`628`/`8`/`+62 08`), dan form `/login` memiliki domain masukan luas yang dapat dibagi ke partisi valid & invalid tanpa mengulang kasus redundan. | Rute publik, `?start_date=`, `#custPhone`, `#custName`, `/login` (`TC-BB-01..05, 10, 15, 16, 20`) | `IR-GOR-01` (`/register 404`), `IR-GOR-02` (`+62 08` ditolak), `IR-GOR-05` (`2020-01-01`), `IR-GOR-06` (`HTTP 500`) | *Desyani, dkk. (2022)* & *ISTQB v4.0.1 (§4.2.1)* |
+| 2 | **Boundary Value Analysis (BVA)** | Portal menerapkan aturan batas numerik ketat di JS (`/^\d{8,11}$/` -> `11–14` digit WA, durasi `1..5` jam, serta batas tutup `00:00` atau `24:00`), tempat bug off-by-one dan panjang string paling sering muncul. | Panjang WA `10/11/14/15` digit, nama `0/1/3` char, jam tutup `22:00 + 2 vs 3 jam` (`TC-BB-07, 09, 11..14, 17, 18`) | `IR-GOR-03` (`#custName` meloloskan `"   "` & `"A"` karena tanpa `.trim()` & batas min) | *Putri & Susanto (2024)* & *ISTQB v4.0.1 (§4.2.2)* |
+| 3 | **Decision Table Testing** | Fungsi `submitBooking()` memproses **4 kondisi berangkai** (`C1` nama, `C2` WA kosong, `C3` regex WA, `C4` jam tutup). Tabel keputusan memastikan seluruh kombinasi `R1..R6` tercakup rapi. | Aturan validasi form modal `#bookingModal` (`TC-BB-08, 09, 17, 18`) | Pembuktian deterministik aturan `R6` bahwa nama spasi menembus ke `fetch()` | *Sitio, dkk. (2023)* & *ISTQB v4.0.1 (§4.2.3)* |
+| 4 | **State Transition Testing (STT)** | Interaksi modal merupakan sistem berbasis status: `GridLoaded -> ModalOpen -> ValidationAlert / BlockedFetch -> Reset closeModal()`, plus klik slot terkonfirmasi `RTBC` -> dialog `alert`. | Siklus modal booking & status slot biru `RTBC` (`TC-BB-06, 19, 23`) | Verifikasi pop-up konfirmasi asli `RTBC` & kebersihan reset input form pasca-batal | *ISTQB CTFL v4.0.1 (§4.2.4)* |
+| 5 | **Use Case & Compatibility Testing (`WCAG 2.2 / ISO 40500`)** | Pengunjung UMKM memesan lewat HP & desktop; perlu verifikasi skenario end-to-end lintas resolusi (`1280×800` vs `390×844`) sekaligus pemeriksaan privasi atribut DOM publik. | Alur lengkap pengunjung, responsive mobile, & inspeksi DOM publik (`TC-BB-21, 22`) | `IR-GOR-04` (`205` slot ekspos `data-phone` & `data-name`) dan `IR-GOR-10` (navbar `BOOKING` terpotong ke `x=489px` di mobile) | *Fhonna, dkk. (2026)* & *Seputra, dkk. (2024)* |
+
+> **Mengapa tidak hanya *Error Guessing* atau *Combinatorial/Pairwise*?**
+> - **Pure *Error Guessing*** tidak sistematis dan sulit diaudit ketercakupannya tanpa partisi/batas terukur (*EP/BVA*), sehingga hanya dipakai sebagai pelengkap setelah 5 teknik utama terpenuhi.
+> - ***Orthogonal Array / Pairwise Testing*** efektif jika ada belasan variabel independen yang berinteraksi silang penuh; pada modal booking GOR Permata hanya terdapat 4 variabel validasi berurutan (*sequential guard clauses*), sehingga **Decision Table + BVA** memberi cakupan logika `100%` lebih tajam dan ringkas.
+
+---
+
 ## 2. *Test Model Specification* (`TD1` — `TM-BB-01` s.d. `TM-BB-05`)
 
 ### 2.1 `TM-BB-01`: Model *Equivalence Partitioning (EP)* & *Boundary Value Analysis (BVA)* Form Booking & Query Tanggal
 
-Mengacu pada teknik **ISO/IEC/IEEE 29119-4** dan rujukan SINTA 3 (*Yulistina, dkk., 2020; Nurudin, dkk., 2019; Putri & Susanto, 2024*):
+Mengacu pada teknik **ISTQB CTFL v4.0.1 Bab 4.2** dan rujukan SINTA 2–3 `>= 2022` (*Desyani, dkk., 2022; Sitio, dkk., 2023; Putri & Susanto, 2024*):
 
 | Parameter / Domain | Partisi Valid (`EP-V`) | Partisi Tidak Valid (`EP-I`) | Nilai Batas (*BVA*) yang Diturunkan |
 | :--- | :--- | :--- | :--- |
