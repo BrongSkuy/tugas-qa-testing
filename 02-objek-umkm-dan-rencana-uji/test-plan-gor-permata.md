@@ -92,6 +92,20 @@ flowchart LR
 
 *(Diagram visual versi laporan formal tersedia pada `03-hasil-pengujian/evidence/screenshots/00_flow_testing_gor_permata.png` dan Bab II Laporan Resmi di `05-dokumentasi-laporan/`.)*
 
+#### Penjelasan Flow Testing dalam Bentuk Teks (`Tahap 1` s.d. `Tahap 7`)
+
+| Tahap | Nama Tahap Alur Uji | Aktivitas Teknis yang Dikerjakan | Keluaran Dokumen / Bukti |
+| :---: | :--- | :--- | :--- |
+| **1** | **Inisiasi Kebijakan & Risiko** | Menetapkan ruang lingkup aman (*In Scope* publik vs *Out of Scope* transaksi DB/admin), deklarasi *Tailored Conformance*, konvensi ID, serta identifikasi risiko `PR-01..06` dan `PJ-01..04`. | `organizational-test-specification.md` |
+| **2** | **Perencanaan & Basis Ilmiah** | Menyusun *Master Test Plan* (`TP-GOR-01`) & *Performance Test Plan* (`TP-GOR-PERF-01`), serta memetakan metode dari **9 PDF jurnal SINTA `2022–2026`** dan **6 standar ISO `2022–2025` / ISTQB `v4.0.1`**. | `test-plan-gor-permata.md`, `performance-test-plan.md`, `referensi-sinta-1-3.md` |
+| **3** | **Desain Model & 5 Black Box** | Merancang model `EP`, `BVA`, `Decision Table`, `State Transition`, dan `Use Case/WCAG 2.2`, model beban `1/5/10 VUs`, serta CFG *White Box* $V(G)$, lalu menurunkannya menjadi `23 TCI-BB` dan `10 TCI-PERF`. | `test-model-blackbox.md`, `test-model-performance.md`, `analisis-white-black-gray-box.md` |
+| **4** | **Penyiapan Env & Guardrail** | Memvalidasi `Python 3.9`, `Playwright`, `aiohttp`, dataset sintetik JSON non-PII, dan memasang interceptor `page.route` pemblokir `POST /bookings/store` + *circuit breaker* beban `GET <= 10 VUs`. | `test-environment-dan-data.md`, `test-data/*.json` |
+| **5** | **Eksekusi Uji Aktual** | Menjalankan otomatis (`test_gor_permata.py`, `test_performance_gor_permata.py`) & verifikasi manual Chrome DevTools atas `23 TC-BB` (`16 PASS, 7 FAIL`) dan `10 TC-PERF` (`104` GET, `0%` error). | `test-execution-log.md`, `execution-log.txt`, `performance-log.txt`, `*.json` |
+| **6** | **Pelaporan Bug & Privasi** | Mencatat `10` insiden resmi (`IR-GOR-01..10`) disertai *Steps to Reproduce*, rekomendasi, dan `12` gambar bukti dengan penyamaran nama pelanggan publik `[TERISI]`. | `incident-reports.md`, `evidence/screenshots/*.png` |
+| **7** | **Audit Mutu & Penutupan** | Mengevaluasi *Exit Criteria*, merekam 4 *Control Directives* (`CD-01..04`), melakukan audit `9` dimensi **ISO 25010:2023** & **25019:2023**, serta membangkitkan laporan resmi Word & PDF. | `test-status-and-control-report.md`, `test-completion-report.md`, `05-dokumentasi-laporan/` |
+
+*(Alur Iteratif/Umpan Balik: apabila pada Tahap 5–6 ditemukan deviasi lingkungan atau temuan baru seperti `CD-03`/`CD-04`, skenario dan model di Tahap 3 diperbarui terlebih dahulu sebelum eksekusi ulang ke Tahap 5–7.)*
+
 ### 4.1 Pendekatan & Teknik Pengujian (`ISTQB CTFL v4.0.1` & `ISO/IEC/IEEE 29119-1:2022`)
 1. **Black Box Testing — 5 Jenis Teknik yang Dipilih & Alasannya** *(rincian perbandingan ada pada [`test-model-blackbox.md`](./test-model-blackbox.md#15-pemilihan-5-jenis-teknik-black-box--alasan-pemilihannya))*
    - **Equivalence Partitioning (EP):** Dipilih untuk memecah domain input tak terbatas pada `#custName`, `#custPhone`, `?start_date=`, dan `/login` menjadi kelas partisi valid/tidak valid yang efisien (*Desyani, dkk., 2022*).

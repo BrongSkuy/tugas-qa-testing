@@ -1023,6 +1023,28 @@ def build_report() -> tuple[Path, Path]:
         rfc.font.size = Pt(8.3)
         rfc.font.color.rgb = MUTED_TEXT
 
+    flow_text_rows = [
+        ("Tahap 1: Inisiasi & Risiko", "Tetapkan kebijakan uji non-destruktif (hanya halaman publik; transaksi nyata POST & panel admin dikeluarkan), konvensi ID, serta pemetaan risiko produk (PR-01..06) & proyek (PJ-01..04).", "organizational-test-specification.md"),
+        ("Tahap 2: Rencana & Ilmiah", "Susun jadwal, kriteria lulus (Exit Criteria), SLA performa, serta landasan metode dari 9 jurnal SINTA 2–3 (>= 2022) dan standar ISO 2022–2025 / ISTQB v4.0.1.", "test-plan-gor-permata.md & referensi-sinta-1-3.md"),
+        ("Tahap 3: Desain Model & 5 Black Box", "Bangun Test Model untuk 5 teknik Black Box (EP, BVA, Decision Table, State Transition, Use Case/WCAG 2.2), profil beban 1/5/10 VUs, dan CFG White Box V(G), lalu turunkan jadi 23 TCI-BB & 10 TCI-PERF.", "test-model-blackbox.md, test-model-performance.md, analisis-white-black-gray-box.md"),
+        ("Tahap 4: Env & Guardrail", "Siapkan Python, Playwright, aiohttp, data uji sintetik JSON tanpa PII, serta pasang interceptor page.route('**/bookings/store') ABORT agar 0 data palsu menyentuh server UMKM.", "test-environment-dan-data.md & test-data/*.json"),
+        ("Tahap 5: Eksekusi Uji Aktual", "Jalankan 23 skenario Black Box (Desktop 1280x800 vs Mobile 390x844) dan 10 skenario Performance (Web Vitals + 104 akses GET bertingkat), dilengkapi verifikasi manual DevTools.", "test-execution-log.md, execution-log.txt, performance-log.txt, *.json"),
+        ("Tahap 6: Laporan Bug & Privasi", "Catat seluruh temuan (7 bug Black Box + 3 isu Performance) menjadi 10 tiket IR-GOR-01..10 lengkap dengan langkah ulang dan 12 gambar bukti setelah menyamarkan nama pelanggan [TERISI].", "incident-reports.md & evidence/screenshots/*.png"),
+        ("Tahap 7: Audit Mutu & Penutupan", "Evaluasi Exit Criteria, catat penyesuaian uji (CD-01..04), susun audit mutu 9 dimensi ISO 25010:2023 & 25019:2023, serta cetak laporan resmi Word & PDF sebelum wawancara praktisi QA.", "test-completion-report.md, evaluasi-iso-25010, & 05-dokumentasi-laporan/"),
+    ]
+    add_styled_table(
+        doc,
+        headers=("Tahap Flow Testing", "Penjelasan Aktivitas & Aturan Alur (Bahasa Sederhana)", "Dokumen / Artefak Keluaran"),
+        rows=flow_text_rows,
+        col_widths_cm=(3.5, 9.2, 4.5),
+        font_size=8.0,
+    )
+    add_bullet(
+        doc,
+        "Umpan Balik Iteratif (Feedback Loop Tahap 5–6 ke Tahap 3): ",
+        "Jika saat eksekusi ditemukan skenario tepi baru atau penyesuaian teknis (tercatat sebagai Control Directives CD-01..04), desain Test Model pada Tahap 3 diperbarui terlebih dahulu lalu dieksekusi ulang ke Tahap 5–7 agar ketertelusuran 100% terjaga.",
+    )
+
     add_sub_heading(doc, "2.2 Pemilihan 5 Jenis Teknik Black Box & Alasan Pemilihannya")
     bb_type_rows = [
         ("1. Equivalence Partitioning (EP)", "Input URL (/register, /booking), parameter ?start_date=, & awalan WA (08/628/8/+62 08) memiliki kelompok nilai valid & salah yang jelas sehingga menghindari uji berulang.", "TC-BB-01..05, 10, 15, 16, 20 -> Menangkap IR-GOR-01, 02, 05, 06", "Desyani dkk. (2022) & ISTQB v4.0.1 (§4.2.1)"),
