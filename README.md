@@ -2,7 +2,7 @@
 
 Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assurance (QA) Perangkat Lunak** — Program Studi Teknik Informatika (S1), Universitas Pamulang.
 
-- **Dosen Pengampu:** Bapak Ahmad Fauzi
+- **Dosen Pengampu:** Asep Erlan Maulana, S.Kom., M.Kom
 - **Kelas / Shift:** 07TPLE001 / Reguler C
 - **Repositori:** https://github.com/BrongSkuy/tugas-qa-testing
 - **Standar Proses Acuan:** **ISO/IEC/IEEE 29119-2:2021(E) (*Test Processes*)** ([`10.1109@IEEESTD.2021.9591508.pdf`](./01-standar-ieee-iso/pdf-standar/10.1109@IEEESTD.2021.9591508.pdf))

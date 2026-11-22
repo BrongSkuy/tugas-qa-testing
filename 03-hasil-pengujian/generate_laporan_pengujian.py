@@ -374,7 +374,7 @@ def add_title_banner(doc: Document, bb_ts: str, perf_ts: str) -> None:
 
     meta_rows = [
         ("Program Studi / Kampus", "Teknik Informatika (S1) — Universitas Pamulang"),
-        ("Mata Kuliah & Dosen", "Testing dan QA Perangkat Lunak — Bapak Ahmad Fauzi"),
+        ("Mata Kuliah & Dosen", "Testing dan QA Perangkat Lunak — Asep Erlan Maulana, S.Kom., M.Kom"),
         ("Kelas / Link GitHub", "07TPLE001 / Reguler C  |  https://github.com/BrongSkuy/tugas-qa-testing"),
         ("Tim Penyusun", "1. Muhammad Faiz Rabbani (231011402539)  |  2. Robi Farhan Anshori (231011401468)\n3. Dzikri Attariq Samayaki (221011401148)  |  4. Nurlaelasari (231011403531)"),
         ("Website yang Diuji", "https://gorpermatabadminton.com (Kp. Cipari, Desa Ciakar, Kec. Panongan, Kab. Tangerang)"),
@@ -1122,7 +1122,7 @@ def build_report() -> tuple[Path, Path]:
         ("Robi Farhan Anshori (231011401468)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
         ("Dzikri Attariq Samayaki (221011401148)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
         ("Nurlaelasari (231011403531)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
-        ("Bapak Ahmad Fauzi", "Dosen Pengampu Mata Kuliah", "Menunggu Asesmen", "—"),
+        ("Asep Erlan Maulana, S.Kom., M.Kom", "Dosen Pengampu Mata Kuliah", "Menunggu Asesmen", "—"),
     ]
     add_styled_table(
         doc,

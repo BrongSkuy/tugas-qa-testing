@@ -74,4 +74,4 @@ Seluruh aset uji yang dapat digunakan kembali (*reusable*) untuk pengujian regre
 | Anggota Tim QA | Robi Farhan Anshori (`231011401468`) | **Approved & Sinkron Repo — Siap Tahap Wawancara (`04/`)** | 18 Nov 2026 |
 | Anggota Tim QA | Dzikri Attariq Samayaki (`221011401148`) | **Approved & Sinkron Repo — Siap Tahap Wawancara (`04/`)** | 18 Nov 2026 |
 | Anggota Tim QA | Nurlaelasari (`231011403531`) | **Approved & Sinkron Repo — Siap Tahap Wawancara (`04/`)** | 18 Nov 2026 |
-| Dosen Pengampu *(Stakeholder Akademik)* | Bapak Ahmad Fauzi | *Menunggu Asesmen* | — |
+| Dosen Pengampu *(Stakeholder Akademik)* | Asep Erlan Maulana, S.Kom., M.Kom | *Menunggu Asesmen* | — |

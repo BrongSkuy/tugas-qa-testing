@@ -1,7 +1,7 @@
 # Panduan Wawancara Praktisi QA / Software Tester (Poin 3)
 
 > **ATURAN WAJIB PERKULIAHAN (14 November 2026):**
-> Bapak Ahmad Fauzi menegaskan secara langsung di kelas: *"Project-nya belum selesai ngapain wawancara?!"*
+> Bapak Asep Erlan Maulana, S.Kom., M.Kom menegaskan secara langsung di kelas: *"Project-nya belum selesai ngapain wawancara?!"*
 > **Wawancara dengan praktisi QA hanya boleh dilaksanakan SETELAH seluruh project pengujian perangkat lunak pada folder `01` s.d. `03` (objek GOR Permata Badminton Hall) selesai dilaksanakan dan siap diasesmen.**
 
 ---

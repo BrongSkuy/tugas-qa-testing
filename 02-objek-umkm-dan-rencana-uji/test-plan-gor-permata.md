@@ -17,7 +17,7 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
 ### 1.2 Pemangku Kepentingan (*Stakeholders*) & Rencana Komunikasi (`7.2.4.2 b, d`)
 | Peran Pemangku Kepentingan | Nama / Pihak | Kepentingan & Tanggung Jawab | Kanal & Frekuensi Komunikasi |
 | :--- | :--- | :--- | :--- |
-| **Dosen Pengampu (Reviewer Akademik)** | Bapak Ahmad Fauzi | Asesmen kelengkapan standar IEEE/ISO, sitasi SINTA 1–3, & kesiapan hasil uji sebelum wawancara | Presentasi kelas mingguan & repositori GitHub *Public* |
+| **Dosen Pengampu (Reviewer Akademik)** | Asep Erlan Maulana, S.Kom., M.Kom | Asesmen kelengkapan standar IEEE/ISO, sitasi SINTA 1–3, & kesiapan hasil uji sebelum wawancara | Presentasi kelas mingguan & repositori GitHub *Public* |
 | **Tim QA & Penguji (Setara)** | Muhammad Faiz Rabbani (`231011402539`), Robi Farhan Anshori (`231011401468`), Dzikri Attariq Samayaki (`221011401148`), & Nurlaelasari (`231011403531`) | Penyusunan strategi, *Test Plan*, *Test Models*, pengadaan acuan standar, eksekusi pengujian manual/otomasi, reviu silang temuan, & laporan penutupan | Commit & kolaborasi GitHub pada `tugas-qa-testing` |
 | **Pemilik / Pengelola UMKM** | Pengelola GOR Permata Badminton Hall | Terlindungi dari gangguan transaksi fiktif maupun lonjakan beban server selama pengujian | Tidak dihubungi untuk transaksi fiktif (*zero-impact testing*) |
 
@@ -137,6 +137,6 @@ Sesuai **ISO/IEC/IEEE 29119-2 §7.2.4.4 c**, daftar risiko wajib membedakan **Pr
 | Robi Farhan Anshori (`231011401468`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
 | Dzikri Attariq Samayaki (`221011401148`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
 | Nurlaelasari (`231011403531`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
-| Bapak Ahmad Fauzi | Dosen Pengampu *(Reviewer Eksternal)* | *Menunggu Asesmen Kelas* | — |
+| Asep Erlan Maulana, S.Kom., M.Kom | Dosen Pengampu *(Reviewer Eksternal)* | *Menunggu Asesmen Kelas* | — |
 
 Dokumen tersedia secara terbuka pada repositori publik `https://github.com/BrongSkuy/tugas-qa-testing` (`02-objek-umkm-dan-rencana-uji/test-plan-gor-permata.md`).
