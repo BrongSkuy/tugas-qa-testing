@@ -22,7 +22,7 @@ Mengukur secara objektif dan berulang tingkat efisiensi waktu (*Time Behaviour*)
 
 ---
 
-## 2. Profil Pengujian & Metodologi (`TP5 — Test Strategy`)
+## 2. Profil Pengujian & Metodologi (`TP5 - Test Strategy`)
 
 Uji performa dibagi menjadi tiga lapis (*tier*) yang saling melengkapi:
 

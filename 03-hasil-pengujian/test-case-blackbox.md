@@ -41,7 +41,7 @@ Seluruh kasus uji bersifat **non-destruktif**: pengiriman `POST /bookings/store`
 Urutan eksekusi disusun berdasarkan dependensi *precondition* dan prioritas risiko, diotomatiskan pada [`automation-scripts/test_gor_permata.py`](./automation-scripts/test_gor_permata.py) (dan dipetakan ke [`automation-scripts/gor-permata.cy.js`](./automation-scripts/gor-permata.cy.js)):
 
 - **`PROC-BB-01` (Verifikasi Rute Publik, `/register`, & Query `?start_date=`):**
-  1. `STEP-1`: Muat `test-data/blackbox-testdata.json` dan verifikasi target aktif.
+  1. `STEP-1`: Muat [`test-data/blackbox-testdata.json`](./test-data/blackbox-testdata.json) dan verifikasi target aktif.
   2. `STEP-2`: Jalankan `TC-BB-01`, `TC-BB-02`, `TC-BB-03`, `TC-BB-04` (termasuk `11_past_date_2020_bug.png`), dan `TC-BB-05`.
 - **`PROC-BB-02` (Verifikasi Modal, Kalkulasi Tarif, & Reset State):**
   1. `STEP-3`: Buka `/booking?start_date=<tomorrow>` pada Chromium *Desktop* dengan interceptor `page.route("**/bookings/store", guard)` aktif.
@@ -60,14 +60,14 @@ Urutan eksekusi disusun berdasarkan dependensi *precondition* dan prioritas risi
 
 | Test Basis | Test Model (`TD1`) | TCI (`TD2`) | Test Case (`TD3`) | Test Procedure (`TD4`) |
 | :--- | :--- | :--- | :--- | :--- |
-| `TB-BB-01` | `TM-BB-04` | `TCI-BB-01..02` | `TC-BB-01..02` | `PROC-BB-01` (`test_gor_permata.py`) |
-| `TB-BB-02` | `TM-BB-01` | `TCI-BB-03..05` | `TC-BB-03..05` | `PROC-BB-01` (`test_gor_permata.py`) |
-| `TB-BB-03` | `TM-BB-03` | `TCI-BB-06`, `TCI-BB-19` | `TC-BB-06`, `TC-BB-19` | `PROC-BB-02`, `PROC-BB-03` (`test_gor_permata.py` & `gor-permata.cy.js`) |
-| `TB-BB-03` | `TM-BB-03` | `TCI-BB-23` | `TC-BB-23` | `PROC-BB-04` (`test_gor_permata.py`) |
-| `TB-BB-04` | `TM-BB-01` | `TCI-BB-07` | `TC-BB-07` | `PROC-BB-02` (`test_gor_permata.py` & `gor-permata.cy.js`) |
-| `TB-BB-05` | `TM-BB-01`, `TM-BB-02` | `TCI-BB-08..18` | `TC-BB-08..18` | `PROC-BB-03` (`test_gor_permata.py` & `gor-permata.cy.js`) |
-| `TB-BB-06` | `TM-BB-04` | `TCI-BB-20` | `TC-BB-20` | `PROC-BB-04` (`test_gor_permata.py`) |
-| `TB-BB-07` | `TM-BB-05` | `TCI-BB-21..22` | `TC-BB-21..22` | `PROC-BB-04`, `PROC-BB-05` (`test_gor_permata.py`) |
+| `TB-BB-01` | `TM-BB-04` | `TCI-BB-01..02` | `TC-BB-01..02` | `PROC-BB-01` ([`test_gor_permata.py`](./automation-scripts/test_gor_permata.py)) |
+| `TB-BB-02` | `TM-BB-01` | `TCI-BB-03..05` | `TC-BB-03..05` | `PROC-BB-01` ([`test_gor_permata.py`](./automation-scripts/test_gor_permata.py)) |
+| `TB-BB-03` | `TM-BB-03` | `TCI-BB-06`, `TCI-BB-19` | `TC-BB-06`, `TC-BB-19` | `PROC-BB-02`, `PROC-BB-03` ([`test_gor_permata.py`](./automation-scripts/test_gor_permata.py) & [`gor-permata.cy.js`](./automation-scripts/gor-permata.cy.js)) |
+| `TB-BB-03` | `TM-BB-03` | `TCI-BB-23` | `TC-BB-23` | `PROC-BB-04` ([`test_gor_permata.py`](./automation-scripts/test_gor_permata.py)) |
+| `TB-BB-04` | `TM-BB-01` | `TCI-BB-07` | `TC-BB-07` | `PROC-BB-02` ([`test_gor_permata.py`](./automation-scripts/test_gor_permata.py) & [`gor-permata.cy.js`](./automation-scripts/gor-permata.cy.js)) |
+| `TB-BB-05` | `TM-BB-01`, `TM-BB-02` | `TCI-BB-08..18` | `TC-BB-08..18` | `PROC-BB-03` ([`test_gor_permata.py`](./automation-scripts/test_gor_permata.py) & [`gor-permata.cy.js`](./automation-scripts/gor-permata.cy.js)) |
+| `TB-BB-06` | `TM-BB-04` | `TCI-BB-20` | `TC-BB-20` | `PROC-BB-04` ([`test_gor_permata.py`](./automation-scripts/test_gor_permata.py)) |
+| `TB-BB-07` | `TM-BB-05` | `TCI-BB-21..22` | `TC-BB-21..22` | `PROC-BB-04`, `PROC-BB-05` ([`test_gor_permata.py`](./automation-scripts/test_gor_permata.py)) |
 
 ---
 

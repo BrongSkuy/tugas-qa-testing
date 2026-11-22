@@ -2,7 +2,7 @@
 
 > **ATURAN WAJIB PERKULIAHAN (14 November 2026):**
 > Bapak Asep Erlan Maulana, S.Kom., M.Kom menegaskan secara langsung di kelas: *"Project-nya belum selesai ngapain wawancara?!"*
-> **Wawancara dengan praktisi QA hanya boleh dilaksanakan SETELAH seluruh project pengujian perangkat lunak pada folder `01` s.d. `03` (objek GOR Permata Badminton Hall) selesai dilaksanakan dan siap diasesmen.**
+> Wawancara dengan praktisi QA hanya boleh dilaksanakan SETELAH seluruh project pengujian perangkat lunak pada folder [`01-standar-ieee-iso/`](../01-standar-ieee-iso/), [`02-objek-umkm-dan-rencana-uji/`](../02-objek-umkm-dan-rencana-uji/), dan [`03-hasil-pengujian/`](../03-hasil-pengujian/) (objek GOR Permata Badminton Hall) selesai dilaksanakan dan siap diasesmen.
 
 ---
 
@@ -14,11 +14,11 @@
 - **Instansi / Perusahaan:** *[Diisi]*
 - **Tanggal & Media Wawancara:** *[Tatap muka / Zoom / Google Meet]*
 
-### B. Tim Pewawancara (Tim QA — Kelas 07TPLE001 / Reguler C)
-1. **Muhammad Faiz Rabbani** (`231011402539`) — Anggota Tim QA
-2. **Robi Farhan Anshori** (`231011401468`) — Anggota Tim QA
-3. **Dzikri Attariq Samayaki** (`221011401148`) — Anggota Tim QA
-4. **Nurlaelasari** (`231011403531`) — Anggota Tim QA
+### B. Tim Pewawancara (Anggota Kelompok - Kelas 07TPLE001 / Reguler C)
+1. **Muhammad Faiz Rabbani** (`231011402539`) - Tester / Eksekusi Pengujian
+2. **Robi Farhan Anshori** (`231011401468`) - Dokumentasi & Pelaporan
+3. **Dzikri Attariq Samayaki** (`221011401148`) - Perancangan Kasus Uji
+4. **Nurlaelasari** (`231011403531`) - Analisis Kebutuhan & Sistem
 
 ---
 

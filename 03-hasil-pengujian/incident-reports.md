@@ -61,7 +61,7 @@ Dokumen ini mengimplementasikan **Test Incident Reporting Process (`IR1–IR2`)*
 
 ### `IR-GOR-07`: Degradasi Latensi `/booking` di Bawah Konkurensi `10 VUs` (`p95 = 5314,28 ms`)
 - **Terkait TC / TCI:** `TC-PERF-10` / `TCI-PERF-10` | **Status:** `Open` | **Action Owner:** Developer Backend & Infrastruktur
-- **Steps to Reproduce:** Jalankan `test_performance_gor_permata.py` Level C (`10 VUs`, `GET`-only, `think_time=500ms`).
+- **Steps to Reproduce:** Jalankan [`test_performance_gor_permata.py`](./automation-scripts/test_performance_gor_permata.py) Level C (`10 VUs`, `GET`-only, `think_time=500ms`).
 - **Expected vs Actual:** Target SLA `p95 /booking <= 3000 ms`; aktual `mean = 4932,01 ms`, `p50 = 5138,42 ms`, **`p95 = 5314,28 ms`**, `max = 5323,45 ms` (`5,14x` lebih lambat dari `1 VU` baseline `p95 = 1033,24 ms`), sementara rute `/`, `/login`, dan `/fasilitas/lapangan` tetap `< 400 ms`.
 - **Bukti & Rekomendasi:** [`12_performance_latency_chart.png`](./evidence/screenshots/12_performance_latency_chart.png), [`performance-summary.md`](./evidence/performance-summary.md), & [`performance-metrics.json`](./evidence/performance-metrics.json). Tambahkan indeks query database jadwal, cache short-TTL (mis. 15–30 detik) untuk grid publik, atau muat data slot secara asinkron via endpoint JSON ringan.
 

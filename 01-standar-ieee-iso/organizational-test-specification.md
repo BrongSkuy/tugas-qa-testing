@@ -4,15 +4,15 @@ Dokumen ini merupakan **Organizational Test Specification** sesuai arsitektur pe
 
 ---
 
-## 1. Identitas Dokumen & Pernyataan Kepatuhan (*Conformance Statement — Clause 4*)
+## 1. Identitas Dokumen & Pernyataan Kepatuhan (*Conformance Statement - Clause 4*)
 
 - **ID Dokumen:** `OTS-QA-2026-01`
-- **Versi / Tanggal Berlaku:** `2.1` — 18 November 2026
+- **Versi / Tanggal Berlaku:** `2.1` - 18 November 2026
 - **Lingkup Organisasi:** Kelompok QA Mata Kuliah *Testing dan QA Perangkat Lunak* (Kelas 07TPLE001 / Reguler C, Teknik Informatika S1, Universitas Pamulang)
 - **Standar Acuan Utama (`>= 2022`):** `ISO/IEC/IEEE 29119-1:2022` (*General Concepts*), `ISO/IEC/IEEE 29119-5:2024` (*Keyword-Driven Testing*), `ISTQB CTFL Syllabus v4.0.1 (2024)`, `ISO/IEC 25010:2023` (*Product Quality*), `ISO/IEC 25019:2023` (*Quality-in-Use*), `ISO/IEC 25002:2024` (*Quality Model Overview*), dan `ISO/IEC 40500:2025` (*W3C WCAG 2.2*).
 
 ### 1.1 Deklarasi Kepatuhan (*Tailored Conformance*)
-Tim menetapkan klaim **Tailored Conformance** terhadap arsitektur proses multi-lapis **ISO/IEC/IEEE 29119-1:2022** & **ISTQB CTFL v4.0.1 (Bab 1.4)** untuk seluruh lapisan **Organizational** (`OT1–OT3`), **Test Management** (`TP1–TP9`, `TMC1–TMC4`, `TC1–TC4`), dan **Dynamic Test Processes** (`TD1–TD4`, `ED1–ED4`, `TE1–TE3`, `IR1–IR2`) pada **2 jenis pengujian utama proyek: Black Box Testing dan Performance Testing** *(diotomatiskan dengan Playwright Python / `aiohttp`, ditambah catatan baca kode JS publik sebagai pendukung diagnostic)*. *(Catatan kepatuhan tahun >= 2022: berkas PDF referensi 2021 telah dihapus sesuai arahan dosen dan seluruh acuan PDF beredisi 2022–2025).*
+Tim menetapkan klaim **Tailored Conformance** terhadap arsitektur proses multi-lapis **ISO/IEC/IEEE 29119-1:2022** & **ISTQB CTFL v4.0.1 (Bab 1.4)** untuk seluruh lapisan **Organizational** (`OT1-OT3`), **Test Management** (`TP1-TP9`, `TMC1-TMC4`, `TC1-TC4`), dan **Dynamic Test Processes** (`TD1-TD4`, `ED1-ED4`, `TE1-TE3`, `IR1-IR2`) pada **2 jenis pengujian utama proyek: Black Box Testing dan Performance Testing** *(diotomatiskan dengan Playwright Python / `aiohttp`, ditambah catatan baca kode JS publik sebagai pendukung diagnostic)*.
 
 ### 1.2 Justifikasi & Pertimbangan Risiko *Tailoring* (*Clause 4.1.3*)
 | Proses / Aspek yang Di-*tailor* | Bentuk Penyesuaian (*Tailoring*) | Justifikasi Teknis, Etika, & Risiko UMKM | Persetujuan Pemangku Kepentingan |
@@ -43,10 +43,10 @@ Tim menetapkan klaim **Tailored Conformance** terhadap arsitektur proses multi-l
 ## 3. Organizational Test Practices (*Clause 6.1 & 6.2*)
 
 ### 3.1 Model Proses Multi-Layer (`ISO/IEC/IEEE 29119-1:2022` & `ISTQB CTFL v4.0.1`)
-Seluruh pekerjaan pengujian wajib mengikuti tiga lapisan proses terstruktur:
-1. **Organizational Test Process (`OT1–OT3`):** Dituangkan pada dokumen ini (`OTS-QA-2026-01`).
-2. **Test Management Processes (`TP1–TP9`, `TMC1–TMC4`, `TC1–TC4`):** Dikelola melalui *Master Test Plan* (`TP-GOR-01`), *Performance Test Plan* (`TP-GOR-PERF-01`), *Test Status & Control Report*, dan *Test Completion Report*.
-3. **Dynamic Test Processes (`TD1–TD4`, `ED1–ED4`, `TE1–TE3`, `IR1–IR2`):** Dijalankan per jenis pengujian (**Black Box** dan **Performance**) secara iteratif hingga kriteria penyelesaian (*completion criteria*) terpenuhi.
+Seluruh pekerjaan pengujian wajib mengikuti tiga lapisan proses terstruktur yang dieksekusi melalui **Flow Testing 7 Tahap (dari Awal sampai Dokumentasi)**, mengintegrasikan materi perkuliahan (Pertemuan 1–7) dengan standar resmi:
+1. **Organizational Test Process (`OT1-OT3` - Tahap 1):** Dituangkan pada dokumen ini (`OTS-QA-2026-01`), menetapkan aturan non-destruktif dan pemetaan risiko (*Materi P1-P3*).
+2. **Test Management Processes (`TP1–TP9`, `TMC1–TMC4`, `TC1–TC4` — Tahap 2 & Tahap 7):** Dikelola melalui *Master Test Plan* (`TP-GOR-01`), *Performance Test Plan* (`TP-GOR-PERF-01`), *Test Status & Control Report*, dan *Test Completion Report* serta audit mutu **ISO/IEC 25010:2023** (*Materi P1–P2 & Evaluasi Akhir*).
+3. **Dynamic Test Processes (`TD1–TD4`, `ED1–ED4`, `TE1–TE3`, `IR1–IR2` — Tahap 3 s.d. Tahap 6):** Dijalankan per jenis pengujian (**Black Box** dan **Performance**) secara berurutan mencakup perancangan model 5 teknik Black Box & workload performa, kesiapan lingkungan & data uji JSON, eksekusi otomasi Playwright/aiohttp, dan pencatatan insiden/defect hingga *Completion Criteria* terpenuhi (*Materi P4–P7 & Otomasi*).
 
 ### 3.2 Standar Desain Uji Berbasis *Test Model* (`TD1–TD4`)
 Seluruh desain uji pada repositori ini **wajib** mengikuti alur empat aktivitas berbasis *Test Model*:
@@ -60,17 +60,17 @@ Setiap artefak wajib menggunakan pengenal unik berikut agar *traceability* dua a
 
 | Jenis Artefak | Format ID Black Box | Format ID Performance | Lokasi Utama |
 | :--- | :--- | :--- | :--- |
-| **Test Basis** | `TB-BB-01..NN` | `TB-PERF-01..NN` | `02-objek-umkm-dan-rencana-uji/test-model-*.md` |
-| **Test Model** (`TD1`) | `TM-BB-01..NN` | `TM-PERF-01..NN` | `02-objek-umkm-dan-rencana-uji/test-model-*.md` |
-| **Test Coverage Item** (`TD2`) | `TCI-BB-01..NN` | `TCI-PERF-01..NN` | `02-objek-umkm-dan-rencana-uji/test-model-*.md` |
-| **Test Case** (`TD3`) | `TC-BB-01..NN` | `TC-PERF-01..NN` | `03-hasil-pengujian/test-case-*.md` |
-| **Test Procedure** (`TD4`) | `PROC-BB-01..NN` | `PROC-PERF-01..NN` | `03-hasil-pengujian/test-case-*.md` |
-| **Incident Report** (`IR2`) | `IR-GOR-01..NN` *(memetakan `BUG-GOR-*`)* | `IR-GOR-01..NN` | `03-hasil-pengujian/incident-reports.md` |
+| **Test Basis** | `TB-BB-01..NN` | `TB-PERF-01..NN` | [`test-model-blackbox.md`](../02-objek-umkm-dan-rencana-uji/test-model-blackbox.md) & [`test-model-performance.md`](../02-objek-umkm-dan-rencana-uji/test-model-performance.md) |
+| **Test Model** (`TD1`) | `TM-BB-01..NN` | `TM-PERF-01..NN` | [`test-model-blackbox.md`](../02-objek-umkm-dan-rencana-uji/test-model-blackbox.md) & [`test-model-performance.md`](../02-objek-umkm-dan-rencana-uji/test-model-performance.md) |
+| **Test Coverage Item** (`TD2`) | `TCI-BB-01..NN` | `TCI-PERF-01..NN` | [`test-model-blackbox.md`](../02-objek-umkm-dan-rencana-uji/test-model-blackbox.md) & [`test-model-performance.md`](../02-objek-umkm-dan-rencana-uji/test-model-performance.md) |
+| **Test Case** (`TD3`) | `TC-BB-01..NN` | `TC-PERF-01..NN` | [`test-case-blackbox.md`](../03-hasil-pengujian/test-case-blackbox.md) & [`test-case-performance.md`](../03-hasil-pengujian/test-case-performance.md) |
+| **Test Procedure** (`TD4`) | `PROC-BB-01..NN` | `PROC-PERF-01..NN` | [`test-case-blackbox.md`](../03-hasil-pengujian/test-case-blackbox.md) & [`test-case-performance.md`](../03-hasil-pengujian/test-case-performance.md) |
+| **Incident Report** (`IR2`) | `IR-GOR-01..NN` *(memetakan `BUG-GOR-*`)* | `IR-GOR-01..NN` | [`incident-reports.md`](../03-hasil-pengujian/incident-reports.md) |
 
 ### 3.4 Praktik Baku Teknik & Alat Uji (`>= 2022`)
 - **Black Box Testing (`ISTQB CTFL v4.0.1 Bab 4.2` & `ISO/IEC/IEEE 29119-1:2022`):** Wajib menerapkan 5 teknik terpilih sesuai karakteristik aplikasi: *Equivalence Partitioning (EP)*, *Boundary Value Analysis (BVA)*, *Decision Table Testing*, *State Transition Testing*, dan *Use Case & Compatibility Testing (`ISO/IEC 40500:2025 / WCAG 2.2`)* — selaras dengan modul Pertemuan 6–7 & rujukan SINTA 2–3 (`2022–2026`).
 - **Performance Testing (`ISO/IEC 25010:2023 Performance Efficiency` & `Winasis, dkk. 2026`):** Mengukur latensi sisi klien melalui *Chromium Navigation & Resource Timing / Web Vitals* (`Playwright Python`) serta *concurrent GET benchmarking* asinkron (`aiohttp`/`asyncio`) dengan metrik `min`, `mean`, `p50`, `p90`, `p95`, `p99`, `max`, `throughput (req/s)`, dan `error rate (%)`.
-- **Otomasi Berulang (`ISO/IEC/IEEE 29119-5:2024`):** Skrip otomasi dikelompokkan secara modular (*keyword-driven helpers*) dengan pemisahan data uji eksternal di `03-hasil-pengujian/test-data/*.json`.
+- **Otomasi Berulang (`ISO/IEC/IEEE 29119-5:2024`):** Skrip otomasi dikelompokkan secara modular (*keyword-driven helpers*) dengan pemisahan data uji eksternal di [`03-hasil-pengujian/test-data/`](../03-hasil-pengujian/test-data/).
 
 ---
 
@@ -81,7 +81,7 @@ Setiap artefak wajib menggunakan pengenal unik berikut agar *traceability* dua a
 
 | Versi | Tanggal | Ringkasan Perubahan | Penyusun |
 | :---: | :---: | :--- | :--- |
-| `1.0` | 14 Nov 2026 | Rangkuman awal standar pada `standar-dokumentasi-qa.md` | Tim QA |
+| `1.0` | 14 Nov 2026 | Rangkuman awal standar pada [`standar-dokumentasi-qa.md`](./standar-dokumentasi-qa.md) | Tim QA |
 | `2.0` | 17 Nov 2026 | Pembuatan *Organizational Test Specification* formal penuh sesuai arsitektur proses multi-lapis | Tim QA |
 | `2.1` | 18 Nov 2026 | Penyeragaman struktur peran keempat anggota (`Tim QA`) secara setara | Tim QA (Faiz, Robi, Dzikri, Nurlaelasari) |
 | `2.2` | 22 Nov 2026 | Pemutakhiran acuan standar wajib **`>= 2022`** (`29119-1:2022`, `29119-5:2024`, `25010:2023`, `25019:2023`, `25002:2024`, `40500:2025`, & `ISTQB v4.0.1`) | Tim QA |

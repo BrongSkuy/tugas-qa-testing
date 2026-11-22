@@ -6,7 +6,7 @@ Dokumen ini merangkum hasil pengukuran kuantitatif dari eksekusi [`test_performa
 
 ## 1. Browser Rendering & Web Vitals (`Playwright Chromium Headless`)
 
-### 1.1 Cold Cache — Desktop (`1280×800`)
+### 1.1 Cold Cache - Desktop (`1280×800`)
 | Rute | HTTP | TTFB (ms) | DCL (ms) | Load (ms) | FCP (ms) | CLS | HTML Raw | HTML Encoded (`br`) | Asset Req |
 | :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | `/` | `200` | **2618,3** *(spike)* | 3031,1 | 3343,4 | **3028,0** | 0,0 | 37,06 KB | 9,14 KB | 9 (`627,7 KB`) |

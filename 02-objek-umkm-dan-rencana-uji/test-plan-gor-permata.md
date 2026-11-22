@@ -18,7 +18,7 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
 | Peran Pemangku Kepentingan | Nama / Pihak | Kepentingan & Tanggung Jawab | Kanal & Frekuensi Komunikasi |
 | :--- | :--- | :--- | :--- |
 | **Dosen Pengampu (Reviewer Akademik)** | Asep Erlan Maulana, S.Kom., M.Kom | Asesmen kelengkapan standar IEEE/ISO, sitasi SINTA 1–3, & kesiapan hasil uji sebelum wawancara | Presentasi kelas mingguan & repositori GitHub *Public* |
-| **Tim QA & Penguji (Setara)** | Muhammad Faiz Rabbani (`231011402539`), Robi Farhan Anshori (`231011401468`), Dzikri Attariq Samayaki (`221011401148`), & Nurlaelasari (`231011403531`) | Penyusunan strategi, *Test Plan*, *Test Models*, pengadaan acuan standar, eksekusi pengujian manual/otomasi, reviu silang temuan, & laporan penutupan | Commit & kolaborasi GitHub pada `tugas-qa-testing` |
+| **Anggota Kelompok** | • Muhammad Faiz Rabbani (`231011402539` — Tester / Eksekusi Pengujian)<br>• Robi Farhan Anshori (`231011401468` — Dokumentasi & Laporan)<br>• Dzikri Attariq Samayaki (`221011401148` — Perancangan Kasus Uji)<br>• Nurlaelasari (`231011403531` — Analisis Kebutuhan & Sistem) | Perancangan strategi, penyusunan *Test Plan*, permodelan kasus uji, eksekusi otomasi/manual, reviu temuan, dan dokumentasi penutupan laporan | Commit & kolaborasi GitHub pada `tugas-qa-testing` |
 | **Pemilik / Pengelola UMKM** | Pengelola GOR Permata Badminton Hall | Terlindungi agar data pemesanan fiktif uji tidak tersimpan ke jadwal asli maupun membebani server | Pengisian data uji fiktif dicegat di browser (*0 masuk server/WA pemilik*) |
 
 ### 1.3 Inventarisasi *Test Basis* (`7.2.4.2 c`)
@@ -70,39 +70,40 @@ Sesuai prinsip *Risk-Based Testing* (**ISO/IEC/IEEE 29119-1:2022** & **ISTQB CTF
 | **`PJ-01`** | Pengujian berulang menyentuh database jadwal produksi dan mengunci slot nyata UMKM | Sedang (2) | Kritis (4) | **8 (Tinggi)** | **Avoidance:** Formulir diuji memakai data uji fiktif non-PII, namun interceptor `page.route('**/bookings/store')` wajib mencegat pengiriman di browser sehingga `network_posts_sent_to_server == 0` terverifikasi di log. |
 | **`PJ-02`** | Uji performa konkuren membebani server/CDN UMKM (`hcdn`) selama jam operasional | Sedang (2) | Tinggi (3) | **6 (Sedang-Tinggi)** | **Mitigasi & Pembatasan:** Batasi maksimum `10 VUs` (`GET`-only), jeda *think-time* `500 ms`, serta pasang *auto-abort circuit breaker* bila error rate > 5%. |
 | **`PJ-03`** | Slot jadwal live pada portal target berubah setiap hari mengikuti tanggal berjalan | Sedang (2) | Rendah (1) | **2 (Rendah)** | **Optimasi:** Gunakan tanggal dinamis (`tomorrow`) & pemilih slot kosong dinamis pada skrip otomasi; seluruh data keempat anggota kelompok sudah lengkap terdokumentasi. |
-| **`PJ-04`** | Perangkat lokal tidak memasang *runner* Cypress CLI penuh (hanya Python Playwright) | Sedang (2) | Rendah (1) | **2 (Rendah)** | **Retensi & Alternatif:** Eksekusi utama dijalankan melalui **Playwright Python** & `aiohttp`; skrip Cypress (`gor-permata.cy.js`) disinkronkan sebagai artefak kode modular dan perbedaan lingkungan dicatat pada `8.3.4.2 c`. |
+| **`PJ-04`** | Perangkat lokal tidak memasang *runner* Cypress CLI penuh (hanya Python Playwright) | Sedang (2) | Rendah (1) | **2 (Rendah)** | **Retensi & Alternatif:** Eksekusi utama dijalankan melalui **Playwright Python** & `aiohttp`; skrip Cypress ([`gor-permata.cy.js`](../03-hasil-pengujian/automation-scripts/gor-permata.cy.js)) disinkronkan sebagai artefak kode modular dan perbedaan lingkungan dicatat pada `8.3.4.2 c`. |
 
 ---
 
 ## 4. Test Strategy (`TP5 — Design Test Strategy`, Flow Testing, & Justifikasi Black Box)
 
-### 4.0 Flow Testing *End-to-End* (7 Tahap Pengujian Terurut)
+### 4.0 Flow Testing *End-to-End* (7 Tahap Pengujian Terurut dari Awal sampai Dokumentasi)
 
-Seluruh pelaksanaan QA pada Portal Booking GOR Permata mengikuti alur berurutan 7 tahap berikut agar setiap temuan bug tertelusur dari standar & jurnal hingga laporan resmi (*reproducible* dan nol dampak ke transaksi UMKM):
+Seluruh pelaksanaan QA pada Portal Booking GOR Permata mengikuti alur berurutan 7 tahap yang mengintegrasikan **Materi Perkuliahan Testing dan QA (Pertemuan 1–7)** dengan arsitektur standar internasional **ISO/IEC/IEEE 29119-1:2022**, **29119-5:2024**, **ISO/IEC 25010:2023**, dan **ISTQB CTFL v4.0.1 (2024)** agar setiap temuan bug tertelusur dari standar hingga dokumentasi laporan resmi (*reproducible* dan nol dampak ke transaksi UMKM):
 
 ```mermaid
 flowchart LR
-    T1["1. Aturan Aman & Risiko<br/>Batas Uji + Cari Rawan Error"] --> T2["2. Rencana & Jurnal<br/>Jadwal + Jurnal >= 2022"]
-    T2 --> T3["3. Rancang Skenario<br/>5 Teknik Black Box + Kecepatan"]
-    T3 --> T4["4. Alat & Rem Anti-Kirim<br/>Data Palsu + Blokir Simpan"]
-    T4 --> T5["5. Jalankan Pengujian<br/>23 Uji Fungsi + 10 Uji Cepat"]
-    T5 --> T6["6. Catat Bug & Privasi<br/>10 Temuan + Sensor Nama"]
-    T6 --> T7["7. Cek Mutu & Laporan<br/>Nilai Kualitas + Word/PDF"]
+    T1["<b>1. Requirements & Risk</b><br/>Analisis Fitur & Batas Aman"] 
+    --> T2["<b>2. Test Plan</b><br/>Jadwal, SLA & Rencana Uji"]
+    --> T3["<b>3. Test Design</b><br/>5 Black Box + Performa"]
+    --> T4["<b>4. Test Implementation</b><br/>Data JSON + Rem Anti-Kirim"]
+    --> T5["<b>5. Test Execution</b><br/>Playwright & Manual (23+10 TC)"]
+    --> T6["<b>6. Incident / Defect</b><br/>10 Temuan & Masking PII"]
+    --> T7["<b>7. Test Reporting</b><br/>Audit ISO 25010 & Laporan Akhir"]
 ```
 
-*(Diagram visual versi laporan formal tersedia pada `03-hasil-pengujian/evidence/screenshots/00_flow_testing_gor_permata.png` dan Bab II Laporan Resmi di `05-dokumentasi-laporan/`.)*
+*(Diagram visual versi laporan formal tersedia pada [`00_flow_testing_gor_permata.png`](../03-hasil-pengujian/evidence/screenshots/00_flow_testing_gor_permata.png) dan Bab II Laporan Resmi di [`05-dokumentasi-laporan/`](../05-dokumentasi-laporan/).)*
 
-#### Penjelasan Flow Testing dalam Bahasa Sederhana (`Tahap 1` s.d. `Tahap 7`)
+#### Matriks Integrasi Flow Testing: Tahapan STLC, Materi Perkuliahan, & Standar ISO/IEEE/ISTQB
 
-| Tahap | Nama Tahap | Penjelasan Sederhana (Apa yang Dilakukan) | Hasil / Berkas Keluaran |
-| :---: | :--- | :--- | :--- |
-| **1** | **Aturan Main Aman & Risiko** | Menentukan halaman mana saja yang boleh diuji (hanya halaman umum; kirim pesanan asli dan menu admin tidak disentuh agar bisnis aman), lalu mencatat fitur apa yang paling berisiko error (`PR-01..06`, `PJ-01..04`). | `organizational-test-specification.md` |
-| **2** | **Rencana Uji & Jurnal Ilmiah** | Menyusun jadwal kerja, target kelulusan uji, batas kecepatan nyaman, serta mengambil dasar teknik dari **9 PDF jurnal SINTA `2022–2026`** dan **standar ISO `2022–2025` / ISTQB `v4.0.1`**. | `test-plan-gor-permata.md`, `performance-test-plan.md`, `referensi-sinta-1-3.md` |
-| **3** | **Rancang Skenario & 5 Cara Uji** | Menyiapkan rancangan **5 jenis teknik *Black Box*** (bagi input benar/salah, uji angka batas, tabel syarat formulir, perpindahan pop-up, tampilan HP vs laptop), tes kecepatan `1/5/10` pengunjung, & alur kode JS (`V(G)`). | `test-model-blackbox.md`, `test-model-performance.md`, `analisis-white-black-gray-box.md` |
-| **4** | **Siapkan Alat & Rem Anti-Kirim** | Memasang alat uji otomatis (`Python`, `Playwright`, `aiohttp`), data uji buatan tanpa memakai nomor asli pelanggan, serta **rem pemblokir kirim ke server** agar `0` data uji fiktif masuk database GOR Permata. | `test-environment-dan-data.md`, `test-data/*.json` |
-| **5** | **Jalankan Pengujian Nyata** | Mengeksekusi `23` skenario uji fungsi (`16 PASS, 7 FAIL`) dan `10` skenario kecepatan (`104` akses baca halaman, `0%` error) di laptop & HP, sekaligus mengecek ulang secara manual lewat browser. | `test-execution-log.md`, `execution-log.txt`, `performance-log.txt`, `*.json` |
-| **6** | **Catat Bug & Jaga Privasi** | Menuliskan `10` temuan masalah (`IR-GOR-01..10`) lengkap dengan cara memunculkan & saran perbaikannya, sambil menyamarkan nama pelanggan di gambar jadwal menjadi `[TERISI]`. | `incident-reports.md`, `evidence/screenshots/*.png` |
-| **7** | **Nilai Kualitas & Cetak Laporan** | Memastikan semua target pengujian terpenuhi 100%, mengevaluasi kualitas website dengan 9 poin **ISO 25010:2023 & 25019:2023**, lalu membuat laporan resmi Word & PDF. | `test-status-and-control-report.md`, `test-completion-report.md`, `05-dokumentasi-laporan/` |
+| No | Tahapan STLC | Rujukan Modul Kuliah | Klausul ISO / ISTQB (`>= 2022`) | Penjelasan Pelaksanaan pada Objek GOR Permata | Hasil / Berkas Keluaran |
+| :-: | :--- | :--- | :--- | :--- | :--- |
+| 1 | **Requirements & Risk Analysis** | **P1** (Konsep QA & ISO 9000), **P2** (Faktor Kualitas), **P3** (Misi Tim, Psikologi, & *Risk-Based Testing*) | `ISO/IEC/IEEE 29119-1:2022` Clause 6 (`OT1–OT3`) | Menentukan batasan izin akses (hanya halaman publik; dilarang kirim order fiktif ke database produksi), menghitung eksposur risiko produk (`PR-01..06`) dan risiko proyek (`PJ-01..04`). | [`organizational-test-specification.md`](../01-standar-ieee-iso/organizational-test-specification.md) |
+| 2 | **Test Planning** | **P1–P3** (Obyektifitas Pengujian & Sasaran Mutu) | `ISO/IEC/IEEE 29119-1:2022` Clause 7.2 (`TP1–TP9`), `ISTQB CTFL v4.0.1` §1.4.1 | Menyusun *Master Test Plan* (`TP-GOR-01`) dan rencana uji beban kecepatan (`TP-GOR-PERF-01`), menetapkan jadwal, *Exit Criteria*, batas SLA kenyamanan, serta dasar ilmiah dari **9 jurnal SINTA 2–3 (`2022–2026`)**. | [`test-plan-gor-permata.md`](./test-plan-gor-permata.md), [`performance-test-plan.md`](./performance-test-plan.md), [`referensi-sinta-1-3.md`](./referensi-sinta-1-3.md) |
+| 3 | **Test Design** | **P4–P5** (Struktur Logika/CFG pendukung), **P6** (Black Box: *EP, BVA*), **P7** (*Decision Table, STT, Use Case*) | `ISO/IEC/IEEE 29119-1:2022` Clause 8.2 (`TD1–TD4`), `ISTQB CTFL v4.0.1` Bab 4.2 | Memodelkan **5 teknik Black Box** (*Equivalence Partitioning, Boundary Value Analysis, Decision Table, State Transition, Use Case & Mobile*) dan model beban *Workload 1/5/10 VUs* secara tertelusur (`TB -> TM -> TCI -> TC -> PROC`). | [`test-model-blackbox.md`](./test-model-blackbox.md), [`test-model-performance.md`](./test-model-performance.md), [`analisis-white-black-gray-box.md`](./analisis-white-black-gray-box.md), [`test-case-blackbox.md`](../03-hasil-pengujian/test-case-blackbox.md), [`test-case-performance.md`](../03-hasil-pengujian/test-case-performance.md) |
+| 4 | **Test Implementation & Environment** | Modul Lanjutan (*Automation Testing*) & Pemisahan Data Uji | `ISO/IEC/IEEE 29119-1:2022` Clause 8.3 (`ED1–ED4`), `ISO/IEC/IEEE 29119-5:2024` (*Keyword-Driven*) | Menyiapkan dataset uji fiktif format JSON; memasang **rem pemblokir browser (`page.route`)** agar pengiriman form tidak masuk basis data nyata UMKM (`network_posts_sent_to_server == 0`), serta *circuit breaker* performa. | [`test-environment-dan-data.md`](../03-hasil-pengujian/test-environment-dan-data.md), [`blackbox-testdata.json`](../03-hasil-pengujian/test-data/blackbox-testdata.json), [`performance-profiles.json`](../03-hasil-pengujian/test-data/performance-profiles.json) |
+| 5 | **Test Execution** | Modul Lanjutan (*Eksekusi Otomasi Playwright & aiohttp*) | `ISO/IEC/IEEE 29119-1:2022` Clause 8.4 (`TE1–TE3`) | Mengeksekusi `23` skenario uji fungsi Black Box (`16 PASS, 7 FAIL`) dan `10` skenario kecepatan (`104` akses baca halaman, `0%` error) di layar laptop & HP, sekaligus pengecekan silang manual. | [`test-execution-log.md`](../03-hasil-pengujian/test-execution-log.md), log mentah & [`evidence/`](../03-hasil-pengujian/evidence/) |
+| 6 | **Incident / Defect Reporting** | **P3** (Psikologi Pengujian & Siklus Hidup Cacat) | `ISO/IEC/IEEE 29119-1:2022` Clause 8.5 (`IR1–IR2`), `ISTQB CTFL v4.0.1` Bab 5.5 | Mendokumentasikan `10` temuan masalah ([`incident-reports.md`](../03-hasil-pengujian/incident-reports.md)) dengan format lengkap (*Severity, Priority, Steps to Reproduce, Saran Perbaikan*), sambil menyamarkan nama pemesan lain di screenshot menjadi `[TERISI]`. | [`incident-reports.md`](../03-hasil-pengujian/incident-reports.md), [`evidence/screenshots/`](../03-hasil-pengujian/evidence/screenshots/) |
+| 7 | **Test Reporting & Completion** | **P1–P2** (Model Kualitas Perangkat Lunak) & Penutupan Uji | `ISO/IEC/IEEE 29119-1:2022` Clause 7.3 & 7.4 (`TC1–TC4`), `ISO/IEC 25010:2023`, `ISO 25019:2023` | Memastikan semua target selesai 100%, mengaudit kualitas produk berbasis 9 dimensi **ISO 25010:2023**, membersihkan environment, mengarsipkan kode uji di Git, dan menyusun laporan akhir Word & PDF. | [`test-status-and-control-report.md`](../03-hasil-pengujian/test-status-and-control-report.md), [`test-completion-report.md`](../03-hasil-pengujian/test-completion-report.md), [`evaluasi-iso-25010-gor-permata.md`](../01-standar-ieee-iso/evaluasi-iso-25010-gor-permata.md), [`05-dokumentasi-laporan/`](../05-dokumentasi-laporan/) |
 
 *(Alur Balik Otomatis: kalau di Tahap 5–6 ketemu masalah baru yang belum ada di rencana awal—seperti menu HP terpotong—tim kembali sebentar ke Tahap 3 untuk menambahkan skenario tersebut agar ikut teruji dan tercatat resmi.)*
 
@@ -163,10 +164,10 @@ flowchart LR
 
 | Pemangku Kepentingan | Peran | Status Persetujuan | Tanggal |
 | :--- | :--- | :---: | :---: |
-| Muhammad Faiz Rabbani (`231011402539`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
-| Robi Farhan Anshori (`231011401468`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
-| Dzikri Attariq Samayaki (`221011401148`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
-| Nurlaelasari (`231011403531`) | Anggota Tim QA | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
+| Muhammad Faiz Rabbani (`231011402539`) | Tester / Eksekusi Pengujian | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
+| Robi Farhan Anshori (`231011401468`) | Dokumentasi & Penyusunan Laporan | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
+| Dzikri Attariq Samayaki (`221011401148`) | Perancangan Kasus Uji (*Test Design*) | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
+| Nurlaelasari (`231011403531`) | Analisis Kebutuhan & Hasil (*Requirements & Analysis*) | **Disetujui & Sinkron Repo** | 18 Nov 2026 |
 | Asep Erlan Maulana, S.Kom., M.Kom | Dosen Pengampu *(Reviewer Eksternal)* | *Menunggu Asesmen Kelas* | — |
 
-Dokumen tersedia secara terbuka pada repositori publik `https://github.com/BrongSkuy/tugas-qa-testing` (`02-objek-umkm-dan-rencana-uji/test-plan-gor-permata.md`).
+Dokumen tersedia secara terbuka pada repositori publik `https://github.com/BrongSkuy/tugas-qa-testing` ([`test-plan-gor-permata.md`](./test-plan-gor-permata.md)).

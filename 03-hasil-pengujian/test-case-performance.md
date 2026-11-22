@@ -26,7 +26,7 @@ Dokumen ini mengimplementasikan aktivitas **`TD3` (*Derive test cases*)** dan **
 Diotomatiskan pada [`automation-scripts/test_performance_gor_permata.py`](./automation-scripts/test_performance_gor_permata.py):
 
 - **`PROC-PERF-01` (Frontend Web Vitals, Caching, & Resource Profiling):**
-  1. `STEP-1`: Muat `test-data/performance-profiles.json` dan siapkan browser Chromium headless.
+  1. `STEP-1`: Muat [`test-data/performance-profiles.json`](./test-data/performance-profiles.json) dan siapkan browser Chromium headless.
   2. `STEP-2`: Jalankan `TC-PERF-01`, `TC-PERF-02`, `TC-PERF-03` (*Cold Cache Desktop*), dilanjutkan `TC-PERF-04` (*Warm Cache*), lalu `TC-PERF-06` (audit payload + kompresi `br`/`gzip`).
   3. `STEP-3`: Buka konteks baru viewport `Mobile (390×844)` dan jalankan `TC-PERF-05`.
 - **`PROC-PERF-02` (Client DOM Interaction Latency):**
@@ -41,16 +41,16 @@ Diotomatiskan pada [`automation-scripts/test_performance_gor_permata.py`](./auto
 
 | Test Basis | Test Model (`TD1`) | TCI (`TD2`) | Test Case (`TD3`) | Test Procedure (`TD4`) |
 | :--- | :--- | :--- | :--- | :--- |
-| `TB-PERF-01` | `TM-PERF-01` | `TCI-PERF-01..03`, `TCI-PERF-05` | `TC-PERF-01..03`, `TC-PERF-05` | `PROC-PERF-01` (`test_performance_gor_permata.py`) |
-| `TB-PERF-02` | `TM-PERF-01` | `TCI-PERF-04`, `TCI-PERF-06` | `TC-PERF-04`, `TC-PERF-06` | `PROC-PERF-01` (`test_performance_gor_permata.py`) |
-| `TB-PERF-03` | `TM-PERF-02` | `TCI-PERF-07` | `TC-PERF-07` | `PROC-PERF-02` (`test_performance_gor_permata.py`) |
-| `TB-PERF-04` | `TM-PERF-03` | `TCI-PERF-08..10` | `TC-PERF-08..10` | `PROC-PERF-03` (`test_performance_gor_permata.py`) |
+| `TB-PERF-01` | `TM-PERF-01` | `TCI-PERF-01..03`, `TCI-PERF-05` | `TC-PERF-01..03`, `TC-PERF-05` | `PROC-PERF-01` ([`test_performance_gor_permata.py`](./automation-scripts/test_performance_gor_permata.py)) |
+| `TB-PERF-02` | `TM-PERF-01` | `TCI-PERF-04`, `TCI-PERF-06` | `TC-PERF-04`, `TC-PERF-06` | `PROC-PERF-01` ([`test_performance_gor_permata.py`](./automation-scripts/test_performance_gor_permata.py)) |
+| `TB-PERF-03` | `TM-PERF-02` | `TCI-PERF-07` | `TC-PERF-07` | `PROC-PERF-02` ([`test_performance_gor_permata.py`](./automation-scripts/test_performance_gor_permata.py)) |
+| `TB-PERF-04` | `TM-PERF-03` | `TCI-PERF-08..10` | `TC-PERF-08..10` | `PROC-PERF-03` ([`test_performance_gor_permata.py`](./automation-scripts/test_performance_gor_permata.py)) |
 
 ---
 
 ## 4. Panduan *Step-by-Step* Menguji Kecepatan Website (Langkah 1 s.d. 6)
 
-1. **Langkah 1 — Siapkan Pengaturan Uji Kecepatan:** Pastikan `playwright` dan `aiohttp` sudah terinstal. Pengaturan beban aman disimpan di `test-data/performance-profiles.json`: hanya membaca (`GET`) 4 halaman utama (`/`, `/booking`, `/login`, `/fasilitas/lapangan`) dan otomatis berhenti jika error > `5%`.
+1. **Langkah 1 — Siapkan Pengaturan Uji Kecepatan:** Pastikan `playwright` dan `aiohttp` sudah terinstal. Pengaturan beban aman disimpan di [`test-data/performance-profiles.json`](./test-data/performance-profiles.json): hanya membaca (`GET`) 4 halaman utama (`/`, `/booking`, `/login`, `/fasilitas/lapangan`) dan otomatis berhenti jika error > `5%`.
 2. **Langkah 2 — Jalankan Program Uji Kecepatan:** Ketik satu perintah ini di terminal:
    ```bash
    python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py

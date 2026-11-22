@@ -8,7 +8,7 @@ Dokumen ini merupakan **Test Completion Report (`TC1–TC4`)** yang merangkum pe
 
 1. **Cakupan Pengujian:** Seluruh alur *Flow Testing* 7 tahap sesuai arsitektur **ISO/IEC/IEEE 29119-1:2022** dan **ISTQB CTFL v4.0.1** telah dijalankan secara utuh mulai dari *Organizational Test Specification*, *Master & Performance Test Planning*, permodelan uji *Test Model -> TCI -> Test Case -> Test Procedure*, kesiapan lingkungan & data (`29119-5:2024`), eksekusi otomatis nyata, pelaporan insiden, hingga monitoring & penutupan.
 2. **Hasil Agregat Eksekusi:**
-   - **Black Box Testing (`TC-BB-01..23`):** `23` kasus uji dieksekusi -> **`16 PASS`**, **`7 FAIL`** *(seluruhnya merupakan konfirmasi cacat aktual yang terdokumentasi di `incident-reports.md`)*. `0` error konsol JS, **`0` request `POST /bookings/store` terkirim ke server produksi**.
+   - **Black Box Testing (`TC-BB-01..23`):** `23` kasus uji dieksekusi -> **`16 PASS`**, **`7 FAIL`** *(seluruhnya merupakan konfirmasi cacat aktual yang terdokumentasi di [`incident-reports.md`](./incident-reports.md))*. `0` error konsol JS, **`0` request `POST /bookings/store` terkirim ke server produksi**.
    - **Performance Testing (`TC-PERF-01..10`):** `10` kasus uji dieksekusi -> **`7 PASS`**, **`3 FAIL`** *(pelanggaran SLA `10 VUs` pada `/booking` `p95 = 5314,28 ms`, bobot HTML mentah `/booking` `535,37 KB`, dan cold-start TTFB `/` `2618,3 ms`)*. Sebanyak `104` request HTTP `GET` konkuren mencatat **`0,0%` Error Rate**.
    - **Kualitas Produk (`ISO/IEC 25010:2023`):** Pembaruan audit 9 dimensi mutu selesai dengan angka empiris pada [`evaluasi-iso-25010-gor-permata.md`](../01-standar-ieee-iso/evaluasi-iso-25010-gor-permata.md).
 
@@ -68,10 +68,10 @@ Seluruh aset uji yang dapat digunakan kembali (*reusable*) untuk pengujian regre
 
 ## 7. Persetujuan Penutupan Uji (`TC4 — 7.4.4.5 c, d`)
 
-| Peran | Nama | Keputusan | Tanggal |
+| Peran dalam Kelompok | Nama | Keputusan | Tanggal |
 | :--- | :--- | :---: | :---: |
-| Anggota Tim QA | Muhammad Faiz Rabbani (`231011402539`) | **Approved & Sinkron Repo — Siap Tahap Wawancara (`04/`)** | 18 Nov 2026 |
-| Anggota Tim QA | Robi Farhan Anshori (`231011401468`) | **Approved & Sinkron Repo — Siap Tahap Wawancara (`04/`)** | 18 Nov 2026 |
-| Anggota Tim QA | Dzikri Attariq Samayaki (`221011401148`) | **Approved & Sinkron Repo — Siap Tahap Wawancara (`04/`)** | 18 Nov 2026 |
-| Anggota Tim QA | Nurlaelasari (`231011403531`) | **Approved & Sinkron Repo — Siap Tahap Wawancara (`04/`)** | 18 Nov 2026 |
-| Dosen Pengampu *(Stakeholder Akademik)* | Asep Erlan Maulana, S.Kom., M.Kom | *Menunggu Asesmen* | — |
+| Tester / Eksekusi Pengujian | Muhammad Faiz Rabbani (`231011402539`) | **Approved** | 18 Nov 2026 |
+| Dokumentasi & Pelaporan | Robi Farhan Anshori (`231011401468`) | **Approved** | 18 Nov 2026 |
+| Perancangan Kasus Uji | Dzikri Attariq Samayaki (`221011401148`) | **Approved** | 18 Nov 2026 |
+| Analisis Kebutuhan & Sistem | Nurlaelasari (`231011403531`) | **Approved** | 18 Nov 2026 |
+| Dosen Pengampu *(Stakeholder Akademik)* | Asep Erlan Maulana, S.Kom., M.Kom | *Menunggu Asesmen* | - |
