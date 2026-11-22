@@ -33,67 +33,69 @@ Repositori dokumentasi tugas kelompok mata kuliah **Testing dan Quality Assuranc
 
 ---
 
-## Flow Testing (*End-to-End* 7 Tahap Terurut)
+## Flow Testing (Alur Pengujian Lengkap 7 Tahap)
 
-Seluruh proses pengujian pada Portal GOR Permata berjalan berurutan melalui **7 tahap** dari perancangan berbasis risiko & jurnal ilmiah (`>= 2022`) hingga penutupan & audit mutu (*tersedia juga sebagai diagram visual di [`00_flow_testing_gor_permata.png`](./03-hasil-pengujian/evidence/screenshots/00_flow_testing_gor_permata.png) dan Bab II Laporan PDF*):
+Agar pengujian rapi, terarah, dan tidak merusak website UMKM yang sedang aktif dipakai pelanggan, seluruh proses uji dilakukan urut melalui **7 tahap** berikut (tersedia sebagai gambar diagram di [`00_flow_testing_gor_permata.png`](./03-hasil-pengujian/evidence/screenshots/00_flow_testing_gor_permata.png) dan penjelasannya di laporan PDF):
 
 ```mermaid
 flowchart LR
-    T1["1. Inisiasi & Risiko<br/>OTS + ISO 29119-1:2022"] --> T2["2. Perencanaan & Basis<br/>TP-GOR-01 + SINTA >=2022"]
-    T2 --> T3["3. Desain Model & TCI<br/>5 Teknik BB + Workload + V(G)"]
-    T3 --> T4["4. Env & Guardrail Data<br/>POST Abort + JSON Non-PII"]
-    T4 --> T5["5. Eksekusi Uji Aktual<br/>23 TC BB & 10 TC Perf"]
-    T5 --> T6["6. Laporan Bug & Bukti<br/>10 IR-GOR + Masking PII"]
-    T6 --> T7["7. Penutupan & Mutu<br/>Audit ISO 25010 + Laporan"]
+    T1["1. Aturan Aman & Risiko<br/>Batas Uji + Cari Rawan Error"] --> T2["2. Rencana & Jurnal<br/>Jadwal + Jurnal >= 2022"]
+    T2 --> T3["3. Rancang Skenario<br/>5 Teknik Black Box + Kecepatan"]
+    T3 --> T4["4. Alat & Rem Anti-Kirim<br/>Data Palsu + Blokir Simpan"]
+    T4 --> T5["5. Jalankan Pengujian<br/>23 Uji Fungsi + 10 Uji Cepat"]
+    T5 --> T6["6. Catat Bug & Privasi<br/>10 Temuan + Sensor Nama"]
+    T6 --> T7["7. Cek Mutu & Laporan<br/>Nilai Kualitas + Word/PDF"]
 ```
 
-#### Penjelasan Flow Testing dalam Bentuk Teks (Tahap 1 s.d. Tahap 7)
+#### Penjelasan Flow Testing dalam Bahasa Sederhana (Tahap 1 s.d. Tahap 7)
 
-1. **Tahap 1 — Inisiasi Kebijakan & Identifikasi Risiko (*Organizational Test Spec*):** Menetapkan ruang lingkup aman (*In Scope* halaman publik vs *Out of Scope* submit DB/panel admin), konvensi penamaan ID (`TB -> TM -> TCI -> TC -> IR`), serta pemetaan *Product Risk* (`PR-01..06`) dan *Project Risk* (`PJ-01..04`) mengacu pada `ISO/IEC/IEEE 29119-1:2022`. *(Output: `organizational-test-specification.md`)*
-2. **Tahap 2 — Perencanaan Uji & Landasan Ilmiah (`>= 2022`):** Menyusun jadwal, target cakupan, dan kriteria kelulusan pada *Master Test Plan* (`TP-GOR-01`) dan *Performance Test Plan* (`TP-GOR-PERF-01`), lalu menurunkan metode uji secara eksplisit dari **9 PDF jurnal SINTA 2–3 (`2022–2026`)**, **ISTQB CTFL v4.0.1 (`2024`)**, dan **ISO/IEC 25010/25019/40500**. *(Output: `test-plan-gor-permata.md`, `performance-test-plan.md`, `referensi-sinta-1-3.md`)*
-3. **Tahap 3 — Desain Model Uji (*5 Teknik Black Box*, *Workload*, & *White/Gray Box*):** Membangun *Test Model Specification* (`TM-BB-01..05` menggunakan EP, BVA, Decision Table, State Transition, & Use Case/WCAG 2.2) dan `TM-PERF-01..03` (*Web Vitals* & beban `1/5/10 VUs`), dilengkapi analisis statis *Cyclomatic Complexity* $V(G)$ pada `normPhone()` ($V(G)=4$) dan `submitBooking()` ($V(G)=10$), lalu menurunkannya menjadi `23 TCI-BB` + `10 TCI-PERF`. *(Output: `test-model-blackbox.md`, `test-model-performance.md`, `analisis-white-black-gray-box.md`)*
-4. **Tahap 4 — Penyiapan Lingkungan & *Guardrail* Data Uji:** Memverifikasi runtime (`Python 3.9`, `Playwright 1.60`, `aiohttp 3.13`), menyiapkan dataset sintetik non-PII dalam format JSON (`ISO/IEC/IEEE 29119-5:2024`), dan mengaktifkan interceptor `page.route('**/bookings/store')` abort + *circuit breaker* beban `GET`-only `<= 10 VUs` agar **0 data fiktif** masuk ke sistem UMKM. *(Output: `test-environment-dan-data.md`, `test-data/*.json`)*
-5. **Tahap 5 — Eksekusi Uji Terotomasi & Reproduksi Manual:** Menjalankan `23` kasus *Black Box* (`TC-BB-01..23`) dan `10` kasus *Performance* (`TC-PERF-01..10`) pada browser Chromium *Desktop* (`1280×800`) vs *Mobile* (`390×844`) serta uji konkurensi `1/5/10 VUs` (`104` request `GET`), lengkap dengan verifikasi silang manual melalui DevTools. *(Output: `test-execution-log.md`, `execution-log.txt`, `performance-log.txt`, `*.json`)*
-6. **Tahap 6 — Pelaporan Insiden (*Incident Report*) & Pengamanan Privasi:** Seluruh hasil `FAIL` (*7 temuan Black Box + 3 temuan Performance*) dicatat sebagai `10` tiket insiden (`IR-GOR-01..10`) lengkap dengan *Steps to Reproduce*, saran perbaikan, dan `12` gambar/grafik bukti setelah menyamarkan nama pelanggan publik dengan `[TERISI]`. *(Output: `incident-reports.md`, `evidence/screenshots/*.png`)*
-7. **Tahap 7 — Kontrol Progres, Audit Mutu SQuaRE, & Penutupan Uji:** Mengevaluasi *Exit Criteria*, merekam 4 *Control Directives* (`CD-01..04`), menyusun audit **ISO/IEC 25010:2023 (9 karakteristik)** & **ISO/IEC 25019:2023**, serta membangkitkan laporan resmi Word & PDF sebelum memasuki tahap wawancara praktisi QA (`04/`). *(Output: `test-status-and-control-report.md`, `test-completion-report.md`, `evaluasi-iso-25010-gor-permata.md`, `05-dokumentasi-laporan/`)*
+1. **Tahap 1 — Menentukan Aturan Main Aman & Bagian Paling Berisiko (*Inisiasi & Risiko*):** Tim sepakat hanya menguji halaman yang memang terbuka untuk umum (seperti beranda, jadwal, login, fasilitas) dan **dilarang mengirim pesanan sungguhan ke database** maupun mengutak-atik menu admin agar bisnis GOR Permata tetap aman. Pada tahap ini juga dicatat fitur apa saja yang paling rawan bermasalah, misalnya salah format nomor WhatsApp, salah hitung tarif, dan halaman lambat (*dokumen: `organizational-test-specification.md`*).
+2. **Tahap 2 — Membuat Rencana Kerja & Mencari Rujukan Ilmiah (`>= 2022`):** Tim menyusun rencana pengujian utama (`TP-GOR-01`) dan rencana uji kecepatan (`TP-GOR-PERF-01`), menentukan target batas nyaman, lalu mengambil dasar metode dari **9 PDF jurnal terakreditasi SINTA (`2022–2026`)**, **ISTQB CTFL v4.0.1 (`2024`)**, dan standar **ISO `2022–2025`** (*dokumen: `test-plan-gor-permata.md`, `referensi-sinta-1-3.md`*).
+3. **Tahap 3 — Merancang Skenario & Memilih 5 Cara Uji (*Desain Model*):** Tim menyusun daftar hal yang harus dicek memakai **5 teknik Black Box** (membagi input benar vs salah, mengetes angka batas minimum/maksimum, menyusun tabel aturan formulir, mengecek perpindahan tampilan pop-up, serta memeriksa kerapian di HP dan laptop) ditambah simulasi kecepatan untuk `1`, `5`, hingga `10` pengunjung sekaligus (*dokumen: `test-model-blackbox.md`, `test-model-performance.md`, `analisis-white-black-gray-box.md`*).
+4. **Tahap 4 — Menyiapkan Alat Uji & Rem Pengaman Data Asli:** Tim menyiapkan program uji otomatis (Python + browser Chrome otomatis) serta data uji buatan (seperti nama `"Test QA"` dan nomor WA fiktif agar tidak memakai data pelanggan asli). Yang terpenting, dipasang **"rem otomatis" (`page.route`) di browser** untuk memutus proses kirim ke server, sehingga **0 data uji palsu** bisa masuk ke jadwal GOR Permata (*dokumen: `test-environment-dan-data.md`, `test-data/*.json`*).
+5. **Tahap 5 — Menjalankan Pengujian Otomatis & Mengecek Manual:** Tim menjalankan skrip uji untuk mengetes **`23` skenario fungsi fitur (`TC-BB-01..23`)** dan **`10` skenario kecepatan (`TC-PERF-01..10`)** di layar laptop maupun HP, ditambah pengecekan manual langsung di browser agar hasilnya 100% pasti (*dokumen: `test-execution-log.md`, `*.json`*).
+6. **Tahap 6 — Mencatat 10 Bug Ditemukan & Menyensor Data Pelanggan:** Setiap masalah yang ketahuan (total **`10` masalah / `IR-GOR-01..10`**) ditulis lengkap langkah memunculkannya beserta saran perbaikannya. Sebelum foto bukti disimpan, nama pelanggan asli di tabel jadwal **disensor menjadi `[TERISI]`** supaya privasi pengunjung GOR Permata tetap terjaga (*dokumen: `incident-reports.md`, `evidence/screenshots/*.png`*).
+7. **Tahap 7 — Menilai Kualitas Website Secara Utuh & Membuat Laporan Akhir:** Tim mengecek apakah seluruh target uji sudah selesai 100%, merangkum kondisi kualitas website menggunakan standar terbaru (**ISO/IEC 25010:2023 & 25019:2023**), lalu menyusun **Laporan Resmi Word & PDF** yang siap dipakai saat presentasi maupun wawancara dengan praktisi QA (*dokumen: `test-completion-report.md`, `evaluasi-iso-25010-gor-permata.md`, `05-dokumentasi-laporan/`*).
+
+> *Catatan Alur Balik:* Jika saat mengetes di Tahap 5–6 ditemukan kasus baru (seperti tombol menu terpotong di layar HP), kami kembali ke Tahap 3 untuk menambahkan skenario tersebut agar ikut teruji rapi.
 
 ---
 
-## Jenis Black Box Testing yang Dipakai & Alasan Pemilihannya
+## Jenis Black Box Testing yang Dipakai & Alasan Memilihnya
 
-Tim QA menerapkan **5 teknik *Black Box* terstruktur** (*ISTQB CTFL v4.0.1 Bab 4.2* + literatur SINTA 2–3 `2022–2026` — rincian lengkap ada pada [`test-model-blackbox.md`](./02-objek-umkm-dan-rencana-uji/test-model-blackbox.md#15-pemilihan-5-jenis-teknik-black-box--alasan-pemilihannya)):
+Untuk menguji portal pesan lapangan bulu tangkis seperti GOR Permata, kami memilih **5 teknik *Black Box*** agar seluruh tombol, isian formulir, aturan jam buka-tutup, hingga tampilan HP benar-benar teruji (*rincian lengkap: [`test-model-blackbox.md`](./02-objek-umkm-dan-rencana-uji/test-model-blackbox.md#15-mengapa-memilih-5-jenis-teknik-black-box-ini-penjelasan-sederhana)*):
 
-| No | Jenis Black Box | Alasan Teknis Pemilihan untuk GOR Permata | Fitur Uji & Hasil / Bug Tertangkap | Rujukan Ilmiah (`>= 2022`) |
+| No | Jenis Black Box | Penjelasan Sederhana & Alasan Dipakai di GOR Permata | Contoh yang Diuji & Bug yang Ketahuan | Rujukan Ilmiah (`>= 2022`) |
 | :-: | :--- | :--- | :--- | :--- |
-| 1 | **Equivalence Partitioning (EP)** | Input rute URL, parameter `?start_date=`, variasi prefiks nomor WA (`08`/`628`/`8`/`+62 08`), & `/login` memiliki partisi valid dan invalid yang jelas untuk menghindari uji redundan. | Rute publik, query tanggal, & format WA (`TC-BB-01..05, 10, 15, 16, 20`) -> Menangkap **`IR-GOR-01` (`/register 404`)**, **`IR-GOR-02` (`+62 08...`)**, **`IR-GOR-05` (`2020-01-01`)**, **`IR-GOR-06` (`HTTP 500`)**. | *Desyani, dkk. (2022)* & *ISTQB v4.0.1 (§4.2.1)* |
-| 2 | **Boundary Value Analysis (BVA)** | Logika JS portal menerapkan batas numerik ketat (`11–14` digit WA, durasi `1..5` jam, jam tutup `00:00`), tempat bug tepi paling sering terjadi. | Digit WA `10/11/14/15`, nama `0/1/3` spasi, jam tutup `22:00+2/3` jam (`TC-BB-07, 09, 11..14, 17..18`) -> Menangkap **`IR-GOR-03`** (`"   "` & `"A"` lolos tanpa `.trim()`). | *Putri & Susanto (2024)* & *ISTQB v4.0.1 (§4.2.2)* |
-| 3 | **Decision Table Testing** | Fungsi `submitBooking()` memiliki 4 syarat kondisi berurutan sehingga kombinasi rule (`R1..R6`) harus dipetakan lengkap agar tidak ada kondisi yang lolos. | Validasi multi-kondisi `#bookingModal` (`TC-BB-08, 09, 17, 18`) -> Membuktikan deterministik rule `R6` (`IR-GOR-03`). | *Sitio, dkk. (2023)* & *ISTQB v4.0.1 (§4.2.3)* |
-| 4 | **State Transition Testing (STT)** | Perilaku modal pemesanan & grid adalah perpindahan status UI (`Grid -> Modal -> Alert/BlockedFetch -> Reset`), serta klik slot `RTBC` -> dialog konfirmasi. | Transisi `#bookingModal` & slot biru `RTBC` (`TC-BB-06, 19, 23`) -> Memverifikasi reset form & pop-up asli `RTBC`. | *ISTQB CTFL v4.0.1 (§4.2.4)* |
-| 5 | **Use Case & Compatibility (`WCAG 2.2`)** | Pengunjung memesan lewat HP maupun laptop; perlu uji alur menyeluruh pada viewport *Desktop* (`1280×800`) vs *Mobile* (`390×844`) dan privasi DOM publik. | Layout HP vs laptop & inspeksi DOM publik (`TC-BB-21, 22`) -> Menangkap **`IR-GOR-04` (`205` slot ekspos PII)** & **`IR-GOR-10` (navbar HP terpotong)**. | *Fhonna, dkk. (2026)*, *Seputra, dkk. (2024)*, & *ISO 40500:2025* |
+| 1 | **Equivalence Partitioning (EP)** | **Bagi kelompok input benar vs salah.** Daripada mencoba semua kemungkinan satu per satu, input dikelompokkan (misalnya awalan WA `08`, `628`, `8`, `+62 08`, atau tanggal benar vs rusak). | Uji semua menu utama & format nomor WA (`TC-BB-01..05, 10, 15, 16, 20`) -> Ketahuan **`/register` error `404`** (`IR-GOR-01`), **`+62 08...` ditolak** (`IR-GOR-02`), tanggal lampau masih bisa dipesan (`IR-GOR-05`), & tanggal rusak bikin **server error `500`** (`IR-GOR-06`). | *Desyani, dkk. (2022)* & *ISTQB v4.0.1 (§4.2.1)* |
+| 2 | **Boundary Value Analysis (BVA)** | **Uji tepat di angka batas paling kecil & paling besar.** Program paling sering salah tepat di batas pinggir (misal aturan WA `11–14` digit atau batas GOR tutup jam `00:00`). | Uji WA **`10`, `11`, `14`, `15` digit**, nama spasi/`1` huruf, & main jam `22:00` selama **`2` jam vs `3` jam** (`TC-BB-07, 09, 11..14, 17..18`) -> Ketahuan nama **cuma spasi `"   "` atau 1 huruf `"A"` lolos dikirim** (`IR-GOR-03`). | *Putri & Susanto (2024)* & *ISTQB v4.0.1 (§4.2.2)* |
+| 3 | **Decision Table Testing** | **Buat tabel aturan formulir (*jika-maka*).** Sebelum booking dikirim, website mengecek `4` syarat berurutan (nama terisi, WA terisi, format WA benar, jam tidak lewat tutup). Tabel ini menjamin semua kombinasi dicek. | Cek semua syarat tombol `Booking Sekarang` (`TC-BB-08, 09, 17, 18`) -> Membuktikan secara pasti celah aturan nama spasi (`IR-GOR-03`). | *Sitio, dkk. (2023)* & *ISTQB v4.0.1 (§4.2.3)* |
+| 4 | **State Transition Testing (STT)** | **Cek perubahan kondisi layar/pop-up.** Saat slot diklik, layar berpindah dari jadwal -> modal pesan terbuka -> muncul peringatan / diblokir -> kembali bersih setelah ditutup. Termasuk klik kotak `RTBC`. | Buka-tutup formulir pesan & klik slot biru `RTBC` (`TC-BB-06, 19, 23`) -> Memastikan kolom isian bersih lagi saat ditutup & pop-up *"SUDAH DIKONFIRMASI"* muncul benar. | *ISTQB CTFL v4.0.1 (§4.2.4)* |
+| 5 | **Use Case & Compatibility (`WCAG 2.2`)** | **Cek alur lengkap di HP vs Laptop + privasi halaman.** Pelanggan biasa pesan pakai HP, sehingga tampilan harus rapi di layar HP (`390×844`) dan tidak membocorkan nomor HP pemesan lain di kode web. | Cek tampilan HP vs laptop & kode halaman jadwal (`TC-BB-21, 22`) -> Ketahuan **menu atas beranda di HP terpotong** (`IR-GOR-10`) & **kode web menampilkan `205` nomor WA + nama pemesan lain** (`IR-GOR-04`). | *Fhonna, dkk. (2026)*, *Seputra, dkk. (2024)*, & *ISO 40500:2025* |
 
-> **Mengapa tidak memakai *Error Guessing* murni atau *Pairwise Testing* sebagai teknik utama?** *Error Guessing* tidak memiliki ukuran cakupan terstruktur sehingga hanya menjadi pelengkap, sementara *Pairwise/Orthogonal Array* cocok untuk puluhan parameter independen; pada GOR Permata hanya ada 4 kondisi validasi berurutan sehingga **Decision Table + BVA** memberi cakupan logika 100% lebih akurat.
+> **Kenapa tidak sekadar menebak error acak atau mengetes semua kombinasi sekaligus?** Kalau hanya menebak secara acak (*Error Guessing*), ada bagian yang rawan terlewat dan sulit dibuktikan kelengkapannya. Sebaliknya, teknik kombinasi massal (*Pairwise*) baru dibutuhkan jika ada puluhan pilihan sekaligus; karena formulir booking ini hanya punya `4` syarat berurutan, gabungan **EP + BVA + Decision Table** sudah menguji semuanya dengan lebih cepat dan tepat sasaran.
 
 ---
 
-## Panduan *Step-by-Step* Testing & Menjalankan Skrip
+## Panduan *Step-by-Step* Menguji & Menjalankan Skrip
 
-Panduan operasional lengkap (Mode Otomatis **Playwright/`aiohttp`** dan Mode Manual **Browser DevTools**, masing-masing `6` langkah konkret) tersedia pada [`test-case-blackbox.md`](./03-hasil-pengujian/test-case-blackbox.md#5-panduan-step-by-step-pelaksanaan-pengujian-black-box-manual--otomatis) dan [`test-case-performance.md`](./03-hasil-pengujian/test-case-performance.md#4-panduan-step-by-step-pelaksanaan-performance-testing-langkah-1-sd-6):
+Cara mengikuti pengujian langkah demi langkah (tersedia versi lengkap Mode Otomatis & Mode Manual tanpa koding di [`test-case-blackbox.md`](./03-hasil-pengujian/test-case-blackbox.md#5-panduan-step-by-step-cara-melakukan-pengujian-otomatis--manual) dan [`test-case-performance.md`](./03-hasil-pengujian/test-case-performance.md#4-panduan-step-by-step-menguji-kecepatan-website)):
 
-1. **Langkah 1 — Persiapan Lingkungan:** Instal `Python >= 3.9`, `playwright`, `aiohttp`, `python-docx`, `Pillow` (`pip install playwright aiohttp python-docx pillow && playwright install chromium`).
-2. **Langkah 2 — Muat Data & Verifikasi Target:** Cek target aktif dan dataset sintetik non-PII ([`blackbox-testdata.json`](./03-hasil-pengujian/test-data/blackbox-testdata.json) & [`performance-profiles.json`](./03-hasil-pengujian/test-data/performance-profiles.json)).
-3. **Langkah 3 — Aktifkan Guardrail Non-Destruktif:** Pastikan interceptor `page.route("**/bookings/store")` aktif (*atau Request Blocking di Chrome DevTools jika manual*) agar `0` data uji masuk ke database GOR Permata.
-4. **Langkah 4 — Eksekusi Pengujian Black Box (`23 TC`):** Jalankan skrip otomasi untuk mengecek rute publik, query `start_date`, BVA WA & jam tutup, rule Decision Table, slot `RTBC`, privasi DOM, dan layout HP `390×844`.
-5. **Langkah 5 — Eksekusi Performance Testing (`10 TC`):** Jalankan benchmark Web Vitals (*Cold/Warm Desktop/Mobile*), interaksi DOM lokal, dan beban `GET` aman `1 -> 5 -> 10 VUs` (`104` request).
-6. **Langkah 6 — Verifikasi Log, Bukti Visual, & Pelaporan Bug:** Periksa hasil pada `execution-log.txt`, `performance-log.txt`, file JSON hasil, `12` bukti gambar (*PII dimasking `[TERISI]`*), lalu catat seluruh bug ke [`incident-reports.md`](./03-hasil-pengujian/incident-reports.md) dan regenerasi laporan resmi Word/PDF.
+1. **Langkah 1 — Siapkan Alat di Komputer:** Pastikan `Python >= 3.9` dan browser uji terpasang (`pip install playwright aiohttp python-docx pillow && playwright install chromium`).
+2. **Langkah 2 — Cek Website & Data Uji Buatan:** Pastikan `https://gorpermatabadminton.com` bisa dibuka normal dan gunakan data uji palsu pada [`blackbox-testdata.json`](./03-hasil-pengujian/test-data/blackbox-testdata.json) serta [`performance-profiles.json`](./03-hasil-pengujian/test-data/performance-profiles.json) (tanpa data asli pelanggan).
+3. **Langkah 3 — Pasang Rem Anti-Kirim Data Asli:** Pastikan pemblokiran alamat `**/bookings/store` aktif otomatis di skrip (atau lewat menu *Request Blocking* di Chrome DevTools jika mengetes manual), supaya **0 booking palsu** masuk ke database pemilik lapangan.
+4. **Langkah 4 — Jalankan Uji Fungsi (`23` Skenario Black Box):** Skrip mengecek seluruh link halaman, manipulasi tanggal URL, hitungan harga 1–5 jam, batas nomor WA & jam tutup `00:00`, kotak konfirmasi `RTBC`, kebocoran data halaman, dan kerapian layar HP.
+5. **Langkah 5 — Jalankan Uji Kecepatan & Keramaian (`10` Skenario Performance):** Skrip mengukur berapa detik halaman tampil di laptop & HP, seberapa cepat tombol diklik, serta menyimulasikan **`1`, `5`, dan `10` orang** membuka web bersamaan (hanya membaca halaman).
+6. **Langkah 6 — Cek Hasil Log, Gambar Bukti, & Susun Laporan:** Lihat ringkasan lulus/gagal pada file log & JSON, pastikan semua nama orang lain di gambar disamarkan `[TERISI]`, catat seluruh masalah ke [`incident-reports.md`](./03-hasil-pengujian/incident-reports.md), lalu buat laporan Word & PDF resminya.
 
 ```bash
-# 1. Suite Black Box Testing (23 TC, non-destruktif)
+# 1. Jalankan 23 Uji Fungsi Black Box (aman, tidak mengirim booking ke server)
 python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
 
-# 2. Suite Performance Testing (10 TC: Web Vitals + Concurrent GET 1/5/10 VUs)
+# 2. Jalankan 10 Uji Kecepatan & Simulasi 1/5/10 Pengunjung Bersamaan
 python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
 
-# 3. Regenerasi Diagram Flow Testing & Laporan Resmi Word & PDF ke folder 05-dokumentasi-laporan/
+# 3. Buat ulang gambar Flow Testing & Laporan Resmi Word + PDF ke folder 05-dokumentasi-laporan/
 python 03-hasil-pengujian/generate_laporan_pengujian.py
 ```
 

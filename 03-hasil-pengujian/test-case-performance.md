@@ -48,14 +48,14 @@ Diotomatiskan pada [`automation-scripts/test_performance_gor_permata.py`](./auto
 
 ---
 
-## 4. Panduan *Step-by-Step* Pelaksanaan Performance Testing (Langkah 1 s.d. 6)
+## 4. Panduan *Step-by-Step* Menguji Kecepatan Website (Langkah 1 s.d. 6)
 
-1. **Langkah 1 — Persiapan Lingkungan & Profil Beban (`test-data/performance-profiles.json`):** Pastikan pustaka `playwright` & `aiohttp` aktif. Profil menetapkan 4 rute publik `GET`-only (`/`, `/booking?start_date=<besok>`, `/login`, `/fasilitas/lapangan`) dan batas pengaman *circuit breaker* (abort otomatis jika error > `5%` atau muncul `HTTP 429`).
-2. **Langkah 2 — Jalankan Eksekusi Otomatis Terintegrasi:** Eksekusi satu perintah dari root repositori:
+1. **Langkah 1 — Siapkan Pengaturan Uji Kecepatan:** Pastikan `playwright` dan `aiohttp` sudah terinstal. Pengaturan beban aman disimpan di `test-data/performance-profiles.json`: hanya membaca (`GET`) 4 halaman utama (`/`, `/booking`, `/login`, `/fasilitas/lapangan`) dan otomatis berhenti jika error > `5%`.
+2. **Langkah 2 — Jalankan Program Uji Kecepatan:** Ketik satu perintah ini di terminal:
    ```bash
    python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
    ```
-3. **Langkah 3 — Profil Browser Rendering & Caching (`PROC-PERF-01`):** Skrip membuka *BrowserContext* baru (*Cold Cache*) di `Desktop 1280×800` lalu mencatat `TTFB`, `DCL`, `Load`, `FCP`, `CLS`, serta ukuran `HTML Raw` & `Brotli (br)` (`TC-PERF-01..03, 06`), mengulang navigasi di konteks yang sama untuk *Warm Cache* (`TC-PERF-04`), dan menguji konteks *Mobile `390×844`* (`TC-PERF-05`).
-4. **Langkah 4 — Pengukuran Interaksi DOM Lokal (`PROC-PERF-02`):** Di halaman `/booking`, skrip mengukur waktu respons panggilan JS lokal `openBooking()`, 4× perubahan `updateTotal()`, dan reload `changeDate()` (`TC-PERF-07`).
-5. **Langkah 5 — Uji Beban Konkuren Bertingkat Aman (`PROC-PERF-03` — Mengacu Winasis dkk. 2026):** Setelah jeda stabilisasi, engine `aiohttp` (`Accept-Encoding: gzip, deflate` per `CD-01`) menjalankan 3 tingkat beban dipisah jeda *cool-down* 2 detik: **Level A (`1 VU`, `24` req)** -> **Level B (`5 VUs`, `40` req)** -> **Level C (`10 VUs`, `40` req)** = **`104` request `GET`** (`TC-PERF-08..10`).
-6. **Langkah 6 — Verifikasi Log, JSON, Grafik SLA & Pencatatan Insiden:** Periksa keluaran [`performance-log.txt`](./automation-scripts/performance-log.txt), [`performance-metrics.json`](./evidence/performance-metrics.json), dan grafik perbandingan `12_performance_latency_chart.png`. Pelanggaran SLA dicatat resmi ke `incident-reports.md` (`IR-GOR-07` `10 VUs p95 = 5314,28 ms`, `IR-GOR-08` HTML `535,37 KB`, & `IR-GOR-09` cold TTFB `/` `2618,3 ms`).
+3. **Langkah 3 — Ukur Kecepatan Tampil Pertama vs Buka Ulang (`PROC-PERF-01`):** Program membuka beranda, jadwal, login, & fasilitas di layar laptop (`1280×800`) dan HP (`390×844`), mencatat berapa milidetik halaman mulai muncul (`TTFB`, `FCP`, `Load`) dan besar ukuran file HTML-nya.
+4. **Langkah 4 — Ukur Respons Klik Tombol (`PROC-PERF-02`):** Di halaman `/booking`, program mengukur seberapa cepat form pesan terbuka, perhitungan tarif diperbarui, dan tanggal diganti.
+5. **Langkah 5 — Simulasi `1`, `5`, dan `10` Pengunjung Bersamaan (`PROC-PERF-03`, Mengacu Winasis dkk. 2026):** Program menyimulasikan **`1` orang (`24` akses)** -> istirahat 2 detik -> **`5` orang bersamaan (`40` akses)** -> istirahat 2 detik -> **`10` orang bersamaan (`40` akses)** = total **`104` kali buka halaman**.
+6. **Langkah 6 — Cek Hasil & Catat Halaman yang Lambat:** Lihat [`performance-log.txt`](./automation-scripts/performance-log.txt), [`performance-metrics.json`](./evidence/performance-metrics.json), dan grafik `12_performance_latency_chart.png`. Temuan lambat dicatat ke [`incident-reports.md`](./incident-reports.md): halaman `/booking` melambat ke `5,31 detik` saat dibuka `10` orang (`IR-GOR-07`), ukuran HTML `/booking` `535,37 KB` (`IR-GOR-08`), dan buka awal beranda sempat `2,62 detik` (`IR-GOR-09`).

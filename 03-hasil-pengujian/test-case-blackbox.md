@@ -71,38 +71,38 @@ Urutan eksekusi disusun berdasarkan dependensi *precondition* dan prioritas risi
 
 ---
 
-## 4. Matriks Keterkaitan Teknik Black Box & Referensi Ilmiah (`>= 2022`)
+## 4. Hubungan Referensi Ilmiah (`>= 2022`) ke Skenario Uji
 
-| Rujukan Ilmiah / Standar (`>= 2022`) | Teknik yang Diturunkan | Kasus Uji `TC-BB` | Bug / Fakta Terverifikasi |
+| Paper Rujukan (`>= 2022`) | Konsep yang Diambil | Dipakai di Skenario Mana? | Masalah Website yang Ketahuan |
 | :--- | :--- | :--- | :--- |
-| *Desyani, dkk. (2022)* & *ISTQB v4.0.1 (§4.2.1)* | *Equivalence Partitioning* | `TC-BB-01..05, 10, 15, 16, 20` | `IR-GOR-01` (`/register 404`), `IR-GOR-02` (`+62 08`), `IR-GOR-05/06` (`start_date`) |
-| *Putri & Susanto (2024)* & *ISTQB v4.0.1 (§4.2.2)* | *Boundary Value Analysis* | `TC-BB-07, 09, 11..14, 17, 18` | `IR-GOR-03` (`"   "` & `"A"` lolos), akurasi BVA WA `10/11/14/15` & batas tutup `00:00` |
-| *Sitio, dkk. (2023)* & *ISTQB v4.0.1 (§4.2.3)* | *Decision Table / Cause-Effect* | `TC-BB-08, 09, 17, 18` | Verifikasi aturan `R1..R6` `submitBooking()` |
-| *Nada, dkk. (2023)* & *Alirridlo, dkk. (2025)* | *White Box CFG $V(G)$* pelengkap BVA | `TC-BB-15..16` | Menemukan akar masalah `if (d.startsWith('62'))` di `normPhone()` (`IR-GOR-02`) |
-| *Fhonna, dkk. (2026)*, *Seputra, dkk. (2024)*, & *Putra, dkk. (2026)* | *STT, Use Case, & Compatibility (`WCAG 2.2`)* | `TC-BB-06, 19, 21, 22, 23` | `IR-GOR-04` (`205` slot ekspos PII DOM), `IR-GOR-10` (navbar mobile terpotong), pop-up `RTBC` |
+| *Desyani, dkk. (2022)* & *ISTQB v4.0.1 (§4.2.1)* | Membagi input benar & salah (*Equivalence Partitioning*) | `TC-BB-01..05, 10, 15, 16, 20` | Menu `/register` 404 (`IR-GOR-01`), `+62 08...` gagal (`IR-GOR-02`), tanggal lampau & error 500 (`IR-GOR-05/06`) |
+| *Putri & Susanto (2024)* & *ISTQB v4.0.1 (§4.2.2)* | Menguji tepat di angka batas (*Boundary Value Analysis*) | `TC-BB-07, 09, 11..14, 17, 18` | Nama cuma spasi `"   "` & `"A"` lolos (`IR-GOR-03`), batas WA `10/11/14/15` digit & tutup `00:00` akurat |
+| *Sitio, dkk. (2023)* & *ISTQB v4.0.1 (§4.2.3)* | Tabel aturan sebab-akibat (*Decision Table*) | `TC-BB-08, 09, 17, 18` | Membuktikan syarat mana saja yang lolos saat klik `Booking Sekarang` |
+| *Nada, dkk. (2023)* & *Alirridlo, dkk. (2025)* | Melacak alur cabang kode (*White Box $V(G)$*) | `TC-BB-15..16` | Menemukan baris kode `if (d.startsWith('62'))` yang bikin `+62 08` ditolak (`IR-GOR-02`) |
+| *Fhonna, dkk. (2026)*, *Seputra, dkk. (2024)*, & *Putra, dkk. (2026)* | Tes otomatis Playwright, alur pengguna, & cek tampilan HP | `TC-BB-06, 19, 21, 22, 23` | `205` nomor WA bocor di kode HTML (`IR-GOR-04`), menu HP terpotong (`IR-GOR-10`), pop-up `RTBC` benar |
 
 ---
 
-## 5. Panduan *Step-by-Step* Pelaksanaan Pengujian Black Box (Manual & Otomatis)
+## 5. Panduan *Step-by-Step* Cara Melakukan Pengujian (Otomatis & Manual)
 
-Bagian ini menjelaskan langkah operasional konkret tahap demi tahap agar setiap penguji (maupun penilai) dapat mereproduksi seluruh pengujian secara identik dan **nol dampak** ke data produksi UMKM:
+Langkah-langkah di bawah ditulis sederhana supaya siapa pun bisa mengulangi pengecekan ini dengan hasil sama persis **tanpa merusak jadwal asli GOR Permata**:
 
-### A. Pengujian Otomatis (`Playwright Python` — Direkomendasikan)
-1. **Langkah 1 — Persiapan Lingkungan & Dependensi:** Pastikan `Python >= 3.9` terpasang, lalu instal pustaka & browser uji (`pip install playwright aiohttp && playwright install chromium`).
-2. **Langkah 2 — Verifikasi Target & Dataset:** Cek bahwa `https://gorpermatabadminton.com` aktif (`HTTP 200`) dan berkas data sintetik [`test-data/blackbox-testdata.json`](./test-data/blackbox-testdata.json) tersedia (*tanpa nomor WA asli*).
-3. **Langkah 3 — Aktivasi Guardrail Non-Destruktif (`POST Abort`):** Skrip [`test_gor_permata.py`](./automation-scripts/test_gor_permata.py) secara otomatis mendaftarkan `page.route("**/bookings/store", handler)` untuk memutus pengiriman jaringan `POST` di browser sambil menghitung berapa kali klien mencoba mengirim (`intercepted_post_attempts_inside_browser`), sehingga `network_posts_sent_to_server` selalu **`0`**.
-4. **Langkah 4 — Eksekusi Berurutan `PROC-BB-01..05`:** Jalankan perintah dari root repositori:
+### A. Cara Otomatis (Menjalankan Program Uji di Komputer)
+1. **Langkah 1 — Siapkan Python & Browser Uji:** Pastikan `Python >= 3.9` sudah terpasang, lalu instal alat uji (`pip install playwright aiohttp && playwright install chromium`).
+2. **Langkah 2 — Pastikan Website Aktif & Siapkan Data Uji Palsu:** Cek `https://gorpermatabadminton.com` bisa dibuka normal. Data uji buatan (bukan nomor HP asli orang lain) sudah tersedia di [`test-data/blackbox-testdata.json`](./test-data/blackbox-testdata.json).
+3. **Langkah 3 — Rem Otomatis Anti-Kirim Terpasang:** Di dalam [`test_gor_permata.py`](./automation-scripts/test_gor_permata.py), fungsi `page.route("**/bookings/store", ...)` otomatis memblokir pengiriman formulir ke server, sehingga data pesanan uji yang masuk ke jadwal asli pemilik GOR selalu **`0`**.
+4. **Langkah 4 — Jalankan Pengujian Otomatis (`23` Skenario):** Ketik perintah berikut di terminal:
    ```bash
    python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
    ```
-   Skrip akan menjalankan 5 prosedur berurutan: cek 8 rute publik & query `start_date` (`TC-BB-01..05`), uji modal & tarif 1–5 jam (`TC-BB-06..07`), uji *EP/BVA/Decision Table* validasi input & jam tutup (`TC-BB-08..19`), cek `/login`, privasi DOM publik, pop-up `RTBC` (`TC-BB-20, 22, 23`), serta layout *Desktop* vs *Mobile* `390×844` (`TC-BB-21`).
-5. **Langkah 5 — Pemeriksaan Artefak Keluaran & Masking PII:** Periksa hasil pada [`execution-log.txt`](./automation-scripts/execution-log.txt), [`blackbox-results.json`](./evidence/blackbox-results.json) (verifikasi `network_posts_sent_to_server == 0`), serta `11` tangkapan layar pada `evidence/screenshots/` (nama pelanggan publik selain label uji `RTBC` disamarkan `[TERISI]`).
-6. **Langkah 6 — Pelaporan Insiden Baku:** Catat setiap item `FAIL` (`7` temuan cacat) sebagai tiket terstandar [`IR-GOR-01` s.d. `IR-GOR-06` & `IR-GOR-10`](./incident-reports.md) lengkap dengan *Steps to Reproduce*, bukti screenshot, dan rekomendasi perbaikan.
+   Program akan mengecek sendiri: link halaman, tanggal URL, pop-up booking & harga 1–5 jam, semua syarat validasi nama/WA/jam tutup, halaman login, kebocoran data HTML, pop-up `RTBC`, hingga tampilan di layar HP (`390×844`).
+5. **Langkah 5 — Cek Hasil & Sensor Nama Pelanggan:** Buka [`execution-log.txt`](./automation-scripts/execution-log.txt) dan [`blackbox-results.json`](./evidence/blackbox-results.json) (pastikan `network_posts_sent_to_server == 0`), lalu lihat `11` foto bukti (semua nama pelanggan selain `RTBC` sudah disensor menjadi `[TERISI]`).
+6. **Langkah 6 — Catat Masalah yang Ditemukan:** Semua hasil `FAIL` (`7` skenario temuan bug) dimasukkan ke [`incident-reports.md`](./incident-reports.md) lengkap dengan cara mengulanginya dan saran perbaikan.
 
-### B. Reproduksi Manual Aman oleh Penguji (*Browser DevTools*)
-1. **Langkah 1:** Buka Chrome/Edge lalu kunjungi `https://gorpermatabadminton.com`. Periksa seluruh tautan navbar termasuk `/register` (amati halaman `HTTP 404` -> `IR-GOR-01`).
-2. **Langkah 2:** Uji manipulasi query URL: buka `/booking?start_date=2020-01-01` (amati 612 slot `+` tetap aktif -> `IR-GOR-05`) lalu `/booking?start_date=invalid-date` (amati layar crash `HTTP 500` -> `IR-GOR-06`).
-3. **Langkah 3:** Kembali ke `/booking?start_date=<tanggal besok>`, buka DevTools (`F12`) -> tab **Console/Network**, lalu aktifkan pemblokiran request `/bookings/store` di tab **Network -> Request Blocking** (wajib agar tidak terkirim ke database jika validasi lolos!).
-4. **Langkah 4:** Klik salah satu tombol `+`, uji perubahan durasi `1..5` jam (`Rp 40.000..Rp 200.000`), uji input negatif (`""`, `"   "`, `"A"`, `081234567`, `08123456789012`, `+62 08123456789`), serta uji slot `22:00` + `3 Jam` (ditolak jam tutup `00:00`) vs `+ 2 Jam`. Catat `IR-GOR-02` & `IR-GOR-03`.
-5. **Langkah 5:** Klik slot terkonfirmasi bertuliskan `RTBC` tanpa mengubah data apa pun, amati munculnya dialog pop-up *"Halo Kak [MEMBER] RTBC, bookingan Anda SUDAH DIKONFIRMASI..."*, lalu periksa elemen `[onclick*="manageBooking"]` di tab **Elements** untuk memverifikasi eksposur atribut `data-phone` (`IR-GOR-04`).
-6. **Langkah 6:** Aktifkan **Toggle Device Toolbar (`390×844` / iPhone)** di DevTools pada halaman `/` dan `/booking`, periksa pemotongan tombol navbar `LOGIN` & `BOOKING` (`IR-GOR-10`), lalu catat temuan beserta tangkapan layar.
+### B. Cara Manual (Langsung Coba Sendiri di Browser Chrome / Edge)
+1. **Langkah 1 — Cek Menu Utama & Link Pendaftaran:** Buka `https://gorpermatabadminton.com`, coba buka menu `/register` -> akan terlihat halaman error `404 Not Found` (`IR-GOR-01`).
+2. **Langkah 2 — Cek Alamat Tanggal di URL:** Coba ketik di address bar `/booking?start_date=2020-01-01` (tombol pesan tahun 2020 ternyata masih hidup -> `IR-GOR-05`), lalu coba `/booking?start_date=invalid-date` (layar langsung error `500 Server Error` -> `IR-GOR-06`).
+3. **Langkah 3 — Wajib Aktifkan Blokir Kirim di Chrome DevTools (`F12`):** Buka jadwal besok `/booking?start_date=<besok>`, tekan `F12`, pilih tab **Network** -> **Request Blocking**, lalu tambahkan blokir `*/bookings/store` supaya uji coba Anda tidak masuk ke jadwal asli!
+4. **Langkah 4 — Coba Form Pesan & Angka Batasnya:** Klik tombol `+` mana saja, ubah durasi `1–5` jam (harga berubah Rp40rb–Rp200rb), lalu coba isi nama spasi `"   "` / `"A"`, WA `10` digit vs `15` digit, awalan `+62 08123456789`, serta jam `22:00` durasi `3` jam vs `2` jam. Catat keanehan di `IR-GOR-02` & `IR-GOR-03`.
+5. **Langkah 5 — Cek Pop-up `RTBC` & Kebocoran Nomor di HTML:** Klik salah satu kotak biru bertuliskan **`RTBC`**, lihat munculnya pop-up *"Halo Kak [MEMBER] RTBC, bookingan Anda SUDAH DIKONFIRMASI..."*, lalu di DevTools tab **Elements** cek elemen `manageBooking` -> terlihat nomor HP tersimpan di HTML publik (`IR-GOR-04`).
+6. **Langkah 6 — Cek Tampilan HP (`390×844`):** Di DevTools tekan ikon HP/Tablet (**Toggle Device Toolbar**), atur lebar ke `390×844` pada beranda `/`, lalu lihat tombol `LOGIN` terpotong dan `BOOKING` terdorong keluar layar (`IR-GOR-10`).
