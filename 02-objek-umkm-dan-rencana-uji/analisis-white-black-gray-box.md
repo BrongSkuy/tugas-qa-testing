@@ -110,8 +110,8 @@ flowchart TD
 | **BP-3** | `S -> ... -> D2(Ya) -> D3(Ya) -> A3 -> E` | Slot `22:00`, `duration = 3`, WA valid (`TC-BB-17`) | **Ya** *(berhenti di klien)* |
 | **BP-4** | `S -> ... -> D3(Tidak) -> F -> D4(Error) -> C1 -> E` | Semua valid namun request jaringan dicegat (`TC-BB-09/12/13/15/18`) | **Ya** *(diblokir via `page.route`)* |
 | **BP-5** | `S -> ... -> D4(OK) -> D5(Tidak) -> F1 -> E` | Server membalas `success: false` / bentrok jadwal | **Out of Scope** *(butuh DB/mock)* |
-| **BP-6** | `S -> ... -> D5(Ya) -> D6(Ya) -> W1 -> E` | Booking sukses dengan tautan `wa_link` | **Out of Scope** *(cegah order fiktif)* |
-| **BP-7** | `S -> ... -> D5(Ya) -> D6(Tidak) -> W2 -> E` | Booking sukses tanpa `wa_link`, halaman me-reload | **Out of Scope** *(cegah order fiktif)* |
+| **BP-6** | `S -> ... -> D5(Ya) -> D6(Ya) -> W1 -> E` | Booking sukses dengan tautan `wa_link` | **Out of Scope** *(isi form pakai data fiktif, tapi simpan ke server dicegat browser)* |
+| **BP-7** | `S -> ... -> D5(Ya) -> D6(Tidak) -> W2 -> E` | Booking sukses tanpa `wa_link`, halaman me-reload | **Out of Scope** *(isi form pakai data fiktif, tapi simpan ke server dicegat browser)* |
 
 ---
 

@@ -976,7 +976,7 @@ def build_report() -> tuple[Path, Path]:
         doc,
         "Aturan Uji Aman & Kepatuhan Standar >= 2022 (Tailored Conformance): ",
         "Sesuai arahan dosen pengampu, seluruh acuan PDF pra-2022 telah dihapus dan digantikan standar >= 2022 (ISO/IEC/IEEE 29119-1:2022, 29119-5:2024, ISTQB CTFL Syllabus v4.0.1 2024, ISO/IEC 25010/25019:2023, 25002:2024, dan ISO/IEC 40500:2025 / W3C WCAG 2.2). "
-        "Supaya usaha GOR Permata tidak terganggu, pesanan beneran (POST /bookings/store), halaman admin internal, dan simulasi di atas 10 pengunjung sengaja tidak dijalankan.",
+        "Pengujian formulir tetap memakai data pemesanan fiktif (seperti nama 'Test QA'), namun penyimpanan ke database asli (POST /bookings/store), halaman admin internal, dan tes > 10 pengunjung diblokir/tidak dijalankan.",
     )
     iso_rows = [
         ("Aturan & Standar (>= 2022)", "Aturan uji aman tim + peta standar ISO 2022–2025, ISTQB v4.0.1 & WCAG 2.2", "01-standar-ieee-iso/organizational-test-specification.md & pdf-standar/"),
@@ -1302,7 +1302,7 @@ def build_report() -> tuple[Path, Path]:
         doc,
         "Pemenuhan Syarat Selesai & Kebersihan Sistem (TC1–TC4): ",
         f"Seluruh rencana Black Box ({bb['total_cases']}/{bb['total_cases']}) dan Performance ({len(perf['test_cases'])}/{len(perf['test_cases'])}) selesai dijalankan "
-        f"dengan {bb['network_posts_sent_to_server']} pesanan palsu masuk ke database asli GOR Permata. Seluruh 12 gambar bukti, log hasil, dan laporan resmi sudah tersimpan rapi di GitHub main.",
+        f"(form diuji memakai data pemesanan fiktif, namun {bb['network_posts_sent_to_server']} pesanan masuk ke database asli GOR Permata karena diblokir di browser). Seluruh 12 gambar bukti, log hasil, dan laporan resmi sudah tersimpan rapi di GitHub main.",
     )
     add_bullet(
         doc,

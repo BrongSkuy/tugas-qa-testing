@@ -15,7 +15,7 @@ Dokumen ini merangkum hasil penelusuran dan verifikasi kandidat objek pengujian 
 - **Alamat:** Kp. Cipari, Desa Ciakar, Kecamatan Panongan, Kabupaten Tangerang, Banten
 - **Kategori / Skala:** UMKM fasilitas olahraga lokal (4 lapangan karpet standar BWF)
 - **Status Verifikasi Teknis (8 Nov 2026):** **HTTP 200 OK** (waktu muat halaman utama ~0,36 detik, HTTPS aktif, viewport mobile tersedia)
-- **Batasan Etika Pengujian:** Pengujian form booking difokuskan pada validasi input sisi klien (negative test: tanggal lampau, nama kosong, format HP keliru) dan analisis fungsi JavaScript publik. **Tidak dilakukan pemesanan fiktif ataupun pembayaran riil.**
+- **Batasan Etika Pengujian:** Pengujian form booking memakai **data pemesanan fiktif/buatan** (`"Test QA"` & nomor WA uji coba) tanpa pembayaran riil, lalu pengirimannya ke server dicegat di browser agar **tidak menyimpan order uji ke jadwal asli GOR**.
 - **Fitur & Halaman Teramati:**
   - Beranda + monitor ketersediaan slot berikutnya (`https://gorpermatabadminton.com`)
   - Grid jadwal & booking slot per tanggal/jam/lapangan (`https://gorpermatabadminton.com/booking?date=...&time=...&court=...`) dengan status slot nyata (`Menunggu`, `Terisi`, `Member`, `RTBC`, tombol `+` untuk booking)
@@ -26,7 +26,7 @@ Dokumen ini merangkum hasil penelusuran dan verifikasi kandidat objek pengujian 
   - **Sesuai 100% dengan analogi dosen** (*lapangan bulu tangkis lokal dengan portal booking sendiri*).
   - Mendukung **seluruh strategi pengujian**: *Black Box* (EP/BVA pada parameter tanggal/jam/court dan form booking/login, *State Transition* pada status slot, *Use Case*), *Gray Box* (struktur DOM, parameter URL, CSRF token), *White Box / Cyclomatic Complexity* (menganalisis alur logika fungsi JS publik di `/booking`), dan *Automation Testing* (Cypress / Katalon Studio).
   - Lokasinya di Kecamatan Panongan memudahkan observasi langsung atau meminta izin pengelola untuk *Acceptance Testing*.
-- **Kekurangan / Catatan:** Bukan APK Play Store; pengujian pengiriman form booking harus hati-hati agar tidak membuat data booking palsu pada jadwal nyata GOR (uji cukup sampai validasi sisi klien/UI atau minta izin admin terlebih dahulu).
+- **Kekurangan / Catatan:** Bukan APK Play Store; pengujian pengiriman form booking dengan data fiktif harus memakai pemblokir kirim (*request blocker* / `page.route`) di browser agar `0` data uji masuk ke jadwal nyata GOR.
 
 ### 2. Sekolah Alam Tangerang Mekar Bakti (SATMERBAK) *(Rekomendasi Runner-Up #2)*
 - **URL Portal:** https://sekolahalammekarbakti.sch.id
@@ -149,6 +149,6 @@ Pada diskusi kelompok tanggal 14 November 2026, kelompok sempat meninjau beberap
 **Keputusan Final Kelompok:** Setelah pertimbangan kecocokan tugas dan efisiensi fokus tim, kelompok **hanya menggunakan 1 objek final** dan membatalkan kandidat pembanding lainnya, yaitu:
 - **Objek Uji Final:** **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`, Kp. Cipari, Desa Ciakar, Kec. Panongan, Kab. Tangerang).
 - **Rencana & Hasil Uji Terdokumentasi:** Seluruh artefak uji ditempatkan terpadu pada [`test-plan-gor-permata.md`](./test-plan-gor-permata.md), [`analisis-white-black-gray-box.md`](./analisis-white-black-gray-box.md), serta folder [`../03-hasil-pengujian/`](../03-hasil-pengujian/).
-- **Mekanisme Uji Berulang Aman:** Pengujian berulang tetap aman dijalankan menggunakan skrip Playwright Python non-destruktif (`page.route("**/bookings/store", ...)` memblokir request `POST` produksi) serta verifikasi validasi input sisi klien tanpa pernah membuat *booking* fiktif.
+- **Mekanisme Uji Berulang Aman:** Pengujian berulang tetap aman dijalankan menggunakan skrip Playwright Python non-destruktif yang mengisi formulir dengan **data pemesanan fiktif/sintetik** lalu memblokir pengiriman ke server lewat `page.route("**/bookings/store", ...)` sehingga **`0` data fiktif tersimpan ke jadwal asli GOR**.
 
 

@@ -19,7 +19,7 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
 | :--- | :--- | :--- | :--- |
 | **Dosen Pengampu (Reviewer Akademik)** | Asep Erlan Maulana, S.Kom., M.Kom | Asesmen kelengkapan standar IEEE/ISO, sitasi SINTA 1–3, & kesiapan hasil uji sebelum wawancara | Presentasi kelas mingguan & repositori GitHub *Public* |
 | **Tim QA & Penguji (Setara)** | Muhammad Faiz Rabbani (`231011402539`), Robi Farhan Anshori (`231011401468`), Dzikri Attariq Samayaki (`221011401148`), & Nurlaelasari (`231011403531`) | Penyusunan strategi, *Test Plan*, *Test Models*, pengadaan acuan standar, eksekusi pengujian manual/otomasi, reviu silang temuan, & laporan penutupan | Commit & kolaborasi GitHub pada `tugas-qa-testing` |
-| **Pemilik / Pengelola UMKM** | Pengelola GOR Permata Badminton Hall | Terlindungi dari gangguan transaksi fiktif maupun lonjakan beban server selama pengujian | Tidak dihubungi untuk transaksi fiktif (*zero-impact testing*) |
+| **Pemilik / Pengelola UMKM** | Pengelola GOR Permata Badminton Hall | Terlindungi agar data pemesanan fiktif uji tidak tersimpan ke jadwal asli maupun membebani server | Pengisian data uji fiktif dicegat di browser (*0 masuk server/WA pemilik*) |
 
 ### 1.3 Inventarisasi *Test Basis* (`7.2.4.2 c`)
 1. **Perilaku Antarmuka & Fungsional Web Publik (`TB-BB-01..07`):** Halaman beranda (`/`), grid jadwal `/booking` beserta parameter `?start_date=`, modul modal `#bookingModal`, form `/login`, tautan `/register`, halaman `/fasilitas/*`, serta kompatibilitas viewport *Desktop* vs *Mobile*.
@@ -33,7 +33,7 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
   2. **Performance Testing (Non-Destruktif):** Profiling *Navigation Timing / Core Web Vitals* (`TTFB`, `DCL`, `Load`, `FCP`, `LCP`, `CLS`), analisis bobot payload HTML/aset (`Cold` vs `Warm`), *client interaction latency*, dan *concurrent HTTP GET benchmark* (`1`, `5`, `10 VUs`) pada [`performance-test-plan.md`](./performance-test-plan.md).
   3. **Catatan Pendukung Inspeksi Halaman Publik (Bukan Pengujian Utama Terpisah):** Pembacaan kode JS klien `/booking` (`normPhone()` & `submitBooking()`), atribut DOM, token CSRF, dan *HTTP Security Headers* guna menjelaskan akar bug yang ditangkap *Black Box*.
 - **Out of Scope (*Tailored Exclusion*):**
-  1. Pengiriman transaksi nyata `POST /bookings/store` ke basis data UMKM (dicegat via interceptor `page.route` / `cy.intercept` dan validasi berhenti di sisi klien).
+  1. Penyimpanan transaksi ke basis data UMKM (`POST /bookings/store`) — formulir tetap diuji menggunakan **data pemesanan fiktif**, lalu pengiriman ke server dicegat di browser via `page.route` / `cy.intercept` agar `0` data tersimpan.
   2. Pengujian fitur internal admin/penjaga (`/bookings/confirm/*`, `/bookings/reject/*`, `/bookings/delete/*`) karena tidak memiliki kredensial resmi.
   3. Uji beban destruktif (*DDoS / High-Load Stress* > 10 VUs) serta eksploitasi keamanan aktif (*SQLi / Brute Force*).
 
@@ -67,7 +67,7 @@ Sesuai prinsip *Risk-Based Testing* (**ISO/IEC/IEEE 29119-1:2022** & **ISTQB CTF
 ### 3.2 Project Risks (Risiko Pelaksanaan Proyek Uji)
 | ID Risiko | Deskripsi Risiko Proyek | Likelihood | Impact | Risk Exposure | Risk Treatment (`TP4`) |
 | :--- | :--- | :---: | :---: | :---: | :--- |
-| **`PJ-01`** | Pengujian berulang menyentuh database jadwal produksi dan mengunci slot nyata UMKM | Sedang (2) | Kritis (4) | **8 (Tinggi)** | **Avoidance:** Seluruh form submission dibatasi hanya validasi negatif sisi klien; interceptor `page.route('**/bookings/store')` wajib aktif dan `post_attempts == 0` diverifikasi di log. |
+| **`PJ-01`** | Pengujian berulang menyentuh database jadwal produksi dan mengunci slot nyata UMKM | Sedang (2) | Kritis (4) | **8 (Tinggi)** | **Avoidance:** Formulir diuji memakai data uji fiktif non-PII, namun interceptor `page.route('**/bookings/store')` wajib mencegat pengiriman di browser sehingga `network_posts_sent_to_server == 0` terverifikasi di log. |
 | **`PJ-02`** | Uji performa konkuren membebani server/CDN UMKM (`hcdn`) selama jam operasional | Sedang (2) | Tinggi (3) | **6 (Sedang-Tinggi)** | **Mitigasi & Pembatasan:** Batasi maksimum `10 VUs` (`GET`-only), jeda *think-time* `500 ms`, serta pasang *auto-abort circuit breaker* bila error rate > 5%. |
 | **`PJ-03`** | Slot jadwal live pada portal target berubah setiap hari mengikuti tanggal berjalan | Sedang (2) | Rendah (1) | **2 (Rendah)** | **Optimasi:** Gunakan tanggal dinamis (`tomorrow`) & pemilih slot kosong dinamis pada skrip otomasi; seluruh data keempat anggota kelompok sudah lengkap terdokumentasi. |
 | **`PJ-04`** | Perangkat lokal tidak memasang *runner* Cypress CLI penuh (hanya Python Playwright) | Sedang (2) | Rendah (1) | **2 (Rendah)** | **Retensi & Alternatif:** Eksekusi utama dijalankan melalui **Playwright Python** & `aiohttp`; skrip Cypress (`gor-permata.cy.js`) disinkronkan sebagai artefak kode modular dan perbedaan lingkungan dicatat pada `8.3.4.2 c`. |

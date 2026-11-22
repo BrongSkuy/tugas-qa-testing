@@ -1,9 +1,9 @@
 {
   "metadata": {
     "id": "TD-BB-GOR-01",
-    "standard": "ISO/IEC/IEEE 29119-2:2021 (8.3) & 29119-5:2024",
+    "standard": "ISO/IEC/IEEE 29119-1:2022 & 29119-5:2024 (Tailored >= 2022)",
     "base_url": "https://gorpermatabadminton.com",
-    "non_destructive_note": "Seluruh data bersifat sintetik non-PII; endpoint POST /bookings/store diblokir pada tingkat interceptor browser."
+    "non_destructive_note": "Formulir diuji memakai data pemesanan fiktif non-PII ('Test QA' & WA uji coba), lalu endpoint POST /bookings/store diblokir pada interceptor browser agar 0 data masuk ke jadwal asli."
   },
   "public_routes_ok": [
     "/",

@@ -47,7 +47,7 @@ Seluruh aset uji yang dapat digunakan kembali (*reusable*) untuk pengujian regre
 ## 5. Pembersihan Lingkungan Uji (*Clean Up Test Environment — `TC2`, `7.4.4.3`*)
 
 - Seluruh instance peramban Chromium *headless* (`Playwright`) dan sesi koneksi `aiohttp` telah ditutup bersih pasca-eksekusi.
-- Basis data produksi **GOR Permata Badminton Hall** dipastikan **100% bersih** dari data uji fiktif (`network_posts_sent_to_server = 0`).
+- Basis data produksi **GOR Permata Badminton Hall** dipastikan **100% bersih** dari masuknya data booking uji fiktif (seluruh pengujian form tetap memakai data uji fiktif, namun pengirimannya dicegat di browser sehingga `network_posts_sent_to_server = 0`).
 - Direktori lokal bebas dari file sementara maupun data pribadi pelanggan (PII pada screenshot dimasking `[TERISI]` dan nilai `data-phone`/`data-name` tidak disimpan).
 
 ---
