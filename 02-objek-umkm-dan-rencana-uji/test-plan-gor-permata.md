@@ -151,12 +151,12 @@ flowchart LR
 
 ## 5. Staffing, Jadwal, & Estimasi Upaya (`TP6` & `TP7`)
 
-| Peran | Penanggung Jawab | Fokus Tugas *(Kolaboratif & Setara)* | Estimasi Upaya | Jadwal Pelaksanaan |
+| Peran | Penanggung Jawab | Fokus Tugas *(Selaras Pembagian Tim)* | Estimasi Upaya | Jadwal Pelaksanaan |
 | :--- | :--- | :--- | :---: | :---: |
-| **Anggota Tim QA** | Muhammad Faiz Rabbani (`231011402539`) | Standar ISO/IEEE, *Test Plan*, *Test Models*, pengujian manual/otomasi, reviu bukti, & laporan | ~4–5 jam | 14–18 Nov 2026 |
-| **Anggota Tim QA** | Robi Farhan Anshori (`231011401468`) | Standar ISO/IEEE (`459203e`), *Test Plan*, pengujian manual/otomasi, reviu bukti, & laporan | ~4–5 jam | 14–18 Nov 2026 |
-| **Anggota Tim QA** | Dzikri Attariq Samayaki (`221011401148`) | Rujukan, pengujian manual silang, verifikasi bukti, reviu laporan, & persiapan wawancara (`04/`) | ~4–5 jam | 14–18 Nov 2026 |
-| **Anggota Tim QA** | Nurlaelasari (`231011403531`) | Rujukan, pengujian manual silang, verifikasi bukti, reviu laporan, & persiapan wawancara (`04/`) | ~4–5 jam | 14–18 Nov 2026 |
+| **Tester / Eksekusi Pengujian** | Muhammad Faiz Rabbani (`231011402539`) | Eksekusi skrip Playwright & `aiohttp`, pengujian manual fungsional/performa, & verifikasi *guardrail* aman | ~4–5 jam | 14–23 Nov 2026 |
+| **Dokumentasi & Penyusunan Laporan** | Robi Farhan Anshori (`231011401468`) | Pengadaan standar ISO/IEEE, perapihan dokumentasi & *Test Flow*, serta penyusunan laporan akhir | ~4–5 jam | 14–23 Nov 2026 |
+| **Perancangan Kasus Uji (*Test Design*)** | Dzikri Attariq Samayaki (`221011401148`) | Pemodelan `5` teknik *Black Box* & profil beban performa, penurunan *Test Case*, & persiapan wawancara (`04/`) | ~4–5 jam | 14–23 Nov 2026 |
+| **Analisis Kebutuhan & Hasil** | Nurlaelasari (`231011403531`) | Analisis kebutuhan objek UMKM, *Test Basis*, evaluasi temuan insiden, & persiapan wawancara (`04/`) | ~4–5 jam | 14–23 Nov 2026 |
 
 ---
 

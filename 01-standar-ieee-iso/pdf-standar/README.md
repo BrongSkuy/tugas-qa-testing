@@ -1,6 +1,6 @@
 # Arsip Standar Resmi QA & Testing (`>= 2022`)
 
-Seluruh PDF standar yang tersimpan di folder ini beredisi **`2022–2025`**. Naskah penuh ISO/IEC/IEEE yang berbayar tidak diunggah ke repositori publik; folder ini menyimpan **2 PDF standar berlisensi terbuka**, **3 PDF ringkasan & audit proyek**, serta tautan ke halaman resmi ISO.
+Seluruh `6` berkas PDF standar pada folder ini beredisi **`2022–2025`**: meliputi **`1` dokumen standar ISO/IEC/IEEE (`29119-5:2024`)**, **`2` PDF standar terbuka resmi (`ISTQB CTFL v4.0.1` & `W3C WCAG 2.2 / ISO 40500:2025`)**, serta **`3` PDF katalog, ringkasan, dan audit mutu proyek**, dilengkapi tautan resmi menuju `iso.org`.
 
 ---
 

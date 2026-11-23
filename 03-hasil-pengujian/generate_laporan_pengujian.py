@@ -1311,10 +1311,10 @@ def build_report() -> tuple[Path, Path]:
     )
 
     sign_rows = [
-        ("Muhammad Faiz Rabbani (231011402539)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
-        ("Robi Farhan Anshori (231011401468)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
-        ("Dzikri Attariq Samayaki (221011401148)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
-        ("Nurlaelasari (231011403531)", "Anggota Tim QA", "Disetujui & Sinkron", "18 Nov 2026"),
+        ("Muhammad Faiz Rabbani (231011402539)", "Tester / Eksekusi Pengujian", "Disetujui & Sinkron", "23 Nov 2026"),
+        ("Robi Farhan Anshori (231011401468)", "Dokumentasi & Penyusunan Laporan", "Disetujui & Sinkron", "23 Nov 2026"),
+        ("Dzikri Attariq Samayaki (221011401148)", "Perancangan Kasus Uji (Test Design)", "Disetujui & Sinkron", "23 Nov 2026"),
+        ("Nurlaelasari (231011403531)", "Analisis Kebutuhan & Hasil", "Disetujui & Sinkron", "23 Nov 2026"),
         ("Asep Erlan Maulana, S.Kom., M.Kom", "Dosen Pengampu Mata Kuliah", "Menunggu Asesmen", "—"),
     ]
     add_styled_table(
