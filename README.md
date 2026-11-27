@@ -27,7 +27,6 @@ Repositori resmi dokumentasi pengujian perangkat lunak untuk pemenuhan tugas kel
 - **Fokus Pengujian:**
   1. **Black Box Testing (23 Kasus Uji):** Menguji fitur-fitur website langsung dari sisi pengguna (tanpa melihat kode program), mulai dari tampilan halaman, pengisian form pemesanan lapangan, perhitungan harga otomatis, aturan jam buka/tutup, sampai kerapian tampilan di komputer maupun HP (*Desktop & Mobile*). Pengujian ini memakai 5 teknik standar (*Equivalence Partitioning, Boundary Value Analysis, Decision Table, State Transition, Use Case*).
   2. **Performance Testing (10 Kasus Uji):** Mengukur kecepatan dan kelancaran website saat dibuka, meliputi kecepatan munculnya halaman (*Core Web Vitals*), besar ukuran file halaman/gambar, kecepatan respons tombol saat diklik, serta simulasi saat website dibuka bersamaan oleh 1, 5, hingga 10 orang sekaligus (*1, 5, dan 10 Virtual Users*).
-- **Prinsip Pengujian Aman (Non-Destruktif):** Karena yang diuji adalah website asli GOR Permata yang sedang aktif dipakai pelanggan, pengujian dijaga agar **tidak merusak atau mengotori jadwal booking asli milik UMKM**. Caranya dengan memakai data contoh palsu (data uji) dan otomatis membatalkan pengiriman data ke server (*network route abort*) langsung di browser sebelum tersimpan ke database.
 
 ---
 
@@ -48,7 +47,7 @@ flowchart LR
 
 | No | Tahapan STLC | Deskripsi Pelaksanaan | Acuan Standar & Perkuliahan | Dokumen Output |
 | :-: | :--- | :--- | :--- | :--- |
-| 1 | **Requirements & Risk Analysis** | Identifikasi kebutuhan fungsional dan penetapan mitigasi risiko non-destruktif bagi UMKM. | ISO 29119-1 Klausul 6 (`OT1–OT3`) & Kuliah P1–P3 | [`organizational-test-specification.md`](./01-standar-ieee-iso/organizational-test-specification.md) |
+| 1 | **Requirements & Risk Analysis** | Identifikasi kebutuhan fungsional dan penetapan mitigasi risiko pengujian bagi UMKM. | ISO 29119-1 Klausul 6 (`OT1–OT3`) & Kuliah P1–P3 | [`organizational-test-specification.md`](./01-standar-ieee-iso/organizational-test-specification.md) |
 | 2 | **Test Planning** | Perumusan rencana uji induk, ambang batas SLA performa, jadwal kerja, dan kriteria kelulusan. | ISO 29119-1 Klausul 7.2 (`TP1–TP9`), ISTQB §1.4.1 | [`test-plan-gor-permata.md`](./02-objek-umkm-dan-rencana-uji/test-plan-gor-permata.md) |
 | 3 | **Test Design** | Perancangan model uji dan spesifikasi kasus uji Black Box (5 teknik) serta profil beban kerja. | ISO 29119-1 Klausul 8.2 (`TD1–TD4`), ISTQB Bab 4.2 & Kuliah P6–P7 | [`test-model-blackbox.md`](./02-objek-umkm-dan-rencana-uji/test-model-blackbox.md), [`test-case-blackbox.md`](./03-hasil-pengujian/test-case-blackbox.md) |
 | 4 | **Test Implementation** | Penyiapan lingkungan pengujian, dataset JSON terisolasi, dan guardrail pencegat request database. | ISO 29119-1 Klausul 8.3 (`ED1–ED4`), ISO 29119-5:2024 | [`test-environment-dan-data.md`](./03-hasil-pengujian/test-environment-dan-data.md), `test-data/` |
@@ -116,7 +115,7 @@ playwright install chromium
 
 ### 2. Eksekusi Pengujian Otomatis
 ```bash
-# Menjalankan 23 pengujian Black Box (aman, non-destruktif)
+# Menjalankan 23 pengujian Black Box (Playwright)
 python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
 
 # Menjalankan 10 pengujian Performa (Web Vitals & Benchmark Konkuren 1/5/10 VUs)
