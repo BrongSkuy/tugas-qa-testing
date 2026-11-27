@@ -94,16 +94,20 @@ Pengujian pada proyek ini berfokus pada **2 pengujian utama**, yaitu **Black Box
 
 ```text
 tugas-qa-testing/
-├── 00-materi-perkuliahan/         # Arsip modul slide perkuliahan Testing & QA (Pertemuan 1–7)
-├── 01-standar-ieee-iso/           # Standar acuan resmi (>= 2022), matriks kepatuhan & audit ISO 25010
-├── 02-objek-umkm-dan-rencana-uji/ # Rencana pengujian, pemodelan uji, review desain (test-design-review.md), & jurnal SINTA
-├── 03-hasil-pengujian/            # Spesifikasi test case (termasuk usulan test-case-additional.md), log eksekusi, & insiden
-│   ├── panduan-uji-aman-dan-jalankan-script.md  # Panduan prinsip uji aman & cara menjalankan script
-│   ├── automation-scripts/        # Skrip pengujian Playwright Python, Cypress, & aiohttp
-│   ├── evidence/                  # Ringkasan hasil (blackbox-summary.md, performance-summary.md), screenshot, & JSON
-│   └── test-data/                 # Dataset pengujian independen format JSON
-├── 04-wawancara-praktisi-qa/      # Panduan dan instrumen wawancara praktisi QA
-└── 05-dokumentasi-laporan/        # Laporan resmi pengujian lengkap format Microsoft Word (.docx) & PDF (.pdf)
+├── 00-materi-perkuliahan/               # Slide materi kuliah Testing & QA (Pertemuan 1–7)
+├── 01-standar-ieee-iso/                 # Acuan standar kualitas (>= 2022) & hasil audit ISO 25010
+│   └── pdf-standar/                     # 6 PDF standar, ringkasan, & audit mutu
+├── 02-objek-umkm-dan-rencana-uji/       # Pemilihan UMKM, rencana uji, rancangan uji, & review desain
+│   └── pdf-jurnal/                      # 9 PDF artikel jurnal ilmiah SINTA 2–3 (2022–2026)
+├── 03-hasil-pengujian/                  # Daftar kasus uji (termasuk draf tambahan), log uji, & daftar 10 masalah
+│   ├── panduan-uji-aman-dan-jalankan-script.md  # Panduan uji aman & cara menjalankan skrip
+│   ├── generate_laporan_pengujian.py    # Skrip pembuat grafik & laporan resmi Word/PDF
+│   ├── automation-scripts/              # Skrip pengujian (Playwright, Cypress, aiohttp) & log mentah (.txt)
+│   ├── evidence/                        # Ringkasan hasil (Black Box & Performance) dan data mentah (.json)
+│   │   └── screenshots/                 # 13 gambar bukti pengujian, diagram alur, & grafik performa
+│   └── test-data/                       # Data uji terpisah berformat JSON
+├── 04-wawancara-praktisi-qa/            # Panduan & daftar pertanyaan wawancara praktisi QA
+└── 05-dokumentasi-laporan/              # Laporan resmi hasil pengujian format Word (.docx) & PDF (.pdf)
 ```
 
 ---
