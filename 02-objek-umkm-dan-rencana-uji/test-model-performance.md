@@ -4,6 +4,16 @@ Dokumen ini mengimplementasikan aktivitas **`TD1` (*Create test model*)** dan **
 
 ---
 
+## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+
+- **Dokumen ini isinya apa?** Ini adalah **"Cetakan Rancangan Uji Kecepatan Website"**: menjelaskan apa saja yang diukur (kecepatan muncul halaman di laptop & HP, perbedaan saat cache masih kosong vs sudah tersimpan, berat file halaman, kecepatan respons klik tombol, serta simulasi `1`, `5`, dan `10` pengunjung bersamaan).
+- **Apakah ada script yang harus di-copy-paste?** Dokumen ini hanya rancangan model uji (tidak dijalankan di Terminal). Untuk menjalankan tes kecepatannya di komputer, buka **Terminal / CMD / PowerShell** dari folder utama `tugas-qa-testing`, lalu **copy-paste perintah berikut ke Terminal**:
+  ```bash
+  python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
+  ```
+
+---
+
 ## 1. Inventarisasi *Test Basis* Performance (`TB-PERF` — `8.2.4.2 a`)
 
 | ID Test Basis | Dimensi ISO/IEC 25010:2023 | Deskripsi Persyaratan Performa |

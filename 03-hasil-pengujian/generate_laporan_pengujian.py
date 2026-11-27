@@ -9,8 +9,18 @@ Membaca langsung hasil empiris dari:
   - 03-hasil-pengujian/evidence/performance-metrics.json
   - 03-hasil-pengujian/evidence/screenshots/*.png
 
-Penggunaan:
-    python 03-hasil-pengujian/generate_laporan_pengujian.py
+Cara & Tempat Menjalankan File Ini:
+  - JANGAN copy-paste isi kode ini ke Terminal, dan jangan klik 2x langsung dari File Explorer.
+  - Jalankan lewat Terminal (Command Prompt / CMD, PowerShell, atau Terminal VS Code) di Windows
+    yang terpasang Microsoft Word (dibutuhkan untuk konversi `.docx` ke `.pdf`):
+      1. Arahkan Terminal ke folder proyek `tugas-qa-testing`:
+         cd "...\tugas-qa-testing"
+      2. Instal alat bantu (cukup 1 kali saja):
+         pip install python-docx pillow pywin32
+      3. Jalankan script ini dengan mengetik:
+         python 03-hasil-pengujian/generate_laporan_pengujian.py
+  - Alternatif di VS Code: buka file ini di VS Code lalu klik tombol Run (`▶`) di pojok kanan atas.
+  - Hasil otomatis tersimpan ke `05-dokumentasi-laporan/` (.docx & .pdf).
 """
 from __future__ import annotations
 

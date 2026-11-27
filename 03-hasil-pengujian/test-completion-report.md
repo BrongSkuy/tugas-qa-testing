@@ -4,6 +4,19 @@ Dokumen ini merupakan **Test Completion Report (`TC1–TC4`)** yang merangkum pe
 
 ---
 
+## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+
+- **Dokumen ini isinya apa?** Ini adalah **"Laporan Penutupan & Kesimpulan Akhir"** proyek pengujian website GOR Permata: memastikan seluruh `23` tes fungsi dan `10` tes kecepatan sudah tuntas dijalankan, daftar lengkap `10` masalah temuan, pembersihan lingkungan uji, pelajaran yang dipetik kelompok, serta tanda persetujuan keempat anggota tim.
+- **Cara membuat ulang file laporan resmi Word & PDF dari data hasil uji:**
+  - File program pembuat laporannya sudah tersedia di [`generate_laporan_pengujian.py`](./generate_laporan_pengujian.py) (**isi kode Python-nya tidak perlu di-copy-paste**).
+  - Kalau suatu saat data hasil uji diperbarui dan kamu ingin mencetak ulang file Word (`.docx`) & PDF (`.pdf`) di folder `05-dokumentasi-laporan/`, cukup buka **Terminal / CMD / PowerShell** di folder utama `tugas-qa-testing`, lalu **copy-paste perintah ini ke Terminal**:
+    ```bash
+    python 03-hasil-pengujian/generate_laporan_pengujian.py
+    ```
+  - Panduan lengkap pemula tersedia di [`panduan-uji-aman-dan-jalankan-script.md`](./panduan-uji-aman-dan-jalankan-script.md).
+
+---
+
 ## 1. Ringkasan Eksekutif Pengujian yang Dilaksanakan (`TC4`)
 
 1. **Cakupan Pengujian:** Seluruh alur *Flow Testing* 7 tahap sesuai arsitektur **ISO/IEC/IEEE 29119-1:2022** dan **ISTQB CTFL v4.0.1** telah dijalankan secara utuh mulai dari *Organizational Test Specification*, *Master & Performance Test Planning*, permodelan uji *Test Model -> TCI -> Test Case -> Test Procedure*, kesiapan lingkungan & data (`29119-5:2024`), eksekusi otomatis nyata, pelaporan insiden, hingga monitoring & penutupan.

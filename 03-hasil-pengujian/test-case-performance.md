@@ -4,6 +4,19 @@ Dokumen ini mengimplementasikan aktivitas **`TD3` (*Derive test cases*)** dan **
 
 ---
 
+## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+
+- **Dokumen ini isinya apa?** Daftar **`10` skenario uji kecepatan website** (`TC-PERF-01` s.d. `TC-PERF-10`)—mulai dari mengukur berapa detik halaman tampil di laptop & HP, ukuran berat file halaman `/booking`, kecepatan klik tombol, sampai simulasi `1`, `5`, dan `10` pengunjung membuka halaman bersamaan.
+- **Script-nya ada di mana & harus di-copy-paste ke mana?**
+  - File programnya **sudah tersedia** di [`automation-scripts/test_performance_gor_permata.py`](./automation-scripts/test_performance_gor_permata.py), jadi **isi kode Python-nya tidak perlu di-copy-paste**.
+  - Cukup buka **Terminal / Command Prompt (CMD) / PowerShell** di dalam folder utama `tugas-qa-testing`, lalu **copy-paste perintah berikut ke Terminal** dan tekan **Enter**:
+    ```bash
+    python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
+    ```
+  - Penjelasan lebih lengkap untuk pemula ada di [`panduan-uji-aman-dan-jalankan-script.md`](./panduan-uji-aman-dan-jalankan-script.md).
+
+---
+
 ## 1. *Test Case Specification* Performance (`TD3` — `TC-PERF-01` s.d. `TC-PERF-10`)
 
 | ID TC | Prioritas | TCI Terkait | Prasyarat (*Preconditions*) | Skenario & Parameter Uji | Expected Result / SLA Target |

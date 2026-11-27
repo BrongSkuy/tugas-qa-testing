@@ -4,6 +4,19 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
 
 ---
 
+## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+
+- **Dokumen ini isinya apa?** Ini adalah **"Rencana Kerja Utama Pengujian"** untuk website GOR Permata. Di dalamnya dibahas apa saja yang mau dites (23 tes fungsi tombol/form + 10 tes kecepatan), risiko apa yang paling rawan bermasalah, target lulusnya apa, dan pembagian tugas keempat anggota kelompok.
+- **Hubungan dengan Prinsip Pengujian Aman (Non-Destruktif):** Pada bagian risiko (`PJ-01` & `PJ-02`), rencana ini mewajibkan form hanya diisi data contoh dan pengiriman ke server diblokir di skrip otomatis agar jadwal asli GOR tetap aman, serta simulasi keramaian dibatasi maksimal `10` pengguna.
+- **Apakah ada script yang harus di-copy-paste di dokumen ini?** **Tidak ada kode program yang perlu disalin dari file ini.** Seluruh skrip sudah jadi dan tersimpan di folder `03-hasil-pengujian/automation-scripts/`. Untuk menjalankannya, buka **Terminal / CMD / PowerShell** dari folder utama `tugas-qa-testing`, lalu **copy-paste baris perintah `python ...` berikut ke Terminal**:
+  ```bash
+  python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
+  python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
+  ```
+  *(Panduan langkah demi langkah untuk pemula bisa dibaca di [`../03-hasil-pengujian/panduan-uji-aman-dan-jalankan-script.md`](../03-hasil-pengujian/panduan-uji-aman-dan-jalankan-script.md).)*
+
+---
+
 ## 1. Identifikasi Dokumen, Konteks, & Ruang Lingkup (`TP1 — Understand Context`)
 
 ### 1.1 Identifikasi Dokumen & Test Item

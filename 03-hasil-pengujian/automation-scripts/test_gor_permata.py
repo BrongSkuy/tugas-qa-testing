@@ -3,6 +3,20 @@ Automation Test Script (Playwright Python) - Black Box Suite (ISO/IEC/IEEE 29119
 Objek: Portal Booking GOR Permata Badminton Hall (https://gorpermatabadminton.com)
 Cakupan: TC-BB-01 s.d. TC-BB-23 (EP, BVA, Decision Table, State Transition, Use Case, Compatibility)
 Guardrail: Non-destruktif - memblokir POST **/bookings/store di level browser interceptor.
+
+Cara & Tempat Menjalankan File Ini:
+  - JANGAN copy-paste isi kode ini ke Terminal, dan jangan klik 2x langsung dari File Explorer
+    (karena jendela hitam akan langsung menutup saat selesai).
+  - Jalankan lewat Terminal (Command Prompt / CMD, PowerShell, atau Terminal VS Code):
+      1. Arahkan Terminal ke folder proyek `tugas-qa-testing`:
+         cd "...\tugas-qa-testing"
+      2. Instal alat bantu (cukup 1 kali saja):
+         pip install playwright
+         playwright install chromium
+      3. Jalankan script ini dengan mengetik:
+         python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
+  - Alternatif di VS Code: buka file ini di VS Code, pastikan Python extension terpasang, lalu klik tombol Run (`▶`) di pojok kanan atas.
+  - Hasil otomatis tersimpan ke `execution-log.txt`, `evidence/blackbox-results.json`, dan `evidence/screenshots/`.
 """
 from __future__ import annotations
 

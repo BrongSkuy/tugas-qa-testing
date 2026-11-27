@@ -4,6 +4,19 @@ Dokumen ini merupakan rekaman resmi **Test Execution Process (`8.4`, aktivitas `
 
 ---
 
+## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+
+- **Dokumen ini isinya apa?** Ini adalah **"Buku Catatan Hasil Pengujian Nyata"**: merekam hasil setiap tes setelah skrip dijalankan (`16/23 PASS` & `7 FAIL` untuk fungsi; `7/10 PASS` & `3 FAIL` untuk kecepatan), lengkap dengan link ke file log teks, file JSON, dan daftar `12` gambar screenshot bukti. *(Catatan: status `FAIL` berarti skrip berhasil menangkap cacat/kelemahan di website sesuai harapan QA.)*
+- **Bagaimana cara menjalankan ulang skrip untuk memperbarui catatan log ini?**
+  - Kamu **tidak perlu** copy-paste isi file script maupun file log ini.
+  - Cukup buka **Terminal / CMD / PowerShell** di folder utama `tugas-qa-testing`, lalu **copy-paste perintah berikut ke Terminal** untuk menjalankan ulang skrip dan memperbarui otomatis file [`execution-log.txt`](./automation-scripts/execution-log.txt), [`blackbox-results.json`](./evidence/blackbox-results.json), [`performance-log.txt`](./automation-scripts/performance-log.txt), dan [`performance-metrics.json`](./evidence/performance-metrics.json):
+    ```bash
+    python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
+    python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
+    ```
+
+---
+
 ## 1. Informasi Sesi Eksekusi
 
 | Jenis Suite | Skrip Pelaksana | Timestamp Eksekusi | Ringkasan Hasil | Bukti Log & JSON Mentah |

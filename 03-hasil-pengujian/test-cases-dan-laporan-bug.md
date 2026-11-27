@@ -4,6 +4,13 @@ Dokumen ini menjadi ringkasan indeks untuk folder `03-hasil-pengujian/` agar kom
 
 ---
 
+## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+
+- **Dokumen ini isinya apa?** Ini adalah **"Peta Indeks Cepat Folder Hasil Pengujian (`03-hasil-pengujian/`)"** yang merangkum daftar seluruh dokumen uji dari Tahap 1 sampai Tahap 7 serta ringkasan singkat `10` bug yang ditemukan (`IR-GOR-01` s.d. `IR-GOR-10`).
+- **Panduan pemula & cara menjalankan script di Terminal:** Baca [`panduan-uji-aman-dan-jalankan-script.md`](./panduan-uji-aman-dan-jalankan-script.md) untuk penjelasan bahasa sehari-hari serta perintah siap copy-paste ke **Terminal / CMD / PowerShell** (`python 03-hasil-pengujian/automation-scripts/test_gor_permata.py`, `test_performance_gor_permata.py`, dan `generate_laporan_pengujian.py`).
+
+---
+
 ## 1. Peta Artefak Pengujian (`Flow Testing STLC — >= 2022`)
 
 Seluruh artefak hasil uji disusun berurutan mengimplementasikan kerangka **Software Testing Life Cycle (STLC)** dan **Fundamental Test Process** (**ISO/IEC/IEEE 29119-1:2022**, **29119-5:2024**, **ISO/IEC 25010:2023**, dan **ISTQB CTFL v4.0.1**):

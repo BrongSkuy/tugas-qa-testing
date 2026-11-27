@@ -4,6 +4,19 @@ Dokumen ini mengimplementasikan aktivitas **`TD3` (*Derive test cases*)** dan **
 
 ---
 
+## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+
+- **Dokumen ini isinya apa?** Daftar **`23` skenario uji fungsi website** (`TC-BB-01` s.d. `TC-BB-23`) beserta langkah-langkah cara mengujinya—mulai dari cek link halaman utama/register, tes tanggal salah, cek harga durasi `1–5` jam, tes panjang nomor WA, aturan tutup jam `00:00`, sampai cek tampilan HP.
+- **Script-nya ada di mana & harus di-copy-paste ke mana?**
+  - File program otomatisnya **sudah ada** di [`automation-scripts/test_gor_permata.py`](./automation-scripts/test_gor_permata.py) (dan contoh kode Cypress di [`automation-scripts/gor-permata.cy.js`](./automation-scripts/gor-permata.cy.js)). **Isi kode di dalam file tersebut TIDAK perlu di-copy-paste ke Terminal.**
+  - Yang kamu **copy-paste ke Terminal (Command Prompt / CMD, PowerShell, atau Terminal VS Code)** setelah masuk ke folder utama `tugas-qa-testing` hanyalah **perintah pendek ini**:
+    ```bash
+    python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
+    ```
+  - Jika mengetes **manual sendiri di Google Chrome / Edge** (tanpa script Python), pemblokir `*/bookings/store` dipasang di **Chrome DevTools (`F12`) -> tab Network -> Request blocking**, bukan lewat Terminal (lihat panduan lengkap di bagian bawah dokumen ini atau di [`panduan-uji-aman-dan-jalankan-script.md`](./panduan-uji-aman-dan-jalankan-script.md)).
+
+---
+
 ## 1. *Test Case Specification* Black Box (`TD3` — `TC-BB-01` s.d. `TC-BB-23`)
 
 Seluruh kasus uji bersifat **non-destruktif**: pengiriman `POST /bookings/store` diblokir di browser oleh `page.route` sebelum menyentuh jaringan produksi.

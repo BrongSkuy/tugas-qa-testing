@@ -4,6 +4,19 @@ Dokumen ini merupakan **Organizational Test Specification** sesuai arsitektur pe
 
 ---
 
+## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+
+- **Dokumen ini isinya apa?** Ini adalah dokumen **"Aturan Main & Kebijakan Tim QA"** sebelum mulai menguji website **GOR Permata Badminton Hall**. Di dalamnya dijelaskan bagian mana yang boleh diuji (halaman umum), bagian mana yang dilarang (menu admin & kirim pesanan palsu beneran ke jadwal GOR), serta nama standar internasional yang dipakai agar tugas sesuai standar kuliah.
+- **Hubungan dengan Prinsip Pengujian Aman (Non-Destruktif):** Dokumen inilah yang menetapkan aturan bahwa semua skrip uji otomatis **wajib memasang rem pemblokir** sebelum data booking benar-benar tersimpan ke server UMKM, dan simulasi pengunjung dibatasi maksimal **10 orang**.
+- **Apakah ada script yang harus di-copy-paste di dokumen ini?** **Tidak ada.** File ini murni berisi aturan kebijakan untuk dibaca. Jika ingin menjalankan pengujiannya, file programnya sudah tersedia di [`../03-hasil-pengujian/automation-scripts/`](../03-hasil-pengujian/automation-scripts/) — kamu cukup buka **Terminal / Command Prompt (CMD) / PowerShell** di folder utama proyek lalu **copy-paste perintah ini ke Terminal**:
+  ```bash
+  python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
+  python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
+  ```
+  *(Panduan pemula lengkap tersedia di [`../03-hasil-pengujian/panduan-uji-aman-dan-jalankan-script.md`](../03-hasil-pengujian/panduan-uji-aman-dan-jalankan-script.md).)*
+
+---
+
 ## 1. Identitas Dokumen & Pernyataan Kepatuhan (*Conformance Statement - Clause 4*)
 
 - **ID Dokumen:** `OTS-QA-2026-01`

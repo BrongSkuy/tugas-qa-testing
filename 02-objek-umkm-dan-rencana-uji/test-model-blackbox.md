@@ -4,6 +4,16 @@ Dokumen ini mengimplementasikan aktivitas **`TD1` (*Create test model*)** dan **
 
 ---
 
+## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+
+- **Dokumen ini isinya apa?** Ini adalah **"Cetakan Rancangan Skenario Black Box"**: menjelaskan bagian website mana saja yang dites, contoh input benar/salah apa yang dipakai (seperti nama kosong, panjang nomor WA `10/11/14/15` digit, dan aturan tutup jam `00:00`), serta daftar `23` hal yang wajib dites (`TCI-BB-01` s.d. `TCI-BB-23`).
+- **Apakah ada script yang harus di-copy-paste?** Dokumen ini hanya berisi tabel rancangan & diagram alur (`mermaid`), **bukan file kode yang dijalankan**. Untuk menjalankan langsung hasil rancangannya lewat program otomatis, buka **Terminal / CMD / PowerShell** di folder `tugas-qa-testing`, lalu **copy-paste perintah ini ke Terminal**:
+  ```bash
+  python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
+  ```
+
+---
+
 ## 1. Inventarisasi *Test Basis* Black Box (`TB-BB` — `8.2.4.2 a`)
 
 | ID Test Basis | Sumber / Modul | Deskripsi Persyaratan & Perilaku Teramati |

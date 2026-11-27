@@ -4,6 +4,17 @@ Dokumen ini merupakan rencana uji spesifik untuk jenis pengujian performa (**`TP
 
 ---
 
+## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+
+- **Dokumen ini isinya apa?** Dokumen ini khusus merencanakan **cara mengukur kecepatan & kekuatan website GOR Permata**—mulai dari seberapa cepat layar muncul saat pertama dibuka, berat ukuran filenya, kecepatan respon klik tombol, sampai simulasi saat dibuka `1`, `5`, dan `10` orang secara bersamaan.
+- **Hubungan dengan Prinsip Pengujian Aman (Non-Destruktif):** Pengujian hanya melakukan aksi **baca halaman (`GET`)**, membatasi maksimal `10` pengakses bersamaan dengan jeda `2 detik` antar-tahap, dan langsung berhenti otomatis kalau error di atas `5%` supaya website asli tidak *down*.
+- **Apakah ada script yang di-copy-paste ke Terminal?** File program penguji kecepatannya **sudah jadi** di `03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py`. Jadi **isi file Python-nya tidak perlu di-copy**. Kamu cukup buka **Terminal / CMD / PowerShell** di folder utama `tugas-qa-testing`, lalu **copy-paste perintah ini ke Terminal**:
+  ```bash
+  python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
+  ```
+
+---
+
 ## 1. Tujuan & Ruang Lingkup Uji Performa (`TP1`)
 
 ### 1.1 Tujuan Pengujian

@@ -27,6 +27,11 @@ Repositori resmi dokumentasi pengujian perangkat lunak untuk pemenuhan tugas kel
 - **Fokus Pengujian:**
   1. **Black Box Testing (23 Kasus Uji):** Menguji fitur-fitur website langsung dari sisi pengguna (tanpa melihat kode program), mulai dari tampilan halaman, pengisian form pemesanan lapangan, perhitungan harga otomatis, aturan jam buka/tutup, sampai kerapian tampilan di komputer maupun HP (*Desktop & Mobile*). Pengujian ini memakai 5 teknik standar (*Equivalence Partitioning, Boundary Value Analysis, Decision Table, State Transition, Use Case*).
   2. **Performance Testing (10 Kasus Uji):** Mengukur kecepatan dan kelancaran website saat dibuka, meliputi kecepatan munculnya halaman (*Core Web Vitals*), besar ukuran file halaman/gambar, kecepatan respons tombol saat diklik, serta simulasi saat website dibuka bersamaan oleh 1, 5, hingga 10 orang sekaligus (*1, 5, dan 10 Virtual Users*).
+- **Prinsip Pengujian Aman (Non-Destruktif):** Website GOR Permata sedang aktif dipakai pelanggan, jadi pengujian dijaga agar **tidak merusak sistem atau mengganggu operasionalnya**. Saat skrip otomatis mengetes form booking, pengiriman data langsung dibatalkan sebelum masuk sebagai pesanan beneran, dan tes keramaian dibatasi agar website tidak *down*.
+  - **Dokumen Output & Panduan Mudah Dipahami:**
+    - [`panduan-uji-aman-dan-jalankan-script.md`](./03-hasil-pengujian/panduan-uji-aman-dan-jalankan-script.md) *(penjelasan bahasa sederhana soal uji aman & langkah copy-paste perintah ke Terminal/CMD)*
+    - [`organizational-test-specification.md`](./01-standar-ieee-iso/organizational-test-specification.md) *(aturan kebijakan uji aman)*
+    - [`test-environment-dan-data.md`](./03-hasil-pengujian/test-environment-dan-data.md) *(penyiapan data contoh & pemblokir kirim otomatis)*
 
 ---
 
@@ -94,6 +99,7 @@ tugas-qa-testing/
 ├── 01-standar-ieee-iso/           # Standar acuan resmi (>= 2022), matriks kepatuhan & audit ISO 25010
 ├── 02-objek-umkm-dan-rencana-uji/ # Rencana pengujian (Master & Performance), pemodelan uji, & jurnal SINTA
 ├── 03-hasil-pengujian/            # Spesifikasi test case, log eksekusi, skrip otomasi, dataset, & insiden
+│   ├── panduan-uji-aman-dan-jalankan-script.md  # Panduan bahasa sederhana & cara copy-paste perintah ke Terminal
 │   ├── automation-scripts/        # Skrip pengujian Playwright Python, Cypress, & aiohttp
 │   ├── evidence/                  # Bukti tangkapan layar (dimasking), ringkasan metrik JSON, & grafik
 │   └── test-data/                 # Dataset pengujian independen format JSON
@@ -105,23 +111,25 @@ tugas-qa-testing/
 
 ## Petunjuk Menjalankan Pengujian (Quick Start)
 
-### 1. Prasyarat Lingkungan
-- Python $\ge$ 3.9
+> **File script `.py` sudah tersedia di folder `03-hasil-pengujian/automation-scripts/`**, jadi kamu **tidak perlu meng-copy-paste isi kode Python-nya**. Cukup buka **Terminal / Command Prompt (CMD) / PowerShell / Terminal VS Code** di folder `tugas-qa-testing`, lalu **copy-paste perintah pendek di bawah ini** dan tekan `Enter` *(atau buka file `.py`-nya di VS Code dan klik tombol Run `▶`)*. Jangan klik 2x file `.py` di File Explorer karena jendelanya akan langsung tertutup. *(Panduan lengkap pemula ada di [`panduan-uji-aman-dan-jalankan-script.md`](./03-hasil-pengujian/panduan-uji-aman-dan-jalankan-script.md)).*
+
+### 1. Prasyarat Lingkungan (Copy-Paste ke Terminal — Cukup 1 Kali Instal)
+- Python $\ge$ 3.9 (dan Microsoft Word di Windows jika ingin menghasilkan ulang PDF)
 - Modul dependensi dan browser Chromium Playwright:
 ```bash
-pip install playwright aiohttp python-docx pillow
+pip install playwright aiohttp python-docx pillow pywin32
 playwright install chromium
 ```
 
-### 2. Eksekusi Pengujian Otomatis
+### 2. Eksekusi Pengujian Otomatis (Copy-Paste ke Terminal / CMD / PowerShell)
 ```bash
-# Menjalankan 23 pengujian Black Box (Playwright)
+# Menjalankan 23 pengujian Black Box (Playwright — hasil keluar di folder 03-hasil-pengujian/)
 python 03-hasil-pengujian/automation-scripts/test_gor_permata.py
 
 # Menjalankan 10 pengujian Performa (Web Vitals & Benchmark Konkuren 1/5/10 VUs)
 python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
 
-# Menghasilkan diagram alur, grafik performa, dan kompilasi laporan akhir Word & PDF
+# Menghasilkan diagram alur, grafik performa, dan kompilasi laporan akhir Word & PDF (di 05-dokumentasi-laporan/)
 python 03-hasil-pengujian/generate_laporan_pengujian.py
 ```
 

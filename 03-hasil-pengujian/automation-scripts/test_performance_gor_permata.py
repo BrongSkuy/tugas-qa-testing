@@ -3,6 +3,20 @@ Performance Testing Script (Playwright + aiohttp) - ISO/IEC/IEEE 29119-1:2022, 2
 Objek: Portal Booking GOR Permata Badminton Hall (https://gorpermatabadminton.com)
 Cakupan: TC-PERF-01 s.d. TC-PERF-10 (Web Vitals Cold/Warm Desktop/Mobile, Payload, Client Interaction, Concurrent GET 1/5/10 VUs)
 Guardrail: Non-destruktif - GET-only, max 10 VUs, think-time 500ms, auto-abort circuit breaker jika error > 5% atau HTTP 429.
+
+Cara & Tempat Menjalankan File Ini:
+  - JANGAN copy-paste isi kode ini ke Terminal, dan jangan klik 2x langsung dari File Explorer
+    (karena jendela hitam akan langsung menutup saat selesai).
+  - Jalankan lewat Terminal (Command Prompt / CMD, PowerShell, atau Terminal VS Code):
+      1. Arahkan Terminal ke folder proyek `tugas-qa-testing`:
+         cd "...\tugas-qa-testing"
+      2. Instal alat bantu (cukup 1 kali saja):
+         pip install playwright aiohttp
+         playwright install chromium
+      3. Jalankan script ini dengan mengetik:
+         python 03-hasil-pengujian/automation-scripts/test_performance_gor_permata.py
+  - Alternatif di VS Code: buka file ini di VS Code, pastikan Python extension terpasang, lalu klik tombol Run (`▶`) di pojok kanan atas.
+  - Hasil otomatis tersimpan ke `performance-log.txt` dan `evidence/performance-metrics.json`.
 """
 from __future__ import annotations
 
