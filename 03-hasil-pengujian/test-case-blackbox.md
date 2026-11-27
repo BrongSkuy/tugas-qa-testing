@@ -4,9 +4,10 @@ Dokumen ini mengimplementasikan aktivitas **`TD3` (*Derive test cases*)** dan **
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
 - **Dokumen ini isinya apa?** Daftar **`23` skenario uji fungsi website** (`TC-BB-01` s.d. `TC-BB-23`) beserta langkah-langkah cara mengujinya—mulai dari cek link halaman utama/register, tes tanggal salah, cek harga durasi `1–5` jam, tes panjang nomor WA, aturan tutup jam `00:00`, sampai cek tampilan HP.
+- **Ringkasan hasil pengujian:** Dari **`23` kasus uji** yang dijalankan (`blackbox-results.json`), **`16` berhasil (`Pass`)** dan **`7` ditemukan masalah (`Fail`)**.
 - **Script-nya ada di mana & harus di-copy-paste ke mana?**
   - File program otomatisnya **sudah ada** di [`automation-scripts/test_gor_permata.py`](./automation-scripts/test_gor_permata.py) (dan contoh kode Cypress di [`automation-scripts/gor-permata.cy.js`](./automation-scripts/gor-permata.cy.js)). **Isi kode di dalam file tersebut TIDAK perlu di-copy-paste ke Terminal.**
   - Yang kamu **copy-paste ke Terminal (Command Prompt / CMD, PowerShell, atau Terminal VS Code)** setelah masuk ke folder utama `tugas-qa-testing` hanyalah **perintah pendek ini**:

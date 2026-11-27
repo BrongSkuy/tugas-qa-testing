@@ -4,10 +4,10 @@ Dokumen ini mengimplementasikan proses **Test Environment and Data Management (`
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
 - **Dokumen ini isinya apa?** Menjelaskan **persiapan komputer, aplikasi bantu, dan data contoh palsu** sebelum pengujian dijalankan, serta bagaimana **Prinsip Pengujian Aman (Non-Destruktif)** bekerja secara teknis supaya skrip otomatis tidak pernah mengisi jadwal booking asli GOR Permata.
-- **Bagaimana rem pengaman kerjanya (bahasa sederhana)?** Di dalam skrip otomatis (`test_gor_permata.py`), baris kode `page.route("**/bookings/store", route.abort())` bekerja seperti **penjaga di dalam browser uji**: form tetap diisi data contoh (`"Test QA"`, `"0812..."`), tetapi begitu tombol kirim ditekan oleh skrip, pengiriman dibatalkan otomatis sebelum keluar ke server website.
+- **Bagaimana rem pengaman kerjanya?** Di dalam skrip otomatis (`test_gor_permata.py`), baris kode `page.route("**/bookings/store", route.abort())` bekerja seperti **penjaga di dalam browser uji**: form tetap diisi data contoh (`"Test QA"`, `"0812..."`), tetapi begitu tombol kirim ditekan oleh skrip, pengiriman dibatalkan otomatis sebelum keluar ke server website.
 - **Script & datanya di-copy-paste ke mana?**
   - File data uji JSON ([`test-data/blackbox-testdata.json`](./test-data/blackbox-testdata.json) & [`test-data/performance-profiles.json`](./test-data/performance-profiles.json)) dan skrip `.py` **sudah siap pakai di foldernya**, jadi **jangan di-copy isinya ke Terminal**.
   - Untuk menyiapkan alat bantu dan menjalankan tes, buka **Terminal / CMD / PowerShell** dari folder utama `tugas-qa-testing`, lalu **copy-paste perintah ini ke Terminal**:

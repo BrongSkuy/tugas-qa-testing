@@ -4,7 +4,7 @@ Dokumen ini merupakan rencana uji spesifik untuk jenis pengujian performa (**`TP
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
 - **Dokumen ini isinya apa?** Dokumen ini khusus merencanakan **cara mengukur kecepatan & kekuatan website GOR Permata**—mulai dari seberapa cepat layar muncul saat pertama dibuka, berat ukuran filenya, kecepatan respon klik tombol, sampai simulasi saat dibuka `1`, `5`, dan `10` orang secara bersamaan.
 - **Hubungan dengan Prinsip Pengujian Aman (Non-Destruktif):** Pengujian hanya melakukan aksi **baca halaman (`GET`)**, membatasi maksimal `10` pengakses bersamaan dengan jeda `2 detik` antar-tahap, dan langsung berhenti otomatis kalau error di atas `5%` supaya website asli tidak *down*.

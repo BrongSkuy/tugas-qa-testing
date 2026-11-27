@@ -4,7 +4,7 @@ Dokumen ini mengimplementasikan aktivitas **`TD1` (*Create test model*)** dan **
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
 - **Dokumen ini isinya apa?** Ini adalah **"Cetakan Rancangan Uji Kecepatan Website"**: menjelaskan apa saja yang diukur (kecepatan muncul halaman di laptop & HP, perbedaan saat cache masih kosong vs sudah tersimpan, berat file halaman, kecepatan respons klik tombol, serta simulasi `1`, `5`, dan `10` pengunjung bersamaan).
 - **Apakah ada script yang harus di-copy-paste?** Dokumen ini hanya rancangan model uji (tidak dijalankan di Terminal). Untuk menjalankan tes kecepatannya di komputer, buka **Terminal / CMD / PowerShell** dari folder utama `tugas-qa-testing`, lalu **copy-paste perintah berikut ke Terminal**:

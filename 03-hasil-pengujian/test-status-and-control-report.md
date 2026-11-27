@@ -4,9 +4,9 @@ Dokumen ini mengimplementasikan **Test Monitoring and Control Process (`TMC1–T
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
-- **Dokumen ini isinya apa?** Ini adalah **"Laporan Pantauan Progres & Kendala Saat Pengujian"**: merangkum apakah semua target tes sudah 100% dijalankan, perubahan/perbaikan apa saja yang dibuat di tengah jalan oleh tim QA (kode `CD-01` s.d. `CD-04`, seperti menyamarkan nama pelanggan lain dengan `[TERISI]` di screenshot), serta pembaruan status risiko setelah tes selesai.
+- **Dokumen ini isinya apa?** Ini adalah **"Laporan Pantauan Progres & Kendala Saat Pengujian"**: merangkum apakah semua target tes sudah 100% dijalankan (**Black Box:** `16/23 Pass, 7 Fail`; **Performance:** `7/10 Pass, 3 Fail`), perubahan/perbaikan apa saja yang dibuat di tengah jalan oleh tim QA (kode `CD-01` s.d. `CD-04`, seperti menyamarkan nama pelanggan lain dengan `[TERISI]` di screenshot), serta pembaruan status risiko setelah tes selesai.
 - **Apakah ada script yang di-copy-paste di dokumen ini?** **Tidak ada.** Ini murni dokumen laporan pemantauan. File program tetap berada di `03-hasil-pengujian/automation-scripts/` dan dijalankan lewat **Terminal / CMD / PowerShell** dengan perintah `python 03-hasil-pengujian/automation-scripts/test_gor_permata.py` (lihat [`panduan-uji-aman-dan-jalankan-script.md`](./panduan-uji-aman-dan-jalankan-script.md)).
 
 ---

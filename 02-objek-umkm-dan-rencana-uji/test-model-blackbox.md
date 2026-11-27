@@ -4,7 +4,7 @@ Dokumen ini mengimplementasikan aktivitas **`TD1` (*Create test model*)** dan **
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
 - **Dokumen ini isinya apa?** Ini adalah **"Cetakan Rancangan Skenario Black Box"**: menjelaskan bagian website mana saja yang dites, contoh input benar/salah apa yang dipakai (seperti nama kosong, panjang nomor WA `10/11/14/15` digit, dan aturan tutup jam `00:00`), serta daftar `23` hal yang wajib dites (`TCI-BB-01` s.d. `TCI-BB-23`).
 - **Apakah ada script yang harus di-copy-paste?** Dokumen ini hanya berisi tabel rancangan & diagram alur (`mermaid`), **bukan file kode yang dijalankan**. Untuk menjalankan langsung hasil rancangannya lewat program otomatis, buka **Terminal / CMD / PowerShell** di folder `tugas-qa-testing`, lalu **copy-paste perintah ini ke Terminal**:
@@ -28,11 +28,11 @@ Dokumen ini mengimplementasikan aktivitas **`TD1` (*Create test model*)** dan **
 
 ---
 
-## 1.5 Mengapa Memilih 5 Jenis Teknik Black Box Ini? (Penjelasan Sederhana)
+## 1.5 Mengapa Memilih 5 Jenis Teknik Black Box Ini?
 
 Agar tidak menguji secara asal-asalan, Tim QA menggunakan **5 jenis teknik *Black Box*** dari standar **ISTQB CTFL v4.0.1 (Bab 4.2)** dan jurnal SINTA 2–3 (`2022–2026`), karena masing-masing cocok langsung dengan fitur di website GOR Permata:
 
-| No | Jenis Black Box | Kenapa Memilih Teknik Ini? (Bahasa Sederhana) | Fitur Website yang Diuji | Masalah Nyata yang Berhasil Ditemukan | Rujukan Ilmiah (`>= 2022`) |
+| No | Jenis Black Box | Alasan Pemilihan Teknik | Fitur Website yang Diuji | Masalah Nyata yang Berhasil Ditemukan | Rujukan Ilmiah (`>= 2022`) |
 | :-: | :--- | :--- | :--- | :--- | :--- |
 | 1 | **Equivalence Partitioning (EP)** | **Mengelompokkan input benar dan salah.** Daripada mencoba ribuan angka satu per satu, cukup ambil perwakilan per jenis input (misalnya awalan WA `08`, `628`, `8`, `+62 08`, atau tanggal valid vs tanggal rusak). | Menu website, filter tanggal URL, format nomor WA, & form `/login` (`TC-BB-01..05, 10, 15, 16, 20`) | Menu `/register` error `404` (`IR-GOR-01`), awalan `+62 08...` gagal (`IR-GOR-02`), tanggal lama `2020-01-01` masih buka (`IR-GOR-05`), & tanggal rusak bikin crash `500` (`IR-GOR-06`). | *Desyani, dkk. (2022)* & *ISTQB v4.0.1 (§4.2.1)* |
 | 2 | **Boundary Value Analysis (BVA)** | **Mengetes tepat di angka batas paling kecil & paling besar.** Program paling sering salah di pinggir batas (misal aturan WA `11–14` digit, durasi `1–5` jam, serta batas GOR tutup jam `00:00`). | Panjang WA `10/11/14/15` digit, nama kosong/`1` huruf, serta jam `22:00 + 2 vs 3` jam (`TC-BB-07, 09, 11..14, 17, 18`) | Nama diisi hanya spasi `"   "` atau 1 huruf `"A"` ternyata lolos ke tahap kirim (`IR-GOR-03`). | *Putri & Susanto (2024)* & *ISTQB v4.0.1 (§4.2.2)* |

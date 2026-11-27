@@ -4,7 +4,7 @@ Dokumen ini merupakan **Master Test Plan (`TP-GOR-01`)** yang disusun mematuhi s
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
 - **Dokumen ini isinya apa?** Ini adalah **"Rencana Kerja Utama Pengujian"** untuk website GOR Permata. Di dalamnya dibahas apa saja yang mau dites (23 tes fungsi tombol/form + 10 tes kecepatan), risiko apa yang paling rawan bermasalah, target lulusnya apa, dan pembagian tugas keempat anggota kelompok.
 - **Hubungan dengan Prinsip Pengujian Aman (Non-Destruktif):** Pada bagian risiko (`PJ-01` & `PJ-02`), rencana ini mewajibkan form hanya diisi data contoh dan pengiriman ke server diblokir di skrip otomatis agar jadwal asli GOR tetap aman, serta simulasi keramaian dibatasi maksimal `10` pengguna.

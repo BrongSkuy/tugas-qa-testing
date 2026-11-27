@@ -1,5 +1,5 @@
 """
-Generator Laporan Resmi Pengujian QA (Word .docx & PDF) — Bahasa Sederhana & Mudah Dipahami
+Generator Laporan Resmi Pengujian QA (Word .docx & PDF)
 Sesuai Standar >= 2022: ISO/IEC/IEEE 29119-1:2022, 29119-5:2024, ISTQB CTFL v4.0.1 (2024),
 serta ISO/IEC 25010:2023, 25019:2023, 25002:2024, & 40500:2025 (W3C WCAG 2.2)
 Objek: Portal Booking GOR Permata Badminton Hall (https://gorpermatabadminton.com)

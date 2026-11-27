@@ -4,9 +4,9 @@ Dokumen ini mengimplementasikan **Test Incident Reporting Process (`IR1–IR2`)*
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
-- **Dokumen ini isinya apa?** Ini adalah **"Daftar `10` Masalah / Bug yang Ditemukan"** (`IR-GOR-01` s.d. `IR-GOR-10`) di website GOR Permata—misalnya link `/register` error `404`, format nomor `+62 08...` ditolak, tanggal tahun `2020` masih bisa diklik, parameter tanggal rusak bikin `HTTP 500`, nomor HP pemesan muncul di HTML halaman publik, halaman `/booking` melambat ke `5,3 detik` saat dibuka `10` orang, dan tombol menu terpotong di layar HP.
+- **Dokumen ini isinya apa?** Ini adalah **"Daftar `10` Masalah / Bug yang Ditemukan"** (`IR-GOR-01` s.d. `IR-GOR-10`) dari hasil eksekusi pengujian website GOR Permata (`7` masalah dari **23 uji Black Box** yang mencatat `16 Pass, 7 Fail`, dan `3` masalah dari **10 uji Performance** yang mencatat `7 Pass, 3 Fail`) — misalnya link `/register` error `404`, format nomor `+62 08...` ditolak, tanggal tahun `2020` masih bisa diklik, parameter tanggal rusak bikin `HTTP 500`, nomor HP pemesan muncul di HTML halaman publik, halaman `/booking` melambat ke `5,31 detik` saat dibuka `10` orang, dan tombol menu terpotong di layar HP.
 - **Apakah ada script yang harus di-copy-paste dari dokumen ini?** **Tidak ada.** Semua potongan kode atau rumus di dalam dokumen ini (`normPhone()`, `.trim()`, `Carbon::parse`) hanyalah **saran perbaikan untuk pembuat/developer website GOR Permata**—**bukan** perintah untuk Terminal kamu. Jika ingin mengecek ulang temuan secara otomatis, cukup **copy-paste perintah ini ke Terminal (CMD / PowerShell)** dari folder utama `tugas-qa-testing`:
   ```bash
   python 03-hasil-pengujian/automation-scripts/test_gor_permata.py

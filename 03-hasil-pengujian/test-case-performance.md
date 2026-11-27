@@ -4,9 +4,10 @@ Dokumen ini mengimplementasikan aktivitas **`TD3` (*Derive test cases*)** dan **
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
 - **Dokumen ini isinya apa?** Daftar **`10` skenario uji kecepatan website** (`TC-PERF-01` s.d. `TC-PERF-10`)—mulai dari mengukur berapa detik halaman tampil di laptop & HP, ukuran berat file halaman `/booking`, kecepatan klik tombol, sampai simulasi `1`, `5`, dan `10` pengunjung membuka halaman bersamaan.
+- **Ringkasan hasil pengujian:** Dari **`10` kasus uji** yang dijalankan (`performance-metrics.json`), **`7` berhasil (`Pass`)** dan **`3` ditemukan masalah (`Fail`)** dengan **`0%` gagal/error** dari total `104` kali akses `GET` uji beban.
 - **Script-nya ada di mana & harus di-copy-paste ke mana?**
   - File programnya **sudah tersedia** di [`automation-scripts/test_performance_gor_permata.py`](./automation-scripts/test_performance_gor_permata.py), jadi **isi kode Python-nya tidak perlu di-copy-paste**.
   - Cukup buka **Terminal / Command Prompt (CMD) / PowerShell** di dalam folder utama `tugas-qa-testing`, lalu **copy-paste perintah berikut ke Terminal** dan tekan **Enter**:

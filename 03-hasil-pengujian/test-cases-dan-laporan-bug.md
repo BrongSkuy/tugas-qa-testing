@@ -4,9 +4,9 @@ Dokumen ini menjadi ringkasan indeks untuk folder `03-hasil-pengujian/` agar kom
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
-- **Dokumen ini isinya apa?** Ini adalah **"Peta Indeks Cepat Folder Hasil Pengujian (`03-hasil-pengujian/`)"** yang merangkum daftar seluruh dokumen uji dari Tahap 1 sampai Tahap 7 serta ringkasan singkat `10` bug yang ditemukan (`IR-GOR-01` s.d. `IR-GOR-10`).
+- **Dokumen ini isinya apa?** Ini adalah **"Peta Indeks Cepat Folder Hasil Pengujian (`03-hasil-pengujian/`)"** yang merangkum daftar seluruh dokumen uji dari Tahap 1 sampai Tahap 7 serta ringkasan hasil akhir (**Black Box:** `16/23 Pass, 7 Fail`; **Performance:** `7/10 Pass, 3 Fail`) dan `10` bug yang ditemukan (`IR-GOR-01` s.d. `IR-GOR-10`).
 - **Panduan pemula & cara menjalankan script di Terminal:** Baca [`panduan-uji-aman-dan-jalankan-script.md`](./panduan-uji-aman-dan-jalankan-script.md) untuk penjelasan bahasa sehari-hari serta perintah siap copy-paste ke **Terminal / CMD / PowerShell** (`python 03-hasil-pengujian/automation-scripts/test_gor_permata.py`, `test_performance_gor_permata.py`, dan `generate_laporan_pengujian.py`).
 
 ---

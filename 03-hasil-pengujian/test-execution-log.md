@@ -4,7 +4,7 @@ Dokumen ini merupakan rekaman resmi **Test Execution Process (`8.4`, aktivitas `
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
 - **Dokumen ini isinya apa?** Ini adalah **"Buku Catatan Hasil Pengujian Nyata"**: merekam hasil setiap tes setelah skrip dijalankan (`16/23 PASS` & `7 FAIL` untuk fungsi; `7/10 PASS` & `3 FAIL` untuk kecepatan), lengkap dengan link ke file log teks, file JSON, dan daftar `12` gambar screenshot bukti. *(Catatan: status `FAIL` berarti skrip berhasil menangkap cacat/kelemahan di website sesuai harapan QA.)*
 - **Bagaimana cara menjalankan ulang skrip untuk memperbarui catatan log ini?**

@@ -4,7 +4,7 @@ Dokumen ini merupakan **Organizational Test Specification** sesuai arsitektur pe
 
 ---
 
-## 0. Ringkasan Bahasa Mudah Dipahami & Cara Pakai Script
+## 0. Ringkasan Dokumen & Cara Pakai Script
 
 - **Dokumen ini isinya apa?** Ini adalah dokumen **"Aturan Main & Kebijakan Tim QA"** sebelum mulai menguji website **GOR Permata Badminton Hall**. Di dalamnya dijelaskan bagian mana yang boleh diuji (halaman umum), bagian mana yang dilarang (menu admin & kirim pesanan palsu beneran ke jadwal GOR), serta nama standar internasional yang dipakai agar tugas sesuai standar kuliah.
 - **Hubungan dengan Prinsip Pengujian Aman (Non-Destruktif):** Dokumen inilah yang menetapkan aturan bahwa semua skrip uji otomatis **wajib memasang rem pemblokir** sebelum data booking benar-benar tersimpan ke server UMKM, dan simulasi pengunjung dibatasi maksimal **10 orang**.

@@ -1,6 +1,6 @@
-# Panduan Bahasa Sederhana: Prinsip Pengujian Aman (Non-Destruktif) & Cara Menjalankan Script
+# Panduan Prinsip Pengujian Aman (Non-Destruktif) & Cara Menjalankan Script
 
-Dokumen ini menjelaskan dalam bahasa sehari-hari apa maksud **Prinsip Pengujian Aman (Non-Destruktif)** pada proyek **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`), serta **di mana letak script-nya dan ke mana perintah harus di-copy-paste**.
+Dokumen ini menjelaskan secara ringkas dan jelas apa maksud **Prinsip Pengujian Aman (Non-Destruktif)** pada proyek **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`), serta **di mana letak script-nya dan ke mana perintah harus di-copy-paste**.
 
 ---
 
