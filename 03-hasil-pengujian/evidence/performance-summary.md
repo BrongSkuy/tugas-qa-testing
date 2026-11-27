@@ -1,49 +1,91 @@
-# Ringkasan Metrik Performance Testing (`TP-GOR-PERF-01`)
+# Ringkasan Hasil Pengujian Performance (`TC-PERF-01` s.d. `TC-PERF-10`)
 
-Dokumen ini merangkum hasil pengukuran kuantitatif dari eksekusi [`test_performance_gor_permata.py`](../automation-scripts/test_performance_gor_permata.py) pada `2026-11-17T22:05:00+07:00` terhadap `https://gorpermatabadminton.com` (sumber data mentah: [`performance-metrics.json`](./performance-metrics.json)).
+Dokumen ini merangkum hasil pengujian kecepatan halaman, respons klik tombol, ukuran dokumen, serta simulasi pengunjung bersamaan (**Performance Testing**) pada **Portal Booking GOR Permata Badminton Hall** (`https://gorpermatabadminton.com`) yang dijalankan melalui [`test_performance_gor_permata.py`](../automation-scripts/test_performance_gor_permata.py) pada `2026-11-17T22:05:00+07:00` (data mentah: [`performance-metrics.json`](./performance-metrics.json)).
 
 ---
 
-## 1. Browser Rendering & Web Vitals (`Playwright Chromium Headless`)
+## 1. Ringkasan Eksekutif
 
-### 1.1 Cold Cache - Desktop (`1280×800`)
-| Rute | HTTP | TTFB (ms) | DCL (ms) | Load (ms) | FCP (ms) | CLS | HTML Raw | HTML Encoded (`br`) | Asset Req |
+- **Total Skenario Dijalankan:** `10` kasus uji (`5` pengujian kecepatan tampilan browser Laptop & HP, `1` audit ukuran halaman, `1` uji respons klik tombol, dan `3` tingkat simulasi pengunjung bersamaan `1`, `5`, dan `10` orang).
+- **Hasil Eksekusi:** **`7` Berhasil (`PASS`)** dan **`3` Bermasalah (`FAIL`)**, dengan **`0,0%` kegagalan server** dari total **`104` kali akses `GET`** (`circuit breaker` tidak pernah terpicu).
+- **Yang Sudah Berjalan Baik (`7 Pass`):**
+  - Respons klik tombol di halaman `/booking` sangat cepat: membuka pop-up booking hanya `62,93 ms` (`0,06` detik) dan hitung ulang harga rata-rata `8,11 ms` (jauh di bawah batas `250 ms`).
+  - Saat halaman dibuka ulang dengan cache browser aktif, beranda `/` tampil sangat cepat dalam `289,3 ms` (`0,29` detik) tanpa aset gagal muat.
+  - Akses awal `/login` (`0,69` detik), `/fasilitas/lapangan` (`0,71` detik), `/booking` (`1,83` detik), serta tampilan di layar HP (`390×844`) seluruhnya memenuhi batas target tanpa pergeseran tata letak (`CLS = 0`).
+  - Pada simulasi `1` orang (`24` akses) dan `5` orang bersamaan (`40` akses), seluruh halaman merespons lancar di bawah batas target `3` detik (`0%` error).
+- **3 Kendala yang Ditemukan (`3 Fail`):**
+  1. **`IR-GOR-07` (`TC-PERF-10`):** Saat `10` orang membuka halaman secara bersamaan, waktu muat `/booking` melonjak hingga **`5,31 detik`** (`p95 = 5.314,28 ms`, melewati batas `3` detik), walaupun semua permintaan tetap berhasil (`0%` error).
+  2. **`IR-GOR-08` (`TC-PERF-06`):** Ukuran file HTML mentah `/booking` sebelum dikompresi mencapai **`535,37 KB`** (`548.217` bytes, sedikit melewati batas `500 KB`) karena jadwal `7` hari dimuat sekaligus dalam satu dokumen.
+  3. **`IR-GOR-09` (`TC-PERF-01`):** Saat beranda `/` pertama kali dibuka di laptop tanpa cache, respons awal server (`TTFB`) sempat melambat ke **`2,62 detik`** (`2.618,3 ms`, target `<= 0,8` detik) dengan tampilan awal (`FCP`) di `3,03` detik.
+
+---
+
+## 2. Tabel Hasil 10 Kasus Uji Performance
+
+| ID Uji | Skenario Pengujian | Batas Target | Hasil Terukur | Status | Ref. Insiden |
+| :--- | :--- | :--- | :--- | :---: | :---: |
+| **`TC-PERF-01`** | Kecepatan buka pertama beranda `/` (Laptop) | Respon awal `<= 800 ms`, tampil `<= 3.000 ms` | Respon awal `2.618,3 ms`, tampil `3.028 ms`, selesai `3,34` detik | **FAIL** | `IR-GOR-09` |
+| **`TC-PERF-02`** | Kecepatan buka pertama `/booking` (Laptop) | Respon awal `<= 1.800 ms`, tampil `<= 3.000 ms` | Respon awal `1.213 ms`, tampil `1.712 ms`, selesai `1,83` detik | **PASS** | — |
+| **`TC-PERF-03`** | Kecepatan buka `/login` & `/fasilitas/lapangan` | Respon awal `<= 800 ms`, tampil `<= 3.000 ms` | `/login` (`98,9 ms`), `/fasilitas/lapangan` (`95,9 ms`) | **PASS** | — |
+| **`TC-PERF-04`** | Perbandingan buka pertama vs buka ulang (cache aktif) | Buka ulang lebih cepat & `0` aset gagal | `/` turun `3,34 -> 0,29` detik; `/booking` turun `1,83 -> 1,16` detik | **PASS** | — |
+| **`TC-PERF-05`** | Kecepatan buka `/` & `/booking` di layar HP (`390×844`) | `/` `<= 800 ms`, `/booking` `<= 1.800 ms`, `CLS <= 0,25` | `/` (`108,2 ms`), `/booking` (`1.016,5 ms`), `CLS = 0` | **PASS** | — |
+| **`TC-PERF-06`** | Audit ukuran file HTML & kompresi `/booking` | HTML mentah `<= 500 KB`, `0` aset gagal | HTML mentah **`535,37 KB`** (terkompresi `34,78 KB`) | **FAIL** | `IR-GOR-08` |
+| **`TC-PERF-07`** | Kecepatan respons klik tombol di `/booking` | Semua interaksi `<= 250 ms` | Buka modal `62,93 ms`, hitung tarif `8,11 ms`, ganti tanggal `3,03 ms` | **PASS** | — |
+| **`TC-PERF-08`** | Simulasi `1` orang (`24` akses `GET`) | Error `0%`, `/booking` `p95 <= 3.000 ms` | Error `0,0%`, `/booking` `p95 = 1.033,24 ms` (`1,03` detik) | **PASS** | — |
+| **`TC-PERF-09`** | Simulasi `5` orang bersamaan (`40` akses `GET`) | Error `0%`, `/booking` `p95 <= 3.000 ms` | Error `0,0%`, `/booking` `p95 = 2.249,31 ms` (`2,25` detik) | **PASS** | — |
+| **`TC-PERF-10`** | Simulasi `10` orang bersamaan (`40` akses `GET`) | Error `0%`, `/booking` `p95 <= 3.000 ms` | Error `0,0%`, namun `/booking` **`p95 = 5.314,28 ms`** (`5,31` detik) | **FAIL** | `IR-GOR-07` |
+
+---
+
+## 3. Rincian Metrik Kecepatan Browser (Laptop vs HP)
+
+### 3.1 Buka Pertama — Laptop (`1280×800`, *Cold Cache*)
+| Rute | HTTP | Respon Awal (`TTFB`) | Siap DOM (`DCL`) | Selesai Muat (`Load`) | Tampil Awal (`FCP`) | Geser Layar (`CLS`) | Ukuran Asli | Ukuran Kompresi | Aset |
 | :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| `/` | `200` | **2618,3** *(spike)* | 3031,1 | 3343,4 | **3028,0** | 0,0 | 37,06 KB | 9,14 KB | 9 (`627,7 KB`) |
-| `/booking?start_date=2026-11-18` | `200` | 1213,0 | 1722,2 | 1826,2 | 1712,0 | 0,0 | **535,37 KB** | 34,78 KB | 5 (`27,5 KB`) |
-| `/login` | `200` | 98,9 | 551,8 | 689,8 | 572,0 | 0,0 | 12,85 KB | 4,39 KB | 5 (`27,5 KB`) |
-| `/fasilitas/lapangan` | `200` | 95,9 | 595,8 | 708,0 | 620,0 | 0,0 | 9,20 KB | 3,06 KB | 8 (`627,7 KB`) |
+| `/` | `200` | **2.618,3 ms** | 3.031,1 ms | 3.343,4 ms | **3.028,0 ms** | `0,0` | 37,06 KB | 9,14 KB | 9 (`627,7 KB`) |
+| `/booking?start_date=2026-11-18` | `200` | 1.213,0 ms | 1.722,2 ms | 1.826,2 ms | 1.712,0 ms | `0,0` | **535,37 KB** | 34,78 KB | 5 (`27,5 KB`) |
+| `/login` | `200` | 98,9 ms | 551,8 ms | 689,8 ms | 572,0 ms | `0,0` | 12,85 KB | 4,39 KB | 5 (`27,5 KB`) |
+| `/fasilitas/lapangan` | `200` | 95,9 ms | 595,8 ms | 708,0 ms | 620,0 ms | `0,0` | 9,20 KB | 3,06 KB | 8 (`627,7 KB`) |
 
-> **Catatan `LCP`:** Observer `largest-contentful-paint` pada `chromium-headless-shell` tanpa *user navigation interaction* menghasilkan `null` (`N/A`); evaluasi rendering mengandalkan `TTFB`, `FCP`, `DCL`, `Load`, dan `CLS` terukur.
+> **Catatan `LCP`:** Pada mode browser otomatis *headless* (`chromium-headless-shell`) tanpa interaksi pengguna, entri `largest-contentful-paint` bernilai `null` (`N/A`), sehingga evaluasi kecepatan tampilan menggunakan `TTFB`, `FCP`, `DCL`, `Load`, dan `CLS` yang terukur langsung.
 
-### 1.2 Warm Cache (`Desktop 1280×800`) & Cold Cache (`Mobile 390×844`)
-| Kondisi / Viewport | Rute | TTFB (ms) | DCL (ms) | Load (ms) | FCP (ms) | Transfer Aset |
+### 3.2 Buka Ulang (*Warm Cache* Laptop) & Layar HP (`390×844`)
+| Kondisi / Perangkat | Rute | Respon Awal (`TTFB`) | Siap DOM (`DCL`) | Selesai Muat (`Load`) | Tampil Awal (`FCP`) | Transfer Aset |
 | :--- | :--- | :-: | :-: | :-: | :-: | :-: |
-| **Warm Cache (Desktop)** | `/` | 89,4 | 172,2 | **289,3** | 156,0 | `0 B` *(cached)* |
-| **Warm Cache (Desktop)** | `/booking?start_date=2026-11-18` | 963,1 | 1155,1 | **1155,2** | 1032,0 | `0 B` *(cached)* |
-| **Cold Cache (Mobile `390×844`)** | `/` | 108,2 | 710,5 | **802,2** | 708,0 | `387,8 KB` |
-| **Cold Cache (Mobile `390×844`)** | `/booking?start_date=2026-11-18` | 1016,5 | 1591,5 | **1687,5** | 1580,0 | `27,5 KB` |
+| **Buka Ulang (Laptop)** | `/` | 89,4 ms | 172,2 ms | **289,3 ms** | 156,0 ms | `0 B` *(cache)* |
+| **Buka Ulang (Laptop)** | `/booking?start_date=2026-11-18` | 963,1 ms | 1.155,1 ms | **1.155,2 ms** | 1.032,0 ms | `0 B` *(cache)* |
+| **Buka Pertama (HP `390×844`)** | `/` | 108,2 ms | 710,5 ms | **802,2 ms** | 708,0 ms | `387,8 KB` |
+| **Buka Pertama (HP `390×844`)** | `/booking?start_date=2026-11-18` | 1.016,5 ms | 1.591,5 ms | **1.687,5 ms** | 1.580,0 ms | `27,5 KB` |
+
+### 3.3 Kecepatan Respons Klik Tombol di `/booking`
+- **`openBooking()` (Klik slot -> pop-up tampil):** `62,93 ms` *(target `<= 250 ms` -> PASS)*
+- **`updateTotal()` (Ubah durasi `2..5` jam):** Rata-rata `8,11 ms`, maksimum `13,94 ms` *(target `<= 250 ms` -> PASS)*
+- **`changeDate()` (Ganti tanggal jadwal):** `3,03 ms` *(target `<= 250 ms` -> PASS)*
 
 ---
 
-## 2. Client-Side DOM Interaction Latency (`/booking`)
-- **`openBooking()` (Klik slot -> modal tampil):** `62,93 ms` *(SLA <= 250 ms -> PASS)*
-- **`updateTotal()` (Ubah durasi `2..5` jam):** Rata-rata `8,11 ms`, maksimum `13,94 ms` *(SLA <= 250 ms -> PASS)*
-- **`changeDate()` (Pemicu navigasi tanggal lusa):** `3,03 ms` *(SLA <= 250 ms -> PASS)*
+## 4. Simulasi Pengunjung Bersamaan (`1`, `5`, dan `10` Orang)
 
----
+Total `104` permintaan baca halaman (`GET`) dijalankan secara bertingkat dengan hasil **`0,0%` error**:
 
-## 3. Tiered Concurrent HTTP `GET` Benchmark (`aiohttp`, `Accept-Encoding: gzip, deflate`)
-
-Total `104` request `GET` terdistribusi di 3 level beban dengan **Error Rate `0,0%`** dan **tidak memicu circuit breaker (`Aborted = None`)**:
-
-| Level Beban | VUs | Total Req | RPS | Error % | `/` `p95` (ms) | `/booking` `p50` (ms) | `/booking` `p95` (ms) | `/booking` `max` (ms) | `/login` `p95` (ms) | `/fasilitas/lapangan` `p95` (ms) |
+| Tingkat Beban | Pengunjung (`VUs`) | Total Akses | Akses/Detik (`RPS`) | Error | `/` `p95` | `/booking` `p50` | `/booking` `p95` | `/booking` `max` | `/login` `p95` | `/fasilitas/lapangan` `p95` |
 | :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| **Level A: Baseline** | `1` | 24 | 1,87 | `0,0%` | 89,47 | 885,31 | 1033,24 | 1054,09 | 76,71 | 79,81 |
-| **Level B: Normal UMKM** | `5` | 40 | 4,54 | `0,0%` | 353,52 | 1949,95 | 2249,31 | 2278,17 | 148,63 | 86,27 |
-| **Level C: Peak-Safe** | `10` | 40 | 4,97 | `0,0%` | 397,77 | 5138,42 | **5314,28** *(>3000ms)* | 5323,45 | 396,28 | 87,18 |
+| **Level A: Baseline** | `1` | 24 | 1,87 | `0,0%` | 89,47 ms | 885,31 ms | 1.033,24 ms | 1.054,09 ms | 76,71 ms | 79,81 ms |
+| **Level B: Normal** | `5` | 40 | 4,54 | `0,0%` | 353,52 ms | 1.949,95 ms | 2.249,31 ms | 2.278,17 ms | 148,63 ms | 86,27 ms |
+| **Level C: Jam Ramai** | `10` | 40 | 4,97 | `0,0%` | 397,77 ms | 5.138,42 ms | **5.314,28 ms** | 5.323,45 ms | 396,28 ms | 87,18 ms |
 
-### Analisis Bottleneck Utama
-1. **Degradasi Latensi `/booking` saat Konkurensi 10 VUs (`IR-GOR-07`):** Pada `1 VU`, `/booking` `p95 = 1033,24 ms`; pada `5 VUs`, naik menjadi `2249,31 ms` (`2,18x`); dan pada `10 VUs`, melonjak menjadi **`5314,28 ms` (`5,14x` dari baseline)** melampaui batas SLA `3000 ms`. Sementara rute `/`, `/login`, dan `/fasilitas/lapangan` tetap stabil di bawah `400 ms`. Penyebabnya adalah rendering *server-side* seluruh grid jadwal mingguan (`~548 KB` HTML un-compressed) dengan header `Cache-Control: no-cache, private` yang membebani CPU/query PHP setiap permintaan konkuren.
-2. **Pembengkakan HTML `/booking` (`IR-GOR-08`):** Ukuran HTML mentah `/booking` mencapai `535,37 KB` (`548.217` bytes) melampaui batas rekomendasi `500 KB`, walaupun kompresi Brotli/Gzip menekan ukuran transfer menjadi `34,78 KB`.
-3. **Fluktuasi Cold-Start TTFB Beranda `/` (`IR-GOR-09`):** Pada run *Cold Cache Desktop*, `/` mencatat spike `TTFB = 2618,3 ms` (`FCP = 3028 ms`) sebelum turun menjadi `89,4 ms` saat *Warm Reload*, menunjukkan sensitivitas ketika cache edge/origin dingin (`Cache-Control: no-cache, private`).
+![Grafik Perbandingan Latensi 1, 5, dan 10 Pengunjung](./screenshots/12_performance_latency_chart.png)
+
+### Analisis Penyebab Perlambatan
+1. **Perlambatan `/booking` saat `10` orang bersamaan (`IR-GOR-07`):** Dari `1` ke `10` pengguna, waktu muat `/booking` naik `5,14x` (`1,03` detik -> `5,31` detik), sementara halaman lain tetap di bawah `0,4` detik. Penyebabnya adalah penyusunan tabel jadwal mingguan berukuran besar (`~548 KB` HTML mentah) yang terus dibuat ulang dari server tanpa cache (`Cache-Control: no-cache, private`).
+2. **Ukuran HTML `/booking` (`IR-GOR-08`):** Seluruh jadwal `7` hari dimuat sekaligus dalam satu file HTML (`535,37 KB` sebelum kompresi), meski kompresi jaringan menekannya menjadi `34,78 KB`.
+3. **Lonjakan awal beranda `/` (`IR-GOR-09`):** Akses pertama tanpa cache mencatat `2,62` detik sebelum turun drastis ke `89,4 ms` saat dibuka ulang, menandakan perlunya caching ringan di server/CDN.
+
+---
+
+## 5. Dokumen Pendukung & Laporan Lengkap
+
+- **Spesifikasi Skenario Performa:** [`test-case-performance.md`](../test-case-performance.md)
+- **Log Eksekusi & Data Mentah:** [`test-execution-log.md`](../test-execution-log.md) | [`performance-log.txt`](../automation-scripts/performance-log.txt) | [`performance-metrics.json`](./performance-metrics.json)
+- **Rincian 10 Masalah & Saran Perbaikan:** [`incident-reports.md`](../incident-reports.md)
+- **Laporan Resmi Lengkap (Word & PDF):** [`05-dokumentasi-laporan/`](../../05-dokumentasi-laporan/)

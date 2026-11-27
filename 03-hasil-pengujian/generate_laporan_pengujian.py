@@ -950,73 +950,116 @@ def build_report() -> tuple[Path, Path]:
     add_title_banner(doc, bb["timestamp"], perf["metadata"]["timestamp"])
 
     # BAB I
-    add_section_heading(doc, "I.", "Ringkasan Mudah & Kepatuhan Standar Testing (>= 2022)")
+    add_section_heading(doc, "I.", "Profil Objek, Ruang Lingkup, & Ringkasan Hasil Pengujian")
+    perf_pass = sum(1 for c in perf["test_cases"] if c["status"] == "PASS")
+    perf_fail = len(perf["test_cases"]) - perf_pass
     add_callout_box(
         doc,
-        "Kesimpulan Utama Pengujian Non-Destruktif (17 November 2026)",
+        "Ringkasan Eksekutif Hasil Pengujian (17 November 2026)",
         [
-            f"1. Uji Fungsi Fitur Website (Black Box Testing): Dari {bb['total_cases']} skenario yang diuji otomatis, "
-            f"{bb['passed']} skenario berjalan normal (PASS) dan {bb['failed_or_defect_repro']} skenario berhasil mengungkap cacat/kelemahan nyata (FAIL), "
-            f"dengan 0 error pemrograman konsol serta {bb['network_posts_sent_to_server']} data uji masuk ke server "
-            f"(seluruh {bb['intercepted_post_attempts_inside_browser']} simulasi klik kirim ditahan aman di browser).",
-            f"2. Uji Kecepatan & Kapasitas (Performance Testing): Dari {len(perf['test_cases'])} pengujian kecepatan dan beban pengunjung (1, 5, hingga 10 orang bersamaan), "
-            f"{sum(1 for c in perf['test_cases'] if c['status'] == 'PASS')} skenario memenuhi batas nyaman (PASS) dan "
-            f"{sum(1 for c in perf['test_cases'] if c['status'] == 'FAIL')} skenario melambat/kelebihan ukuran dokumen, "
-            "namun seluruh 104 kali akses tetap stabil dengan 0,0% kegagalan server.",
-            "3. Ringkasan Temuan Masalah: Sebanyak 10 temuan resmi (kode IR-GOR-01 s.d. IR-GOR-10) telah dicatat lengkap bersama bukti visual "
-            "(12 gambar/grafik + diagram Flow Testing) agar mudah ditindaklanjuti pengelola maupun developer website.",
+            f"1. Black Box Testing (Uji Fungsi & Tampilan): Dari {bb['total_cases']} skenario yang dijalankan, "
+            f"{bb['passed']} skenario berhasil (PASS) dan {bb['failed_or_defect_repro']} skenario mengungkap masalah nyata (FAIL), "
+            "dengan 0 error konsol JavaScript. Selain itu, tim Test Design juga menyusun dokumen review dan 9 usulan kasus uji lanjutan (TC-BB-24..32, status Not Executed).",
+            f"2. Performance Testing (Uji Kecepatan & Kapasitas Server): Dari {len(perf['test_cases'])} skenario pengukuran kecepatan dan simulasi "
+            f"pengunjung bersamaan (1, 5, hingga 10 orang), {perf_pass} skenario memenuhi target (PASS) dan {perf_fail} skenario melebihi batas target (FAIL), "
+            "dengan total 104 kali akses baca halaman (GET) berjalan stabil pada 0,0% kegagalan.",
+            "3. Audit Kualitas & Temuan Masalah: Sebanyak 10 temuan resmi (IR-GOR-01 s.d. IR-GOR-10) telah dicatat lengkap bersama 12 gambar/grafik bukti visual "
+            "dan dipetakan ke 9 aspek mutu ISO/IEC 25010:2023 agar mudah ditindaklanjuti.",
         ],
+    )
+
+    summary_rows = [
+        (
+            "1. Black Box Testing",
+            f"{bb['total_cases']} Kasus Uji",
+            f"{bb['passed']} Berhasil, {bb['failed_or_defect_repro']} Bermasalah",
+            "Selesai",
+            "Halaman utama, hitungan tarif 1–5 jam, batas tutup 00:00, dan reset formulir berjalan baik. Ditemukan 7 masalah (/register 404, tanggal rusak 500, tanggal lampau aktif, nomor WA di HTML publik, validasi nama & +62 08..., serta menu HP terpotong).",
+        ),
+        (
+            "2. Performance Testing",
+            f"{len(perf['test_cases'])} Kasus Uji",
+            f"{perf_pass} Berhasil, {perf_fail} Bermasalah",
+            "Selesai",
+            "Respons klik tombol cepat (62,93 ms), akses ulang ringan (0,29 detik), dan 104 akses simulasi 1/5/10 orang berjalan tanpa error (0%). Kendala ditemukan di /booking saat 10 orang bersamaan (5,31 detik), ukuran HTML 535 KB, dan muat awal beranda 2,62 detik.",
+        ),
+        (
+            "Audit Kualitas (ISO/IEC 25010:2023)",
+            "9 Aspek Mutu",
+            "Terpetakan Lengkap",
+            "Lengkap",
+            "Menilai mutu website pada 9 aspek: ketepatan fitur, kecepatan, kesesuaian perangkat, kemudahan pakai, kestabilan, keamanan & privasi, perawatan kode, fleksibilitas akses, serta aturan jam operasional.",
+        ),
+    ]
+    add_styled_table(
+        doc,
+        headers=("Jenis Pengujian", "Jumlah Tes", "Hasil", "Status", "Ringkasan Hasil Pengujian"),
+        rows=summary_rows,
+        col_widths_cm=(3.2, 2.0, 2.7, 1.5, 7.8),
+        center_cols=(1, 2, 3),
+        font_size=8.2,
     )
 
     add_callout_box(
         doc,
         "Panduan Singkat Membaca Istilah di Laporan Ini",
         [
-            "• Kenapa ada hasil tertulis FAIL? Dalam dokumen QA, skenario uji ditulis mengharapkan perilaku website yang sempurna. Jika ditemukan bug (misalnya menu terpotong di HP atau halaman error), statusnya ditulis FAIL sebagai tanda bahwa tim penguji berhasil membuktikan adanya masalah di website.",
-            "• Black Box vs Performance Testing: Black Box menguji fungsi tombol, formulir, dan aturan jam tutup dari sisi pengguna; Performance Testing mengukur seberapa cepat halaman muncul saat diakses normal maupun saat ramai bersamaan (hingga 10 pengunjung serentak / VUs).",
-            "• Istilah Kecepatan: TTFB = waktu tunggu sampai server mulai merespons; FCP = waktu tampilan pertama muncul di layar; p95 = kecepatan terburuk yang dialami oleh 95% pengunjung tercepat.",
+            "• Mengapa ada hasil tertulis FAIL? Dalam pengujian QA, setiap skenario mengharapkan perilaku sistem tanpa cacat. Jika pengujian menemukan masalah nyata (misalnya menu terpotong di HP atau halaman error), statusnya dicatat FAIL sebagai bukti bahwa temuan tersebut berhasil terdeteksi.",
+            "• Black Box vs Performance Testing: Black Box menguji fungsi tombol, formulir, perhitungan harga, aturan jam tutup, dan tampilan dari sisi pengguna; Performance Testing mengukur kecepatan muat halaman dan kekuatan server saat diakses ramai (1, 5, hingga 10 orang bersamaan / VUs).",
+            "• Istilah Kecepatan: TTFB = waktu tunggu sampai server mulai merespons; FCP = waktu tampilan pertama muncul di layar; p95 = waktu muat terlama bagi 95% akses tercepat.",
         ],
         bg_hex=HEX_WARN_BG,
         border_hex=HEX_WARN_BORDER,
     )
 
     doc.add_page_break()
-    add_sub_heading(doc, "1.1 Batasan Uji Aman & Daftar File Dokumentasi (Standar >= 2022)")
+    add_sub_heading(doc, "1.1 Profil Objek, Penyusunan Skrip via Antigravity, & Peta Dokumentasi")
     add_bullet(
         doc,
-        "Aturan Uji Aman & Kepatuhan Standar >= 2022 (Tailored Conformance): ",
-        "Sesuai arahan dosen pengampu, seluruh acuan PDF pra-2022 telah dihapus dan digantikan standar >= 2022 (ISO/IEC/IEEE 29119-1:2022, 29119-5:2024, ISTQB CTFL Syllabus v4.0.1 2024, ISO/IEC 25010/25019:2023, 25002:2024, dan ISO/IEC 40500:2025 / W3C WCAG 2.2). "
-        "Pengujian formulir tetap memakai data pemesanan fiktif (seperti nama 'Test QA'), namun penyimpanan ke database asli (POST /bookings/store), halaman admin internal, dan tes > 10 pengunjung diblokir/tidak dijalankan.",
+        "Objek & Fokus Pengujian: ",
+        "Portal Booking GOR Permata Badminton Hall (https://gorpermatabadminton.com), berlokasi di Kp. Cipari, Desa Ciakar, Kec. Panongan, Kab. Tangerang, Banten. "
+        "Pengujian difokuskan pada 2 pengujian utama: Black Box Testing (23 kasus uji dengan 5 teknik standar) dan Performance Testing (10 kasus uji kecepatan & beban 1, 5, hingga 10 pengguna serentak).",
+    )
+    add_bullet(
+        doc,
+        "Penyusunan & Eksekusi Skrip Pengujian (Berbantuan Antigravity): ",
+        "Seluruh skrip pengujian (test_gor_permata.py, test_performance_gor_permata.py, dan generate_laporan_pengujian.py) disusun dengan memanfaatkan Antigravity "
+        "berdasarkan kebutuhan pengujian yang dirumuskan kelompok — mulai dari fitur yang diuji, 23 skenario Black Box, 10 pengukuran kecepatan & beban pengunjung, hingga format laporan akhir. "
+        "Eksekusi pengujian dijalankan langsung dari Antigravity, dan setelah pengujian selesai kelompok memeriksa kembali seluruh hasil eksekusi, bukti tangkapan layar, serta laporannya untuk memastikan seluruh pengujian sesuai kebutuhan kelompok.",
+    )
+    add_bullet(
+        doc,
+        "Standar Acuan Resmi (>= 2022): ",
+        "ISO/IEC/IEEE 29119-1:2022, ISO/IEC/IEEE 29119-5:2024, ISTQB CTFL Syllabus v4.0.1 (2024), ISO/IEC 25010:2023, ISO/IEC 25019:2023, ISO/IEC 25002:2024, dan ISO/IEC 40500:2025 (W3C WCAG 2.2).",
     )
     iso_rows = [
-        ("Aturan & Standar (>= 2022)", "Aturan uji aman tim + peta standar ISO 2022–2025, ISTQB v4.0.1 & WCAG 2.2", "01-standar-ieee-iso/organizational-test-specification.md & pdf-standar/"),
-        ("Rencana & Flow Testing", "Rencana uji utama, alur kerja 7 tahap, & target kecepatan", "02-.../test-plan-gor-permata.md & performance-test-plan.md"),
-        ("Cara Uji & 5 Black Box", "Alasan memilih 5 teknik Black Box, daftar hal diuji, & rumus cek kode", "02-.../test-model-blackbox.md & test-model-performance.md"),
-        ("Skenario & Step-by-Step", "23 tes fungsi, 10 tes kecepatan, panduan langkah 1–6, & skrip otomatis", "03-.../test-case-blackbox.md, test-case-performance.md, automation-scripts/"),
-        ("Alat & Data Uji Buatan", "Kesiapan komputer penguji & data uji fiktif tanpa nomor HP asli", "03-.../test-environment-dan-data.md & test-data/*.json"),
-        ("Catatan Hasil & Bukti", "Rekaman hasil uji, file JSON, gambar alur, & 12 foto bukti", "03-.../test-execution-log.md & evidence/"),
-        ("Daftar 10 Masalah / Bug", "Laporan lengkap 10 bug (IR-GOR-01..10) & cara memunculkannya", "03-.../incident-reports.md"),
-        ("Nilai Kualitas & Penutupan", "Cek kelulusan target, penilaian 9 aspek mutu ISO 25010, & penutupan", "03-.../test-completion-report.md & 01-.../evaluasi-iso-25010-gor-permata.md"),
+        ("Aturan & Standar (>= 2022)", "Kebijakan pengujian tim + peta standar ISO 2022–2025, ISTQB v4.0.1 & WCAG 2.2", "01-standar-ieee-iso/organizational-test-specification.md & pdf-standar/"),
+        ("Rencana, Model, & Review", "Rencana uji utama/performa, 5 teknik Black Box, 9 jurnal SINTA, & review desain PR #1", "02-.../test-plan-gor-permata.md, test-model-*.md, test-design-review.md"),
+        ("Skenario, Panduan, & Skrip", "23 tes fungsi, 10 tes kecepatan, 9 usulan lanjutan, panduan Terminal/VS Code, & skrip .py", "03-.../test-case-*.md, panduan-uji-aman-dan-jalankan-script.md, automation-scripts/"),
+        ("Lingkungan & Data Uji", "Kesiapan perangkat uji & dataset buatan berformat JSON tanpa nomor HP pelanggan asli", "03-.../test-environment-dan-data.md & test-data/*.json"),
+        ("Ringkasan Hasil & Bukti", "Ringkasan Black Box & Performance, log eksekusi, file JSON, diagram alur, & 12 foto bukti", "03-.../evidence/blackbox-summary.md, performance-summary.md, test-execution-log.md"),
+        ("Daftar 10 Masalah / Bug", "Laporan lengkap 10 temuan (IR-GOR-01..10), langkah reproduksi, & saran perbaikan", "03-.../incident-reports.md"),
+        ("Audit Mutu & Laporan Resmi", "Penilaian 9 aspek mutu ISO 25010, laporan penutupan, & file resmi Word/PDF", "01-.../evaluasi-iso-25010-gor-permata.md, 03-.../test-completion-report.md, 05-.../"),
     ]
     add_styled_table(
         doc,
-        headers=("Bagian Dokumentasi", "Isi Penjelasan dalam Bahasa Sederhana", "Lokasi File di GitHub"),
+        headers=("Bagian Dokumentasi", "Isi Ringkas Dokumen", "Lokasi File di GitHub"),
         rows=iso_rows,
         col_widths_cm=(3.8, 6.4, 7.0),
-        font_size=8.4,
+        font_size=8.3,
     )
 
     # BAB II
-    add_section_heading(doc, "II.", "Alur Pengujian (Flow Testing), 5 Jenis Black Box, Risiko, & Jurnal (>= 2022)")
+    add_section_heading(doc, "II.", "Alur Pengujian (STLC 7 Tahap), 5 Teknik Black Box, Jurnal SINTA (>= 2022), & Risiko")
     add_bullet(
         doc,
         "Bagian Website yang Diuji: ",
-        "Mencakup seluruh halaman publik (/, /booking, /login, /register, /fasilitas/*), aturan perhitungan harga & pengecekan nomor WhatsApp di dalam halaman /booking, kekuatan kecepatan saat diakses ramai, serta kerapian tampilan Laptop vs HP.",
+        "Mencakup seluruh halaman publik (/, /booking, /login, /register, /fasilitas/*), aturan perhitungan harga & pengecekan nomor WhatsApp di halaman /booking, kecepatan muat & beban pengunjung, serta kerapian tampilan Laptop vs HP.",
     )
 
     add_sub_heading(doc, "2.1 Alur Pengujian Lengkap (End-to-End Flow Testing — Gambar & Penjelasan Teks)")
     p_flow_desc = doc.add_paragraph(
-        "Supaya pengujian tertib, bisa diulang dengan hasil sama, dan 0% mengganggu bisnis lapangan bulu tangkis, kami menjalankan tujuh langkah terurut mulai dari aturan aman sampai laporan akhir:"
+        "Pengujian dijalankan secara terstruktur mengikuti kerangka Software Testing Life Cycle (STLC) 7 tahap sesuai ISO/IEC/IEEE 29119-1:2022 dan ISTQB CTFL v4.0.1:"
     )
     p_flow_desc.paragraph_format.space_after = Pt(4)
     if flow_img_path.exists():
@@ -1027,52 +1070,52 @@ def build_report() -> tuple[Path, Path]:
         p_fcap = doc.add_paragraph()
         p_fcap.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p_fcap.paragraph_format.space_after = Pt(6)
-        rfc = p_fcap.add_run("Gambar 0. Diagram Alur Pengujian Lengkap (Flow Testing 7 Tahap Aman) pada Portal GOR Permata Badminton Hall")
+        rfc = p_fcap.add_run("Gambar 0. Diagram Alur Pengujian Lengkap (STLC 7 Tahap) pada Portal GOR Permata Badminton Hall")
         rfc.italic = True
         rfc.font.size = Pt(8.3)
         rfc.font.color.rgb = MUTED_TEXT
 
     flow_text_rows = [
-        ("Tahap 1: Aturan Main Aman & Risiko", "Tentukan bagian yang boleh diuji (hanya halaman umum; kirim pesanan asli & menu admin tidak disentuh), lalu catat fitur apa yang paling rawan error.", "organizational-test-specification.md"),
-        ("Tahap 2: Rencana & Jurnal Ilmiah", "Buat jadwal, target lulus uji, dan batas kecepatan nyaman, lalu ambil cara pengujiannya dari 9 PDF jurnal SINTA (>= 2022) & standar ISO 2022–2025.", "test-plan-gor-permata.md & referensi-sinta-1-3.md"),
-        ("Tahap 3: Skenario & 5 Black Box", "Susun skenario untuk 2 tes utama: Black Box (5 teknik: EP, BVA, Decision Table, STT, Use Case/HP) & Performance (simulasi kecepatan 1, 5, & 10 orang).", "test-model-blackbox.md & test-model-performance.md"),
-        ("Tahap 4: Alat Uji & Rem Anti-Kirim", "Siapkan program browser otomatis, siapkan data uji fiktif tanpa nomor pelanggan asli, dan pasang pemblokir otomatis agar 0 data uji masuk ke database GOR.", "test-environment-dan-data.md & test-data/*.json"),
-        ("Tahap 5: Jalankan Uji Nyata", "Eksekusi 23 tes fungsi di layar Laptop (1280x800) vs HP (390x844) dan 10 tes kecepatan (total 104 kali akses baca halaman), serta cek manual lewat Chrome.", "test-execution-log.md, execution-log.txt, performance-log.txt"),
-        ("Tahap 6: Catat Bug & Jaga Privasi", "Tulis semua 10 masalah ketemu (7 bug fungsi + 3 soal kecepatan) menjadi tiket IR-GOR-01..10, dan samarkan nama pelanggan lain dengan [TERISI] pada foto bukti.", "incident-reports.md & evidence/screenshots/*.png"),
-        ("Tahap 7: Nilai Kualitas & Laporan", "Pastikan semua target uji tuntas 100%, nilai kualitas web lewat 9 poin ISO 25010:2023 & 25019:2023, lalu cetak laporan Word & PDF sebelum wawancara praktisi QA.", "test-completion-report.md, 05-dokumentasi-laporan/"),
+        ("Tahap 1: Requirements & Risk", "Identifikasi kebutuhan fungsional halaman publik dan pemetaan risiko pengujian pada portal UMKM.", "organizational-test-specification.md"),
+        ("Tahap 2: Test Planning", "Menyusun rencana uji induk, jadwal kerja, target kecepatan (SLA), dan rujukan 9 jurnal SINTA (>= 2022) serta standar ISO 2022–2025.", "test-plan-gor-permata.md & referensi-sinta-1-3.md"),
+        ("Tahap 3: Test Design", "Menyusun model uji dan skenario Black Box (5 teknik: EP, BVA, Decision Table, STT, Use Case/HP) serta profil beban 1, 5, dan 10 pengguna.", "test-model-blackbox.md, test-model-performance.md, test-design-review.md"),
+        ("Tahap 4: Test Implementation", "Menyiapkan perangkat uji, dataset buatan JSON, dan skrip otomasi Playwright/aiohttp dengan pencegat pengiriman form di browser.", "test-environment-dan-data.md, test-data/*.json, automation-scripts/"),
+        ("Tahap 5: Test Execution", "Menjalankan 23 tes fungsi di layar Laptop (1280x800) vs HP (390x844) dan 10 tes kecepatan (104 kali akses GET) melalui Antigravity.", "test-execution-log.md, evidence/blackbox-summary.md, performance-summary.md"),
+        ("Tahap 6: Incident / Defect Reporting", "Mencatat 10 temuan masalah (7 Black Box + 3 Performance) ke tiket IR-GOR-01..10 serta menyamarkan nama pelanggan pada bukti gambar.", "incident-reports.md & evidence/screenshots/*.png"),
+        ("Tahap 7: Test Reporting & Completion", "Evaluasi kelulusan target, audit 9 aspek mutu ISO 25010:2023, verifikasi hasil oleh kelompok, dan penerbitan laporan Word & PDF.", "test-completion-report.md & 05-dokumentasi-laporan/"),
     ]
     add_styled_table(
         doc,
-        headers=("Tahap Flow Testing", "Penjelasan Sederhana (Apa yang Dilakukan)", "Hasil File"),
+        headers=("Tahap Alur Pengujian (STLC)", "Aktivitas yang Dilaksanakan", "Dokumen Output"),
         rows=flow_text_rows,
         col_widths_cm=(3.7, 9.0, 4.5),
         font_size=8.0,
     )
     add_bullet(
         doc,
-        "Alur Balik Saat Ketemu Masalah Baru: ",
-        "Kalau saat pengujian di Tahap 5–6 ditemukan kasus baru (seperti menu HP terpotong atau tanggal rusak bikin error 500), skenario di Tahap 3 langsung ditambahkan agar ikut teruji ulang dan tercatat rapi.",
+        "Alur Umpan Balik Temuan Baru: ",
+        "Apabila saat eksekusi di Tahap 5–6 ditemukan kasus baru (seperti menu HP terpotong atau tanggal rusak memicu error 500), skenario di Tahap 3 diperbarui agar ikut teruji dan tercatat rapi, termasuk review pengembangan kasus uji lanjutan pada PR #1.",
     )
 
     add_sub_heading(doc, "2.2 Mengapa Memilih 5 Jenis Teknik Black Box Ini?")
     bb_type_rows = [
-        ("1. Equivalence Partitioning (EP)", "Mengelompokkan input benar dan salah agar tidak perlu mencoba ribuan angka satu per satu—cukup perwakilan tiap jenis format (misal awalan WA 08, 628, 8, +62 08, atau tanggal valid vs rusak).", "TC-BB-01..05, 10, 15, 16, 20 -> Temuan IR-GOR-01, 02, 05, 06", "Desyani dkk. (2022) & ISTQB v4.0.1 (§4.2.1)"),
-        ("2. Boundary Value Analysis (BVA)", "Mengetes tepat di angka batas paling kecil & besar, karena kode sering salah di pinggir batas (aturan WA 11–14 digit, nama pemesan, durasi 1–5 jam, serta batas tutup jam 00:00).", "TC-BB-07, 09, 11..14, 17..18 -> Temuan IR-GOR-03 (spasi '   ' & 'A' lolos)", "Putri & Susanto (2024) & ISTQB v4.0.1 (§4.2.2)"),
-        ("3. Decision Table Testing", "Membuat tabel aturan 'jika-maka'. Sebelum booking dikirim, web mengecek 4 syarat berurutan; tabel aturan memastikan semua kombinasi syarat dan hasilnya teruji.", "TC-BB-08, 09, 17, 18 -> Membuktikan celah aturan R6 lolos kirim", "Sitio dkk. (2023) & ISTQB v4.0.1 (§4.2.3)"),
-        ("4. State Transition Testing (STT)", "Memeriksa perpindahan status layar: dari daftar jadwal -> form terbuka -> peringatan / diblokir -> bersih lagi saat ditutup, serta klik kotak biru RTBC -> muncul pop-up konfirmasi.", "TC-BB-06, 19, 23 -> Memastikan form bersih & pop-up RTBC sesuai", "ISTQB CTFL v4.0.1 (§4.2.4)"),
-        ("5. Use Case & Compatibility (WCAG 2.2)", "Menguji alur penuh seperti pelanggan biasa di Laptop dan HP (390x844), sekaligus mengecek apakah nomor HP pelanggan lain ikut bocor di kode HTML halaman.", "TC-BB-21, 22 -> Temuan IR-GOR-04 (205 no. HP bocor) & IR-GOR-10 (menu HP terpotong)", "Fhonna dkk. (2026), Seputra dkk. (2024), & ISO 40500:2025"),
+        ("1. Equivalence Partitioning (EP)", "Mengelompokkan input benar dan salah agar cukup mengambil perwakilan tiap jenis format (misalnya awalan WA 08, 628, 8, +62 08, atau tanggal valid vs rusak).", "TC-BB-01..05, 10, 15, 16, 20 -> Temuan IR-GOR-01, 02, 05, 06", "Desyani dkk. (2022) & ISTQB v4.0.1 (§4.2.1)"),
+        ("2. Boundary Value Analysis (BVA)", "Mengetes tepat di angka batas terkecil dan terbesar karena kesalahan logika sering muncul di batas (aturan WA 11–14 digit, nama pemesan, durasi 1–5 jam, serta batas tutup jam 00:00).", "TC-BB-07, 09, 11..14, 17..18 -> Temuan IR-GOR-03 (spasi '   ' & 'A' lolos)", "Putri & Susanto (2024) & ISTQB v4.0.1 (§4.2.2)"),
+        ("3. Decision Table Testing", "Membuat tabel aturan kondisi dan aksi. Sebelum booking dikirim, web mengecek 4 syarat berurutan sehingga tabel keputusan menjamin seluruh kombinasi syarat teruji.", "TC-BB-08, 09, 17, 18 -> Membuktikan celah aturan R6 lolos kirim", "Sitio dkk. (2023) & ISTQB v4.0.1 (§4.2.3)"),
+        ("4. State Transition Testing (STT)", "Memeriksa perpindahan status antarmuka: dari daftar jadwal -> form terbuka -> peringatan / dicegat -> bersih kembali saat ditutup, serta klik slot RTBC -> pop-up konfirmasi.", "TC-BB-06, 19, 23 -> Memastikan form bersih & pop-up RTBC sesuai", "ISTQB CTFL v4.0.1 (§4.2.4)"),
+        ("5. Use Case & Compatibility (WCAG 2.2)", "Menguji alur penuh pengguna di Laptop dan HP (390x844), sekaligus mengecek apakah nomor HP pelanggan lain ikut terlihat di kode HTML halaman publik.", "TC-BB-21, 22 -> Temuan IR-GOR-04 (205 no. HP terlihat) & IR-GOR-10 (menu HP terpotong)", "Fhonna dkk. (2026), Seputra dkk. (2024), & ISO 40500:2025"),
     ]
     add_styled_table(
         doc,
-        headers=("Jenis Teknik Black Box", "Alasan Mengapa Teknik Ini Dipilih (Bahasa Sederhana)", "Uji & Bug yang Ketahuan", "Rujukan Ilmiah (>= 2022)"),
+        headers=("Jenis Teknik Black Box", "Alasan Pemilihan Teknik", "Uji & Temuan Terkait", "Rujukan Ilmiah (>= 2022)"),
         rows=bb_type_rows,
         col_widths_cm=(3.4, 5.8, 4.4, 3.6),
         font_size=8.0,
     )
     add_bullet(
         doc,
-        "Kenapa Tidak Hanya Menebak Error Acak atau Memakai Kombinasi Massal (Pairwise)? ",
-        "Kalau hanya menebak secara acak (Error Guessing murni), hasil cek kurang sistematis sehingga hanya dipakai sebagai tambahan. Sementara teknik kombinasi massal (Pairwise) baru perlu jika ada puluhan pilihan sekaligus; di formulir booking GOR ini hanya ada 4 syarat berurutan sehingga kombinasi EP + BVA + Decision Table sudah menguji semuanya lebih tepat dan cepat.",
+        "Pertimbangan Pemilihan Teknik: ",
+        "Teknik menebak acak (Error Guessing) tidak memiliki ukuran kelengkapan sehingga hanya dipakai sebagai pelengkap. Sementara teknik kombinasi massal (Pairwise) baru efektif bila ada puluhan parameter independen; pada formulir booking ini terdapat 4 syarat pengecekan berurutan sehingga kombinasi EP + BVA + Decision Table lebih tepat dan menyeluruh.",
     )
 
     add_sub_heading(doc, "2.3 Dasar Pengujian dari Jurnal Ilmiah SINTA 2–3 (>= 2022)")
@@ -1080,14 +1123,14 @@ def build_report() -> tuple[Path, Path]:
         ("Desyani dkk. (2022) — JTSI SINTA 3", "Membagi kelompok input benar & salah (EP)", "Menu publik, filter tanggal, & variasi WA -> Ketemu IR-GOR-01, 02, 05, 06"),
         ("Sitio dkk. (2023) — JIUP SINTA 3", "Tabel syarat sebab-akibat formulir (Decision Table)", "6 kombinasi cek formulir booking -> Membuktikan bug R6 (IR-GOR-03)"),
         ("Nada dkk. (2023) & Alirridlo dkk. (2025)", "Pendukung cek alur fungsi tampilan /booking & mutu produk", "Membantu melihat baris normPhone() penyebab '+62 08...' gagal di Black Box (IR-GOR-02)"),
-        ("Seputra dkk. (2024) — RESTI SINTA 2", "Uji alur penuh & keamanan privasi data halaman web", "Cek token pengaman & kode HTML -> Ketemu 205 data nomor WA pelanggan bocor (IR-GOR-04)"),
+        ("Seputra dkk. (2024) — RESTI SINTA 2", "Uji alur penuh & keamanan privasi data halaman web", "Cek token pengaman & kode HTML -> Ketemu 205 data nomor WA pelanggan terlihat (IR-GOR-04)"),
         ("Putri & Susanto (2024) — Sinkron SINTA 3", "Mengetes tepat di angka batas terkecil/terbesar (BVA)", "Uji WA 10/11/14/15 digit, jam tutup 00:00, & nama spasi (IR-GOR-03)"),
         ("Fhonna dkk. (2026) & Putra dkk. (2026)", "Pemilihan Playwright (#1 tercepat) & kerapian layar", "Otomasi penuh di Playwright + tes layar HP 390px -> Ketemu menu terpotong (IR-GOR-10)"),
         ("Winasis dkk. (2026) & Zahra (2023)", "Uji keramaian bertingkat web+WA & mutu kecepatan", "Simulasi 1, 5, 10 orang bersamaan -> /booking melambat 5,31 detik (IR-GOR-07..09)"),
     ]
     add_styled_table(
         doc,
-        headers=("Paper Ilmiah (>= 2022, PDF Tersimpan)", "Ide / Rumus yang Dipakai", "Cara Penerapan & Bug yang Ditemukan"),
+        headers=("Paper Ilmiah (>= 2022, PDF Tersimpan)", "Metode / Konsep yang Dipakai", "Cara Penerapan & Temuan Terkait"),
         rows=sci_rows,
         col_widths_cm=(4.8, 5.0, 7.4),
         font_size=8.0,
@@ -1098,7 +1141,7 @@ def build_report() -> tuple[Path, Path]:
         ("PR-02 (Fungsi)", "Alamat tanggal jadwal dimanipulasi menjadi tanggal rusak atau masa lalu", "Tinggi (9)", "Uji tanggal 2020-01-01 dan format invalid-date lalu catat efeknya"),
         ("PR-03 (Performa)", "Halaman jadwal berat & melambat saat dibuka banyak pelanggan bersamaan", "Sedang-Tinggi (6)", "Ukur kecepatan muat browser & simulasi 1, 5, dan 10 pengunjung"),
         ("PR-04 / PR-05 (Data)", "Nama diisi spasi saja, link /register rusak, & nomor WA terlihat di kode HTML", "Sedang (6)", "Uji spasi kosong, buka /register, & cek atribut data-phone di HTML"),
-        ("PJ-01 / PJ-02 (Aman)", "Uji coba merusak jadwal asli pemilik GOR Permata atau membebani server", "Terkendali (8/6)", "Cegat pengiriman form di browser (0 masuk server) & batasi maks 10 VUs"),
+        ("PJ-01 / PJ-02 (Operasional)", "Skrip pengujian mengganggu jadwal aktif pemilik GOR atau membebani server", "Terkendali (8/6)", "Cegat pengiriman form otomatis di browser & batasi beban maks 10 VUs"),
     ]
     add_styled_table(
         doc,
@@ -1109,12 +1152,12 @@ def build_report() -> tuple[Path, Path]:
     )
 
     # BAB III
-    add_section_heading(doc, "III.", "Kondisi Komputer Penguji & Keamanan Privasi Pelanggan (Clause 8.3)")
+    add_section_heading(doc, "III.", "Lingkungan Pengujian, Data Uji, & Petunjuk Menjalankan Skrip (Clause 8.3)")
     env_rows = [
-        ("Perangkat & Alat Uji", "Windows 10/11 x64, Python 3.9.10, Chrome Otomatis (Playwright 1.60.0), dan aiohttp 3.13.5", "SIAP (READY)"),
-        ("Dukungan Cypress", "Node.js v24.14.0 terpasang; biner Cypress tidak terpasang lokal sehingga seluruh skrip dijalankan via Playwright", "Alternatif Playwright"),
-        ("Data Uji Buatan (Non-PII)", "Memakai data fiktif (seperti nama 'Test QA' & WA buatan) agar bebas kebocoran data pribadi", "SIAP (READY)"),
-        ("Beda Uji vs Asli (8.3.4.2 c)", "Pengguna asli menyimpan pesanan ke database; pada pengujian ini pengiriman diblokir pengaman uji agar jadwal asli aman", "Terdokumentasi"),
+        ("Perangkat & Alat Uji", "Windows 10/11 x64, Python >= 3.9, Playwright Chromium, aiohttp, python-docx, Pillow, & pywin32 (Word PDF)", "SIAP (READY)"),
+        ("Eksekusi via Antigravity", "Seluruh skrip uji dibuat dan dijalankan langsung dari Antigravity, lalu hasil dan buktinya diverifikasi oleh kelompok", "Terverifikasi"),
+        ("Dukungan Cypress", "File gor-permata.cy.js disediakan sebagai referensi; eksekusi penuh dijalankan melalui Playwright Python", "Alternatif Playwright"),
+        ("Data Uji Buatan (Non-PII)", "Memakai data contoh fiktif (nama 'Test QA' & nomor WA buatan) dan sensor [TERISI] pada foto bukti", "SIAP (READY)"),
     ]
     add_styled_table(
         doc,
@@ -1124,18 +1167,18 @@ def build_report() -> tuple[Path, Path]:
         center_cols=(2,),
     )
 
-    add_sub_heading(doc, "3.1 Panduan Step-by-Step Cara Menguji Website (Otomatis & Manual di Browser)")
+    add_sub_heading(doc, "3.1 Petunjuk Menjalankan Skrip (.py) & Pengecekan Manual di Browser")
     step_rows = [
-        ("Langkah 1: Siapkan Alat & Data Buatan", "Pasang Python >= 3.9, playwright, aiohttp, & browser uji; pakai data uji palsu (tanpa nomor HP pelanggan asli).", "Buka https://gorpermatabadminton.com di Chrome/Edge lalu tekan F12 (DevTools)."),
-        ("Langkah 2: Aktifkan Rem Anti-Kirim", "Program otomatis memblokir alamat '**/bookings/store' sehingga 0 data uji masuk ke server GOR.", "Di DevTools tab Network -> Request Blocking, tambahkan blokir pola */bookings/store."),
-        ("Langkah 3: Cek Menu & Alamat Tanggal", "Uji otomatis 7 halaman utama, halaman /register (404), tanggal lama 2020-01-01, & format rusak (500).", "Coba buka /register, lalu buka /booking?start_date=2020-01-01 dan ?start_date=invalid-date."),
-        ("Langkah 4: Cek Pop-Up & 5 Black Box", "Jalankan tes hitung tarif 1–5 jam, batas WA 10/11/14/15 digit, '+62 08...', spasi nama, jam tutup 00:00, & reset.", "Klik kotak '+', ganti durasi 1–5 jam, tes isian salah/batas, lalu tutup formulir."),
-        ("Langkah 5: Cek Layar HP, Privasi, & Kecepatan", "Uji ukuran layar HP 390x844, cek bocornya data HP di HTML, klik slot RTBC, serta tes ramai 1/5/10 orang.", "Ubah tampilan ke HP 390x844 (lihat menu terpotong), klik slot RTBC, & cek tab Elements."),
-        ("Langkah 6: Sensor Nama & Lapor Bug", "Samarkan nama pelanggan lain menjadi [TERISI] sebelum foto, simpan hasil log/JSON, & catat 10 bug.", "Ambil tangkapan layar yang bersih dari data orang lain lalu catat hasilnya ke incident-reports.md."),
+        ("Langkah 1: Siapkan Lingkungan", "Buka CMD / PowerShell / Terminal VS Code di folder tugas-qa-testing, lalu instal: pip install playwright aiohttp python-docx pillow pywin32 dan playwright install chromium.", "Buka https://gorpermatabadminton.com di Chrome/Edge lalu tekan F12 (DevTools)."),
+        ("Langkah 2: Cara Jalankan File .py", "Jangan copy-paste isi kode .py dan jangan klik 2x di File Explorer. Jalankan perintah python 03-hasil-pengujian/automation-scripts/test_gor_permata.py (atau klik tombol Run di VS Code).", "Di DevTools tab Network -> Request Blocking, tambahkan pola blokir */bookings/store sebelum uji form."),
+        ("Langkah 3: Cek Menu & Tanggal", "Skrip otomatis mengecek 7 halaman utama, halaman /register (404), tanggal 2020-01-01, dan tanggal rusak invalid-date (500).", "Buka /register, lalu coba /booking?start_date=2020-01-01 dan ?start_date=invalid-date."),
+        ("Langkah 4: Cek Form & 5 Black Box", "Skrip menjalankan tes tarif 1–5 jam, batas WA 10/11/14/15 digit, '+62 08...', spasi nama, batas tutup 00:00, dan reset modal.", "Klik slot '+', ubah durasi 1–5 jam, tes isian salah/batas, lalu tutup formulir."),
+        ("Langkah 5: Cek HP, Privasi, & Kecepatan", "Jalankan test_performance_gor_permata.py untuk kecepatan Laptop/HP, ukuran HTML, klik tombol, dan simulasi 1/5/10 orang.", "Ubah tampilan ke layar HP 390x844 (cek menu terpotong), klik slot RTBC, dan cek Elements."),
+        ("Langkah 6: Cetak Ulang Laporan", "Jalankan python 03-hasil-pengujian/generate_laporan_pengujian.py untuk menyusun ulang laporan Word (.docx) & PDF di folder 05-dokumentasi-laporan/.", "Catat seluruh hasil dan bukti tangkapan layar yang sudah disamarkan ke incident-reports.md."),
     ]
     add_styled_table(
         doc,
-        headers=("Tahap Pengujian", "Cara Otomatis (Skrip Playwright & aiohttp)", "Cara Manual (Coba Sendiri di Browser)"),
+        headers=("Tahap Pelaksanaan", "Cara Otomatis (Terminal / VS Code / Antigravity)", "Cara Manual (Pengecekan di Browser)"),
         rows=step_rows,
         col_widths_cm=(3.5, 7.5, 6.2),
         font_size=8.0,
@@ -1145,14 +1188,15 @@ def build_report() -> tuple[Path, Path]:
     add_section_heading(
         doc,
         "IV.",
-        f"Hasil Uji Fungsi Website — {bb['total_cases']} Skenario Black Box (Clause 8.2 & 8.4)",
+        f"Hasil Black Box Testing — {bb['total_cases']} Skenario & Review Pengembangan Kasus Uji",
         page_break_before=True,
     )
     p_bb = doc.add_paragraph(
-        f"Sebanyak {bb['total_cases']} kasus uji dijalankan otomatis lewat skrip test_gor_permata.py pada {bb['timestamp']}. "
+        f"Sebanyak {bb['total_cases']} kasus uji dijalankan melalui skrip test_gor_permata.py pada {bb['timestamp']}. "
         f"Hasilnya tercatat {bb['passed']} PASS dan {bb['failed_or_defect_repro']} FAIL "
-        f"(FAIL di sini menandakan skenario berhasil membuktikan adanya bug/cacat pada website). Total simulasi pengiriman form yang ditahan di browser adalah "
-        f"{bb['intercepted_post_attempts_inside_browser']} kali, sehingga data uji yang benar-benar masuk ke server GOR Permata adalah {bb['network_posts_sent_to_server']}."
+        f"(status FAIL menunjukkan skenario berhasil membuktikan adanya bug/cacat pada website), dengan 0 error konsol JavaScript. "
+        f"Pada eksekusi skrip otomatis, seluruh {bb['intercepted_post_attempts_inside_browser']} percobaan kirim form ditahan di browser "
+        f"(network_posts_sent_to_server = {bb['network_posts_sent_to_server']})."
     )
     p_bb.paragraph_format.space_after = Pt(4)
 
@@ -1166,10 +1210,38 @@ def build_report() -> tuple[Path, Path]:
         font_size=8.2,
     )
 
+    add_sub_heading(doc, "4.1 Review Desain Uji & Usulan 9 Kasus Uji Tambahan (PR #1 — Status: Not Executed)")
+    p_rev = doc.add_paragraph(
+        "Sebagai kontribusi evaluasi rancangan uji (Pull Request #1 oleh Dzikri Attariq Samayaki / @meongasli — peran Test Design), "
+        "tim melakukan peninjauan terhadap 23 kasus uji awal (02-objek-umkm-dan-rencana-uji/test-design-review.md, REV-01 s.d. REV-10) dan mengusulkan "
+        "9 rancangan kasus uji lanjutan (03-hasil-pengujian/test-case-additional.md, TC-BB-24 s.d. TC-BB-32). "
+        "Seluruh 9 kasus uji tambahan berstatus Not Executed (draf usulan pengembangan) dan tidak mengubah hasil 16 PASS / 7 FAIL dari 23 kasus uji aktual di atas."
+    )
+    p_rev.paragraph_format.space_after = Pt(4)
+    add_tc_rows = [
+        ("TC-BB-24", "Decision Table R1", "Nama dikosongkan sementara nomor WA diisi valid; uji pesan wajib isi.", "Tinggi", "Not Executed"),
+        ("TC-BB-25", "Decision Table R2", "Nama diisi valid sementara nomor WA dikosongkan; uji pesan wajib isi.", "Tinggi", "Not Executed"),
+        ("TC-BB-26", "EP (Tanggal)", "Akses /booking?start_date=2027-02-30 (format YYYY-MM-DD rapi tetapi tanggal kalender mustahil).", "Tinggi", "Not Executed"),
+        ("TC-BB-27", "BVA (Jam Tutup)", "Pemesanan mulai jam 23:00 durasi 1 jam (selesai tepat 00:00) jika slot tersedia.", "Sedang", "Not Executed"),
+        ("TC-BB-28", "BVA (Jam Tutup)", "Pemesanan mulai jam 23:00 durasi 2 jam (melewati 00:00 -> harus ditolak/opsi tidak tersedia).", "Sedang", "Not Executed"),
+        ("TC-BB-29", "State Transition", "Ubah pilihan durasi dari 5 jam (Rp 200.000) turun kembali ke 1 jam (Rp 40.000) tanpa reload.", "Sedang", "Not Executed"),
+        ("TC-BB-30", "State Transition", "Alur pemulihan: submit WA salah -> tutup alert -> perbaiki WA valid -> submit ulang di modal yang sama.", "Tinggi", "Not Executed"),
+        ("TC-BB-31", "Compatibility", "Pemeriksaan menu dan pop-up modal pada layar HP lebih sempit (viewport 360x800).", "Sedang", "Not Executed"),
+        ("TC-BB-32", "State Transition", "Isi kolom nama & WA -> tutup modal -> buka kembali slot yang sama untuk cek reset nilai default.", "Sedang", "Not Executed"),
+    ]
+    add_styled_table(
+        doc,
+        headers=("Kode Usulan", "Teknik Uji", "Ringkasan Skenario Pengembangan", "Prioritas", "Status"),
+        rows=add_tc_rows,
+        col_widths_cm=(2.1, 2.8, 8.3, 1.8, 2.2),
+        center_cols=(0, 3, 4),
+        font_size=8.0,
+    )
+
     # BAB V
-    add_section_heading(doc, "V.", "Hasil Uji Kecepatan & Beban Pengunjung — 10 Skenario Performance", page_break_before=True)
+    add_section_heading(doc, "V.", "Hasil Performance Testing — 10 Skenario & Simulasi 1, 5, 10 Pengunjung", page_break_before=True)
     p_pf = doc.add_paragraph(
-        f"Pengujian kecepatan dilakukan pada {perf['metadata']['timestamp']} memakai dua cara: mengukur langsung waktu tampil halaman di Chrome "
+        f"Pengujian kecepatan dilakukan pada {perf['metadata']['timestamp']} memakai dua pendekatan: mengukur langsung waktu tampil halaman di Chrome "
         "pada laptop & HP, serta melakukan simulasi pengunjung serentak (1, 5, dan 10 orang membuka halaman bersamaan, hanya membaca halaman / GET-only)."
     )
     p_pf.paragraph_format.space_after = Pt(4)
@@ -1269,7 +1341,7 @@ def build_report() -> tuple[Path, Path]:
     ]
     add_styled_table(
         doc,
-        headers=("ID Masalah", "Uji Pemicu", "Dampak / Prioritas", "Status", "Penjelasan Masalah yang Ditemukan", "Saran Perbaikan Sederhana"),
+        headers=("ID Masalah", "Uji Pemicu", "Dampak / Prioritas", "Status", "Penjelasan Masalah yang Ditemukan", "Saran Perbaikan"),
         rows=ir_rows,
         col_widths_cm=(2.5, 1.7, 2.2, 1.2, 4.9, 4.7),
         center_cols=(1, 3),
@@ -1301,7 +1373,7 @@ def build_report() -> tuple[Path, Path]:
         font_size=8.3,
     )
 
-    add_sub_heading(doc, "7.1 Ringkasan Kontrol Pengujian & Persetujuan Penutupan (Clause 7.3–7.4)")
+    add_sub_heading(doc, "7.1 Ringkasan Kontrol Pengujian, Verifikasi Tim, & Persetujuan Penutupan (Clause 7.3–7.4)")
     add_bullet(
         doc,
         "Penyesuaian Selama Pengujian (Control Directives CD-01..04): ",
@@ -1310,9 +1382,9 @@ def build_report() -> tuple[Path, Path]:
     )
     add_bullet(
         doc,
-        "Pemenuhan Syarat Selesai & Kebersihan Sistem (TC1–TC4): ",
+        "Pemenuhan Syarat Selesai & Verifikasi Kelompok (TC1–TC4): ",
         f"Seluruh rencana Black Box ({bb['total_cases']}/{bb['total_cases']}) dan Performance ({len(perf['test_cases'])}/{len(perf['test_cases'])}) selesai dijalankan "
-        f"(form diuji memakai data pemesanan fiktif, namun {bb['network_posts_sent_to_server']} pesanan masuk ke database asli GOR Permata karena diblokir di browser). Seluruh 12 gambar bukti, log hasil, dan laporan resmi sudah tersimpan rapi di GitHub main.",
+        "melalui Antigravity, kemudian seluruh hasil eksekusi, 12 gambar bukti, ringkasan dokumen, serta ulasan pengembangan PR #1 telah diperiksa kembali oleh kelompok agar sesuai kebutuhan pengujian. Seluruh artefak tersimpan rapi di repositori GitHub.",
     )
     add_bullet(
         doc,
@@ -1321,10 +1393,10 @@ def build_report() -> tuple[Path, Path]:
     )
 
     sign_rows = [
-        ("Muhammad Faiz Rabbani (231011402539)", "Tester / Eksekusi Pengujian", "Disetujui & Sinkron", "23 Nov 2026"),
-        ("Robi Farhan Anshori (231011401468)", "Dokumentasi & Penyusunan Laporan", "Disetujui & Sinkron", "23 Nov 2026"),
-        ("Dzikri Attariq Samayaki (221011401148)", "Perancangan Kasus Uji (Test Design)", "Disetujui & Sinkron", "23 Nov 2026"),
-        ("Nurlaelasari (231011403531)", "Analisis Kebutuhan & Hasil", "Disetujui & Sinkron", "23 Nov 2026"),
+        ("Muhammad Faiz Rabbani (231011402539)", "Tester / Eksekusi Pengujian", "Disetujui & Sinkron", "27 Nov 2026"),
+        ("Robi Farhan Anshori (231011401468)", "Dokumentasi & Penyusunan Laporan", "Disetujui & Sinkron", "27 Nov 2026"),
+        ("Dzikri Attariq Samayaki (221011401148)", "Perancangan Kasus Uji (Test Design)", "Disetujui & Sinkron", "27 Nov 2026"),
+        ("Nurlaelasari (231011403531)", "Analisis Kebutuhan & Hasil", "Disetujui & Sinkron", "27 Nov 2026"),
         ("Asep Erlan Maulana, S.Kom., M.Kom", "Dosen Pengampu Mata Kuliah", "Menunggu Asesmen", "—"),
     ]
     add_styled_table(

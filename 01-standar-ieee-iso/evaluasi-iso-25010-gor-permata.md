@@ -4,6 +4,15 @@ Dokumen ini memetakan kualitas **Portal Booking GOR Permata Badminton Hall** (`h
 
 ---
 
+## 0. Ringkasan Hasil Audit Kualitas
+
+- **Cakupan Audit:** Memetakan seluruh hasil **Black Box Testing (`23` kasus uji: `16 Pass, 7 Fail`)** dan **Performance Testing (`10` kasus uji: `7 Pass, 3 Fail`)** ke dalam **`9` aspek mutu `ISO/IEC 25010:2023`** serta evaluasi penggunaan nyata (`ISO/IEC 25019:2023`) dan kerapian tampilan (`ISO/IEC 40500:2025 / WCAG 2.2`).
+- **Aspek yang Sudah Baik:** Kestabilan server saat uji beban (`0%` error pada `104` kali akses `GET`), kepatuhan aturan batas jam tutup `00:00`, kecepatan klik tombol (`62,93 ms`), serta kemudahan akses langsung lewat browser laptop maupun HP tanpa instalasi aplikasi.
+- **Aspek Prioritas Perbaikan:** Keamanan & privasi data (penghapusan `205` nomor WA pelanggan dari HTML publik `/booking` dan penambahan `4` header keamanan HTTP), penanganan tanggal (`HTTP 500` & tanggal lampau), validasi input nama/nomor `+62 08...`, kerapian menu atas di layar HP (`390×844`), serta optimasi kecepatan halaman `/booking` saat diakses `10` orang bersamaan (`5,31` detik).
+- **Laporan Resmi Lengkap (Word & PDF):** [`05-dokumentasi-laporan/`](../05-dokumentasi-laporan/) | **Daftar 10 Temuan:** [`incident-reports.md`](../03-hasil-pengujian/incident-reports.md)
+
+---
+
 ## 1. Matriks Evaluasi 9 Karakteristik ISO/IEC 25010:2023
 
 | No | Karakteristik (2023) | Sub-Karakteristik Relevan | Hasil Observasi & Pengujian Terukur (17 Nov 2026) | Status Penilaian |

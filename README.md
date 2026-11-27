@@ -61,15 +61,15 @@ flowchart LR
 
 ## Ringkasan Hasil Pengujian (2 Pengujian Utama)
 
-Pengujian pada proyek ini berfokus pada **2 pengujian utama**, yaitu **Black Box Testing** *(tes fungsi & tampilan)* dan **Performance Testing** *(tes kecepatan & kekuatan server)*:
+Pengujian pada proyek ini berfokus pada **2 pengujian utama**, yaitu **Black Box Testing** *(uji fungsi & tampilan)* dan **Performance Testing** *(uji kecepatan & kapasitas server)*:
 
-| Jenis Pengujian | Jumlah Tes | Hasil | Status | Ringkasan Hasil Pengujian |
-| :--- | :---: | :---: | :---: | :--- |
-| **1. Black Box Testing** *(Uji Fungsi & Tampilan)* | 23 Kasus Uji | **16 Berhasil (`Pass`), 7 Bermasalah (`Fail`)** | Selesai | **Berhasil (`16 Pass`):** `7` rute publik utama berjalan normal (`HTTP 200 OK`), hitungan harga otomatis `1–5` jam (`Rp 40.000–Rp 200.000`) tepat, batas jam tutup `00:00` menolak jam melebihi batas, validasi panjang WA `11–14` digit & token pengaman form `/login` aktif, serta pop-up booking reset bersih saat ditutup.<br>**Bermasalah (`7 Fail`):** link `/register` error `404`, tanggal rusak memicu server error `500`, tanggal lama (`2020`) masih bisa dipesan, kolom nama meloloskan spasi kosong/`1` huruf, awalan WA `+62 08...` ditolak, nomor WA pemesan (`205` jadwal) terbaca di HTML publik `/booking`, dan menu atas terpotong di layar HP (`390×844`).<br>**Dokumen hasil:** [`test-case-blackbox.md`](./03-hasil-pengujian/test-case-blackbox.md), [`test-execution-log.md`](./03-hasil-pengujian/test-execution-log.md), [`blackbox-results.json`](./03-hasil-pengujian/evidence/blackbox-results.json) *(usulan lanjutan `9` kasus `Not Executed`: [`test-case-additional.md`](./03-hasil-pengujian/test-case-additional.md))*. |
-| **2. Performance Testing** *(Uji Kecepatan & Beban)* | 10 Kasus Uji | **7 Berhasil (`Pass`), 3 Bermasalah (`Fail`)** | Selesai | **Berhasil (`7 Pass`):** respons klik tombol di form sangat cepat (`62,93 ms`), akses ulang cepat (`289,3 ms`), halaman `/booking`, `/login`, dan `/fasilitas/lapangan` pada akses normal/HP memenuhi target, serta simulasi `1` dan `5` orang bersamaan lolos target (`0%` gagal/error dari total `104` kali akses `GET`).<br>**Bermasalah (`3 Fail`):** halaman `/booking` melambat hingga **`5,31 detik`** (*p95*, batas `3 detik`) saat dibuka `10` orang bersamaan, ukuran file HTML `/booking` sebelum dikompres terlalu besar (**`535,37 KB`**, batas `500 KB`), dan respons awal beranda `/` saat pertama dibuka sempat lambat (**`2,62 detik`**, batas `0,8 detik`).<br>**Dokumen hasil:** [`test-case-performance.md`](./03-hasil-pengujian/test-case-performance.md), [`performance-summary.md`](./03-hasil-pengujian/evidence/performance-summary.md), [`performance-metrics.json`](./03-hasil-pengujian/evidence/performance-metrics.json). |
-| **Audit Kualitas (`ISO/IEC 25010:2023`)** | 9 Aspek Mutu | Terpetakan Lengkap | Lengkap | Menggabungkan hasil Black Box dan Performance menjadi penilaian mutu di **9 aspek**: ketepatan fitur, kecepatan, kesesuaian perangkat, kemudahan pakai, kestabilan sistem, keamanan & privasi, kemudahan perawatan kode, fleksibilitas akses di browser, serta aturan batas jam tutup. Rincian lengkap di [`evaluasi-iso-25010-gor-permata.md`](./01-standar-ieee-iso/evaluasi-iso-25010-gor-permata.md). |
+| Jenis Pengujian | Jumlah Tes | Hasil | Status | Ringkasan Hasil Pengujian | Dokumen Ringkasan |
+| :--- | :---: | :---: | :---: | :--- | :--- |
+| **1. Black Box Testing** | 23 Kasus Uji | **16 Berhasil, 7 Bermasalah** | Selesai | Fitur utama seperti akses halaman, hitungan tarif `1–5` jam, batas jam tutup `00:00`, dan reset formulir berjalan baik. Ditemukan `7` masalah, antara lain `/register` error `404`, tanggal rusak memicu error `500`, tanggal lama masih bisa dipesan, nomor WA terbaca di HTML publik, validasi nama/format `+62 08...`, dan menu HP terpotong. | [`blackbox-summary.md`](./03-hasil-pengujian/evidence/blackbox-summary.md) |
+| **2. Performance Testing** | 10 Kasus Uji | **7 Berhasil, 3 Bermasalah** | Selesai | Respons klik tombol sangat cepat (`62,93 ms`), akses ulang ringan, dan seluruh `104` kali simulasi kunjungan (`1`, `5`, dan `10` orang bersamaan) berjalan tanpa error (`0%` gagal). Kendala ditemukan saat `10` orang membuka `/booking` bersamaan (`5,31` detik), ukuran HTML `/booking` besar (`535 KB`), dan muat awal beranda lambat (`2,62` detik). | [`performance-summary.md`](./03-hasil-pengujian/evidence/performance-summary.md) |
+| **Audit Kualitas (`ISO/IEC 25010:2023`)** | 9 Aspek Mutu | Terpetakan Lengkap | Lengkap | Menilai kualitas website secara menyeluruh pada `9` aspek mutu (ketepatan fitur, kecepatan, kesesuaian perangkat, kemudahan pakai, kestabilan, keamanan & privasi, perawatan kode, fleksibilitas akses, serta aturan jam operasional). | [`evaluasi-iso-25010-gor-permata.md`](./01-standar-ieee-iso/evaluasi-iso-25010-gor-permata.md) |
 
-> **Kesimpulan Hasil Pengujian:** Secara umum fitur pemesanan utama, perhitungan tarif, pembatasan jam tutup `00:00`, dan kestabilan server (`0%` error pada `104` request uji beban) berjalan baik. Perbaikan prioritas dibutuhkan pada perlindungan data nomor WA di halaman publik `/booking`, penanganan parameter tanggal agar tidak error `500`/bisa booking tahun lampau, validasi input nama & format `+62 08...`, kerapian menu di layar HP, serta optimasi kecepatan `/booking` saat diakses `10` orang bersamaan. Seluruh **10 temuan masalah** dicatat beserta bukti di [`incident-reports.md`](./03-hasil-pengujian/incident-reports.md), kesimpulan penutupan di [`test-completion-report.md`](./03-hasil-pengujian/test-completion-report.md), serta laporan resmi Word & PDF di [`05-dokumentasi-laporan/`](./05-dokumentasi-laporan/).
+*(Untuk laporan resmi paling lengkap dalam format Word & PDF silakan buka [`05-dokumentasi-laporan/`](./05-dokumentasi-laporan/), dan rincian `10` temuan masalah tersedia di [`incident-reports.md`](./03-hasil-pengujian/incident-reports.md).)*
 
 ---
 
@@ -94,14 +94,14 @@ Pengujian pada proyek ini berfokus pada **2 pengujian utama**, yaitu **Black Box
 tugas-qa-testing/
 ├── 00-materi-perkuliahan/         # Arsip modul slide perkuliahan Testing & QA (Pertemuan 1–7)
 ├── 01-standar-ieee-iso/           # Standar acuan resmi (>= 2022), matriks kepatuhan & audit ISO 25010
-├── 02-objek-umkm-dan-rencana-uji/ # Rencana pengujian (Master & Performance), pemodelan uji, & jurnal SINTA
-├── 03-hasil-pengujian/            # Spesifikasi test case, log eksekusi, skrip otomasi, dataset, & insiden
+├── 02-objek-umkm-dan-rencana-uji/ # Rencana pengujian, pemodelan uji, review desain (test-design-review.md), & jurnal SINTA
+├── 03-hasil-pengujian/            # Spesifikasi test case (termasuk usulan test-case-additional.md), log eksekusi, & insiden
 │   ├── panduan-uji-aman-dan-jalankan-script.md  # Panduan prinsip uji aman & cara menjalankan script
 │   ├── automation-scripts/        # Skrip pengujian Playwright Python, Cypress, & aiohttp
-│   ├── evidence/                  # Bukti tangkapan layar (dimasking), ringkasan metrik JSON, & grafik
+│   ├── evidence/                  # Ringkasan hasil (blackbox-summary.md, performance-summary.md), screenshot, & JSON
 │   └── test-data/                 # Dataset pengujian independen format JSON
 ├── 04-wawancara-praktisi-qa/      # Panduan dan instrumen wawancara praktisi QA
-└── 05-dokumentasi-laporan/        # Laporan resmi pengujian format Microsoft Word (.docx) & PDF (.pdf)
+└── 05-dokumentasi-laporan/        # Laporan resmi pengujian lengkap format Microsoft Word (.docx) & PDF (.pdf)
 ```
 
 ---
