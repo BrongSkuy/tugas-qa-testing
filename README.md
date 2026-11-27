@@ -61,15 +61,15 @@ flowchart LR
 
 ## Ringkasan Hasil Pengujian (2 Pengujian Utama)
 
-Pengujian pada proyek ini berfokus pada **2 pengujian utama**: **Black Box Testing** dan **Performance Testing**:
+Pengujian pada proyek ini berfokus pada **2 pengujian utama**, yaitu **Black Box Testing** *(tes fungsi & tampilan)* dan **Performance Testing** *(tes kecepatan & kekuatan server)*:
 
-| Jenis Pengujian | Cakupan Uji | Hasil Eksekusi | Status | Catatan Evaluasi |
+| Jenis Pengujian | Jumlah Tes | Hasil | Status | Ringkasan Temuan *(Bahasa Mudah Dipahami)* |
 | :--- | :---: | :---: | :---: | :--- |
-| **1. Black Box Testing** | 23 Kasus Uji | **16 Pass, 7 Fail** | Selesai | Menguji fungsionalitas form booking, kalkulasi tarif, aturan jam operasional, responsivitas mobile, dan atribut data jadwal. Menemukan 7 defect (termasuk link 404, validasi nomor WA, dan data telepon di HTML publik). |
-| **2. Performance Testing** | 10 Kasus Uji | **7 Pass, 3 Fail** | Selesai | Mengukur *Core Web Vitals* dan uji beban konkuren bertingkat (1, 5, dan 10 pengguna serentak; total 104 request GET dengan 0% error). Menemukan lonjakan latensi p95 pada 10 pengguna di halaman jadwal (5,3 detik) serta ukuran HTML mentah (535 KB). |
-| **Audit Mutu ISO/IEC 25010:2023** | 9 Karakteristik | Terpetakan Penuh | Lengkap | Menilai kualitas produk secara menyeluruh dari temuan Black Box dan Performance ke dalam 9 dimensi mutu (*Functional Suitability, Performance Efficiency, Compatibility, Interaction Capability, Reliability, Security, Maintainability, Flexibility, Safety*). |
+| **1. Black Box Testing** *(Uji Fungsi & Tampilan)* | 23 Kasus Uji | **16 Berhasil (`Pass`), 7 Bermasalah (`Fail`)** | Selesai | Mengecek semua halaman publik, formulir pesan lapangan, hitungan harga (`1–5 jam = Rp 40.000–Rp 200.000`), batas tutup jam `00:00`, serta kerapian tampilan di laptop (`1280×800`) dan HP (`390×844`). **Ditemukan 7 masalah:** link `/register` error `404`, tanggal rusak memicu server error `500`, tanggal lama (`2020`) masih bisa dipesan, kolom nama meloloskan spasi kosong/`1` huruf, nomor WA `+62 08...` ditolak, nomor WA pemesan pada `205` jadwal terbaca di kode HTML halaman publik `/booking`, dan bar menu atas di layar HP terpotong. |
+| **2. Performance Testing** *(Uji Kecepatan & Beban)* | 10 Kasus Uji | **7 Berhasil (`Pass`), 3 Bermasalah (`Fail`)** | Selesai | Mengukur kecepatan munculnya halaman (saat baru dibuka, dibuka ulang, dan di HP), ukuran file halaman, respons klik tombol (`62,93 ms`), serta simulasi website dibuka `1`, `5`, hingga `10` orang bersamaan (`104` kali akses `GET` dengan **`0%` gagal/error**). **Ditemukan 3 masalah:** halaman `/booking` melambat hingga **`5,31 detik`** (*p95*, batas `3 detik`) saat dibuka `10` orang bersamaan, ukuran file HTML `/booking` sebelum dikompres terlalu besar (**`535,37 KB`**, batas `500 KB`), dan respons awal beranda `/` saat pertama kali dibuka sempat lambat (**`2,62 detik`**, batas `0,8 detik`). |
+| **Audit Kualitas (`ISO/IEC 25010:2023`)** | 9 Aspek Mutu | Terpetakan Lengkap | Lengkap | Merangkum seluruh temuan Black Box dan Performance menjadi penilaian mutu website pada **9 aspek**: ketepatan fitur, kecepatan, kesesuaian perangkat, kemudahan pakai, kestabilan sistem, keamanan & privasi, kemudahan perawatan kode, fleksibilitas akses di browser, serta aturan batas jam tutup. Rincian lengkap di [`evaluasi-iso-25010-gor-permata.md`](./01-standar-ieee-iso/evaluasi-iso-25010-gor-permata.md). |
 
-*(Seluruh 10 temuan masalah dicatat terinci pada [`incident-reports.md`](./03-hasil-pengujian/incident-reports.md).)*
+*(Seluruh **10 temuan masalah** — `7` dari Black Box dan `3` dari Performance — dicatat lengkap beserta gambar buktinya di [`incident-reports.md`](./03-hasil-pengujian/incident-reports.md).)*
 
 ---
 
