@@ -114,11 +114,13 @@ tugas-qa-testing/
 
 ## Petunjuk Menjalankan Pengujian (Quick Start)
 
-> **File script `.py` sudah tersedia di folder `03-hasil-pengujian/automation-scripts/`**, jadi kamu **tidak perlu meng-copy-paste isi kode Python-nya**. Cukup buka **Terminal / Command Prompt (CMD) / PowerShell / Terminal VS Code** di folder `tugas-qa-testing`, lalu **copy-paste perintah pendek di bawah ini** dan tekan `Enter` *(atau buka file `.py`-nya di VS Code dan klik tombol Run `▶`)*. Jangan klik 2x file `.py` di File Explorer karena jendelanya akan langsung tertutup. *(Panduan lengkap pemula ada di [`panduan-uji-aman-dan-jalankan-script.md`](./03-hasil-pengujian/panduan-uji-aman-dan-jalankan-script.md)).*
+> Seluruh hasil pengujian dan laporan sebenarnya sudah tersedia di repositori ini. Langkah di bawah bersifat **opsional** bagi dosen atau pembaca yang ingin menjalankan ulang pengujian secara mandiri *(membutuhkan koneksi internet)*.
+>
+> File program `.py` sudah siap pakai di folder `03-hasil-pengujian/` dan `03-hasil-pengujian/automation-scripts/`, sehingga **tidak perlu menyalin isi kode Python-nya**. Cukup buka **Terminal (CMD / PowerShell / Terminal VS Code)** di folder `tugas-qa-testing`, lalu tempel (*copy-paste*) perintah pendek di bawah ini dan tekan `Enter` *(atau buka file `.py` di VS Code lalu klik tombol Run `▶`)*. Hindari klik 2x file `.py` langsung dari File Explorer karena jendela akan langsung tertutup. *(Panduan pemula lengkap ada di [`panduan-uji-aman-dan-jalankan-script.md`](./03-hasil-pengujian/panduan-uji-aman-dan-jalankan-script.md)).*
 
-### 1. Prasyarat Lingkungan (Copy-Paste ke Terminal — Cukup 1 Kali Instal)
-- Python $\ge$ 3.9 (dan Microsoft Word di Windows jika ingin menghasilkan ulang PDF)
-- Modul dependensi dan browser Chromium Playwright:
+### 1. Persiapan Awal (Copy-Paste ke Terminal — Cukup 1 Kali Instal)
+- Pastikan **Python 3.9 atau lebih baru** sudah terpasang *(serta **Microsoft Word** di Windows jika ingin mencetak ulang file PDF)*.
+- Instal paket pendukung Python dan browser otomatis Chromium lewat Terminal:
 ```bash
 pip install playwright aiohttp python-docx pillow pywin32
 playwright install chromium

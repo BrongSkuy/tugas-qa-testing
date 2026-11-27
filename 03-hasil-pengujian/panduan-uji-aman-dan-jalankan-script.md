@@ -28,7 +28,7 @@ Website **GOR Permata Badminton Hall** sedang **aktif dipakai oleh pelanggan sun
 Banyak pemula bingung: *"Apakah seluruh isi kode script Python/JS ini harus di-copy-paste ke Terminal?"*  
 Jawabannya: **TIDAK PERLU copy-paste seluruh isi kodenya!**
 
-Karena seluruh file programnya **sudah tersedia dan siap pakai** di dalam folder repositori ini (`03-hasil-pengujian/automation-scripts/`). Yang kamu **copy-paste ke Terminal (CMD / PowerShell / Terminal VS Code)** hanyalah **baris perintah pendek untuk memanggil filenya**.
+Karena seluruh file programnya **sudah tersedia dan siap pakai** di dalam folder `03-hasil-pengujian/` dan `03-hasil-pengujian/automation-scripts/`. Yang kamu **copy-paste ke Terminal (CMD / PowerShell / Terminal VS Code)** hanyalah **baris perintah pendek untuk memanggil filenya**.
 
 ### Daftar File Script & Kegunaannya
 
