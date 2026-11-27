@@ -77,14 +77,16 @@ Pengujian pada proyek ini berfokus pada **2 pengujian utama**, yaitu **Black Box
 
 | No | Langkah Kerja Kelompok | Status |
 | :-: | :--- | :---: |
-| 1 | Pengisian lengkap data keempat anggota kelompok (`07TPLE001 / Reguler C`) & pembaruan nama dosen pengampu. | Selesai |
-| 2 | Mengambil & mempelajari modul lengkap (Pertemuan 1–7 di [`00-materi-perkuliahan/`](./00-materi-perkuliahan/); Pertemuan 8–akhir menyusul dari Ketua Kelas). | Proses |
-| 3 | Membuat repositori GitHub *Public* (`https://github.com/BrongSkuy/tugas-qa-testing`), melengkapi tabel anggota, & mengundang kolaborator. | Selesai |
-| 4 | Finalisasi objek UMKM terpilih di repo: **Portal Booking GOR Permata Badminton Hall** ([`kandidat-objek-pengujian.md`](./02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md)). | Selesai |
-| 5 | Menyusun standar QA minimal `2022` ([`01-standar-ieee-iso/`](./01-standar-ieee-iso/): 6 PDF standar `2022–2025` & audit `ISO 25010/25019/40500`) + **9 PDF jurnal SINTA 2–3 (`2022–2026`)** ([`pdf-jurnal/`](./02-objek-umkm-dan-rencana-uji/pdf-jurnal/)). | Selesai |
-| 6 | Memfinalkan rencana **Black Box Testing** & **Performance Testing** (Flow Testing 7 Tahap, 5 teknik Black Box, & catatan pendukung JS) di [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/). | Selesai |
-| 7 | Menjalankan pengujian aktual Black Box (`23 TC`: 16 PASS, 7 temuan cacat) & Performance (`10 TC`: 7 PASS, 3 temuan SLA/payload) + *Panduan Step-by-Step*, *Incident Reports* (`IR-GOR-01..10`), bukti visual & JSON ([`03-hasil-pengujian/`](./03-hasil-pengujian/)), serta **Laporan Resmi Word & PDF** di [`05-dokumentasi-laporan/`](./05-dokumentasi-laporan/). | Selesai |
-| 8 | Menghubungi & mewawancarai 1 praktisi QA / Software Tester **SETELAH** *project* GOR Permata selesai ([`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/), arahan dosen 14 Nov 2026). | Belum |
+| 1 | Melengkapi data keempat anggota kelompok beserta pembagian tugas (`07TPLE001 / Reguler C`) dan informasi dosen pengampu. | Selesai |
+| 2 | Mengumpulkan dan mempelajari modul kuliah (`Pertemuan 1–7` sudah tersimpan di [`00-materi-perkuliahan/`](./00-materi-perkuliahan/); `Pertemuan 8–akhir` masih menunggu dari Ketua Kelas). | Proses |
+| 3 | Membuat repositori GitHub publik (`tugas-qa-testing`) dan mengundang seluruh anggota kelompok sebagai kolaborator. | Selesai |
+| 4 | Memilih dan menetapkan website UMKM yang diuji, yaitu **Portal Booking GOR Permata Badminton Hall** ([`kandidat-objek-pengujian.md`](./02-objek-umkm-dan-rencana-uji/kandidat-objek-pengujian.md)). | Selesai |
+| 5 | Mengumpulkan acuan standar kualitas terbaru minimal tahun `2022` (`6` dokumen PDF standar, ringkasan, & audit di [`01-standar-ieee-iso/`](./01-standar-ieee-iso/)) serta **`9` artikel jurnal ilmiah SINTA 2–3 (`2022–2026`)** di [`pdf-jurnal/`](./02-objek-umkm-dan-rencana-uji/pdf-jurnal/). | Selesai |
+| 6 | Menyusun rencana dan rancangan pengujian **Black Box** (`5` teknik uji) dan **Performance** dalam alur `7` tahap, lengkap dengan dokumen review desain uji di [`02-objek-umkm-dan-rencana-uji/`](./02-objek-umkm-dan-rencana-uji/). | Selesai |
+| 7 | Menjalankan pengujian **Black Box** (`23` skenario: `16` berhasil, `7` bermasalah) dan **Performance** (`10` skenario: `7` berhasil, `3` bermasalah), menyusun panduan cara menjalankan skrip, daftar `10` temuan masalah, bukti gambar & data hasil uji di [`03-hasil-pengujian/`](./03-hasil-pengujian/), serta **Laporan Resmi Word & PDF** di [`05-dokumentasi-laporan/`](./05-dokumentasi-laporan/). | Selesai |
+| 8 | Menghubungi dan mewawancarai `1` praktisi QA / Software Tester. Daftar pertanyaan sudah disiapkan di [`04-wawancara-praktisi-qa/`](./04-wawancara-praktisi-qa/), dan wawancara kini sudah siap dilakukan karena pengujian GOR Permata telah selesai *(sesuai arahan dosen 14 Nov 2026)*. | Belum |
+
+*(Catatan: Selain `23` skenario Black Box yang sudah dijalankan, terdapat `9` draf usulan kasus uji lanjutan di [`test-case-additional.md`](./03-hasil-pengujian/test-case-additional.md) hasil review tim Test Design yang berstatus belum dijalankan.)*
 
 ---
 
