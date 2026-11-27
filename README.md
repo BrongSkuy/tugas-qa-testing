@@ -25,9 +25,9 @@ Repositori resmi dokumentasi pengujian perangkat lunak untuk pemenuhan tugas kel
 - **Objek Uji:** **Portal Booking GOR Permata Badminton Hall** ([gorpermatabadminton.com](https://gorpermatabadminton.com))
 - **Lokasi UMKM:** Kp. Cipari, Desa Ciakar, Kec. Panongan, Kab. Tangerang, Banten
 - **Fokus Pengujian:**
-  1. **Black Box Testing (23 Kasus Uji):** Pengujian fungsionalitas antarmuka, validasi form reservasi, kalkulasi tarif, batas jam operasional, dan kompatibilitas tampilan lintas perangkat (*Desktop & Mobile*) menggunakan 5 teknik formal (*Equivalence Partitioning, Boundary Value Analysis, Decision Table, State Transition, Use Case*).
-  2. **Performance Testing (10 Kasus Uji):** Pengukuran efisiensi waktu muat (*Core Web Vitals*), utilisasi payload HTML/aset, latensi interaksi DOM, serta simulasi beban bertingkat (*Tiered Concurrency 1, 5, dan 10 Virtual Users*).
-- **Prinsip Non-Destruktif:** Pengujian dilakukan secara aman pada sistem produksi aktif tanpa mengubah data jadwal nyata UMKM melalui penerapan data uji sintetis dan pencegatan jaringan (*network route abort*) di sisi peramban.
+  1. **Black Box Testing (23 Kasus Uji):** Menguji fitur-fitur website langsung dari sisi pengguna (tanpa melihat kode program), mulai dari tampilan halaman, pengisian form pemesanan lapangan, perhitungan harga otomatis, aturan jam buka/tutup, sampai kerapian tampilan di komputer maupun HP (*Desktop & Mobile*). Pengujian ini memakai 5 teknik standar (*Equivalence Partitioning, Boundary Value Analysis, Decision Table, State Transition, Use Case*).
+  2. **Performance Testing (10 Kasus Uji):** Mengukur kecepatan dan kelancaran website saat dibuka, meliputi kecepatan munculnya halaman (*Core Web Vitals*), besar ukuran file halaman/gambar, kecepatan respons tombol saat diklik, serta simulasi saat website dibuka bersamaan oleh 1, 5, hingga 10 orang sekaligus (*1, 5, dan 10 Virtual Users*).
+- **Prinsip Pengujian Aman (Non-Destruktif):** Karena yang diuji adalah website asli GOR Permata yang sedang aktif dipakai pelanggan, pengujian dijaga agar **tidak merusak atau mengotori jadwal booking asli milik UMKM**. Caranya dengan memakai data contoh palsu (data uji) dan otomatis membatalkan pengiriman data ke server (*network route abort*) langsung di browser sebelum tersimpan ke database.
 
 ---
 
